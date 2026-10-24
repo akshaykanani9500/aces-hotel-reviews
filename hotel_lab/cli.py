@@ -182,6 +182,12 @@ def cmd_demo(args) -> int:
 
 
 def main(argv=None) -> None:
+    # Windows consoles may not be UTF-8; never crash on printing ₹ or emoji
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(errors="replace")
+        except (AttributeError, ValueError):
+            pass
     _load_env()
     ap = argparse.ArgumentParser(prog="python -m hotel_lab", description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
