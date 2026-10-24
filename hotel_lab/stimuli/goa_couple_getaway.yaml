@@ -106,7 +106,7 @@ rooms:
         text:
           base: "The room was okay, nothing special, and the bed was acceptable. Service was poor; we had to ask three times before anyone helped us."
           emoji: "The room was okay, nothing special, and the bed was acceptable 🛏️. Service was poor; we had to ask three times before anyone helped us ⏳."
-          long: "We were here on a short getaway and spent the evenings in the room. The room was okay, nothing special, and the bed was acceptable for sleeping. Service was poor, though, and we had to ask at the front desk three separate times before anyone came to help us."
+          long: "We were here on a short two-night getaway as a couple and spent the evenings in the room. The room was okay, nothing special, and the bed was acceptable for sleeping. Service was poor, though, and we had to ask three separate times before anyone came to help us with it."
           casual: "Room was okay, nothing special, and the bed was acceptable. Service was poor yaar, had to ask three times before anyone helped us."
       - review_id: r1_06
         author: "Divya"
@@ -235,7 +235,7 @@ rooms:
         text:
           base: "The private path to the beach was wonderful. But staff ignored our request for extra towels twice and the front desk was quite rude."
           emoji: "The private path to the beach was wonderful 🌊. But staff ignored our request for extra towels twice and the front desk was quite rude 🛎️."
-          long: "We came to Goa for a two-night break as a couple. The private path to the beach was wonderful, and it was the best thing about the stay. But the staff ignored our request for extra towels twice, and the front desk was quite rude when we asked about it."
+          long: "We came to Goa for a two-night break as a couple. The private path to the beach was wonderful, a lovely, easy way down to the sea from the hotel. But the staff ignored our request for extra towels twice, and the front desk was quite rude when we asked about it."
           casual: "Private path to the beach was wonderful. But staff ignored our extra towels request two times and front desk was quite rude."
       - review_id: r1_16
         author: "Pooja"
@@ -537,7 +537,7 @@ rooms:
         text:
           base: "Most comfortable hotel bed we have ever slept in. The balcony was perfect for evenings."
           emoji: "Most comfortable hotel bed we have ever slept in 🛏️. The balcony was perfect for evenings 🌅."
-          long: "We were here for two nights to celebrate a small occasion together. It was the most comfortable hotel bed we have ever slept in, both of us agreed. The balcony was perfect for our evenings, and we sat out there each night."
+          long: "We were here for two nights to celebrate a small occasion together. It was the most comfortable hotel bed we have ever slept in, both of us agreed. The balcony was perfect for our evenings there, on both nights of the stay."
           casual: "Most comfortable hotel bed we've ever slept on. Balcony was just perfect for evenings."
       - review_id: r2_17
         author: "Pooja"
@@ -635,7 +635,7 @@ rooms:
         text:
           base: "Staff were polite and helpful, though service slowed down at busy times. We had to remind them once about a request."
           emoji: "Staff were polite and helpful, though service slowed down at busy times 🛎️. We had to remind them once about a request ⏳."
-          long: "We stayed two nights and asked the front desk for a few things during our trip. The staff were polite and helpful, though service slowed down at the busy times of day. We had to remind them once about one request we had made."
+          long: "We stayed two nights and asked the staff for a few things during our trip. The staff were polite and helpful, though service slowed down at the busy times of day. We had to remind them once about one request we had made."
           casual: "Staff were polite and helpful, but service got slow at busy times. Had to remind them once about a request."
       - review_id: r3_03
         author: "Sarah"
