@@ -76,9 +76,10 @@ def enabled_blocks(cfg: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def stable_seed(*parts: Any) -> int:
-    """Deterministic 32-bit seed from any parts (same on every computer and Python version)."""
+    """Deterministic seed from any parts (same on every computer and Python version).
+    Kept below 2**31 - 1000 so it fits servers that expect a signed 32-bit seed (retries add a little)."""
     h = hashlib.sha256("|".join(str(p) for p in parts).encode()).hexdigest()
-    return int(h[:8], 16)
+    return int(h[:8], 16) % (2**31 - 1000)
 
 
 def cell_label(levels: dict[str, str]) -> str:
@@ -94,13 +95,17 @@ def build_plan(cfg: dict[str, Any], scenarios: list[Scenario]) -> list[dict[str,
             raise ValueError(f"experiment.yaml lists unknown scenarios {missing}")
 
     trials = []
-    n_items = int(cfg.get("items_per_scenario", 4))
+    n_items = int(cfg.get("items_per_scenario", 8))
     n_rep = int(cfg.get("repeats", 1))
     prompts = cfg.get("prompt_ids", ["main"])
+    rotate = bool(cfg.get("rotate_shells", True))
+    balance = cfg.get("position_balance", "latin")
+    g = cfg["global_seed"]
 
     for block in enabled_blocks(cfg):
         factors = block["factors"]
         names = list(factors)
+        copies = [False, True] if block.get("retest", False) else [False]
         # per_room factors are drawn inside each trial, so they do not create cells
         cell_axes = [factors[n]["levels"] if factors[n]["assign"] != "per_room" else ["per_room"] for n in names]
         for combo in itertools.product(*cell_axes):
@@ -108,45 +113,88 @@ def build_plan(cfg: dict[str, Any], scenarios: list[Scenario]) -> list[dict[str,
             cell = cell_label(cell_levels)
             for sc in scenarios:
                 room_ids = [r["room_id"] for r in sc.rooms]
+                n = len(room_ids)
                 for item in range(n_items):
-                    focal = room_ids[item % len(room_ids)]
+                    focal_idx = item % n
+                    focal = room_ids[focal_idx]
+                    # Item = which room is focal + which "shell" each fact profile wears.
+                    # A shell is the visible hotel identity (name, location, price, size ...). Rotating
+                    # shells across items stops accuracy being confounded with price or location.
+                    offset = ((item // n) + item) % n if rotate else 0
+                    shell_map = {rid: room_ids[(i + offset) % n] for i, rid in enumerate(room_ids)}
+                    # Layout depends on (scenario, item, repeat) only, NOT the cell, so the same item
+                    # and repeat has the same positions in every cell (paired comparisons, e.g. H1).
+                    base = room_ids[:]
+                    random.Random(stable_seed(g, sc.id, item, "layout")).shuffle(base)
                     for rep in range(n_rep):
-                        for pid in prompts:
-                            tid = f"{block['name']}__{cell.replace('|', '+').replace('=', '-')}__{sc.id}__i{item}__r{rep}__{pid}"
-                            seed = stable_seed(cfg["global_seed"], tid)
-                            rng = random.Random(seed)
+                        layout_seed = stable_seed(g, sc.id, item, rep, "layout")
+                        if balance == "latin":   # cyclic Latin square: each room in each position once per n repeats
+                            k = rep % n
+                            order = base[k:] + base[:k]
+                        else:
                             order = room_ids[:]
-                            rng.shuffle(order)  # product positions shuffled every trial
-                            room_levels = {}
-                            for rid in room_ids:
-                                lv = dict(cfg["defaults"])
-                                for fname, spec in factors.items():
-                                    level = cell_levels[fname]
-                                    if spec["assign"] == "whole_set":
-                                        lv[fname] = level
-                                    elif spec["assign"] == "focal":
-                                        lv[fname] = level if rid == focal else spec["control"]
-                                    else:  # per_room: independent random draw, cell label is ignored
-                                        lv[fname] = rng.choice(spec["levels"])
-                                room_levels[rid] = lv
-                            trials.append({
-                                "trial_id": tid,
-                                "experiment": cfg["experiment_name"],
-                                "block": block["name"],
-                                "cell": cell,
-                                "cell_levels": cell_levels,
-                                "assign": {f: s["assign"] for f, s in factors.items()},
-                                "scenario_id": sc.id,
-                                "item": item,
-                                "repeat": rep,
-                                "prompt_id": pid,
-                                "focal_room_id": focal,
-                                "seed": seed,
-                                "room_order": order,
-                                "room_levels": room_levels,
-                                "best_room_id": sc.best_room_id,
-                            })
+                            random.Random(layout_seed).shuffle(order)
+                        for pid in prompts:
+                            for retest in copies:
+                                tid = f"{block['name']}__{cell.replace('|', '+').replace('=', '-')}__{sc.id}__i{item}__r{rep}__{pid}"
+                                if retest:
+                                    tid += "__retest"
+                                seed = stable_seed(g, tid)           # model sampling seed
+                                rng = random.Random(seed)
+                                room_levels = {}
+                                for rid in room_ids:
+                                    lv = dict(cfg["defaults"])
+                                    for fname, spec in factors.items():
+                                        level = cell_levels[fname]
+                                        if spec["assign"] == "whole_set":
+                                            lv[fname] = level
+                                        elif spec["assign"] == "focal":
+                                            lv[fname] = level if rid == focal else spec["control"]
+                                        else:  # per_room: independent random draw, cell label is ignored
+                                            lv[fname] = rng.choice(spec["levels"])
+                                    room_levels[rid] = lv
+                                trials.append({
+                                    "trial_id": tid,
+                                    "experiment": cfg["experiment_name"],
+                                    "block": block["name"],
+                                    "cell": cell,
+                                    "cell_levels": cell_levels,
+                                    "assign": {f: s["assign"] for f, s in factors.items()},
+                                    "scenario_id": sc.id,
+                                    "item": item,
+                                    "repeat": rep,
+                                    "prompt_id": pid,
+                                    "retest": retest,
+                                    "focal_room_id": focal,
+                                    "seed": seed,
+                                    "layout_seed": layout_seed,
+                                    "room_order": order,
+                                    "shell_map": shell_map,
+                                    "room_levels": room_levels,
+                                    "best_room_id": sc.best_room_id,
+                                })
     return trials
+
+
+def manifest(cfg_path: Path, scenarios: list[Scenario]) -> dict[str, Any]:
+    """Fingerprints of everything that defines the study (stimuli, config, code version)."""
+    import subprocess
+    from hotel_lab import REPO_ROOT, __version__
+
+    def sha(p: Path) -> str:
+        return hashlib.sha256(p.read_bytes()).hexdigest()[:16]
+
+    try:
+        commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=REPO_ROOT, capture_output=True,
+                                text=True, timeout=5).stdout.strip() or None
+        dirty = bool(subprocess.run(["git", "status", "--porcelain", "hotel_lab"], cwd=REPO_ROOT,
+                                    capture_output=True, text=True, timeout=5).stdout.strip())
+    except Exception:
+        commit, dirty = None, None
+    m = {"hotel_lab_version": __version__, "git_commit": commit, "uncommitted_changes": dirty,
+         "config_sha": sha(Path(cfg_path)), "stimuli_sha": {s.id: sha(s.path) for s in scenarios}}
+    m["manifest_sha"] = hashlib.sha256(json.dumps(m, sort_keys=True).encode()).hexdigest()[:16]
+    return m
 
 
 def plan_path(experiment: str) -> Path:

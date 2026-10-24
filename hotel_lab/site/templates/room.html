@@ -40,7 +40,6 @@
 <div class="reviewhead">
   <span class="bigscore">{{ "%.1f"|format(r.guest_rating) }}</span>
   <div><b>Rated {{ "%.1f"|format(r.guest_rating) }} out of 5</b><br><span class="small muted">Based on {{ "{:,}".format(r.review_count) }} verified stays</span></div>
-  {% if r.reviews %}<span class="sortlabel">Sort by: Most relevant ▾</span>{% endif %}
 </div>
 
 {% if r.review_summary %}
@@ -65,7 +64,7 @@
       <span class="small muted">· Reviewed {{ rv.posted_date }}</span></div>
     <div class="reviewtitle">{{ rv.title }}</div>
     <div>{{ rv.text }}</div>
-    <div class="helpful">{{ rv.helpful_votes }} people found this helpful</div>
+    <div class="helpful">{% if rv.helpful_votes == 1 %}1 person found this helpful{% else %}{{ rv.helpful_votes }} people found this helpful{% endif %}</div>
   </div>
 </div>
 {% endfor %}

@@ -23,8 +23,9 @@ def _free_port() -> int:
 class LocalSite:
     """Run the StayCompare site in a background thread for the duration of a `with` block."""
 
-    def __init__(self, experiment: str, port: int | None = None):
+    def __init__(self, experiment: str, port: int | None = None, show_category_scores: bool = False):
         self.experiment = experiment
+        self.show_category_scores = show_category_scores
         self.port = port or _free_port()
         self.server = None
         self.thread = None
@@ -36,7 +37,7 @@ class LocalSite:
     def __enter__(self) -> "LocalSite":
         import uvicorn
         from hotel_lab.site.app import create_app
-        config = uvicorn.Config(create_app(self.experiment), host="127.0.0.1", port=self.port, log_level="warning")
+        config = uvicorn.Config(create_app(self.experiment, self.show_category_scores), host="127.0.0.1", port=self.port, log_level="warning")
         self.server = uvicorn.Server(config)
         self.thread = threading.Thread(target=self.server.run, daemon=True)
         self.thread.start()

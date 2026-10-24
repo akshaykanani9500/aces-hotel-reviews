@@ -6,7 +6,7 @@ You only need to do steps 1–6 once. Each step says what you should see if it w
 
 | Tool | Get it | Check it worked (in a terminal) |
 |---|---|---|
-| Python 3.11, 3.12 or 3.13 | https://www.python.org/downloads/ (Windows: tick **"Add python.exe to PATH"**) | `python --version` (Mac: `python3 --version`) |
+| Python **3.12 or 3.13** (if python.org offers 3.14 first, pick 3.13 from "all releases") | https://www.python.org/downloads/ (Windows: tick **"Add python.exe to PATH"**) | `python --version` (Mac: `python3 --version`) |
 | Git | https://git-scm.com/downloads | `git --version` |
 | VS Code | https://code.visualstudio.com | — |
 | VS Code extension "Python" (Microsoft) | Extensions panel → search "Python" | — |
@@ -18,7 +18,8 @@ You only need to do steps 1–6 once. Each step says what you should see if it w
 
 1. Open VS Code and press `Ctrl+Shift+P` (Mac: `Cmd+Shift+P`), then choose **Git: Clone**.
 2. Paste `https://github.com/akshaykanani9500/aces-hotel-reviews.git`
-3. Pick a folder (for example `Documents/projects`) and click **Open** when VS Code asks.
+3. Pick a folder **outside OneDrive or iCloud** (for example `C:\code` or `~/code`) and click **Open**
+   when VS Code asks. Synced folders make `.venv` slow and can break Windows' 260-character path limit.
 
 Or in a terminal:
 ```bash
@@ -69,7 +70,8 @@ python -m pytest hotel_lab
 python -m hotel_lab demo
 ```
 ✅ `validate` ends with "Validation passed."  
-✅ pytest shows "19 passed" (or more).  
+✅ pytest shows "26 passed" (or more). Always run tests as `python -m pytest hotel_lab`. A bare
+`pytest` at the repo root also loads the original ACES tests, which need extra packages.  
 ✅ `demo` ends with a table where `mock-biased` picks position 1 about 60% of the time. That shows the
 analysis picks up a position bias when one exists.
 
@@ -110,12 +112,18 @@ then use `openrouter-llama3.3-70b` or `hf-router-example`.
 ## 8. Run a pilot
 
 ```bash
-python -m hotel_lab run --models ollama-qwen2.5-7b --limit 20
+python -m hotel_lab run --models ollama-qwen2.5-7b --per-cell 2    # 2 trials in every cell (~40 calls)
 python -m hotel_lab export
 python -m hotel_lab analyze
 ```
 Results are in `runs/pilot_v1/analysis/` (open the CSVs in Excel, or the PNG figures).
 If the run stops (laptop sleeps, Ctrl+C), run the same command again. It continues where it stopped.
+
+- `--per-cell N` runs N trials in every cell (the right pilot). `--limit N` runs N trials spread across all cells.
+- Every model and arm in `runs/<experiment>/raw/` goes into the analysis. Run mock or test models in a
+  separate experiment (change `experiment_name`, then run `plan`), or delete their log file.
+- Text, screenshot and `--reasoning high` runs are separate arms with separate log files, so they never
+  overwrite each other. The analysis reports each arm separately.
 
 Screenshot mode with a vision model:
 ```bash
@@ -137,8 +145,11 @@ python -m hotel_lab run --models ollama-gemma3-12b --interface screenshot --bloc
 | `python` not found (Windows) | Reinstall Python and tick "Add to PATH", or use `py` instead of `python` |
 | `No module named hotel_lab` | Run commands from the repo root folder (the one with `README.md`) |
 | `No module named fastapi` | The venv is not active. Activate it (step 3) |
-| `Connection refused` on `hello` | Ollama is not running. Open the Ollama app or run `ollama serve` |
+| `ConnectError` / "Connection refused" / "Stopped: the first 5 calls … all failed" | Ollama is not running. Open the Ollama app or run `ollama serve` |
 | `model "qwen2.5:7b" not found` | `ollama pull qwen2.5:7b` |
 | Many parse failures | Set `json_mode: true` in the model YAML, or keep `parse_retries: 1` in experiment.yaml |
 | Screenshot mode: "Executable doesn't exist" | `python -m playwright install chromium` |
 | Port 8765 busy | `python -m hotel_lab serve --port 8800` |
+| Many `reply_cut_off` in `1_failure_rates.csv` | Raise `max_tokens` in the model YAML |
+| `prompt_maybe_truncated` > 0 | Raise `num_ctx` in the model YAML (and make sure your RAM can take it) |
+| `.env` keys not picked up | Replace the `{PLACEHOLDER}` text with the real key, with no quotes or spaces needed |

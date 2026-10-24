@@ -129,3 +129,75 @@ def test_site_pages(scenarios):
 
 def test_stable_seed():
     assert stable_seed(1, "a") == stable_seed(1, "a") != stable_seed(1, "b")
+
+
+def test_layout_shared_across_cells_and_latin_balanced(scenarios, cfg):
+    plan = [t for t in build_plan(cfg, scenarios) if t["block"] == "format" and not t["retest"]]
+    by_key = {}
+    for t in plan:
+        by_key.setdefault((t["scenario_id"], t["item"], t["repeat"]), set()).add(tuple(t["room_order"]))
+    assert all(len(v) == 1 for v in by_key.values())  # same layout in full and summary cells
+    # Latin square: over repeats 0-3 each room appears once in position 1
+    t0 = [t for t in plan if t["cell"] == "format=full" and t["item"] == 0 and t["scenario_id"] == scenarios[0].id]
+    firsts = [t["room_order"][0] for t in sorted(t0, key=lambda t: t["repeat"])[:4]]
+    assert len(set(firsts)) == 4
+
+
+def test_shells_rotate_and_hide(scenarios, cfg):
+    plan = build_plan(cfg, scenarios)
+    sc = scenarios[0]
+    best = sc.best_room_id
+    shells_of_best = {t["shell_map"][best] for t in plan if t["scenario_id"] == sc.id}
+    assert len(shells_of_best) == 4      # the best fact profile wears every hotel identity
+    t = next(t for t in plan if t["scenario_id"] == sc.id and t["shell_map"][best] != best)
+    v = build_view(sc, t)
+    room = next(r for r in v["rooms"] if r["room_id"] == best)
+    assert room["hotel_name"] == sc.room(t["shell_map"][best])["hotel_name"]
+    assert '"shell_id"' not in listings_json(v)
+
+
+def test_retest_copies_identical_except_seed(scenarios, cfg):
+    plan = {t["trial_id"]: t for t in build_plan(cfg, scenarios)}
+    rt = [t for t in plan.values() if t["retest"]]
+    assert rt
+    for t in rt[:20]:
+        orig = plan[t["trial_id"].removesuffix("__retest")]
+        assert orig["room_order"] == t["room_order"] and orig["room_levels"] == t["room_levels"]
+        assert orig["seed"] != t["seed"]
+
+
+def test_select_trials_spreads_limit(scenarios, cfg):
+    from hotel_lab.runner import select_trials
+    plan = build_plan(cfg, scenarios)
+    sel = select_trials(plan, limit=20)
+    assert len(sel) == 20 and len({(t["block"], t["cell"]) for t in sel}) >= 15
+    pc = select_trials(plan, per_cell=2)
+    cells = {(t["block"], t["cell"]) for t in plan}
+    assert len(pc) == 2 * len(cells)
+
+
+def test_damaged_log_line_is_skipped(tmp_path):
+    from hotel_lab.runner import read_jsonl
+    p = tmp_path / "x.jsonl"
+    p.write_text('{"trial_id": "a"}\n{"trial_id": "b', encoding="utf-8")
+    assert [r["trial_id"] for r in read_jsonl(p)] == ["a"]
+
+
+def test_seeds_fit_int32(scenarios, cfg):
+    assert max(t["seed"] for t in build_plan(cfg, scenarios)) < 2**31 - 1000
+
+
+def test_clogit_recovers_effect():
+    import numpy as np
+    from hotel_lab.analysis import _clogit_cluster
+    rng = np.random.default_rng(0)
+    y, X, g, c = [], [], [], []
+    for s in range(3000):
+        x = np.zeros(4)
+        x[rng.integers(0, 4)] = 1
+        u = 0.8 * x + rng.gumbel(size=4)
+        ch = np.argmax(u)
+        for j in range(4):
+            y.append(float(j == ch)); X.append([x[j]]); g.append(s); c.append(s % 50)
+    b, se, G = _clogit_cluster(np.array(y), np.array(X), np.array(g), np.array(c))
+    assert abs(b[0] - 0.8) < 3 * se[0] and G == 50

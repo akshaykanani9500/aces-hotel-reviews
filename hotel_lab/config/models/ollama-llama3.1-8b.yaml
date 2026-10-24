@@ -1,13 +1,15 @@
-# Open-weight model served locally by Ollama.  First run:  ollama pull llama3.1:8b
-provider: openai_compatible
-base_url: http://localhost:11434/v1
+# Open-weight model served locally by Ollama (native API, so we can set the context window).
+# First run:  ollama pull llama3.1:8b
+provider: ollama
+base_url: http://localhost:11434
 model: "llama3.1:8b"
 family: llama
 size_b: 8
 quantisation: Q4_K_M        # Ollama default; check with: ollama show llama3.1:8b
 serving: ollama
-temperature: 1.0
-max_tokens: 400
+temperature: 1.0            # main runs; copy this file with 0.0 for the robustness check
+max_tokens: 400             # use 1000+ with reasoning_depth: high
+num_ctx: 16384              # full-review prompts are ~5k tokens; Ollama's default (2-4k) would cut them
 supports_vision: false
 json_mode: false            # set true if the model often breaks the JSON format
 send_seed: true

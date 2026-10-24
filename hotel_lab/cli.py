@@ -26,7 +26,9 @@ def _load_env() -> None:
         line = line.strip()
         if line and not line.startswith("#") and "=" in line:
             k, v = line.split("=", 1)
-            os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+            v = v.split(" #")[0].strip().strip('"').strip("'")
+            if v and "PLACEHOLDER" not in v and not v.startswith("{"):   # ignore unfilled template values
+                os.environ.setdefault(k.strip(), v)
 
 
 def cmd_validate(args) -> int:
@@ -65,16 +67,40 @@ def cmd_plan(args) -> int:
         return 1
     cfg = load_config(args.config)
     trials = build_plan(cfg, load_scenarios())
+    # Pre-flight: every trial must render (catches e.g. a style variant missing for a review set)
+    from hotel_lab.conditions import build_view
+    sc_map = {s.id: s for s in load_scenarios()}
+    problems = {}
+    for t in trials:
+        try:
+            build_view(sc_map[t["scenario_id"]], t)
+        except (KeyError, ValueError) as e:
+            problems.setdefault(str(e), t["trial_id"])
+    if problems:
+        for msg, tid in problems.items():
+            print(f"ERROR    {msg}  (first seen in trial {tid})")
+        print("Plan NOT saved. Fix the stimulus file or experiment.yaml.")
+        return 1
     p = save_plan(trials, cfg["experiment_name"])
-    shutil.copy(args.config or CONFIG_DIR / "experiment.yaml", p.parent / "experiment.yaml")
+    cfg_path = args.config or CONFIG_DIR / "experiment.yaml"
+    shutil.copy(cfg_path, p.parent / "experiment.yaml")
+    from hotel_lab.design import manifest
+    man = manifest(cfg_path, load_scenarios())
+    (p.parent / "manifest.json").write_text(json.dumps(man, indent=2), encoding="utf-8")
+    if man.get("uncommitted_changes"):
+        print("Note: hotel_lab has uncommitted changes. Commit before the main run so the manifest "
+              "points to the exact code.")
     from collections import Counter
     by_block = Counter(t["block"] for t in trials)
     cells = Counter((t["block"], t["cell"]) for t in trials)
     print(f"\nPlan for '{cfg['experiment_name']}': {len(trials)} trials -> {p}")
     for b, n in by_block.items():
         n_cells = len([c for c in cells if c[0] == b])
-        print(f"  {b:<20} {n_cells} cells, {n} trials ({n // max(n_cells, 1)} per cell)")
-    print(f"Calls per model: {len(trials)} (+ retries). With 5 models: ~{5 * len(trials):,} calls.")
+        n_rt = sum(1 for t in trials if t["block"] == b and t.get("retest"))
+        extra = f" incl. {n_rt} retest copies" if n_rt else ""
+        print(f"  {b:<20} {n_cells} cells, {n} trials ({(n - n_rt) // max(n_cells, 1)} per cell{extra})")
+    print(f"Calls per model and arm: {len(trials):,} (+ parse retries). "
+          f"E.g. 5 models x text arm: ~{5 * len(trials):,} calls.")
     return 0
 
 
@@ -84,7 +110,9 @@ def cmd_serve(args) -> int:
     from hotel_lab.site.app import create_app
     exp = args.experiment or load_config(args.config)["experiment_name"]
     print(f"StayCompare running at http://127.0.0.1:{args.port}  (experiment: {exp}). Press Ctrl+C to stop.")
-    uvicorn.run(create_app(exp), host="127.0.0.1", port=args.port, log_level="warning")
+    cfg = load_config(args.config)
+    uvicorn.run(create_app(exp, cfg.get("show_category_scores", False)), host="127.0.0.1", port=args.port,
+                log_level="warning")
     return 0
 
 
@@ -100,11 +128,19 @@ def cmd_run(args) -> int:
     from hotel_lab.runner import run
     cfg = load_config(args.config)
     exp = args.experiment or cfg["experiment_name"]
-    run(exp, args.models, interface=args.interface or cfg.get("interface", "text"),
-        reasoning_depth=args.reasoning or cfg.get("reasoning_depth", "low"),
-        parse_retries=cfg.get("parse_retries", 1) if args.retries is None else args.retries,
-        blocks=args.blocks, scenarios=args.scenarios, limit=args.limit,
-        show_category_scores=cfg.get("show_category_scores", False))
+    res = run(exp, args.models, interface=args.interface or cfg.get("interface", "text"),
+              reasoning_depth=args.reasoning or cfg.get("reasoning_depth", "low"),
+              parse_retries=cfg.get("parse_retries", 1) if args.retries is None else args.retries,
+              blocks=args.blocks, scenarios=args.scenarios, limit=args.limit, per_cell=args.per_cell,
+              show_category_scores=cfg.get("show_category_scores", False))
+    bad = False
+    for name, r in res.items():
+        print(f"{name}: ran {r['ran']} trials, {r['failures']} not usable ({r['api_errors']} API errors)")
+        if r["ran"] and r["failures"] == r["ran"]:
+            bad = True
+    if bad:
+        print("Every trial failed for at least one model. Look at `raw_output` / `error` in the log file.")
+        return 1
     print("Done. Next:  python -m hotel_lab export  &&  python -m hotel_lab analyze")
     return 0
 
@@ -140,6 +176,31 @@ def cmd_summarize(args) -> int:
     from hotel_lab.summarize import summarize
     out = summarize(load_scenarios(), args.model, args.sets)
     print(f"Summaries written to {out}. Check them with two coders before using them.")
+    return 0
+
+
+def cmd_agreement(args) -> int:
+    """Agreement between two coders in a filled coder sheet (columns starting with coder1 / coder2)."""
+    import pandas as pd
+    from hotel_lab.analysis import cohen_kappa
+    df = pd.read_csv(args.file, encoding="utf-8-sig")
+    c1 = [c for c in df.columns if c.lower().startswith("coder1")]
+    c2 = [c for c in df.columns if c.lower().startswith("coder2")]
+    if not c1 or not c2:
+        print("Need columns starting with 'coder1' and 'coder2'.")
+        return 1
+    d = df[[c1[0], c2[0]]].dropna()
+    a = d[c1[0]].astype(str).str.strip().str.upper().tolist()
+    b = d[c2[0]].astype(str).str.strip().str.upper().tolist()
+    if not a:
+        print("No rows coded by both coders yet.")
+        return 1
+    agree = sum(x == y for x, y in zip(a, b)) / len(a)
+    print(f"Rows coded by both: {len(a)}\nPercent agreement: {agree:.1%}\nCohen's kappa: {cohen_kappa(a, b):.2f}")
+    print("Brief: at least 20 items. Rows where coders disagree:")
+    for i, (x, y) in enumerate(zip(a, b)):
+        if x != y:
+            print(f"  row {d.index[i] + 2}: coder1={x} coder2={y}")
     return 0
 
 
@@ -210,7 +271,8 @@ def main(argv=None) -> None:
     s.add_argument("--retries", type=int, default=None)
     s.add_argument("--blocks", nargs="+", default=None)
     s.add_argument("--scenarios", nargs="+", default=None)
-    s.add_argument("--limit", type=int, default=None, help="only the first N trials (pilot)")
+    s.add_argument("--per-cell", type=int, default=None, help="pilot: the first N trials of EVERY cell")
+    s.add_argument("--limit", type=int, default=None, help="at most N trials, spread across all cells")
     s = sub.add_parser("export", help="raw logs -> tidy CSV tables")
     s.add_argument("--experiment", default=None)
     s = sub.add_parser("analyze", help="shares, effects, kappa, conditional logit, figures")
@@ -219,11 +281,13 @@ def main(argv=None) -> None:
     s = sub.add_parser("summarize", help="generate review summaries with a fixed prompt")
     s.add_argument("--model", required=True)
     s.add_argument("--sets", nargs="+", default=None)
+    s = sub.add_parser("agreement", help="coder agreement for a filled coder sheet CSV")
+    s.add_argument("file")
     sub.add_parser("models", help="list model configs")
     sub.add_parser("demo", help="whole pipeline with a mock model (no AI needed)")
 
     args = ap.parse_args(argv)
     handler = {"validate": cmd_validate, "checks": cmd_checks, "plan": cmd_plan, "serve": cmd_serve,
                "hello": cmd_hello, "run": cmd_run, "export": cmd_export, "analyze": cmd_analyze,
-               "summarize": cmd_summarize, "models": cmd_models, "demo": cmd_demo}[args.cmd]
+               "summarize": cmd_summarize, "models": cmd_models, "agreement": cmd_agreement, "demo": cmd_demo}[args.cmd]
     sys.exit(handler(args))

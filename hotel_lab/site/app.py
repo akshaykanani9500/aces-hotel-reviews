@@ -42,8 +42,19 @@ def money(value: float, currency: str = "INR") -> str:
     return f"{CURRENCY_SYMBOL.get(currency, currency + ' ')}{v:,}"
 
 
+class PreviewError(Exception):
+    pass
+
+
 def create_app(experiment: Optional[str] = None, show_category_scores: bool = False) -> FastAPI:
     app = FastAPI(title="StayCompare (Hotel Lab sandbox)")
+
+    @app.exception_handler(PreviewError)
+    def _preview_error(request: Request, exc: PreviewError):
+        return HTMLResponse(
+            "<html><body style='font-family:Arial;padding:30px'><h2>This combination is not available</h2>"
+            f"<p>{exc}</p><p>Most style variants exist only for the <b>base</b> review set. "
+            "<a href='/'>Back</a></p></body></html>", status_code=400)
     app.mount("/static", StaticFiles(directory=str(SITE_DIR / "static")), name="static")
     templates = Jinja2Templates(directory=str(SITE_DIR / "templates"))
     templates.env.globals["money"] = money
@@ -105,7 +116,7 @@ def create_app(experiment: Optional[str] = None, show_category_scores: bool = Fa
         try:
             return build_view(sc, preview_trial(sc, levels, seed), show_category_scores)
         except (KeyError, ValueError) as e:
-            raise HTTPException(400, str(e))
+            raise PreviewError(str(e))
 
     @app.get("/preview", response_class=HTMLResponse)
     def preview(request: Request, scenario: str, order: str = "newest", style: str = "base",

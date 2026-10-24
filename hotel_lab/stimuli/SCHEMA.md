@@ -90,6 +90,14 @@ rooms:                                     # exactly 4 rooms
 - `facts_covered` only uses names from `fact_attributes`.
 - Each summary set referenced by the experiment exists.
 
+## Writing balance sets (H4) without changing the substance
+
+- Each fact must be mentioned the **same number of times** in `positive`, `mixed` and `complaints`.
+  Only the way ratings are spread may change.
+- Severity stays true to the fact level. An `average` fact is never written as a furious 1-star complaint,
+  and a `poor` fact is never softened to "manageable".
+- Reviews swapped in or out between sets should have similar `helpful_votes` and `posted_date` ranges.
+
 ## Rules the validator cannot check (human coders must)
 
 - A `long` variant adds words, **not new facts**.

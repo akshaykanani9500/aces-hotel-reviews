@@ -12,6 +12,8 @@ from hotel_lab.design import stable_seed
 from hotel_lab.stimuli import Scenario
 
 # Fields copied from the stimulus file to the page. `facts` are NEVER copied (hidden ground truth).
+# All of these belong to the room's "shell" (visible identity). With rotate_shells, a fact profile
+# (facts + reviews + summaries) can wear another room's shell.
 VISIBLE_ROOM_FIELDS = (
     "hotel_name", "hotel_stars", "room_name", "location", "size_sqm", "bed", "max_guests", "view",
     "price_per_night", "taxes_and_fees", "amenities", "policies", "guest_rating", "review_count",
@@ -51,7 +53,9 @@ def review_text(review: dict[str, Any], style: str) -> str:
 
 
 def room_view(sc: Scenario, room: dict[str, Any], levels: dict[str, str], seed: int,
-              show_category_scores: bool = False) -> dict[str, Any]:
+              show_category_scores: bool = False, shell: dict[str, Any] | None = None) -> dict[str, Any]:
+    """`room` supplies facts/reviews/summaries; `shell` (default: the same room) supplies what the page shows."""
+    shell = shell or room
     rng = random.Random(stable_seed(seed, room["room_id"], "order"))
     set_name = levels["review_set"]
     if set_name not in room["review_sets"]:
@@ -59,9 +63,10 @@ def room_view(sc: Scenario, room: dict[str, Any], levels: dict[str, str], seed: 
     pool = [sc.review(room, i) for i in room["review_sets"][set_name]]
     ordered = order_reviews(pool, levels["order"], rng)
 
-    view = {k: room[k] for k in VISIBLE_ROOM_FIELDS if k in room}
+    view = {k: shell[k] for k in VISIBLE_ROOM_FIELDS if k in shell}
     view["room_id"] = room["room_id"]
-    view["total_price"] = room["price_per_night"] * sc.data.get("nights", 1) + room.get("taxes_and_fees", 0)
+    view["shell_id"] = shell["room_id"]
+    view["total_price"] = shell["price_per_night"] * sc.data.get("nights", 1) + shell.get("taxes_and_fees", 0)
     if show_category_scores and "category_scores" in room:
         view["category_scores"] = room["category_scores"]
 
@@ -85,8 +90,11 @@ def room_view(sc: Scenario, room: dict[str, Any], levels: dict[str, str], seed: 
 def build_view(sc: Scenario, trial: dict[str, Any], show_category_scores: bool = False) -> dict[str, Any]:
     """Everything visible in one trial, rooms listed in the trial's shuffled display order."""
     rooms = []
+    seed = trial.get("layout_seed", trial["seed"])  # shared across cells -> same random review order when paired
+    shells = trial.get("shell_map") or {}
     for pos, rid in enumerate(trial["room_order"], start=1):
-        v = room_view(sc, sc.room(rid), trial["room_levels"][rid], trial["seed"], show_category_scores)
+        shell = sc.room(shells[rid]) if rid in shells else None
+        v = room_view(sc, sc.room(rid), trial["room_levels"][rid], seed, show_category_scores, shell)
         v["option_number"] = pos
         rooms.append(v)
     return {

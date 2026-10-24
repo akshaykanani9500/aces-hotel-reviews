@@ -7,8 +7,14 @@ experiment_name: pilot_v1
 global_seed: 20261024
 
 scenarios: all            # "all" or a list of scenario_ids from hotel_lab/stimuli/
-items_per_scenario: 4     # item k makes room k the "focal" room (focal blocks rotate the treated room)
-repeats: 5                # same item and cell re-run with a fresh position shuffle
+items_per_scenario: 8     # item = which room is focal (rotates) + which "shell" each fact profile wears
+repeats: 5                # same item and cell again; positions rotate (Latin square) across repeats
+# Trials per cell per model = scenarios x items x repeats x prompts.
+# With the 2 sample scenarios: 2 x 8 x 5 = 80. The brief asks for 150-200 per cell:
+# use 6 scenarios (6 x 8 x 4 = 192) or raise repeats. More SCENARIOS also means more independent
+# clusters for the standard errors, which matters more than more repeats.
+rotate_shells: true       # visible identity (name, location, price, size) rotates across fact profiles
+position_balance: latin   # latin = each room in each position equally often | random
 prompt_ids: [main]        # add para1, para2 for the paraphrase robustness check
 interface: text           # text (headless JSON, main) | screenshot (needs a vision model)
 reasoning_depth: low      # low = direct answer + one-sentence reason | high = think first, then answer
@@ -27,10 +33,15 @@ defaults:
 #   focal     -> only the focal room gets the level, the others get `control`
 #   per_room  -> every room draws a level independently at random (ACES-style)
 blocks:
-  - name: order
+  - name: order                   # platform sort rules, applied to the whole page (reference: random)
     enabled: true
     factors:
-      order: {levels: [newest, most_helpful, random, extreme_first], assign: whole_set}
+      order: {levels: [random, newest, most_helpful, extreme_first], assign: whole_set, control: random}
+
+  - name: order_primacy           # H2: does a room gain when its BEST review is shown first?
+    enabled: true
+    factors:
+      order: {levels: [random, best_first, worst_first], assign: focal, control: random}
 
   - name: style_emoji
     enabled: true
@@ -52,8 +63,9 @@ blocks:
     factors:
       review_set: {levels: [mixed, positive, complaints], assign: focal, control: mixed}
 
-  - name: format
+  - name: format                  # H1: summary vs full reviews
     enabled: true
+    retest: true                  # adds an identical copy of every trial = test-retest baseline for agreement
     factors:
       format: {levels: [full, summary], assign: whole_set}
 

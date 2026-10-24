@@ -7,7 +7,7 @@ from typing import Any
 from hotel_lab import CONFIG_DIR
 
 PROMPT_DIR = CONFIG_DIR / "prompts"
-HIDDEN_KEYS = {"levels", "room_id"}  # never shown to the agent
+HIDDEN_KEYS = {"levels", "room_id", "shell_id"}  # never shown to the agent
 
 
 def _read(name: str) -> str:
@@ -30,7 +30,8 @@ def listings_json(view: dict[str, Any]) -> str:
             visible["reviews"] = [{k: v for k, v in rv.items() if k != "review_id"} for rv in visible["reviews"]]
         visible["currency"] = view["currency"]
         rooms.append(visible)
-    return json.dumps(rooms, indent=2, ensure_ascii=False)
+    # compact JSON: about 30% fewer tokens than indented JSON, same content
+    return json.dumps(rooms, ensure_ascii=False, separators=(", ", ": "))
 
 
 def build_prompt(view: dict[str, Any], prompt_id: str = "main", interface: str = "text",

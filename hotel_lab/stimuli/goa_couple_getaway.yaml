@@ -40,257 +40,257 @@ rooms:
 
     review_pool:
       - review_id: r1_01
-        author: "Imran"
-        country: "India"
-        traveller_type: "Group"
-        stayed: "Apr 2026"
-        posted_date: "2026-04-22"
-        helpful_votes: 7
-        rating: 4
-        title: "Close to the water"
-        facts_covered: [beach_access, room_comfort]
-        text:
-          base: "Beach just two minutes away. Room was simple but adequate."
-      - review_id: r1_02
-        author: "Karthik"
-        country: "India"
-        traveller_type: "Couple"
-        stayed: "Jun 2026"
-        posted_date: "2026-06-16"
-        helpful_votes: 6
-        rating: 4
-        title: "Good base for the beach"
-        facts_covered: [room_comfort, beach_access]
-        text:
-          base: "The room was decent, a bit dated but the bed was fine. Beach access was the best part."
-          emoji: "The room was decent, a bit dated but the bed was fine 🛏️. Beach access was the best part 🏖️."
-          long: "The room was decent, a bit dated in its look but the bed was fine and we slept okay both nights. Nothing about it stood out, good or bad. Beach access was the best part by far, and that is what we will remember about the trip."
-          casual: "Room was decent, bit dated but bed was fine. Beach access was the best part."
-      - review_id: r1_03
-        author: "Priya"
-        country: "India"
-        traveller_type: "Family"
-        stayed: "Mar 2026"
-        posted_date: "2026-03-28"
-        helpful_votes: 20
-        rating: 1
-        title: "Rude staff"
-        facts_covered: [staff_service]
-        text:
-          base: "The staff were rude and dismissive the whole stay. Our requests were ignored and nobody at the front desk seemed to care."
-      - review_id: r1_04
-        author: "Tanvi"
-        country: "India"
-        traveller_type: "Couple"
-        stayed: "Mar 2026"
-        posted_date: "2026-03-07"
-        helpful_votes: 0
-        rating: 3
-        title: "Average room, poor service"
-        facts_covered: [room_comfort, staff_service]
-        text:
-          base: "The room was okay, nothing special, and the bed was acceptable. Service was poor; we had to ask three times before anyone helped us."
-          emoji: "The room was okay, nothing special, and the bed was acceptable 🛏️. Service was poor; we had to ask three times before anyone helped us 😤."
-          long: "The room was okay, nothing special, and the bed was acceptable for a couple of nights. Service was poor, though. We had to ask three times before anyone helped us, and each time it felt like we were bothering them, which is not what you want on a getaway."
-          casual: "Room was okay, nothing special, bed acceptable. Service was poor, had to ask three times before anyone helped."
-      - review_id: r1_05
-        author: "Aditya"
-        country: "India"
-        traveller_type: "Solo"
-        stayed: "Aug 2026"
-        posted_date: "2026-09-17"
-        helpful_votes: 1
-        rating: 4
-        title: "Beach great, staff not"
-        facts_covered: [beach_access, staff_service]
-        text:
-          base: "Brilliant beach access. Staff could be a lot more helpful."
-      - review_id: r1_06
-        author: "Daniel"
+        author: "Chloe"
         country: "Australia"
-        traveller_type: "Group"
-        stayed: "Mar 2026"
-        posted_date: "2026-03-22"
+        traveller_type: "Couple"
+        stayed: "Feb 2026"
+        posted_date: "2026-03-16"
         helpful_votes: 7
-        rating: 5
-        title: "Unbeatable beach access"
-        facts_covered: [beach_access]
-        text:
-          base: "Unbeatable beach access. We spent most of our trip by the water."
-      - review_id: r1_07
-        author: "Sneha"
-        country: "India"
-        traveller_type: "Family"
-        stayed: "Jun 2026"
-        posted_date: "2026-06-19"
-        helpful_votes: 8
         rating: 4
         title: "Did the job"
         facts_covered: [room_comfort]
         text:
           base: "The room was okay and the bed was acceptable. A bit dated, but it did the job."
-      - review_id: r1_08
-        author: "Lukas"
-        country: "Germany"
-        traveller_type: "Couple"
-        stayed: "Mar 2026"
-        posted_date: "2026-03-15"
-        helpful_votes: 6
-        rating: 4
-        title: "Simple room, great beach"
-        facts_covered: [room_comfort, beach_access]
-        text:
-          base: "Simple, decent room with an okay bed. Being so close to the beach made up for the dated decor."
-          emoji: "Simple, decent room with an okay bed 🛏️. Being so close to the beach made up for the dated decor 🏖️."
-          long: "Simple, decent room with an okay bed, nothing fancy but it did the job for two nights. The decor is dated and could use a refresh. Being so close to the beach made up for it, though, since we spent most of our time down by the water anyway."
-          casual: "Simple, decent room, bed was okay. Being so close to the beach made up for the old decor."
-      - review_id: r1_09
-        author: "Lakshmi"
+          emoji: "The room was okay and the bed was acceptable 🛏️. A bit dated, but it did the job 🏨."
+          long: "We stayed here for two nights on a short getaway. The room was okay and the bed was acceptable for sleeping. It was a bit dated in its look, but for the two of us it did the job."
+          casual: "Room was okay, bed was acceptable. Little bit dated, but it did the job for us."
+      - review_id: r1_02
+        author: "Rahul"
         country: "India"
         traveller_type: "Couple"
-        stayed: "Jul 2026"
-        posted_date: "2026-08-08"
-        helpful_votes: 25
-        rating: 5
-        title: "Beach on the doorstep"
-        facts_covered: [beach_access, room_comfort]
-        text:
-          base: "Beach on the doorstep and a room that was fine for sleeping. Couldn't ask for more on a beach holiday."
-      - review_id: r1_10
-        author: "Chloe"
-        country: "Australia"
-        traveller_type: "Solo"
-        stayed: "Jun 2026"
-        posted_date: "2026-07-10"
-        helpful_votes: 5
+        stayed: "Mar 2026"
+        posted_date: "2026-04-04"
+        helpful_votes: 6
         rating: 1
         title: "Worst service"
         facts_covered: [staff_service]
         text:
           base: "Worst service we have had in Goa. We waited an hour at the desk for help and were brushed off."
-      - review_id: r1_11
+      - review_id: r1_03
+        author: "Michael"
+        country: "United States"
+        traveller_type: "Group"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-23"
+        helpful_votes: 1
+        rating: 4
+        title: "Short walk to the sea"
+        facts_covered: [beach_access]
+        text:
+          base: "Lovely short walk to the beach along a private path. It took us about two minutes."
+          emoji: "Lovely short walk to the beach along a private path 🚶. It took us about two minutes 🌊."
+          long: "We came for a quiet weekend away as a couple. It was a lovely short walk to the beach along a private path from the hotel. It took us about two minutes each time we went down to the sea."
+          casual: "Lovely short walk to the beach on a private path. Took us around two minutes only."
+      - review_id: r1_04
+        author: "Fatima"
+        country: "United Arab Emirates"
+        traveller_type: "Couple"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-15"
+        helpful_votes: 14
+        rating: 4
+        title: "Brilliant beach access"
+        facts_covered: [beach_access]
+        text:
+          base: "Brilliant beach access, right down a private path. We were on the sand in minutes."
+      - review_id: r1_05
+        author: "Priya"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-14"
+        helpful_votes: 3
+        rating: 3
+        title: "Average room, poor service"
+        facts_covered: [staff_service, room_comfort]
+        text:
+          base: "The room was okay, nothing special, and the bed was acceptable. Service was poor; we had to ask three times before anyone helped us."
+          emoji: "The room was okay, nothing special, and the bed was acceptable 🛏️. Service was poor; we had to ask three times before anyone helped us ⏳."
+          long: "We were here on a short getaway and spent the evenings in the room. The room was okay, nothing special, and the bed was acceptable for sleeping. Service was poor, though, and we had to ask at the front desk three separate times before anyone came to help us."
+          casual: "Room was okay, nothing special, and the bed was acceptable. Service was poor yaar, had to ask three times before anyone helped us."
+      - review_id: r1_06
         author: "Divya"
         country: "India"
         traveller_type: "Couple"
-        stayed: "Aug 2026"
-        posted_date: "2026-09-14"
-        helpful_votes: 7
-        rating: 3
-        title: "Beach yes, service no"
-        facts_covered: [beach_access, staff_service]
-        text:
-          base: "The private path to the beach was wonderful. But staff ignored our request for extra towels twice and the front desk was quite rude."
-          emoji: "The private path to the beach was wonderful 🌊. But staff ignored our request for extra towels twice and the front desk was quite rude 😒."
-          long: "The private path to the beach was wonderful, and we used it every chance we got. But the staff ignored our request for extra towels twice, and when we went down to ask again the front desk was quite rude about it. It took the shine off an otherwise nice stay."
-          casual: "Private path to the beach was wonderful. But staff ignored our towel request twice and front desk was quite rude."
-      - review_id: r1_12
-        author: "Neha"
-        country: "India"
-        traveller_type: "Group"
-        stayed: "Mar 2026"
-        posted_date: "2026-03-10"
-        helpful_votes: 14
+        stayed: "Oct 2026"
+        posted_date: "2026-10-18"
+        helpful_votes: 1
         rating: 4
-        title: "Great beach, slow desk"
-        facts_covered: [beach_access, staff_service]
+        title: "Room fine, service poor"
+        facts_covered: [staff_service, room_comfort]
         text:
-          base: "The beach is literally two minutes away by a private path. Front desk was slow to respond, though."
-          emoji: "The beach is literally two minutes away by a private path 🌊. Front desk was slow to respond, though ⏳."
-          long: "The beach is literally two minutes away by a private path, and that is the main reason we picked this place. We were not disappointed on that front. The front desk was slow to respond, though, and we had to wait quite a while each time we needed something."
-          casual: "Beach is literally two minutes by a private path. Front desk was slow to respond though."
-      - review_id: r1_13
-        author: "Farhan"
-        country: "India"
-        traveller_type: "Couple"
-        stayed: "Aug 2026"
-        posted_date: "2026-08-29"
-        helpful_votes: 2
-        rating: 5
-        title: "Lazy beach days"
-        facts_covered: [beach_access]
-        text:
-          base: "We could walk to the beach in our flip-flops in two minutes. Perfect for a lazy getaway."
-      - review_id: r1_14
-        author: "Pooja"
-        country: "India"
-        traveller_type: "Couple"
-        stayed: "Feb 2026"
-        posted_date: "2026-03-06"
-        helpful_votes: 10
-        rating: 5
-        title: "Beach right there"
-        facts_covered: [beach_access]
-        text:
-          base: "We walked down the little path and were on the beach in two minutes. We loved being able to pop down to the sand whenever we wanted."
-          emoji: "We walked down the little path and were on the beach in two minutes 🏖️. We loved being able to pop down to the sand whenever we wanted 🌊❤️."
-          long: "We walked down the little path and were on the beach in two minutes, which felt unreal the first time we did it. We loved being able to pop down to the sand whenever we wanted, in the morning, after lunch or late in the evening, without planning anything at all, and then wander back up again."
-          casual: "Walked down the small path and boom, beach in two minutes. Loved popping down to the sand whenever we felt like."
-      - review_id: r1_15
+          base: "The room was functional and the bed was fine for two nights. Service was the weak point, as staff ignored one of our requests completely."
+      - review_id: r1_07
         author: "Harsh"
         country: "India"
+        traveller_type: "Group"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-17"
+        helpful_votes: 10
+        rating: 4
+        title: "Great beach, slow desk"
+        facts_covered: [staff_service, beach_access]
+        text:
+          base: "The beach is literally two minutes away by a private path. The front desk was slow and unhelpful though, which was a real letdown."
+      - review_id: r1_08
+        author: "Lukas"
+        country: "Germany"
+        traveller_type: "Family"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-22"
+        helpful_votes: 11
+        rating: 5
+        title: "Unbeatable beach access"
+        facts_covered: [beach_access]
+        text:
+          base: "Unbeatable beach access. We spent most of our trip by the water."
+      - review_id: r1_09
+        author: "Hannah"
+        country: "Canada"
         traveller_type: "Solo"
-        stayed: "Jun 2026"
-        posted_date: "2026-07-06"
-        helpful_votes: 1
+        stayed: "Sep 2026"
+        posted_date: "2026-09-17"
+        helpful_votes: 2
         rating: 5
         title: "Loved the beach access"
         facts_covered: [beach_access, room_comfort]
         text:
           base: "Direct path to the beach, which we used several times a day. The room was comfortable enough for us."
-          emoji: "Direct path to the beach, which we used several times a day 🌴🏝️. The room was comfortable enough for us 🛏️."
-          long: "Direct path to the beach, which we used several times a day because it was just so easy to get to. We never had to think about how to reach the sea. The room was comfortable enough for us, and since we were out most of the time it was all we needed."
-          casual: "Direct path to the beach, we used it many times a day. Room was comfortable enough for us."
-      - review_id: r1_16
-        author: "Meera"
+          emoji: "Direct path to the beach, which we used several times a day 🏖️. The room was comfortable enough for us 🛏️."
+          long: "We came for a two-night couple's getaway and wanted to be near the sea. There was a direct path to the beach, and we used it several times a day. The room was comfortable enough for us for those two nights."
+          casual: "Direct path to the beach, we used it many times in a day. Room was comfortable enough for us."
+      - review_id: r1_10
+        author: "Suresh"
         country: "India"
-        traveller_type: "Family"
+        traveller_type: "Couple"
         stayed: "May 2026"
         posted_date: "2026-05-31"
-        helpful_votes: 10
+        helpful_votes: 0
+        rating: 5
+        title: "Lazy beach days"
+        facts_covered: [beach_access, room_comfort]
+        text:
+          base: "We could walk to the beach in our flip-flops in two minutes, and the room was decent. Perfect for a lazy getaway."
+      - review_id: r1_11
+        author: "Ananya"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-20"
+        helpful_votes: 4
+        rating: 1
+        title: "Rude staff"
+        facts_covered: [staff_service]
+        text:
+          base: "The staff were rude and dismissive the whole stay. Our requests were ignored and nobody at the front desk seemed to care."
+      - review_id: r1_12
+        author: "Neha"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Feb 2026"
+        posted_date: "2026-03-02"
+        helpful_votes: 6
+        rating: 4
+        title: "Close to the water"
+        facts_covered: [beach_access, room_comfort]
+        text:
+          base: "Beach just two minutes away. Room was simple but adequate."
+      - review_id: r1_13
+        author: "Vikram"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-08"
+        helpful_votes: 16
+        rating: 5
+        title: "Beach right there"
+        facts_covered: [beach_access]
+        text:
+          base: "We walked down the little path and were on the beach in two minutes. We loved being able to pop down to the sand whenever we wanted."
+          emoji: "We walked down the little path and were on the beach in two minutes 🌊. We loved being able to pop down to the sand whenever we wanted 🏖️."
+          long: "We were here for a short couple's break and spent our mornings and evenings by the sea. We walked down the little path from the hotel and were on the beach in just two minutes, every single time. We loved being able to pop down to the sand whenever we wanted, at any time of the day."
+          casual: "We walked down the small path and were on the beach in two minutes. Loved that we could pop down to the sand whenever we wanted."
+      - review_id: r1_14
+        author: "Oliver"
+        country: "United Kingdom"
+        traveller_type: "Couple"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-12"
+        helpful_votes: 8
+        rating: 5
+        title: "Beach on the doorstep"
+        facts_covered: [beach_access, room_comfort]
+        text:
+          base: "Beach on the doorstep and a room that was fine for sleeping. Couldn't ask for more on a beach holiday."
+      - review_id: r1_15
+        author: "Ishita"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-09"
+        helpful_votes: 8
+        rating: 3
+        title: "Beach yes, service no"
+        facts_covered: [staff_service, beach_access]
+        text:
+          base: "The private path to the beach was wonderful. But staff ignored our request for extra towels twice and the front desk was quite rude."
+          emoji: "The private path to the beach was wonderful 🌊. But staff ignored our request for extra towels twice and the front desk was quite rude 🛎️."
+          long: "We came to Goa for a two-night break as a couple. The private path to the beach was wonderful, and it was the best thing about the stay. But the staff ignored our request for extra towels twice, and the front desk was quite rude when we asked about it."
+          casual: "Private path to the beach was wonderful. But staff ignored our extra towels request two times and front desk was quite rude."
+      - review_id: r1_16
+        author: "Pooja"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Feb 2026"
+        posted_date: "2026-03-11"
+        helpful_votes: 5
+        rating: 5
+        title: "Feet in the sand"
+        facts_covered: [beach_access, room_comfort]
+        text:
+          base: "Two minutes down the private path and your feet are in the sand. The bed was acceptable and we slept fine."
+      - review_id: r1_17
+        author: "Lakshmi"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "May 2026"
+        posted_date: "2026-05-25"
+        helpful_votes: 2
         rating: 4
         title: "Steps from the sand"
         facts_covered: [beach_access]
         text:
           base: "Loved how close the beach was. We went for a swim first thing every morning."
-          emoji: "Loved how close the beach was 🌊. We went for a swim first thing every morning 🏊‍♀️."
-          long: "Loved how close the beach was, it made the whole trip feel very easy and relaxed. We went for a swim first thing every morning, just a short walk down the path in our flip-flops, and were back in the room before most people were even awake."
-          casual: "Loved how close the beach was. Went for a swim first thing every morning."
-      - review_id: r1_17
-        author: "Sofia"
-        country: "Italy"
-        traveller_type: "Couple"
-        stayed: "Aug 2026"
-        posted_date: "2026-09-04"
-        helpful_votes: 4
-        rating: 5
-        title: "Feet in the sand"
-        facts_covered: [beach_access]
-        text:
-          base: "The best thing is the private path straight onto the beach. Two minutes and your feet are in the sand."
+          emoji: "Loved how close the beach was 🌊. We went for a swim first thing every morning 🌅."
+          long: "We were in Goa for two nights and wanted to spend as much time by the sea as possible. We loved how close the beach was to the room. We went for a swim first thing every morning, right after waking up."
+          casual: "Loved how close the beach was. Went for a swim first thing every single morning."
       - review_id: r1_18
-        author: "Ananya"
-        country: "India"
+        author: "Daniel"
+        country: "Australia"
         traveller_type: "Couple"
-        stayed: "Oct 2026"
-        posted_date: "2026-10-17"
-        helpful_votes: 20
+        stayed: "Apr 2026"
+        posted_date: "2026-04-27"
+        helpful_votes: 7
         rating: 4
-        title: "Short walk to the sea"
-        facts_covered: [beach_access]
+        title: "Good base for the beach"
+        facts_covered: [beach_access, room_comfort]
         text:
-          base: "Lovely short walk to the beach along a private path."
+          base: "The room was decent, a bit dated but the bed was fine. Beach access was the best part."
+          emoji: "The room was decent, a bit dated but the bed was fine 🛏️. Beach access was the best part 🏖️."
+          long: "We stayed two nights on a short couple's trip to North Goa. The room was decent, a bit dated in how it looked, but the bed was fine for us. Beach access was the best part of the stay, by far."
+          casual: "Room was decent, bit dated but the bed was fine. Beach access was the best part for sure."
 
     review_sets:
-      base: [r1_02, r1_04, r1_08, r1_11, r1_12, r1_14, r1_15, r1_16]
-      positive: [r1_01, r1_02, r1_05, r1_07, r1_08, r1_12, r1_16, r1_18]
-      mixed: [r1_02, r1_04, r1_08, r1_11, r1_12, r1_14, r1_15, r1_16]
-      complaints: [r1_03, r1_06, r1_09, r1_10, r1_13, r1_14, r1_15, r1_17]
+      base: [r1_01, r1_03, r1_05, r1_09, r1_13, r1_15, r1_17, r1_18]
+      positive: [r1_01, r1_03, r1_04, r1_06, r1_07, r1_12, r1_17, r1_18]
+      mixed: [r1_01, r1_03, r1_05, r1_09, r1_13, r1_15, r1_17, r1_18]
+      complaints: [r1_02, r1_08, r1_09, r1_10, r1_11, r1_13, r1_14, r1_16]
 
     summaries:
-      base: "Guests love the private path that puts the beach about two minutes away. The room is described as decent but a little dated, and several guests complain that the front desk was slow, unhelpful or rude."
-      positive: "Guests say beach access is excellent, with a short private path to the sand. The room is called adequate but dated, and a couple of guests felt staff could be more responsive."
-      mixed: "Guests love the private path that puts the beach about two minutes away. The room is described as decent but a little dated, and several guests complain that the front desk was slow, unhelpful or rude."
-      complaints: "Most guests rave about the direct beach access, and a couple say the room was fine for their needs. Two guests strongly complain about rude, dismissive staff who ignored their requests."
+      base: "Guests love the private path that puts the beach about two minutes away, and describe the room as decent but a little dated. Two guests report poor service, with requests ignored and a slow or rude front desk."
+      positive: "Guests say beach access is excellent, with a short private path to the sand, and call the room adequate but dated. Two guests found the staff slow, unhelpful or inattentive to requests."
+      mixed: "Guests love the private path that puts the beach about two minutes away, and describe the room as decent but a little dated. Two guests report poor service, with requests ignored and a slow or rude front desk."
+      complaints: "Most guests rave about the direct beach access, and several say the room was acceptable for their needs. Two guests strongly complain about rude, dismissive staff who ignored their requests."
 
   - room_id: r2
     hotel_name: "Tidewater Bay Resort"
@@ -324,257 +324,257 @@ rooms:
 
     review_pool:
       - review_id: r2_01
-        author: "James"
-        country: "United Kingdom"
-        traveller_type: "Group"
-        stayed: "Jun 2026"
-        posted_date: "2026-06-26"
-        helpful_votes: 12
-        rating: 1
-        title: "Misleading for a beach trip"
-        facts_covered: [beach_access]
-        text:
-          base: "Calling this a beach getaway is misleading. Getting to the sand meant a ten-minute walk each way, which spoiled the trip for us."
-      - review_id: r2_02
-        author: "Oliver"
-        country: "United Kingdom"
-        traveller_type: "Couple"
-        stayed: "Jul 2026"
-        posted_date: "2026-07-21"
-        helpful_votes: 10
-        rating: 1
-        title: "Not a beach hotel"
-        facts_covered: [beach_access]
-        text:
-          base: "We booked for the beach and it is a ten-minute walk down a lane, not beachside at all. Really disappointed."
-      - review_id: r2_03
         author: "Anna"
         country: "Germany"
-        traveller_type: "Family"
-        stayed: "Sep 2026"
-        posted_date: "2026-09-20"
-        helpful_votes: 4
-        rating: 3
-        title: "Good staff, not beachside"
-        facts_covered: [staff_service, beach_access]
-        text:
-          base: "Staff were lovely and very helpful. The beach is not as close as we hoped, a ten-minute walk down a lane."
-          emoji: "Staff were lovely and very helpful 😊. The beach is not as close as we hoped, a ten-minute walk down a lane 🏖️."
-          long: "Staff were lovely and very helpful throughout, always quick to sort things out for us. The beach is not as close as we had hoped, though. It is a ten-minute walk down a lane, and we had pictured being able to see and reach the sand right from the property."
-          casual: "Staff were lovely and very helpful. Beach not as close as we hoped, ten-minute walk down a lane."
-      - review_id: r2_04
-        author: "Ananya"
-        country: "India"
-        traveller_type: "Family"
-        stayed: "May 2026"
-        posted_date: "2026-05-26"
-        helpful_votes: 1
-        rating: 5
-        title: "Didn't want to leave"
-        facts_covered: [room_comfort]
-        text:
-          base: "Spacious, comfortable room with plush pillows. We didn't want to leave."
-      - review_id: r2_05
-        author: "Kavya"
-        country: "India"
         traveller_type: "Couple"
         stayed: "Mar 2026"
-        posted_date: "2026-03-22"
+        posted_date: "2026-03-11"
         helpful_votes: 0
+        rating: 4
+        title: "Comfy room, short walk"
+        facts_covered: [beach_access, room_comfort]
+        text:
+          base: "Lovely comfortable bed and a nice balcony. The beach is a ten-minute walk, which was fine but not right outside."
+      - review_id: r2_02
+        author: "Omar"
+        country: "United Arab Emirates"
+        traveller_type: "Family"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-28"
+        helpful_votes: 2
         rating: 4
         title: "Very comfy"
         facts_covered: [room_comfort]
         text:
-          base: "Very comfortable bed and soft pillows, we slept really well. The room was spacious too."
-          emoji: "Very comfortable bed and soft pillows, we slept really well 🛏️😴. The room was spacious too ✨."
-          long: "Very comfortable bed and soft pillows, and we slept really well both nights, which is rare for us in hotels. We both commented on it in the morning. The room was spacious too, with plenty of space to unpack and move around without bumping into each other."
-          casual: "Very comfy bed and soft pillows, slept really well. Room was spacious also."
-      - review_id: r2_06
-        author: "Aditya"
-        country: "India"
-        traveller_type: "Couple"
-        stayed: "Oct 2026"
-        posted_date: "2026-10-16"
-        helpful_votes: 1
-        rating: 5
-        title: "Best bed ever"
-        facts_covered: [room_comfort]
-        text:
-          base: "Most comfortable hotel bed we have ever slept in. The balcony was perfect for evenings."
-      - review_id: r2_07
+          base: "Very comfortable bed and soft pillows, so we slept really well. The room was spacious too."
+          emoji: "Very comfortable bed and soft pillows, so we slept really well 🛏️. The room was spacious too 😴."
+          long: "We were here for two nights on a short trip as a couple. The bed was very comfortable and the pillows were soft, so we slept really well both nights. The room was spacious too, with plenty of space for the two of us."
+          casual: "Very comfy bed and soft pillows, so we slept really well. Room was nicely spacious too."
+      - review_id: r2_03
         author: "Sofia"
         country: "Italy"
         traveller_type: "Couple"
         stayed: "Jun 2026"
-        posted_date: "2026-06-16"
-        helpful_votes: 5
-        rating: 4
-        title: "Cosy room"
-        facts_covered: [room_comfort, beach_access]
-        text:
-          base: "Cosy room with a great bed. It's about ten minutes on foot to the beach."
-      - review_id: r2_08
-        author: "Nikhil"
-        country: "India"
-        traveller_type: "Couple"
-        stayed: "Mar 2026"
-        posted_date: "2026-03-26"
-        helpful_votes: 29
-        rating: 5
-        title: "Wonderful staff"
-        facts_covered: [staff_service]
-        text:
-          base: "The staff made our anniversary special and handled every request within minutes. Truly attentive service."
-          emoji: "The staff made our anniversary special and handled every request within minutes 💐. Truly attentive service 🙏✨."
-          long: "The staff made our anniversary special, and we had not even asked for anything in particular. They handled every request within minutes, whether it was extra pillows or help with a booking. Truly attentive service, the kind that makes you want to come back to the same place."
-          casual: "Staff made our anniversary so special and sorted every request in minutes. Truly attentive service."
-      - review_id: r2_09
-        author: "Chloe"
-        country: "Australia"
-        traveller_type: "Couple"
-        stayed: "May 2026"
-        posted_date: "2026-05-29"
-        helpful_votes: 1
-        rating: 4
-        title: "Very pleasant room"
-        facts_covered: [room_comfort]
-        text:
-          base: "Comfortable bed and a roomy balcony. Very pleasant."
-      - review_id: r2_10
-        author: "Wei"
-        country: "Singapore"
-        traveller_type: "Family"
-        stayed: "Mar 2026"
-        posted_date: "2026-03-20"
-        helpful_votes: 8
-        rating: 5
-        title: "Warm and attentive"
-        facts_covered: [staff_service]
-        text:
-          base: "Every staff member was warm and attentive. Requests were sorted within minutes."
-      - review_id: r2_11
-        author: "Ritika"
-        country: "India"
-        traveller_type: "Couple"
-        stayed: "Jun 2026"
         posted_date: "2026-06-24"
-        helpful_votes: 0
-        rating: 3
-        title: "Nice room, beach too far"
-        facts_covered: [room_comfort, beach_access]
-        text:
-          base: "The room was comfortable and spacious. But we wanted to be right on the beach, and the ten-minute walk each way got tiring in the heat."
-          emoji: "The room was comfortable and spacious 🛏️. But we wanted to be right on the beach, and the ten-minute walk each way got tiring in the heat 🥵."
-          long: "The room was comfortable and spacious, and we had no complaints about it at all, we slept well both nights. But we wanted to be right on the beach, and the ten-minute walk each way got tiring in the heat. After the first day we went down a lot less often than we had planned to."
-          casual: "Room was comfy and spacious. But we wanted to be right on the beach, the ten-minute walk each way got tiring in the heat."
-      - review_id: r2_12
-        author: "Ishita"
-        country: "India"
-        traveller_type: "Family"
-        stayed: "Aug 2026"
-        posted_date: "2026-09-12"
-        helpful_votes: 2
-        rating: 5
-        title: "Above and beyond"
-        facts_covered: [staff_service, room_comfort]
-        text:
-          base: "Staff went out of their way for us, and the room was beautifully comfortable."
-      - review_id: r2_13
-        author: "Divya"
-        country: "India"
-        traveller_type: "Couple"
-        stayed: "Jul 2026"
-        posted_date: "2026-07-18"
-        helpful_votes: 29
-        rating: 4
-        title: "Great service"
-        facts_covered: [staff_service, beach_access]
-        text:
-          base: "Staff were friendly and quick to help. The walk to the beach takes about ten minutes along a lane."
-          emoji: "Staff were friendly and quick to help 😊. The walk to the beach takes about ten minutes along a lane 🚶‍♀️."
-          long: "Staff were friendly and quick to help with anything we needed, and always seemed happy to do it. The walk to the beach takes about ten minutes along a lane. It is an easy walk, but it does mean you have to plan a little instead of just stepping out to the sea."
-          casual: "Staff were friendly and quick to help. Beach walk is about ten minutes along a lane."
-      - review_id: r2_14
-        author: "Lukas"
-        country: "Germany"
-        traveller_type: "Couple"
-        stayed: "Sep 2026"
-        posted_date: "2026-09-22"
-        helpful_votes: 0
-        rating: 4
-        title: "Comfy room, short walk"
-        facts_covered: [room_comfort, beach_access]
-        text:
-          base: "Lovely comfortable bed and a nice balcony. The beach is a ten-minute walk, which was fine but not right outside."
-          emoji: "Lovely comfortable bed and a nice balcony 🛏️🌅. The beach is a ten-minute walk, which was fine but not right outside 🚶."
-          long: "Lovely comfortable bed and a nice balcony where we sat with our tea every evening. The room was easy to relax in. The beach is a ten-minute walk, which was fine for us, but it is not right outside, so do not expect to roll out of bed onto the sand."
-          casual: "Lovely comfy bed and nice balcony. Beach is a ten-minute walk, fine but not right outside."
-      - review_id: r2_15
-        author: "Suresh"
-        country: "India"
-        traveller_type: "Couple"
-        stayed: "Sep 2026"
-        posted_date: "2026-09-28"
-        helpful_votes: 2
-        rating: 4
-        title: "Remembered us"
-        facts_covered: [staff_service]
-        text:
-          base: "Helpful, polite staff who remembered our preferences."
-      - review_id: r2_16
-        author: "Tanvi"
-        country: "India"
-        traveller_type: "Family"
-        stayed: "Sep 2026"
-        posted_date: "2026-09-25"
-        helpful_votes: 4
-        rating: 4
-        title: "Friendly team"
-        facts_covered: [beach_access, staff_service]
-        text:
-          base: "Friendly staff. The beach is a ten-minute walk, easy enough."
-      - review_id: r2_17
-        author: "Karthik"
-        country: "India"
-        traveller_type: "Couple"
-        stayed: "Jul 2026"
-        posted_date: "2026-08-12"
-        helpful_votes: 8
+        helpful_votes: 34
         rating: 5
         title: "Felt so looked after"
         facts_covered: [room_comfort, staff_service]
         text:
           base: "The bed was incredibly comfortable and the room felt spacious. Staff were warm and remembered our names from day one."
-          emoji: "The bed was incredibly comfortable and the room felt spacious 🛏️. Staff were warm and remembered our names from day one 🥰."
-          long: "The bed was incredibly comfortable and the room felt spacious, so we never felt cramped even with all our bags open. The staff were warm and remembered our names from day one. Every time we walked past someone they greeted us properly, and it made us feel genuinely looked after."
-          casual: "Bed was super comfy and room felt spacious. Staff were so warm, remembered our names from day one."
-      - review_id: r2_18
-        author: "Sarah"
-        country: "United States"
+          emoji: "The bed was incredibly comfortable and the room felt spacious 🛏️. Staff were warm and remembered our names from day one 😊."
+          long: "We came to North Goa for a two-night couple's getaway. The bed was incredibly comfortable, and the room felt spacious to both of us. The staff were warm with us, and they remembered our names from the very first day we arrived."
+          casual: "Bed was super comfortable and room felt so spacious. Staff were warm and remembered our names from day one itself."
+      - review_id: r2_04
+        author: "Lukas"
+        country: "Germany"
         traveller_type: "Couple"
+        stayed: "Oct 2026"
+        posted_date: "2026-10-19"
+        helpful_votes: 4
+        rating: 3
+        title: "Nice room, beach too far"
+        facts_covered: [beach_access, room_comfort]
+        text:
+          base: "The room was comfortable and spacious. But we wanted to be right on the beach, and the ten-minute walk each way got tiring in the heat."
+          emoji: "The room was comfortable and spacious 🛏️. But we wanted to be right on the beach, and the ten-minute walk each way got tiring in the heat 🚶."
+          long: "We came to Goa for a two-night beach getaway as a couple and spent our days outdoors. The room was comfortable and spacious, and we were happy with it. But we had wanted to be right on the beach, and the ten-minute walk each way, there and back, got tiring in the heat."
+          casual: "Room was comfy and spacious. But we wanted to be right on the beach yaar, the ten-minute walk each way got tiring in the heat."
+      - review_id: r2_05
+        author: "Meera"
+        country: "India"
+        traveller_type: "Group"
         stayed: "Jul 2026"
-        posted_date: "2026-07-17"
+        posted_date: "2026-08-13"
+        helpful_votes: 9
+        rating: 1
+        title: "Further than we hoped"
+        facts_covered: [beach_access]
+        text:
+          base: "Getting to the sand meant a ten-minute walk each way. For a beach getaway, that was disappointing."
+      - review_id: r2_06
+        author: "Siddharth"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Feb 2026"
+        posted_date: "2026-03-13"
+        helpful_votes: 14
+        rating: 3
+        title: "Good staff, not beachside"
+        facts_covered: [beach_access, staff_service]
+        text:
+          base: "Staff were lovely and very helpful. The beach is not as close as we hoped, a ten-minute walk down a lane."
+          emoji: "Staff were lovely and very helpful 😊. The beach is not as close as we hoped, a ten-minute walk down a lane 🚶."
+          long: "We stayed two nights on a short couple's trip. The staff were lovely and very helpful whenever we needed anything. The beach is not as close as we had hoped, though; it is a ten-minute walk down a lane from the hotel."
+          casual: "Staff were lovely and very helpful. Beach not as close as we hoped though, it's a ten-minute walk down a lane."
+      - review_id: r2_07
+        author: "Imran"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-28"
         helpful_votes: 0
         rating: 4
         title: "Relaxing stay"
-        facts_covered: [staff_service, room_comfort]
+        facts_covered: [room_comfort, staff_service]
         text:
           base: "Attentive staff and a cosy, comfortable room. A relaxing two nights for us."
-          emoji: "Attentive staff and a cosy, comfortable room 🙏. A relaxing two nights for us 🌴."
-          long: "Attentive staff and a cosy, comfortable room that we were happy to come back to after a day out. It was a relaxing two nights for us, exactly the short break we needed."
-          casual: "Attentive staff and a cosy, comfy room. Relaxing two nights for us."
+          emoji: "Attentive staff and a cosy, comfortable room 🛎️. A relaxing two nights for us 🌴."
+          long: "We booked this for a short couple's break after a busy month. The staff were attentive, and the room was cosy and comfortable. For the two of us, it was a relaxing two nights from start to finish."
+          casual: "Attentive staff and a cosy, comfy room. Was a relaxing two nights for us."
+      - review_id: r2_08
+        author: "Rahul"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "May 2026"
+        posted_date: "2026-05-30"
+        helpful_votes: 1
+        rating: 4
+        title: "Helpful staff"
+        facts_covered: [beach_access, staff_service]
+        text:
+          base: "Staff were friendly and quick to help. The walk to the beach takes about ten minutes along a lane."
+      - review_id: r2_09
+        author: "Divya"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "Oct 2026"
+        posted_date: "2026-10-12"
+        helpful_votes: 5
+        rating: 4
+        title: "Comfy room"
+        facts_covered: [room_comfort]
+        text:
+          base: "Comfortable bed and a roomy balcony. The room was very pleasant to come back to."
+          emoji: "Comfortable bed and a roomy balcony 🛏️. The room was very pleasant to come back to 🌴."
+          long: "We spent our days out exploring and came back to the room each evening. It had a comfortable bed and a roomy balcony. The room was very pleasant to come back to after a long day out."
+          casual: "Comfy bed and roomy balcony. Room was really pleasant to come back to every evening."
+      - review_id: r2_10
+        author: "Emma"
+        country: "United Kingdom"
+        traveller_type: "Solo"
+        stayed: "May 2026"
+        posted_date: "2026-05-25"
+        helpful_votes: 2
+        rating: 5
+        title: "Above and beyond"
+        facts_covered: [room_comfort, staff_service]
+        text:
+          base: "Staff went out of their way for us, and the room was beautifully comfortable."
+      - review_id: r2_11
+        author: "Fatima"
+        country: "United Arab Emirates"
+        traveller_type: "Couple"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-24"
+        helpful_votes: 2
+        rating: 4
+        title: "Great service"
+        facts_covered: [staff_service]
+        text:
+          base: "Staff were friendly and quick to help. They remembered our preferences after the first day."
+          emoji: "Staff were friendly and quick to help 😊. They remembered our preferences after the first day 🛎️."
+          long: "We were on a two-night getaway and asked the staff for a few small things. The staff were friendly and quick to help each time. They remembered our preferences after the first day, without us having to ask again."
+          casual: "Staff were friendly and quick to help. They remembered our preferences after first day itself."
+      - review_id: r2_12
+        author: "Tanvi"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-16"
+        helpful_votes: 1
+        rating: 5
+        title: "Didn't want to leave"
+        facts_covered: [room_comfort, staff_service]
+        text:
+          base: "Spacious, comfortable room with plush pillows, and the staff were lovely. We didn't want to leave."
+      - review_id: r2_13
+        author: "Aditya"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-19"
+        helpful_votes: 14
+        rating: 5
+        title: "Wonderful room"
+        facts_covered: [room_comfort]
+        text:
+          base: "Spacious, airy room with a really comfortable bed. We slept beautifully both nights."
+      - review_id: r2_14
+        author: "Kavya"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Sep 2026"
+        posted_date: "2026-10-08"
+        helpful_votes: 40
+        rating: 4
+        title: "Pleasant room"
+        facts_covered: [room_comfort]
+        text:
+          base: "Spacious room with plush pillows. Very comfortable overall."
+      - review_id: r2_15
+        author: "Karthik"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "May 2026"
+        posted_date: "2026-06-04"
+        helpful_votes: 1
+        rating: 1
+        title: "Not beachside"
+        facts_covered: [beach_access]
+        text:
+          base: "We booked expecting to be on the beach, but it is a ten-minute walk down a lane. That was a real disappointment for a beach trip."
+      - review_id: r2_16
+        author: "Chloe"
+        country: "Australia"
+        traveller_type: "Family"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-20"
+        helpful_votes: 3
+        rating: 5
+        title: "Best bed ever"
+        facts_covered: [room_comfort]
+        text:
+          base: "Most comfortable hotel bed we have ever slept in. The balcony was perfect for evenings."
+          emoji: "Most comfortable hotel bed we have ever slept in 🛏️. The balcony was perfect for evenings 🌅."
+          long: "We were here for two nights to celebrate a small occasion together. It was the most comfortable hotel bed we have ever slept in, both of us agreed. The balcony was perfect for our evenings, and we sat out there each night."
+          casual: "Most comfortable hotel bed we've ever slept on. Balcony was just perfect for evenings."
+      - review_id: r2_17
+        author: "Pooja"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-30"
+        helpful_votes: 5
+        rating: 5
+        title: "Warm and attentive"
+        facts_covered: [room_comfort, staff_service]
+        text:
+          base: "Every staff member was warm and attentive. The bed and pillows were wonderfully comfortable."
+      - review_id: r2_18
+        author: "Vikram"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "May 2026"
+        posted_date: "2026-05-19"
+        helpful_votes: 6
+        rating: 4
+        title: "Cosy room, kind staff"
+        facts_covered: [room_comfort, staff_service]
+        text:
+          base: "Cosy room with a great bed, and the staff were very kind."
 
     review_sets:
-      base: [r2_03, r2_05, r2_08, r2_11, r2_13, r2_14, r2_17, r2_18]
-      positive: [r2_05, r2_07, r2_09, r2_13, r2_14, r2_15, r2_16, r2_18]
-      mixed: [r2_03, r2_05, r2_08, r2_11, r2_13, r2_14, r2_17, r2_18]
-      complaints: [r2_01, r2_02, r2_04, r2_06, r2_08, r2_10, r2_12, r2_17]
+      base: [r2_02, r2_03, r2_04, r2_06, r2_07, r2_09, r2_11, r2_16]
+      positive: [r2_01, r2_02, r2_07, r2_08, r2_09, r2_11, r2_14, r2_18]
+      mixed: [r2_02, r2_03, r2_04, r2_06, r2_07, r2_09, r2_11, r2_16]
+      complaints: [r2_03, r2_05, r2_10, r2_12, r2_13, r2_15, r2_16, r2_17]
 
     summaries:
-      base: "Guests praise the very comfortable bed and spacious room, and many highlight warm, attentive staff. Several note that the beach is about a ten-minute walk away rather than right outside, which some found inconvenient."
-      positive: "Guests describe a comfortable room with a great bed and friendly, helpful staff. A few mention that the beach is a ten-minute walk away."
-      mixed: "Guests praise the very comfortable bed and spacious room, and many highlight warm, attentive staff. Several note that the beach is about a ten-minute walk away rather than right outside, which some found inconvenient."
-      complaints: "Most guests rave about the comfortable room and exceptionally warm, attentive staff. Two guests strongly complain that the beach is a ten-minute walk away rather than beachside."
+      base: "Guests praise the very comfortable bed and spacious room, and many highlight warm, attentive staff. Two guests note that the beach is a ten-minute walk away rather than right outside."
+      positive: "Guests describe a comfortable room with a great bed and friendly, helpful staff. Two guests mention that the beach is about a ten-minute walk along a lane."
+      mixed: "Guests praise the very comfortable bed and spacious room, and many highlight warm, attentive staff. Two guests note that the beach is a ten-minute walk away rather than right outside."
+      complaints: "Most guests rave about the comfortable room and warm, attentive staff. Two guests were disappointed that the beach is a ten-minute walk away rather than beachside."
 
   - room_id: r3
     hotel_name: "The Palmrest"
@@ -608,257 +608,257 @@ rooms:
 
     review_pool:
       - review_id: r3_01
-        author: "Siddharth"
+        author: "Harsh"
         country: "India"
         traveller_type: "Couple"
-        stayed: "Jun 2026"
-        posted_date: "2026-06-24"
-        helpful_votes: 3
+        stayed: "Apr 2026"
+        posted_date: "2026-04-19"
+        helpful_votes: 0
         rating: 5
         title: "Beach heaven"
         facts_covered: [beach_access, staff_service]
         text:
-          base: "Literally steps from the beach. Staff were polite and pleasant too."
-          emoji: "Literally steps from the beach 🌴🏝️. Staff were polite and pleasant too 😊."
-          long: "Literally steps from the beach, so we spent our two days going back and forth between the room and the sand. The staff were polite and pleasant too whenever we spoke to them."
-          casual: "Literally steps from the beach. Staff were polite and pleasant too."
+          base: "Literally steps from the beach, which is what we came for. Staff were polite and pleasant too."
+          emoji: "Literally steps from the beach, which is what we came for 🏖️. Staff were polite and pleasant too 🙂."
+          long: "We came to North Goa for a two-night beach break as a couple. The hotel is literally steps from the beach, which is exactly what we came for. The staff were polite and pleasant too, whenever we spoke to them during the stay."
+          casual: "Literally steps from the beach, that's exactly what we came for. Staff were polite and pleasant also."
       - review_id: r3_02
-        author: "Priya"
-        country: "India"
+        author: "Daniel"
+        country: "Australia"
         traveller_type: "Couple"
-        stayed: "Jun 2026"
-        posted_date: "2026-06-21"
-        helpful_votes: 31
+        stayed: "Aug 2026"
+        posted_date: "2026-09-17"
+        helpful_votes: 3
         rating: 4
-        title: "Sand at the door"
-        facts_covered: [beach_access]
+        title: "Polite staff"
+        facts_covered: [staff_service]
         text:
-          base: "We loved walking straight out onto the beach every morning. It was our favourite part of the trip."
-          emoji: "We loved walking straight out onto the beach every morning 🌅. It was our favourite part of the trip 👣."
-          long: "We loved walking straight out onto the beach every morning, still half asleep, with the sea right in front of us. It became our little routine for the whole trip, and it is the thing we keep talking about now that we are back home."
-          casual: "Loved walking straight out onto the beach every morning. Best part of the trip for us."
+          base: "Staff were polite and helpful, though service slowed down at busy times. We had to remind them once about a request."
+          emoji: "Staff were polite and helpful, though service slowed down at busy times 🛎️. We had to remind them once about a request ⏳."
+          long: "We stayed two nights and asked the front desk for a few things during our trip. The staff were polite and helpful, though service slowed down at the busy times of day. We had to remind them once about one request we had made."
+          casual: "Staff were polite and helpful, but service got slow at busy times. Had to remind them once about a request."
       - review_id: r3_03
-        author: "Kenji"
-        country: "Japan"
-        traveller_type: "Family"
-        stayed: "Sep 2026"
-        posted_date: "2026-09-08"
-        helpful_votes: 7
-        rating: 4
-        title: "Superb beach, firm bed"
-        facts_covered: [beach_access, room_comfort]
-        text:
-          base: "Beach access is superb. The bed could be softer."
-      - review_id: r3_04
-        author: "Divya"
-        country: "India"
-        traveller_type: "Couple"
-        stayed: "Mar 2026"
-        posted_date: "2026-04-03"
-        helpful_votes: 0
-        rating: 3
-        title: "Beach yes, bed no"
-        facts_covered: [beach_access, room_comfort]
-        text:
-          base: "The beach is right outside, which we loved. But the mattress was hard and lumpy and we both woke up with sore backs."
-          emoji: "The beach is right outside, which we loved 🏖️. But the mattress was hard and lumpy and we both woke up with sore backs 😣."
-          long: "The beach is right outside, which we loved and used all the time. But the mattress was hard and lumpy. We kept turning over trying to find a comfortable spot, and we both woke up with sore backs on the second morning, which was not how we wanted to feel on holiday."
-          casual: "Beach is right outside, loved that. But mattress was hard and lumpy, both of us woke up with sore backs."
-      - review_id: r3_05
-        author: "Farhan"
-        country: "India"
+        author: "Sarah"
+        country: "United States"
         traveller_type: "Couple"
         stayed: "May 2026"
-        posted_date: "2026-06-11"
-        helpful_votes: 0
-        rating: 5
-        title: "On the beach"
-        facts_covered: [beach_access]
+        posted_date: "2026-05-21"
+        helpful_votes: 17
+        rating: 3
+        title: "Beach yes, bed no"
+        facts_covered: [room_comfort, beach_access]
         text:
-          base: "A gate opens straight onto the sand. We could not have been closer to the sea."
-          emoji: "A gate opens straight onto the sand 🏖️. We could not have been closer to the sea 🌊😍."
-          long: "A gate opens straight onto the sand, and the first time we walked through it we just stood there smiling. You do not have to cross a road or walk anywhere. We could not have been closer to the sea, and for a beach trip that was everything we wanted."
-          casual: "There's a gate that opens straight onto the sand. Couldn't have been closer to the sea."
-      - review_id: r3_06
-        author: "Kavya"
+          base: "The beach is right outside, which we loved. But the mattress was hard and lumpy and we both woke up with sore backs."
+          emoji: "The beach is right outside, which we loved 🏖️. But the mattress was hard and lumpy and we both woke up with sore backs 🛏️."
+          long: "We came to Goa for a two-night couple's trip and wanted to be by the sea. The beach is right outside the hotel, which we both loved. But the mattress was hard and lumpy, and both of us woke up with sore backs because of it."
+          casual: "Beach is right outside, loved that. But mattress was hard and lumpy yaar, both of us woke up with sore backs."
+      - review_id: r3_04
+        author: "Pooja"
         country: "India"
-        traveller_type: "Group"
-        stayed: "Sep 2026"
-        posted_date: "2026-09-25"
-        helpful_votes: 1
+        traveller_type: "Couple"
+        stayed: "Apr 2026"
+        posted_date: "2026-05-06"
+        helpful_votes: 9
         rating: 1
         title: "Painfully uncomfortable"
         facts_covered: [room_comfort]
         text:
           base: "Cramped room, flat pillows and a rock-hard bed. Painfully uncomfortable, we would not stay again."
-      - review_id: r3_07
-        author: "Meera"
+      - review_id: r3_05
+        author: "Suresh"
         country: "India"
-        traveller_type: "Couple"
-        stayed: "Apr 2026"
-        posted_date: "2026-05-11"
-        helpful_votes: 1
-        rating: 3
-        title: "Cramped room"
-        facts_covered: [room_comfort, staff_service]
-        text:
-          base: "The room felt cramped and the pillows were flat. Staff were polite but took a while to bring extra pillows."
-          emoji: "The room felt cramped and the pillows were flat 😕. Staff were polite but took a while to bring extra pillows ⏳."
-          long: "The room felt cramped, with not much space to put our bags down, and the pillows were flat. We asked for extra ones. The staff were polite about it but took a while to bring them, so we spent the first part of the night making do with what we had."
-          casual: "Room felt cramped and pillows were flat. Staff polite but took a while to bring extra pillows."
-      - review_id: r3_08
-        author: "Emma"
-        country: "United Kingdom"
-        traveller_type: "Couple"
-        stayed: "Mar 2026"
-        posted_date: "2026-03-25"
-        helpful_votes: 21
-        rating: 4
-        title: "Lovely"
-        facts_covered: [beach_access]
-        text:
-          base: "Walked straight onto the sand from the property. Lovely."
-      - review_id: r3_09
-        author: "Omar"
-        country: "United Arab Emirates"
-        traveller_type: "Couple"
-        stayed: "Mar 2026"
-        posted_date: "2026-04-15"
-        helpful_votes: 18
-        rating: 4
-        title: "Straight onto the beach"
-        facts_covered: [beach_access, staff_service]
-        text:
-          base: "Straight onto the beach from the gate. Staff were courteous, though we had to remind them about one request."
-          emoji: "Straight onto the beach from the gate 🌊. Staff were courteous, though we had to remind them about one request 🙂."
-          long: "Straight onto the beach from the gate, which made it so easy to spend the whole day by the sea. The staff were courteous whenever we spoke to them. We did have to remind them about one request, but it was sorted once we followed up at the desk."
-          casual: "Straight onto the beach from the gate. Staff courteous, but had to remind them once about a request."
-      - review_id: r3_10
-        author: "Aditya"
-        country: "India"
-        traveller_type: "Couple"
-        stayed: "Mar 2026"
-        posted_date: "2026-04-10"
-        helpful_votes: 3
-        rating: 4
-        title: "Small room, brilliant beach"
-        facts_covered: [beach_access, room_comfort]
-        text:
-          base: "Brilliant beach access, but the room is on the small side."
-      - review_id: r3_11
-        author: "Tanvi"
-        country: "India"
-        traveller_type: "Couple"
-        stayed: "Feb 2026"
-        posted_date: "2026-03-01"
-        helpful_votes: 9
-        rating: 5
-        title: "Beach lovers' dream"
-        facts_covered: [beach_access]
-        text:
-          base: "You walk out of a gate and you're on the sand. Perfect for beach lovers."
-      - review_id: r3_12
-        author: "Chloe"
-        country: "Australia"
-        traveller_type: "Couple"
-        stayed: "Mar 2026"
-        posted_date: "2026-03-12"
-        helpful_votes: 10
+        traveller_type: "Family"
+        stayed: "May 2026"
+        posted_date: "2026-05-26"
+        helpful_votes: 30
         rating: 4
         title: "Great spot"
         facts_covered: [beach_access, staff_service]
         text:
           base: "Beach access is fantastic. Staff were polite, if a bit slow when it was busy."
           emoji: "Beach access is fantastic 🏖️. Staff were polite, if a bit slow when it was busy ⏳."
-          long: "Beach access is fantastic, honestly the best we have had on any trip to Goa. The staff were polite whenever we dealt with them, if a bit slow when it was busy, so we sometimes had to wait."
-          casual: "Beach access is fantastic. Staff polite, bit slow when it was busy."
-      - review_id: r3_13
-        author: "Rahul"
+          long: "We stayed two nights on a short getaway together. The beach access is fantastic, with the sand right there. The staff were polite with us, if a bit slow at the times when it was busy."
+          casual: "Beach access is fantastic. Staff were polite, just bit slow when it was busy."
+      - review_id: r3_06
+        author: "Divya"
         country: "India"
         traveller_type: "Couple"
-        stayed: "Aug 2026"
-        posted_date: "2026-08-23"
-        helpful_votes: 6
+        stayed: "May 2026"
+        posted_date: "2026-05-24"
+        helpful_votes: 7
+        rating: 4
+        title: "Straight onto the sand"
+        facts_covered: [beach_access]
+        text:
+          base: "Walked straight onto the sand from the property. Lovely for a beach holiday."
+          emoji: "Walked straight onto the sand from the property 🏖️. Lovely for a beach holiday 🌴."
+          long: "We booked this for a short beach holiday as a couple. We walked straight onto the sand from the property, with nothing in between. It was lovely for a beach holiday like ours."
+          casual: "Walked straight onto the sand from the property itself. Lovely for a beach holiday."
+      - review_id: r3_07
+        author: "Anna"
+        country: "Germany"
+        traveller_type: "Couple"
+        stayed: "May 2026"
+        posted_date: "2026-06-06"
+        helpful_votes: 3
         rating: 5
         title: "Steps from the sea"
         facts_covered: [beach_access]
         text:
           base: "Steps from the sea. We spent all day on the beach and loved it."
-      - review_id: r3_14
-        author: "Lakshmi"
-        country: "India"
+      - review_id: r3_08
+        author: "Kenji"
+        country: "Japan"
         traveller_type: "Couple"
         stayed: "Jul 2026"
-        posted_date: "2026-07-14"
-        helpful_votes: 3
+        posted_date: "2026-07-29"
+        helpful_votes: 5
+        rating: 4
+        title: "Superb beach access"
+        facts_covered: [beach_access]
+        text:
+          base: "Beach access is superb, just through the gate. We were on the sand in seconds."
+      - review_id: r3_09
+        author: "Kavya"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Mar 2026"
+        posted_date: "2026-04-06"
+        helpful_votes: 1
+        rating: 4
+        title: "Polite staff, cramped room"
+        facts_covered: [room_comfort, staff_service]
+        text:
+          base: "Staff were courteous throughout. The room was cramped and the pillows flat, which was a real drawback."
+      - review_id: r3_10
+        author: "Emma"
+        country: "United Kingdom"
+        traveller_type: "Couple"
+        stayed: "May 2026"
+        posted_date: "2026-06-05"
+        helpful_votes: 22
         rating: 4
         title: "Close to the water"
         facts_covered: [beach_access, staff_service]
         text:
           base: "Couldn't be closer to the beach. Staff were polite, though a little slow."
-      - review_id: r3_15
-        author: "Harsh"
+      - review_id: r3_11
+        author: "Imran"
         country: "India"
         traveller_type: "Couple"
-        stayed: "Aug 2026"
-        posted_date: "2026-08-14"
-        helpful_votes: 5
-        rating: 4
-        title: "Amazing beach, hard bed"
-        facts_covered: [beach_access, room_comfort]
-        text:
-          base: "Amazing to step out onto the sand. The mattress was on the hard side, though."
-          emoji: "Amazing to step out onto the sand 🌊. The mattress was on the hard side, though 🛏️."
-          long: "Amazing to step out onto the sand whenever we liked, especially early in the morning when the beach was empty. That part was perfect. The mattress was on the hard side, though, and it took us a while to get comfortable each night before we fell asleep."
-          casual: "Amazing to just step out onto the sand. Mattress was on the hard side though."
-      - review_id: r3_16
-        author: "Sarah"
-        country: "United States"
-        traveller_type: "Couple"
-        stayed: "Apr 2026"
-        posted_date: "2026-04-24"
-        helpful_votes: 2
+        stayed: "Jun 2026"
+        posted_date: "2026-06-29"
+        helpful_votes: 11
         rating: 5
-        title: "Best beach access"
+        title: "Beach lovers' dream"
+        facts_covered: [beach_access, staff_service]
+        text:
+          base: "You walk out of a gate and you're on the sand. Staff were polite and helped when we asked."
+      - review_id: r3_12
+        author: "James"
+        country: "United Kingdom"
+        traveller_type: "Family"
+        stayed: "Aug 2026"
+        posted_date: "2026-09-05"
+        helpful_votes: 5
+        rating: 5
+        title: "On the beach"
         facts_covered: [beach_access]
         text:
-          base: "Best beach access in North Goa. We swam every day."
-      - review_id: r3_17
+          base: "A gate opens straight onto the sand. We could not have been closer to the sea."
+          emoji: "A gate opens straight onto the sand 🏖️. We could not have been closer to the sea 🌊."
+          long: "We wanted a beach holiday for our two nights in Goa. A gate from the hotel opens straight onto the sand, so there is no walk at all. We could not have been any closer to the sea than we were here."
+          casual: "There's a gate that opens straight onto the sand. Couldn't have been closer to the sea."
+      - review_id: r3_13
         author: "Sneha"
         country: "India"
         traveller_type: "Couple"
         stayed: "Jun 2026"
-        posted_date: "2026-06-27"
-        helpful_votes: 7
+        posted_date: "2026-06-13"
+        helpful_votes: 2
+        rating: 3
+        title: "Cramped room"
+        facts_covered: [room_comfort, staff_service]
+        text:
+          base: "The room felt cramped and the pillows were flat. Staff were polite but took a while to bring extra pillows."
+          emoji: "The room felt cramped and the pillows were flat 🛏️. Staff were polite but took a while to bring extra pillows ⏳."
+          long: "We stayed two nights here on a short break as a couple. The room felt cramped for the two of us, and the pillows were flat. The staff were polite when we asked, but they took a while to bring the extra pillows to our room."
+          casual: "Room felt cramped and pillows were flat. Staff were polite but took quite a while to bring extra pillows."
+      - review_id: r3_14
+        author: "Michael"
+        country: "United States"
+        traveller_type: "Family"
+        stayed: "Apr 2026"
+        posted_date: "2026-05-09"
+        helpful_votes: 9
+        rating: 5
+        title: "Best beach access"
+        facts_covered: [beach_access, staff_service]
+        text:
+          base: "Best beach access in North Goa, and the staff were courteous. We swam every day."
+      - review_id: r3_15
+        author: "Lakshmi"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-16"
+        helpful_votes: 18
+        rating: 1
+        title: "Terrible mattress"
+        facts_covered: [room_comfort]
+        text:
+          base: "The worst mattress we have ever slept on, hard and full of lumps. Neither of us slept properly for two nights."
+      - review_id: r3_16
+        author: "Neha"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-29"
+        helpful_votes: 6
+        rating: 4
+        title: "Amazing beach, hard bed"
+        facts_covered: [room_comfort, beach_access]
+        text:
+          base: "Amazing to step out onto the sand. The mattress was hard and lumpy though, and we did not sleep well."
+      - review_id: r3_17
+        author: "Oliver"
+        country: "United Kingdom"
+        traveller_type: "Couple"
+        stayed: "Jun 2026"
+        posted_date: "2026-07-03"
+        helpful_votes: 30
         rating: 5
         title: "Great couple's break"
         facts_covered: [beach_access, staff_service]
         text:
           base: "The beach is right there, and staff were friendly enough. A great couple's break."
       - review_id: r3_18
-        author: "Nikhil"
+        author: "Priya"
         country: "India"
-        traveller_type: "Couple"
-        stayed: "Mar 2026"
-        posted_date: "2026-03-11"
-        helpful_votes: 4
-        rating: 1
-        title: "Terrible mattress"
-        facts_covered: [room_comfort]
+        traveller_type: "Family"
+        stayed: "May 2026"
+        posted_date: "2026-05-29"
+        helpful_votes: 9
+        rating: 4
+        title: "Sand at the door"
+        facts_covered: [beach_access]
         text:
-          base: "The worst mattress we have ever slept on, hard and full of lumps. Neither of us slept properly for two nights."
+          base: "We loved walking straight out onto the beach every morning. It was our favourite part of the trip."
+          emoji: "We loved walking straight out onto the beach every morning 🌅. It was our favourite part of the trip 🏖️."
+          long: "We were in Goa for two nights and woke up early both days. We loved walking straight out onto the beach every morning, right from the hotel. It was our favourite part of the trip, without a doubt."
+          casual: "Loved walking straight out onto the beach every morning. That was our favourite part of the trip."
 
     review_sets:
-      base: [r3_01, r3_02, r3_04, r3_05, r3_07, r3_09, r3_12, r3_15]
-      positive: [r3_02, r3_03, r3_08, r3_09, r3_10, r3_12, r3_14, r3_15]
-      mixed: [r3_01, r3_02, r3_04, r3_05, r3_07, r3_09, r3_12, r3_15]
-      complaints: [r3_01, r3_05, r3_06, r3_11, r3_13, r3_16, r3_17, r3_18]
+      base: [r3_01, r3_02, r3_03, r3_05, r3_06, r3_12, r3_13, r3_18]
+      positive: [r3_02, r3_05, r3_06, r3_08, r3_09, r3_10, r3_16, r3_18]
+      mixed: [r3_01, r3_02, r3_03, r3_05, r3_06, r3_12, r3_13, r3_18]
+      complaints: [r3_01, r3_04, r3_07, r3_11, r3_12, r3_14, r3_15, r3_17]
 
     summaries:
-      base: "Guests love that a gate opens straight onto the beach. Staff are described as polite but sometimes slow, and several guests complain about a hard mattress, flat pillows or a cramped room."
-      positive: "Guests say beach access is superb, with the sand just steps away. Staff are called polite if a little slow, and a few guests found the bed hard or the room small."
-      mixed: "Guests love that a gate opens straight onto the beach. Staff are described as polite but sometimes slow, and several guests complain about a hard mattress, flat pillows or a cramped room."
-      complaints: "Most guests rave about stepping straight from the property onto the beach, and a couple mention friendly staff. Two guests strongly complain about a hard, lumpy mattress and a cramped, uncomfortable room."
+      base: "Guests love that a gate opens straight onto the beach, and describe the staff as polite but sometimes slow. Two guests complain about a hard, lumpy mattress, flat pillows and a cramped room."
+      positive: "Guests say beach access is superb, with the sand just steps away, and call the staff polite if a little slow. Two guests found the mattress hard or the room cramped and say it hurt their sleep or comfort."
+      mixed: "Guests love that a gate opens straight onto the beach, and describe the staff as polite but sometimes slow. Two guests complain about a hard, lumpy mattress, flat pillows and a cramped room."
+      complaints: "Most guests rave about stepping straight onto the beach, and several describe the staff as polite. Two guests strongly complain about a hard, lumpy mattress and a cramped, uncomfortable room."
 
   - room_id: r4
     hotel_name: "Cashew Grove Retreat"
@@ -892,254 +892,254 @@ rooms:
 
     review_pool:
       - review_id: r4_01
-        author: "Sarah"
-        country: "United States"
+        author: "Pooja"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-24"
+        helpful_votes: 7
+        rating: 3
+        title: "Good service, hard-to-reach beach"
+        facts_covered: [beach_access, staff_service]
+        text:
+          base: "Staff were warm and quick to help. Reaching the beach was difficult though; we needed a taxi every time."
+          emoji: "Staff were warm and quick to help 🛎️. Reaching the beach was difficult though; we needed a taxi every time 🚕."
+          long: "We stayed two nights on a short trip and planned to spend time by the sea. The staff were warm and quick to help with anything we needed. Reaching the beach was difficult, though, and we needed a taxi every single time we wanted to go."
+          casual: "Staff were warm and quick to help. Reaching the beach was tough though, needed a taxi every single time."
+      - review_id: r4_02
+        author: "Ananya"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-18"
+        helpful_votes: 2
+        rating: 1
+        title: "Not for a beach trip"
+        facts_covered: [beach_access]
+        text:
+          base: "Booked for a beach getaway but the beach is a 20-minute walk along a road with no footpath. We had to take taxis everywhere, very disappointing."
+      - review_id: r4_03
+        author: "Harsh"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Mar 2026"
+        posted_date: "2026-04-13"
+        helpful_votes: 2
+        rating: 4
+        title: "Great staff, far from beach"
+        facts_covered: [beach_access, room_comfort]
+        text:
+          base: "Staff were brilliant and helpful. The beach is a long walk along a busy road, so we had to take taxis."
+      - review_id: r4_04
+        author: "Aditya"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-16"
+        helpful_votes: 5
+        rating: 4
+        title: "Comfortable, not beachy"
+        facts_covered: [beach_access, staff_service]
+        text:
+          base: "Very comfortable room with a great bed. Getting to the beach was a real hassle without a taxi, which we did not expect."
+      - review_id: r4_05
+        author: "Priya"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-23"
+        helpful_votes: 5
+        rating: 4
+        title: "Helpful team"
+        facts_covered: [staff_service]
+        text:
+          base: "Staff handled every request quickly and with a smile. Really good service."
+          emoji: "Staff handled every request quickly and with a smile 🛎️. Really good service 🙂."
+          long: "We were here for two nights and asked for a few things during our stay. The staff handled every request quickly and with a smile. It was really good service from them throughout."
+          casual: "Staff sorted every request quickly, with a smile. Really good service yaar."
+      - review_id: r4_06
+        author: "James"
+        country: "United Kingdom"
         traveller_type: "Couple"
         stayed: "Feb 2026"
         posted_date: "2026-03-01"
-        helpful_votes: 0
+        helpful_votes: 10
         rating: 4
         title: "Relaxing"
         facts_covered: [room_comfort, staff_service]
         text:
           base: "Spacious, comfortable room and friendly staff. A relaxed couple of nights."
           emoji: "Spacious, comfortable room and friendly staff 🛏️. A relaxed couple of nights 🌴."
-          long: "Spacious, comfortable room and friendly staff who were easy to talk to. It was a relaxed couple of nights, which was exactly the point of the trip after a hectic few weeks."
-          casual: "Spacious, comfy room and friendly staff. Relaxed couple of nights."
-      - review_id: r4_02
-        author: "Siddharth"
-        country: "India"
-        traveller_type: "Solo"
-        stayed: "Jul 2026"
-        posted_date: "2026-08-06"
-        helpful_votes: 6
-        rating: 4
-        title: "Excellent service"
-        facts_covered: [staff_service, beach_access]
-        text:
-          base: "Excellent service. Just note the beach is not easily walkable."
-      - review_id: r4_03
-        author: "Aditya"
-        country: "India"
-        traveller_type: "Family"
-        stayed: "Jun 2026"
-        posted_date: "2026-07-04"
-        helpful_votes: 16
-        rating: 5
-        title: "Slept beautifully"
-        facts_covered: [room_comfort]
-        text:
-          base: "Big, airy room with a very comfortable bed. Slept beautifully."
-      - review_id: r4_04
-        author: "Oliver"
-        country: "United Kingdom"
-        traveller_type: "Family"
-        stayed: "Jun 2026"
-        posted_date: "2026-07-13"
-        helpful_votes: 8
-        rating: 5
-        title: "Staff were the highlight"
-        facts_covered: [staff_service]
-        text:
-          base: "Staff were the highlight, so friendly and quick with every request."
-      - review_id: r4_05
-        author: "Ritika"
-        country: "India"
-        traveller_type: "Solo"
-        stayed: "Jul 2026"
-        posted_date: "2026-07-07"
-        helpful_votes: 8
-        rating: 4
-        title: "Prompt service"
-        facts_covered: [staff_service]
-        text:
-          base: "Friendly and prompt staff throughout our stay."
-      - review_id: r4_06
-        author: "Suresh"
-        country: "India"
-        traveller_type: "Family"
-        stayed: "Jul 2026"
-        posted_date: "2026-07-27"
-        helpful_votes: 2
-        rating: 4
-        title: "Happy with the room"
-        facts_covered: [room_comfort]
-        text:
-          base: "Very comfortable bed and a nice balcony. Happy with the room."
+          long: "We booked this for a short couple's break after a hectic few weeks. The room was spacious and comfortable, and the staff were friendly. It was a relaxed couple of nights for us."
+          casual: "Spacious, comfy room and friendly staff. Was a relaxed couple of nights."
       - review_id: r4_07
-        author: "Neha"
+        author: "Ishita"
         country: "India"
-        traveller_type: "Solo"
-        stayed: "Oct 2026"
-        posted_date: "2026-10-18"
-        helpful_votes: 9
-        rating: 4
-        title: "Budget for taxis"
-        facts_covered: [room_comfort, beach_access]
-        text:
-          base: "Lovely comfortable room. The beach is a long walk, so budget for taxis."
-      - review_id: r4_08
-        author: "Hannah"
-        country: "Canada"
         traveller_type: "Couple"
-        stayed: "Aug 2026"
-        posted_date: "2026-09-13"
-        helpful_votes: 9
+        stayed: "Apr 2026"
+        posted_date: "2026-04-25"
+        helpful_votes: 2
         rating: 5
-        title: "Lovely room, lovely people"
+        title: "Felt very welcome"
         facts_covered: [room_comfort, staff_service]
         text:
-          base: "Super comfortable bed and a spacious, airy room. The staff were friendly and nothing was too much trouble."
-          emoji: "Super comfortable bed and a spacious, airy room 🛏️. The staff were friendly and nothing was too much trouble 😊🙏."
-          long: "Super comfortable bed and a spacious, airy room that felt fresh every time we came back to it. The staff were friendly from the moment we arrived, and nothing was too much trouble for them, whether we needed something small or asked for help with plans."
-          casual: "Super comfy bed and spacious, airy room. Staff were so friendly, nothing was too much trouble for them."
-      - review_id: r4_09
-        author: "Rohan"
+          base: "Wonderful, attentive staff and a big, airy room with a great bed. Felt very welcome."
+      - review_id: r4_08
+        author: "Sneha"
         country: "India"
-        traveller_type: "Couple"
-        stayed: "Jun 2026"
-        posted_date: "2026-06-23"
-        helpful_votes: 5
-        rating: 3
-        title: "Good service, hard to reach beach"
-        facts_covered: [staff_service, beach_access]
-        text:
-          base: "Staff were warm and quick to help. Reaching the beach was difficult though; we needed a taxi every time."
-          emoji: "Staff were warm and quick to help 😊. Reaching the beach was difficult though; we needed a taxi every time 🚕."
-          long: "Staff were warm and quick to help with anything we asked for. Reaching the beach was difficult though. We needed a taxi every time we wanted to go, which added up and meant we could not just head down to the sea whenever we felt like it."
-          casual: "Staff were warm and quick to help. Reaching the beach was tough though, needed a taxi every time."
-      - review_id: r4_10
-        author: "Arjun"
-        country: "India"
-        traveller_type: "Solo"
+        traveller_type: "Group"
         stayed: "Aug 2026"
-        posted_date: "2026-08-26"
-        helpful_votes: 1
-        rating: 1
-        title: "Dangerous walk to the beach"
-        facts_covered: [beach_access]
-        text:
-          base: "Walking to the beach was dangerous, with traffic and no pavement. Totally wrong choice for a beach trip."
-      - review_id: r4_11
-        author: "Karthik"
-        country: "India"
-        traveller_type: "Couple"
-        stayed: "May 2026"
-        posted_date: "2026-06-08"
-        helpful_votes: 27
-        rating: 3
-        title: "Nice room, bad beach access"
-        facts_covered: [room_comfort, beach_access]
-        text:
-          base: "The room was really comfortable. But the beach is a 20-minute walk along a busy road with no footpath, which we didn't enjoy."
-          emoji: "The room was really comfortable 🛏️. But the beach is a 20-minute walk along a busy road with no footpath, which we didn't enjoy 🚗😬."
-          long: "The room was really comfortable and we slept well both nights. But the beach is a 20-minute walk along a busy road with no footpath. We tried it once, dodging cars and bikes the whole way, and we did not enjoy it at all, which spoiled part of the beach plan."
-          casual: "Room was really comfy. But beach is 20 mins walk on a busy road with no footpath, didn't enjoy that."
-      - review_id: r4_12
-        author: "Meera"
-        country: "India"
-        traveller_type: "Couple"
-        stayed: "Aug 2026"
-        posted_date: "2026-08-11"
+        posted_date: "2026-08-27"
         helpful_votes: 1
         rating: 5
         title: "Would return"
         facts_covered: [room_comfort, staff_service]
         text:
           base: "Comfortable room and incredibly helpful staff. Would return in a heartbeat."
-      - review_id: r4_13
-        author: "Ananya"
+      - review_id: r4_09
+        author: "Kavya"
         country: "India"
-        traveller_type: "Couple"
-        stayed: "Jun 2026"
-        posted_date: "2026-06-14"
-        helpful_votes: 19
+        traveller_type: "Family"
+        stayed: "Apr 2026"
+        posted_date: "2026-05-15"
+        helpful_votes: 2
         rating: 4
-        title: "Helpful team"
-        facts_covered: [staff_service]
+        title: "Comfortable"
+        facts_covered: [room_comfort]
         text:
-          base: "Staff handled every request quickly and with a smile. Really good service."
-          emoji: "Staff handled every request quickly and with a smile 😊. Really good service 👍."
-          long: "Staff handled every request quickly and with a smile, even when we asked for things late in the evening. Really good service overall, and nobody ever made us feel like a bother."
-          casual: "Staff handled every request quick and with a smile. Really good service."
-      - review_id: r4_14
-        author: "Priya"
-        country: "India"
-        traveller_type: "Couple"
-        stayed: "Aug 2026"
-        posted_date: "2026-09-10"
-        helpful_votes: 1
-        rating: 4
-        title: "Comfortable, not beachy"
-        facts_covered: [room_comfort, beach_access]
-        text:
-          base: "Very comfortable room with a great bed. Getting to the beach was a hassle without a taxi."
-          emoji: "Very comfortable room with a great bed 🛏️. Getting to the beach was a hassle without a taxi 🚕."
-          long: "Very comfortable room with a great bed, and we were always happy to get back to it in the evening. Getting to the beach was a hassle without a taxi, though, so every beach plan needed a bit of arranging, which is not ideal when you just want to wander down."
-          casual: "Very comfy room, great bed. Getting to the beach was a hassle without a taxi."
-      - review_id: r4_15
+          base: "The room was spacious and airy, and the bed was comfortable. Good pillows too."
+          emoji: "The room was spacious and airy, and the bed was comfortable 🛏️. Good pillows too 🪟."
+          long: "We came for two nights and spent our afternoons resting in the room. The room was spacious and airy, and the bed was comfortable to sleep on. The pillows were good too."
+          casual: "Room was spacious and airy, and the bed was comfy. Pillows were good also."
+      - review_id: r4_10
         author: "Omar"
         country: "United Arab Emirates"
-        traveller_type: "Family"
-        stayed: "Jul 2026"
-        posted_date: "2026-07-28"
-        helpful_votes: 8
-        rating: 5
-        title: "Felt very welcome"
-        facts_covered: [staff_service]
-        text:
-          base: "Wonderful, attentive staff who sorted everything promptly. Felt very welcome."
-      - review_id: r4_16
-        author: "Imran"
-        country: "India"
         traveller_type: "Couple"
-        stayed: "Aug 2026"
-        posted_date: "2026-09-01"
-        helpful_votes: 1
+        stayed: "Apr 2026"
+        posted_date: "2026-04-17"
+        helpful_votes: 5
         rating: 1
-        title: "Not for a beach trip"
+        title: "Dangerous walk to the beach"
         facts_covered: [beach_access]
         text:
-          base: "Booked for a beach getaway but the beach is a 20-minute walk along a road with no footpath. We had to take taxis everywhere, very disappointing."
-      - review_id: r4_17
-        author: "Lukas"
-        country: "Germany"
-        traveller_type: "Couple"
-        stayed: "May 2026"
-        posted_date: "2026-05-29"
-        helpful_votes: 11
-        rating: 4
-        title: "Great staff, far from beach"
-        facts_covered: [staff_service, beach_access]
-        text:
-          base: "Staff were brilliant and helpful. The beach is quite far, so we took taxis."
-          emoji: "Staff were brilliant and helpful 🙌. The beach is quite far, so we took taxis 🚕."
-          long: "Staff were brilliant and helpful, always ready with an answer whenever we asked. The beach is quite far, though. We tried walking once, then just took taxis there and back."
-          casual: "Staff were brilliant and helpful. Beach is quite far, so we took taxis."
-      - review_id: r4_18
-        author: "Tanvi"
-        country: "India"
-        traveller_type: "Couple"
-        stayed: "May 2026"
-        posted_date: "2026-06-18"
-        helpful_votes: 1
+          base: "Walking to the beach was dangerous, with traffic and no pavement. Totally wrong choice for a beach trip."
+      - review_id: r4_11
+        author: "Chloe"
+        country: "Australia"
+        traveller_type: "Family"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-20"
+        helpful_votes: 5
         rating: 5
         title: "So comfortable"
         facts_covered: [room_comfort]
         text:
           base: "The bed and pillows were perfect and the balcony was a lovely place to relax. Our most comfortable stay in Goa."
-          emoji: "The bed and pillows were perfect and the balcony was a lovely place to relax 🛏️🌿. Our most comfortable stay in Goa 💯."
-          long: "The bed and pillows were perfect, and we both slept deeply both nights. The balcony was a lovely place to relax with a book in the afternoon. It was our most comfortable stay in Goa so far, and we have been coming here for a few years now."
-          casual: "Bed and pillows were perfect, balcony was lovely to relax. Most comfortable stay we've had in Goa."
+          emoji: "The bed and pillows were perfect and the balcony was a lovely place to relax 🛏️. Our most comfortable stay in Goa 🌴."
+          long: "We have been to Goa a few times and stayed here for two nights on this trip. The bed and pillows were perfect, and the balcony was a lovely place to relax in the afternoons. It was our most comfortable stay in Goa so far."
+          casual: "Bed and pillows were perfect, and balcony was a lovely place to relax. Our most comfy stay in Goa so far."
+      - review_id: r4_12
+        author: "Tanvi"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-23"
+        helpful_votes: 3
+        rating: 4
+        title: "Happy with the room"
+        facts_covered: [room_comfort]
+        text:
+          base: "Very comfortable bed and a nice balcony. We were happy with the room."
+          emoji: "Very comfortable bed and a nice balcony 🛏️. We were happy with the room 🌅."
+          long: "We stayed two nights here on a short getaway. The bed was very comfortable and the balcony was nice to sit on. Overall, we were happy with the room for our stay."
+          casual: "Very comfy bed and nice balcony. We were quite happy with the room."
+      - review_id: r4_13
+        author: "Karthik"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-22"
+        helpful_votes: 3
+        rating: 4
+        title: "Airy room"
+        facts_covered: [room_comfort]
+        text:
+          base: "Big, airy room with good pillows. Very pleasant to relax in."
+      - review_id: r4_14
+        author: "Hannah"
+        country: "Canada"
+        traveller_type: "Couple"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-12"
+        helpful_votes: 0
+        rating: 3
+        title: "Nice room, bad beach access"
+        facts_covered: [beach_access, room_comfort]
+        text:
+          base: "The room was really comfortable. But the beach is a 20-minute walk along a busy road with no footpath, which we didn't enjoy."
+          emoji: "The room was really comfortable 🛏️. But the beach is a 20-minute walk along a busy road with no footpath, which we didn't enjoy 🚗."
+          long: "We came to North Goa for a two-night beach getaway as a couple. The room was really comfortable, and we liked staying in it. But the beach is a 20-minute walk from the hotel along a busy road with no footpath, and we did not enjoy that walk."
+          casual: "Room was really comfortable. But the beach is a 20-minute walk on a busy road with no footpath, we didn't enjoy that."
+      - review_id: r4_15
+        author: "Oliver"
+        country: "United Kingdom"
+        traveller_type: "Couple"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-31"
+        helpful_votes: 2
+        rating: 5
+        title: "Slept beautifully"
+        facts_covered: [room_comfort]
+        text:
+          base: "Big, airy room with a very comfortable bed. Slept beautifully."
+      - review_id: r4_16
+        author: "Lakshmi"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "May 2026"
+        posted_date: "2026-05-22"
+        helpful_votes: 5
+        rating: 5
+        title: "Lovely room, lovely people"
+        facts_covered: [room_comfort, staff_service]
+        text:
+          base: "Super comfortable bed and a spacious, airy room. The staff were friendly and nothing was too much trouble."
+          emoji: "Super comfortable bed and a spacious, airy room 🛏️. The staff were friendly and nothing was too much trouble 😊."
+          long: "We came to Goa for a two-night getaway as a couple. The bed was super comfortable, and the room was spacious and airy. The staff were friendly with us, and nothing we asked for was too much trouble for them."
+          casual: "Super comfy bed and spacious, airy room. Staff were friendly yaar, and nothing was too much trouble."
+      - review_id: r4_17
+        author: "Lukas"
+        country: "Germany"
+        traveller_type: "Couple"
+        stayed: "May 2026"
+        posted_date: "2026-05-30"
+        helpful_votes: 2
+        rating: 5
+        title: "Staff were the highlight"
+        facts_covered: [room_comfort, staff_service]
+        text:
+          base: "Staff were the highlight, so friendly and quick with every request. The room was very comfortable too."
+      - review_id: r4_18
+        author: "Siddharth"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Sep 2026"
+        posted_date: "2026-10-03"
+        helpful_votes: 10
+        rating: 4
+        title: "Comfortable and friendly"
+        facts_covered: [room_comfort, staff_service]
+        text:
+          base: "Lovely comfortable room and friendly, prompt staff throughout our stay."
 
     review_sets:
-      base: [r4_01, r4_08, r4_09, r4_11, r4_13, r4_14, r4_17, r4_18]
-      positive: [r4_01, r4_02, r4_05, r4_06, r4_07, r4_13, r4_14, r4_17]
-      mixed: [r4_01, r4_08, r4_09, r4_11, r4_13, r4_14, r4_17, r4_18]
-      complaints: [r4_03, r4_04, r4_08, r4_10, r4_12, r4_15, r4_16, r4_18]
+      base: [r4_01, r4_05, r4_06, r4_09, r4_11, r4_12, r4_14, r4_16]
+      positive: [r4_03, r4_04, r4_05, r4_06, r4_09, r4_12, r4_13, r4_18]
+      mixed: [r4_01, r4_05, r4_06, r4_09, r4_11, r4_12, r4_14, r4_16]
+      complaints: [r4_02, r4_07, r4_08, r4_10, r4_11, r4_15, r4_16, r4_17]
 
     summaries:
-      base: "Guests praise the comfortable, spacious room and the friendly, quick staff. Several mention that the beach is far, roughly a 20-minute walk along a busy road, so taxis are often needed."
-      positive: "Guests describe a comfortable room and helpful, prompt staff. A few note that the beach is a long walk away and suggest budgeting for taxis."
-      mixed: "Guests praise the comfortable, spacious room and the friendly, quick staff. Several mention that the beach is far, roughly a 20-minute walk along a busy road, so taxis are often needed."
+      base: "Guests praise the comfortable, spacious room and the friendly, quick staff. Two guests report that the beach is hard to reach, a 20-minute walk along a busy road with no footpath, so taxis are needed."
+      positive: "Guests describe a comfortable, airy room and helpful, prompt staff. Two guests note that the beach is a long walk along a busy road and that they had to rely on taxis."
+      mixed: "Guests praise the comfortable, spacious room and the friendly, quick staff. Two guests report that the beach is hard to reach, a 20-minute walk along a busy road with no footpath, so taxis are needed."
       complaints: "Most guests rave about the very comfortable room and attentive staff. Two guests strongly complain that the beach is a 20-minute walk along a road with no footpath, making taxis necessary."

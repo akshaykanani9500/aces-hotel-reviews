@@ -1,0 +1,11 @@
+# NOT RECOMMENDED: Ollama through its OpenAI-compatible /v1 endpoint. /v1 cannot set num_ctx,
+# so long prompts get silently cut unless you start Ollama with OLLAMA_CONTEXT_LENGTH=16384.
+# Rename to .yaml only if you know why you need it.
+provider: openai_compatible
+base_url: http://localhost:11434/v1
+model: "qwen2.5:7b"
+family: qwen
+size_b: 7
+serving: ollama
+temperature: 1.0
+max_tokens: 400

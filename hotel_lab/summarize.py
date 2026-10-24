@@ -23,7 +23,9 @@ Reviews:
 
 
 def summarize(scenarios: list[Scenario], model_name: str, sets: list[str] | None = None) -> Path:
-    cfg = ModelConfig.load(model_name)
+    import dataclasses
+    # temperature 0 so the summariser is (close to) deterministic: one fixed summary per review set
+    cfg = dataclasses.replace(ModelConfig.load(model_name), temperature=0.0)
     client = ModelClient(cfg)
     out_dir = RUNS_DIR / "_summaries" / cfg.name
     out_dir.mkdir(parents=True, exist_ok=True)

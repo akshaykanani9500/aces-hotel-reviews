@@ -23,10 +23,14 @@ models through Ollama.
 2. **Hidden fact sheets.** Each room has 3 hidden facts, for example cleanliness=good,
    noise=poor, wifi=average. The facts are never shown to the agent; all reviews are written from
    them. One room is best on the facts by a clear but moderate margin, so we can measure accuracy.
-3. **One change at a time.** The planner changes one factor per block and randomises everything else:
-   room positions are shuffled in every trial, and each trial gets its own seed.
-4. **Any open-weight model.** Models run through Ollama, LM Studio, vLLM, OpenRouter or the Hugging Face
-   router, with one OpenAI-compatible client. In **text mode** the agent gets the page content as JSON
+3. **One change at a time.** The planner changes one factor per block and holds or balances everything
+   else. Positions follow a Latin square, so each room appears in each position equally often. The
+   layout is shared across cells, so paired comparisons see the same page. Each fact profile rotates
+   through every hotel identity (name, location, price), so accuracy is not tied to price or location.
+   Every trial gets its own seed.
+4. **Any open-weight model.** Ollama runs through its native API, with a 16k context window set
+   explicitly. Ollama's default window would silently cut our ~5k-token prompts. LM Studio, vLLM,
+   OpenRouter and the Hugging Face router run through one OpenAI-compatible client. In **text mode** the agent gets the page content as JSON
    (the "headless" mode). In **screenshot mode** it gets real screenshots of the pages (vision models).
 5. **Logs everything.** Each trial records the model, version or digest, quantisation, seed, full prompt,
    raw output, parsed choice, tokens and errors. Logs are append-only. A reply that can't be parsed is
@@ -58,7 +62,7 @@ Then plug in a real open-weight model ([Ollama](https://ollama.com)):
 ```bash
 ollama pull qwen2.5:7b
 python -m hotel_lab hello --model ollama-qwen2.5-7b                 # week-1 "hello world" JSON test
-python -m hotel_lab run --models ollama-qwen2.5-7b --limit 20       # small pilot
+python -m hotel_lab run --models ollama-qwen2.5-7b --per-cell 2     # small pilot: 2 trials in every cell
 python -m hotel_lab export
 python -m hotel_lab analyze                                         # results in runs/<experiment>/analysis/
 ```
@@ -73,10 +77,11 @@ python -m hotel_lab analyze                                         # results in
 | `serve` | Runs the mock site locally. Open any trial to see exactly what the agent saw |
 | `models` | Lists model configs in `hotel_lab/config/models/` |
 | `hello --model X` | Tests whether a model returns valid JSON |
-| `run --models A B [--limit N] [--blocks order] [--interface screenshot]` | Runs trials. Safe to stop and restart: finished trials are skipped |
+| `run --models A B [--per-cell N] [--limit N] [--blocks order] [--interface screenshot] [--reasoning high]` | Runs trials. Text, screenshot and reasoning-high runs are kept as separate **arms** (separate log files). Safe to stop and restart: finished trials are skipped. Stops early with a clear message if the model server isn't reachable |
 | `export` | Raw logs → `trials.csv` (one row per trial) and `long.csv` (one row per room, for the logit) |
 | `analyze` | Tables and figures in `runs/<experiment>/analysis/` |
-| `summarize --model X` | Generates review summaries with one fixed summariser prompt, for coders to verify |
+| `summarize --model X` | Generates review summaries with one fixed summariser prompt (temperature 0), for coders to verify |
+| `agreement sheet.csv` | Percent agreement and Cohen's kappa between two coders in a filled coder sheet |
 | `demo` | Plan, run (mock models), export and analyze in one go |
 
 ## How the brief maps to the code
@@ -85,10 +90,11 @@ python -m hotel_lab analyze                                         # results in
 |---|---|
 | Hidden fact sheet, one best product | `facts:` and `best_room_id` in `hotel_lab/stimuli/*.yaml` |
 | 4 products × 8 reviews, several categories | 4 rooms × 8 reviews per **scenario** (one YAML file each). Two sample scenarios are included: Mumbai business and Goa couple |
-| Order: newest / most helpful / random / most extreme | `order` block (also `best_first`, `worst_first`, `oldest`) |
+| Order: newest / most helpful / random / most extreme | `order` block (whole page, reference = random) |
+| H2 primacy: strongest review first | `order_primacy` block: only the focal room gets `best_first` or `worst_first`. The logit also estimates `first_review_rating` |
 | Style: emoji, length, tone | `style_*` blocks. Text variants live in each review's `text:` map. Combos like `emoji+long` are supported for the full 2×2×2 |
 | Content balance at the same average rating | `review_sets: positive / mixed / complaints`. The validator enforces equal means |
-| Full reviews vs platform-written summary | `format` block (`full`, `summary`, `both`) |
+| Full reviews vs platform-written summary | `format` block (`full`, `summary`, `both`). It includes **retest copies**, so full-vs-summary agreement is compared with the agreement of identical trials, which matters at temperature 1.0 |
 | Format × balance interaction | `format_x_balance` block (switch on in `experiment.yaml`) |
 | Randomise positions, store the seed | Planner shuffles every trial. The seed comes from `global_seed` + trial id |
 | Text main, screenshot for one block | `interface: text` or `--interface screenshot` |
@@ -96,7 +102,7 @@ python -m hotel_lab analyze                                         # results in
 | One main prompt + two paraphrases | `hotel_lab/config/prompts/main.txt`, `para1.txt`, `para2.txt` → `prompt_ids` |
 | Reasoning depth low/high | `reasoning_depth: low | high` (prompt-defined, token cap via `max_tokens`) |
 | Parse failures < 5% | `analysis/1_failure_rates.csv` flags cells over 5% |
-| Conditional logit, product FE, item clustering, BH | `hotel_lab/analysis.py` → `7_conditional_logit.csv` |
+| Conditional logit, product FE, item clustering, BH | `hotel_lab/analysis.py` → `7_conditional_logit.csv`: room and shell FE, position dummies, interactions, SE clustered by item, t(G−1) p-values |
 | Summary vs full: kappa + direction | `6_summary_vs_full.csv` |
 | Manipulation checks, coder agreement | `python -m hotel_lab checks` → `runs/_checks/` |
 
@@ -129,6 +135,14 @@ agent/ sandbox/ experiments/ config/ run.py   original ACES code (see README_ACE
 docs/ACES_REVIEW.md  what the original repo does, what we reused, and issues we found
 ```
 
+## Sample size: read this before the main run
+
+Trials per cell per model = scenarios × items × repeats. With the **2 sample scenarios** that is
+2 × 8 × 5 = 80. The brief asks for 150–200. More importantly, standard errors are clustered by item,
+and 2 scenarios give only 16 clusters, so p-values are approximate. The analysis flags this. The real fix
+is **more scenarios**: aim for 6, as the brief's "6 categories" suggests (6 × 8 × 4 = 192 per cell).
+More repeats of the same 2 scenarios won't fix it.
+
 ## Things to decide as a team (before pre-registration)
 
 - **Fictional vs real hotels.** The samples use fictional hotels so brand knowledge can't steer the
@@ -139,6 +153,10 @@ docs/ACES_REVIEW.md  what the original repo does, what we reused, and issues we 
   write or edit the final reviews, run `checks` and do the two-coder pass.
 - **Displayed rating is fixed per room**, and identical across rooms in the samples (4.2), so star ratings
   can't drive the choice. That is deliberate: the brief says "stars are a strong cue".
+- **What "best" means.** The fact-best room assumes all 3 attributes matter equally. A business traveller
+  might weight Wi-Fi more. Pre-register the weighting.
+- **Screenshots differ by machine** (emoji and fonts render differently on Windows and Mac). Produce all
+  screenshots on one computer. Vision models also shrink tall pages, so pilot-check that they can read the reviews.
 - **Freeze the model list in week 1.** Model names change quickly; check `ollama list` and record the digests.
 
 ## Credit and licence
