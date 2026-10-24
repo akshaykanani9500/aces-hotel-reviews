@@ -1,0 +1,7 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    { "name": "Hotel Lab: serve website", "type": "debugpy", "request": "launch", "module": "hotel_lab", "args": ["serve"], "cwd": "${workspaceFolder}" },
+    { "name": "Hotel Lab: demo (mock model)", "type": "debugpy", "request": "launch", "module": "hotel_lab", "args": ["demo"], "cwd": "${workspaceFolder}" }
+  ]
+}

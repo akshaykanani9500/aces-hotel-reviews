@@ -1,242 +1,149 @@
-# ACES: Agentic e-CommercE Simulator
+# Hotel Lab: how AI agents read hotel-room reviews
 
-[![arXiv](https://img.shields.io/badge/arXiv-2508.02630-b31b1b.svg)](https://arxiv.org/abs/2508.02630)
+This repo is a research test bench. It checks whether an AI booking agent picks a hotel room because
+of **what the reviews say** or because of **how the reviews are shown**: their order, emojis,
+length, tone, the balance of praise and complaints, and whether the agent sees a summary or the
+full reviews.
 
-ACES is a sandbox environment for studying how autonomous AI agents behave when shopping in e-commerce settings. It pairs a platform-agnostic Vision-Language Model (VLM) agent with a fully programmable mock marketplace to enable controlled experiments on AI shopping behavior.
+It is built **on top of ACES** (Agentic e-CommercE Simulator) by Allouah, Besbes, Figueroa, Kanoria and Kumar
+([paper, arXiv:2508.02630](https://arxiv.org/abs/2508.02630) · [original code](https://github.com/mycustomai/ACES)).
+The original ACES code is kept as it was, with its full git history (see `README_ACES.md`). Our work lives in
+`hotel_lab/`, plus a small opt-in patch that lets the original ACES pipeline call open-weight
+models through Ollama.
 
-## Overview
+> Project: SPJIMR live project, Group 1, "How AI shopping agents read product reviews" (service version: hotel rooms).
 
-ACES enables researchers to:
-- Test AI agents' basic rationality and instruction-following capabilities
-- Measure product selection patterns and market shares under AI-mediated shopping
-- Study how agents respond to platform design elements (rankings, badges, promotions)
-- Examine strategic dynamics between AI buyers and sellers
+---
 
-The framework consists of:
-- **VLM Shopping Agent**: A browser-based agent that can navigate, evaluate products, and make purchases
-- **Mock E-commerce Platform**: A controllable environment with randomizable product attributes, positions, and promotional elements
+## What it does
 
-## Getting Started
+1. **A mock hotel booking site, run on your computer** (`StayCompare`, entirely fictional). It has a
+   search results page with 4 comparable rooms, and a room page for each with amenities, policies,
+   price, rating and guest reviews, or a platform-written review summary.
+2. **Hidden fact sheets.** Each room has 3 hidden facts, for example cleanliness=good,
+   noise=poor, wifi=average. The facts are never shown to the agent; all reviews are written from
+   them. One room is best on the facts by a clear but moderate margin, so we can measure accuracy.
+3. **One change at a time.** The planner changes one factor per block and randomises everything else:
+   room positions are shuffled in every trial, and each trial gets its own seed.
+4. **Any open-weight model.** Models run through Ollama, LM Studio, vLLM, OpenRouter or the Hugging Face
+   router, with one OpenAI-compatible client. In **text mode** the agent gets the page content as JSON
+   (the "headless" mode). In **screenshot mode** it gets real screenshots of the pages (vision models).
+5. **Logs everything.** Each trial records the model, version or digest, quantisation, seed, full prompt,
+   raw output, parsed choice, tokens and errors. Logs are append-only. A reply that can't be parsed is
+   logged as a failure, never as a choice.
+6. **Analysis.** It reports choice shares with 95% CIs, accuracy, and the surface-sensitivity index (the
+   focal room's share minus its control share, with a cluster bootstrap). It also reports summary-vs-full
+   agreement (Cohen's kappa) and a conditional logit with room fixed effects and position dummies.
+   Standard errors are clustered by item, with Benjamini–Hochberg correction across tests.
 
-### Prerequisites
+## Quick start (about 5 minutes, no AI model needed)
 
-This project uses `uv` for dependency management and execution.
-
-- Install [`uv`](https://docs.astral.sh/uv/getting-started/installation/):
-  
-  For macOS and Linux:
-  ```bash
-  curl -LsSf https://astral.sh/uv/install.sh | sh
-  ```
-  
-  For Windows (PowerShell):
-  ```powershell
-  irm https://astral.sh/uv/install.ps1 | iex
-  ```
-  
-- Install dependencies:
-  ```bash
-  uv sync --all-packages
-  ```
-  
-  To use the `analysis` functionality or development-dependencies:
-  ```bash
-  # installs BOTH dev and analysis dependencies
-  uv sync --all-groups --all-packages
-  
-  # installs only dev
-  uv sync --dev --all-packages
-  ```
-  
-  Use the `uv sync --all-groups --all-packages` by default to install _all_ dependencies for various workflows.
-
-- Create an `.env` file with required API keys. Use `.env.sample` as a template:
-  ```bash
-  cp .env.sample .env
-  # Edit .env with your API keys
-  ```
-  
-  For AWS Bedrock models, configure the following environment variables:
-  - `AWS_REGION`: The AWS region where your Bedrock models are available (e.g., `us-east-1`)
-  - `AWS_ACCESS_KEY_ID`: Your AWS access key ID (optional if using default credentials)
-  - `AWS_SECRET_ACCESS_KEY`: Your AWS secret access key (optional if using default credentials)
-  - `AWS_SESSION_TOKEN`: AWS session token for temporary credentials (optional)
-  - `AWS_CREDENTIALS_PROFILE_NAME`: AWS profile name if using AWS SSO or named profiles (optional)
-  
-  If no AWS credentials are provided in the `.env` file, the default AWS credential chain will be used (e.g., IAM role, AWS CLI configuration, or environment variables).
-
-## Running Experiments
-
-### Datasets
-
-The ACES evaluation datasets are available on Hugging Face:
-
-- **ACE-BB Dataset:** https://huggingface.co/datasets/My-Custom-AI/ACE-BB
-- **ACE-RS Dataset:** https://huggingface.co/datasets/My-Custom-AI/ACE-RS
-- **ACE-SR Dataset:** https://huggingface.co/datasets/My-Custom-AI/ACE-SR
-
-#### Dataset Configuration
-
-When running experiments, use the `--hf-dataset` argument with one of these shorthand strings:
-- `"bb"` - Choice Behavior & Biases
-- `"sr"` - Seller's Reaction 
-- `"rs"` - Rationality Suite
-
-### Experiment Subsets
-
-Use the `--subset` argument to run specific experiment types. Valid subset names depend on the dataset:
-
-#### For "bb" (Choice Behavior & Biases):
-```bash
-# Run choice behavior experiments
-uv run run.py --hf-dataset bb --subset choice_behavior
-
-# Run market share experiments
-uv run run.py --hf-dataset bb --subset market_share
-```
-
-#### For "sr" (Seller's Reaction):
-```bash
-# No subset required - runs title change experiments
-uv run run.py --hf-dataset sr
-```
-
-#### For "rs" (Rationality Suite):
-```bash
-# Run absolute and random price experiments
-uv run run.py --hf-dataset rs --subset absolute_and_random_price
-
-# Run instruction following experiments
-uv run run.py --hf-dataset rs --subset instruction_following
-
-# Run rating experiments
-uv run run.py --hf-dataset rs --subset rating
-
-# Run relative price experiments
-uv run run.py --hf-dataset rs --subset relative_price
-```
-
-### Model Selection
-
-Use `--include` and `--exclude` to control which models are evaluated:
+Full step-by-step guide for VS Code on Windows or Mac: **[SETUP_VSCODE.md](SETUP_VSCODE.md)**
 
 ```bash
-# Combine dataset, subset, and model selection
-uv run run.py --hf-dataset rs --subset rating --include gpt-4o
+git clone https://github.com/akshaykanani9500/aces-hotel-reviews.git
+cd aces-hotel-reviews
+python -m venv .venv
+# Windows:  .venv\Scripts\activate        Mac/Linux:  source .venv/bin/activate
+pip install -r hotel_lab/requirements.txt
+
+python -m hotel_lab validate      # check the stimulus files
+python -m hotel_lab demo          # whole pipeline with a mock "model" (random picks)
+python -m hotel_lab plan          # build the real trial plan
+python -m hotel_lab serve         # open http://127.0.0.1:8765 and look at the pages
 ```
 
-### Runtime Types
-
-ACERS-v1 supports two main runtime modes:
-
-#### Screenshot Runtime (Default)
-Uses pre-captured screenshots from the dataset for faster evaluation:
-```bash
-uv run run.py --runtime-type screenshot
-```
-
-#### Batch Runtime
-Processes experiments in batches using provider-specific batch APIs:
-```bash
-uv run run.py --runtime-type batch
-```
-
-### Advanced Options
+Then plug in a real open-weight model ([Ollama](https://ollama.com)):
 
 ```bash
-# Enable debug mode for detailed logging
-uv run run.py --debug
-
-# Force resubmission of batches (batch runtime only)
-uv run run.py --runtime-type batch --force-submit
+ollama pull qwen2.5:7b
+python -m hotel_lab hello --model ollama-qwen2.5-7b                 # week-1 "hello world" JSON test
+python -m hotel_lab run --models ollama-qwen2.5-7b --limit 20       # small pilot
+python -m hotel_lab export
+python -m hotel_lab analyze                                         # results in runs/<experiment>/analysis/
 ```
 
-## Output
+## Commands
 
-All experiment results are stored in the `experiment_logs/` directory, organized by dataset and model configuration. Results include:
-- Detailed interaction logs and agent reasoning traces
-- Final purchase decisions
-- Aggregated results in `aggregated_experiment_data.csv`
+| Command | What it does |
+|---|---|
+| `validate` | Checks stimulus files: 4 rooms, ids, equal mean ratings across balance sets, every style variant present, best room strictly best |
+| `checks` | Manipulation checks (word counts, emoji counts, readability) plus coder sheets for "same facts?" and summary fidelity |
+| `plan` | Builds `runs/<experiment>/plan.jsonl` from `hotel_lab/config/experiment.yaml` and prints the call budget |
+| `serve` | Runs the mock site locally. Open any trial to see exactly what the agent saw |
+| `models` | Lists model configs in `hotel_lab/config/models/` |
+| `hello --model X` | Tests whether a model returns valid JSON |
+| `run --models A B [--limit N] [--blocks order] [--interface screenshot]` | Runs trials. Safe to stop and restart: finished trials are skipped |
+| `export` | Raw logs → `trials.csv` (one row per trial) and `long.csv` (one row per room, for the logit) |
+| `analyze` | Tables and figures in `runs/<experiment>/analysis/` |
+| `summarize --model X` | Generates review summaries with one fixed summariser prompt, for coders to verify |
+| `demo` | Plan, run (mock models), export and analyze in one go |
 
-## Analysis
+## How the brief maps to the code
 
-The `analysis` CLI processes experiment output data to generate summary statistics and model coefficients.
+| Brief | Where |
+|---|---|
+| Hidden fact sheet, one best product | `facts:` and `best_room_id` in `hotel_lab/stimuli/*.yaml` |
+| 4 products × 8 reviews, several categories | 4 rooms × 8 reviews per **scenario** (one YAML file each). Two sample scenarios are included: Mumbai business and Goa couple |
+| Order: newest / most helpful / random / most extreme | `order` block (also `best_first`, `worst_first`, `oldest`) |
+| Style: emoji, length, tone | `style_*` blocks. Text variants live in each review's `text:` map. Combos like `emoji+long` are supported for the full 2×2×2 |
+| Content balance at the same average rating | `review_sets: positive / mixed / complaints`. The validator enforces equal means |
+| Full reviews vs platform-written summary | `format` block (`full`, `summary`, `both`) |
+| Format × balance interaction | `format_x_balance` block (switch on in `experiment.yaml`) |
+| Randomise positions, store the seed | Planner shuffles every trial. The seed comes from `global_seed` + trial id |
+| Text main, screenshot for one block | `interface: text` or `--interface screenshot` |
+| Temperature 1.0 main, 0.0 robustness | `temperature:` in each model YAML. Copy the file with `temperature: 0.0` for the check |
+| One main prompt + two paraphrases | `hotel_lab/config/prompts/main.txt`, `para1.txt`, `para2.txt` → `prompt_ids` |
+| Reasoning depth low/high | `reasoning_depth: low | high` (prompt-defined, token cap via `max_tokens`) |
+| Parse failures < 5% | `analysis/1_failure_rates.csv` flags cells over 5% |
+| Conditional logit, product FE, item clustering, BH | `hotel_lab/analysis.py` → `7_conditional_logit.csv` |
+| Summary vs full: kappa + direction | `6_summary_vs_full.csv` |
+| Manipulation checks, coder agreement | `python -m hotel_lab checks` → `runs/_checks/` |
 
-To use the `analysis` script, the `analysis` dependency group needs to be installed. Be sure to use the `uv sync --all-groups` or `uv sync --group analysis`
-to install the required dependencies.
+### Two ways to assign a treatment
 
-```
- Usage: analysis [OPTIONS] COMMAND [ARGS]...
+- **`whole_set`**: every room on the page gets the level, for example all reviews shown as summaries.
+  Cells compare whole pages. Used for order and format.
+- **`focal`**: one room (the focal room, rotated across items) gets the level and the others stay at control.
+  We compare the focal room's share when treated with its share in the control cell. Used for style and
+  balance. This is the "surface-sensitivity index".
+- `per_room`: every room draws a level at random, as in the original ACES design.
 
- Analysis CLI for experiment data.
-
-╭─ Options ────────────────────────────────────────────────────────────────────╮
-│ --install-completion          Install completion for the current shell.      │
-│ --show-completion             Show completion for the current shell, to copy │
-│                               it or customize the installation.              │
-│ --help                        Show this message and exit.                    │
-╰──────────────────────────────────────────────────────────────────────────────╯
-╭─ Commands ───────────────────────────────────────────────────────────────────╮
-│ market-share        Analyze market share from a CSV file.                    │
-│ choice-model        Generate a choice-model from a CSV file.                 │
-│ rationality-suite   Rationality suite sanity checks                          │
-╰──────────────────────────────────────────────────────────────────────────────╯
-```
-
-### Sub-command to Dataset Mapping
-
-| Analysis Command                | Dataset                       | Subset                              |
-|---------------------------------|-------------------------------|-------------------------------------|
-| `market-share`                  | bb (Choice Behavior & Biases) | `market_share` or `choice_behavior` |
-| `choice-model`                  | bb (Choice Behavior & Biases) | `choice_behavior`                   |
-| `rationality-suite price`       | rs (Rationality Suite)        | `relative_price`                    |
-| `rationality-suite rating`      | rs (Rationality Suite)        | `rating`                            |
-| `rationality-suite instruction` | rs (Rationality Suite)        | `instruction_following`             |
-| `rationality-suite ar_price`    | rs (Rationality Suite)        | `absolute_and_random_price`         |
-
-### Usage Examples
-
-```bash
-# Analyze market share from bb dataset results
-uv run analysis market-share experiment_logs/aggregated_experiment_data.csv
-
-# Generate choice model coefficients
-uv run analysis choice-model experiment_logs/aggregated_experiment_data.csv
-
-# Run rationality suite sanity checks
-uv run analysis rationality-suite price experiment_logs/aggregated_experiment_data.csv
-uv run analysis rationality-suite rating experiment_logs/aggregated_experiment_data.csv
-```
-
-The `artifacts/analysis/` directory is the target output location of result CSV.
-
-## Repository Layout
+## Folder layout
 
 ```
-agent/          # VLM wrapper & tool interface
-sandbox/        # mock storefront (Flask + HTML/CSS)
-experiments/    # datasets, batching & analysis helpers
-config/         # model/provider YAMLs
-run.py          # experiment entry‑point
+hotel_lab/
+  stimuli/          scenario YAML files (rooms, hidden facts, review pool, variants, summaries) + SCHEMA.md
+  config/
+    experiment.yaml design: blocks, levels, repeats, prompts, interface
+    models/         one YAML per model (Ollama, OpenRouter, HF router, mock)
+    prompts/        prompt templates (main + 2 paraphrases, answer formats)
+  site/             the mock booking website (FastAPI + Jinja templates)
+  design.py         experiment.yaml -> reproducible trial plan
+  conditions.py     applies a trial's levels -> exactly what the agent sees
+  runner.py         calls models, parses replies, writes append-only logs
+  analysis.py       shares, sensitivity, kappa, conditional logit, BH, figures
+  tests/            python -m pytest hotel_lab
+runs/               all outputs (git-ignored; archive them yourself)
+agent/ sandbox/ experiments/ config/ run.py   original ACES code (see README_ACES.md)
+docs/ACES_REVIEW.md  what the original repo does, what we reused, and issues we found
 ```
 
-## Citation
+## Things to decide as a team (before pre-registration)
 
-If you use ACES in your research, please cite:
+- **Fictional vs real hotels.** The samples use fictional hotels so brand knowledge can't steer the
+  agent. The brief used real products. Pick one and justify it.
+- **Room photos.** Every room uses the same neutral placeholder so photos can't bias the choice.
+  Real photos would add realism but would also be a confound.
+- **Sample stimuli are placeholders.** They show the format and pass the checks, but your team should
+  write or edit the final reviews, run `checks` and do the two-coder pass.
+- **Displayed rating is fixed per room**, and identical across rooms in the samples (4.2), so star ratings
+  can't drive the choice. That is deliberate: the brief says "stars are a strong cue".
+- **Freeze the model list in week 1.** Model names change quickly; check `ollama list` and record the digests.
 
-```bibtex
-@article{allouah2025aces,
-  title={What is your AI Agent buying? Evaluation, Implications and Emerging Questions for Agentic e-Commerce},
-  author={Allouah, Amine and Besbes, Omar and Figueroa, Josué D and Kanoria, Yash and Kumar, Akshit},
-  journal={arXiv preprint arXiv:2508.02630},
-  year={2025}
-}
-```
+## Credit and licence
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-For questions or issues, please open a GitHub issue or contact the authors through the paper correspondence information.
+ACES: Allouah, A., Besbes, O., Figueroa, J. D., Kanoria, Y., & Kumar, A. (2025). *What is your AI agent buying?
+Evaluation, biases, model dependence, and emerging implications for agentic e-commerce.* arXiv:2508.02630.
+The original README says ACES is MIT-licensed, but the repository has no LICENSE file. Please keep
+this attribution and cite the paper in any write-up.

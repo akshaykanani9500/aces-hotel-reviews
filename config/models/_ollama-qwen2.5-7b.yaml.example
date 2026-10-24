@@ -1,0 +1,8 @@
+# [Hotel Lab] Example: run the ORIGINAL ACES pipeline on an open-weight model served by Ollama.
+# Rename to ollama-qwen2.5-7b.yaml to enable (files starting with "_" are skipped by ACES).
+# Text/headless runtime only; for screenshots use a vision model such as gemma3:12b.
+engine_type: openai
+model: qwen2.5:7b
+display_name: Qwen2.5 7B (Ollama)
+base_url: http://localhost:11434/v1
+temperature: 1.0

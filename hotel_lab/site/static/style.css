@@ -1,0 +1,53 @@
+/* StayCompare: a fictional hotel booking site used only for experiments. */
+:root {
+  --ink: #1d2a36; --muted: #5d6b78; --line: #dde3e9; --bg: #f5f7fa; --card: #ffffff;
+  --brand: #0b5c8f; --brand-dark: #084669; --good: #1f7a4d; --accent: #f0b429; --chip: #eef3f7;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: var(--ink); background: var(--bg); font-size: 15px; line-height: 1.45; }
+a { color: var(--brand); text-decoration: none; }
+.topbar { background: var(--brand); color: #fff; padding: 14px 24px; display: flex; align-items: center; gap: 24px; }
+.brand { font-weight: 700; font-size: 22px; letter-spacing: .3px; color: #fff; }
+.searchsum { background: #fff; color: var(--ink); border-radius: 6px; padding: 8px 14px; font-size: 14px; display: flex; gap: 18px; flex-wrap: wrap; }
+.searchsum b { font-weight: 600; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 20px 24px 60px; }
+h1 { font-size: 24px; margin: 6px 0 4px; }
+h2 { font-size: 20px; margin: 28px 0 12px; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+
+/* results page */
+.result { background: var(--card); border: 1px solid var(--line); border-radius: 8px; display: grid; grid-template-columns: 240px 1fr 220px; gap: 18px; padding: 14px; margin-bottom: 14px; }
+.result img { width: 100%; height: 160px; object-fit: cover; border-radius: 6px; background: #e9eef3; }
+.optionlabel { display: inline-block; background: var(--ink); color: #fff; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-bottom: 6px; }
+.hotelname { font-size: 19px; font-weight: 700; margin: 0; }
+.stars { color: var(--accent); letter-spacing: 1px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.chip { background: var(--chip); border-radius: 12px; padding: 3px 10px; font-size: 13px; }
+.policy { color: var(--good); font-size: 13px; margin: 2px 0; }
+.pricebox { text-align: right; display: flex; flex-direction: column; justify-content: space-between; }
+.ratingbadge { display: inline-flex; align-items: center; gap: 8px; justify-content: flex-end; }
+.score { background: var(--brand); color: #fff; font-weight: 700; border-radius: 6px 6px 6px 0; padding: 5px 8px; }
+.price { font-size: 22px; font-weight: 700; }
+.btn { display: inline-block; background: var(--brand); color: #fff; padding: 9px 16px; border-radius: 6px; font-weight: 700; border: 0; cursor: pointer; text-align: center; }
+.btn:hover { background: var(--brand-dark); }
+
+/* room page */
+.roomhead { display: grid; grid-template-columns: 1fr 300px; gap: 22px; }
+.gallery img { width: 100%; height: 300px; object-fit: cover; border-radius: 8px; background: #e9eef3; }
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
+.amenities { columns: 2; padding-left: 18px; margin: 6px 0; }
+.reviewhead { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+.bigscore { background: var(--brand); color: #fff; font-size: 26px; font-weight: 700; border-radius: 8px 8px 8px 0; padding: 8px 12px; }
+.sortlabel { margin-left: auto; font-size: 13px; color: var(--muted); border: 1px solid var(--line); border-radius: 6px; padding: 5px 10px; background: #fff; }
+.summary { background: #f2f8fc; border: 1px solid #cfe2ef; border-radius: 8px; padding: 14px 16px; margin-bottom: 14px; }
+.summary .tag { font-size: 12px; font-weight: 700; color: var(--brand); text-transform: uppercase; letter-spacing: .5px; }
+.review { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; margin-bottom: 10px; display: grid; grid-template-columns: 170px 1fr; gap: 16px; }
+.avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--chip); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; margin-right: 6px; }
+.reviewtitle { font-weight: 700; margin: 4px 0; }
+.helpful { font-size: 12px; color: var(--muted); margin-top: 6px; }
+.home-table { width: 100%; border-collapse: collapse; background: #fff; }
+.home-table td, .home-table th { border-bottom: 1px solid var(--line); padding: 8px; text-align: left; font-size: 14px; }
+form.levels { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; background: #fff; padding: 12px; border: 1px solid var(--line); border-radius: 8px; }
+form.levels label { font-size: 13px; display: flex; flex-direction: column; gap: 3px; }
+@media (max-width: 800px) { .result, .roomhead, .review { grid-template-columns: 1fr; } .pricebox { text-align: left; } }

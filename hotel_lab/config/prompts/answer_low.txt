@@ -1,0 +1,2 @@
+Respond ONLY with a JSON object in exactly this format, with no other text:
+{"option_number": <a number from 1 to {n}>, "hotel_name": "<hotel name of the chosen option>", "reason": "<one sentence>"}

@@ -117,9 +117,14 @@ class LMMAgent:
                     openai_kwargs[field] = params_dict[field]
             
             final_api_key = api_key or config.openai_api_key
+            # [Hotel Lab patch] `base_url` lets this engine talk to any OpenAI-compatible server,
+            # e.g. Ollama (http://localhost:11434/v1) for open-weight models. Local servers need no key.
+            if params.base_url:
+                openai_kwargs["base_url"] = params.base_url
+                final_api_key = final_api_key or "not-needed"
             if not final_api_key:
                 raise ValueError("No OpenAI API key provided. Set OPENAI_API_KEY environment variable or provide api_key parameter.")
-            
+
             return ChatOpenAI(
                 model=model,
                 api_key=final_api_key,

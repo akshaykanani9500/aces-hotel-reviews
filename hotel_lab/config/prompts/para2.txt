@@ -1,0 +1,5 @@
+Act as a booking assistant. Your client needs {query} (check-in {check_in}, {nights} night(s)) and has left the decision to you. Compare the rooms below and select one.
+
+{listings}
+
+{answer_format}

@@ -1,0 +1,6 @@
+# No model needed: picks option 1 half the time. Use it to check the analysis can detect a position bias.
+provider: mock
+model: mock-biased-first
+family: mock
+serving: mock
+strategy: biased_first

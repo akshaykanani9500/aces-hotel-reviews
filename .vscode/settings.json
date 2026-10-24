@@ -1,0 +1,8 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv",
+  "python.testing.pytestEnabled": true,
+  "python.testing.pytestArgs": ["hotel_lab"],
+  "python.testing.cwd": "${workspaceFolder}",
+  "files.associations": { "*.yaml": "yaml" },
+  "files.exclude": { "**/__pycache__": true }
+}

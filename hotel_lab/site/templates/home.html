@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Hotel Lab – StayCompare sandbox{% endblock %}
+{% block content %}
+<h1>Hotel Lab sandbox</h1>
+<p class="muted">A fictional booking site that runs only on your computer. Agents see exactly these pages (screenshot mode) or the same content as JSON (text mode).</p>
+
+<h2>Preview a scenario</h2>
+<form class="levels" method="get" action="/preview">
+  <label>Scenario
+    <select name="scenario">{% for s in scenarios %}<option value="{{ s.id }}">{{ s.id }}</option>{% endfor %}</select></label>
+  <label>Review order
+    <select name="order">{% for o in order_levels %}<option {% if o=='newest' %}selected{% endif %}>{{ o }}</option>{% endfor %}</select></label>
+  <label>Style
+    <select name="style">{% for s in ['base','emoji','long','casual'] %}<option>{{ s }}</option>{% endfor %}</select></label>
+  <label>Review set
+    <select name="review_set">{% for s in ['base','positive','mixed','complaints'] %}<option>{{ s }}</option>{% endfor %}</select></label>
+  <label>Format
+    <select name="format">{% for s in ['full','summary','both'] %}<option>{{ s }}</option>{% endfor %}</select></label>
+  <label>Seed <input name="seed" value="0" size="4"></label>
+  <button class="btn" type="submit">Open</button>
+</form>
+<p class="small muted">Preview applies the same levels to every room. Real trials can treat one focal room differently.</p>
+
+<h2>Trials in experiment <code>{{ experiment or "(none planned)" }}</code></h2>
+{% if trials %}
+<p class="small muted">Showing the first {{ trials|length }} of {{ n_trials }} trials. Open any trial to see exactly what the agent saw.</p>
+<table class="home-table">
+  <tr><th>Trial</th><th>Block</th><th>Cell</th><th>Scenario</th><th>Focal room</th><th>JSON</th></tr>
+  {% for t in trials %}
+  <tr><td><a href="/trial/{{ t.trial_id }}">{{ t.trial_id[:60] }}</a></td><td>{{ t.block }}</td><td>{{ t.cell }}</td>
+      <td>{{ t.scenario_id }}</td><td>{{ t.focal_room_id }}</td><td><a href="/api/trial/{{ t.trial_id }}">view</a></td></tr>
+  {% endfor %}
+</table>
+{% else %}
+<p class="muted">No plan yet. Run <code>python -m hotel_lab plan</code>, then restart the server.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,15 @@
+# Larger open-weight model through a hosted gateway (for the ~30B+ size in the brief).
+# Needs OPENROUTER_API_KEY in your .env file. Check the model id and price on openrouter.ai first.
+provider: openai_compatible
+base_url: https://openrouter.ai/api/v1
+api_key_env: OPENROUTER_API_KEY
+model: meta-llama/llama-3.3-70b-instruct
+family: llama
+size_b: 70
+quantisation: provider-default
+serving: openrouter
+temperature: 1.0
+max_tokens: 400
+supports_vision: false
+json_mode: false
+send_seed: true

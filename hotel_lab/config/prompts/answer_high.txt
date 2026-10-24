@@ -1,0 +1,2 @@
+First think through the options step by step (keep it under 300 words). Then, on the final line, give ONLY a JSON object in exactly this format:
+{"option_number": <a number from 1 to {n}>, "hotel_name": "<hotel name of the chosen option>", "reason": "<one sentence>"}

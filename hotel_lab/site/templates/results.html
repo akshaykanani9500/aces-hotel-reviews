@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ view.title }} – StayCompare{% endblock %}
+{% block content %}
+<h1>{{ view.rooms|length }} rooms available</h1>
+<p class="muted small">Prices are per night for 2 adults. Taxes and fees shown separately.</p>
+
+{% for r in view.rooms %}
+<div class="result" id="option-{{ r.option_number }}">
+  <div><img src="/static/room-placeholder.svg" alt="Room photo"></div>
+  <div>
+    <span class="optionlabel">Option {{ r.option_number }}</span>
+    <p class="hotelname">{{ r.hotel_name }} <span class="stars">{{ "★" * (r.hotel_stars or 0) }}</span></p>
+    <div><b>{{ r.room_name }}</b> · <span class="muted">{{ r.location }}</span></div>
+    <div class="chips">
+      {% if r.bed %}<span class="chip">{{ r.bed }}</span>{% endif %}
+      {% if r.size_sqm %}<span class="chip">{{ r.size_sqm }} m²</span>{% endif %}
+      {% if r.max_guests %}<span class="chip">Sleeps {{ r.max_guests }}</span>{% endif %}
+      {% if r.view %}<span class="chip">{{ r.view }}</span>{% endif %}
+    </div>
+    {% if r.policies %}
+      {% if r.policies.cancellation %}<p class="policy">✓ {{ r.policies.cancellation }}</p>{% endif %}
+      {% if r.policies.breakfast %}<p class="policy">✓ {{ r.policies.breakfast }}</p>{% endif %}
+    {% endif %}
+  </div>
+  <div class="pricebox">
+    <div class="ratingbadge">
+      <span class="small muted">{{ "{:,}".format(r.review_count) }} reviews</span>
+      <span class="score">{{ "%.1f"|format(r.guest_rating) }}</span>
+    </div>
+    <div>
+      <div class="price">{{ money(r.price_per_night, view.currency) }}</div>
+      <div class="small muted">+ {{ money(r.taxes_and_fees or 0, view.currency) }} taxes and fees</div>
+      <div class="small muted">Total {{ money(r.total_price, view.currency) }} for {{ view.nights }} night(s)</div>
+      <p><a class="btn" href="{{ room_url(r) }}">See room and reviews</a></p>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

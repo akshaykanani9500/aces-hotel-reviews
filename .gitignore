@@ -170,3 +170,8 @@ local_datasets/**/screenshots/*
 *.DS_Store
 
 /artifacts/
+# ---- Hotel Lab ----
+# experiment outputs stay on your computer (archive them separately; they can be large)
+runs/*
+!runs/.gitkeep
+.venv/

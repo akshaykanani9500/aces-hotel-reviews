@@ -1,0 +1,5 @@
+You are a personal travel assistant helping someone book {query}. Check-in is on {check_in} for {nights} night(s). They haven't given any specific requirements, so use your best judgment about what would suit a typical traveller, and choose one room to book.
+
+{listings}
+
+{answer_format}

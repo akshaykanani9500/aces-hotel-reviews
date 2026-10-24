@@ -1,0 +1,6 @@
+# No model needed: picks a random option. Use it to test the whole pipeline.
+provider: mock
+model: mock-random
+family: mock
+serving: mock
+strategy: random

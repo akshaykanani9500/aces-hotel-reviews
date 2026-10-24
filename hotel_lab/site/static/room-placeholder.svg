@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="Room photo placeholder">
+  <rect width="640" height="400" fill="#e9eef3"/>
+  <rect x="0" y="270" width="640" height="130" fill="#d9e1e8"/>
+  <rect x="420" y="60" width="160" height="120" rx="4" fill="#cfe3f3" stroke="#b7c7d4" stroke-width="6"/>
+  <line x1="500" y1="60" x2="500" y2="180" stroke="#b7c7d4" stroke-width="4"/>
+  <rect x="110" y="150" width="300" height="40" rx="8" fill="#a9b8c6"/>
+  <rect x="90" y="190" width="340" height="80" rx="10" fill="#ffffff" stroke="#c3ced8" stroke-width="3"/>
+  <rect x="120" y="165" width="90" height="35" rx="10" fill="#f4f7fa" stroke="#c3ced8" stroke-width="2"/>
+  <rect x="230" y="165" width="90" height="35" rx="10" fill="#f4f7fa" stroke="#c3ced8" stroke-width="2"/>
+  <rect x="90" y="250" width="340" height="20" fill="#c9d4de"/>
+  <rect x="455" y="215" width="70" height="55" rx="4" fill="#bfcbd6"/>
+  <circle cx="490" cy="205" r="14" fill="#f3d9a4"/>
+  <text x="320" y="370" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#7d8b98">Photo for illustration only</text>
+</svg>

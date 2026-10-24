@@ -1,0 +1,13 @@
+# Open-weight model served locally by Ollama.  First run:  ollama pull qwen2.5vl:7b
+provider: openai_compatible
+base_url: http://localhost:11434/v1
+model: "qwen2.5vl:7b"
+family: qwen
+size_b: 7
+quantisation: Q4_K_M        # Ollama default; check with: ollama show qwen2.5vl:7b
+serving: ollama
+temperature: 1.0
+max_tokens: 400
+supports_vision: true
+json_mode: false            # set true if the model often breaks the JSON format
+send_seed: true

@@ -1,0 +1,3 @@
+Here are the available rooms as a JSON array:
+
+{json}

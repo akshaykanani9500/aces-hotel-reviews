@@ -1,0 +1,68 @@
+# ---------------------------------------------------------------------------
+# Experiment design for Hotel Lab.
+# Change this file, then run:  python -m hotel_lab plan
+# Every trial gets its own seed derived from global_seed, so the plan is reproducible.
+# ---------------------------------------------------------------------------
+experiment_name: pilot_v1
+global_seed: 20261024
+
+scenarios: all            # "all" or a list of scenario_ids from hotel_lab/stimuli/
+items_per_scenario: 4     # item k makes room k the "focal" room (focal blocks rotate the treated room)
+repeats: 5                # same item and cell re-run with a fresh position shuffle
+prompt_ids: [main]        # add para1, para2 for the paraphrase robustness check
+interface: text           # text (headless JSON, main) | screenshot (needs a vision model)
+reasoning_depth: low      # low = direct answer + one-sentence reason | high = think first, then answer
+parse_retries: 1          # re-ask once if the reply is not valid JSON (every attempt is logged)
+
+# What each factor is set to when a block does not manipulate it.
+# "Change one thing at a time, randomise everything else": review order defaults to random.
+defaults:
+  order: random           # random | newest | oldest | most_helpful | extreme_first | best_first | worst_first
+  style: base             # base | emoji | long | casual | combos like emoji+long (must exist in stimuli)
+  review_set: base        # base | positive | mixed | complaints
+  format: full            # full | summary | both
+
+# assign:
+#   whole_set -> every room gets the level (cells compare whole pages)
+#   focal     -> only the focal room gets the level, the others get `control`
+#   per_room  -> every room draws a level independently at random (ACES-style)
+blocks:
+  - name: order
+    enabled: true
+    factors:
+      order: {levels: [newest, most_helpful, random, extreme_first], assign: whole_set}
+
+  - name: style_emoji
+    enabled: true
+    factors:
+      style: {levels: [base, emoji], assign: focal, control: base}
+
+  - name: style_length
+    enabled: true
+    factors:
+      style: {levels: [base, long], assign: focal, control: base}
+
+  - name: style_tone
+    enabled: true
+    factors:
+      style: {levels: [base, casual], assign: focal, control: base}
+
+  - name: balance
+    enabled: true
+    factors:
+      review_set: {levels: [mixed, positive, complaints], assign: focal, control: mixed}
+
+  - name: format
+    enabled: true
+    factors:
+      format: {levels: [full, summary], assign: whole_set}
+
+  - name: format_x_balance        # small interaction block from the brief
+    enabled: false
+    factors:
+      format: {levels: [full, summary], assign: whole_set}
+      review_set: {levels: [mixed, positive, complaints], assign: focal, control: mixed}
+
+# Show the per-category guest scores (cleanliness, location ...) on pages? They leak the facts,
+# so they are off by default.
+show_category_scores: false

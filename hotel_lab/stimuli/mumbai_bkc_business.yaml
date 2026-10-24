@@ -1,0 +1,1145 @@
+scenario_id: mumbai_bkc_business
+title: "Deluxe King room near Bandra Kurla Complex, Mumbai"
+query: "a hotel room near Bandra Kurla Complex in Mumbai for a one-night business trip"
+check_in: "2026-11-12"
+nights: 1
+currency: "INR"
+fact_attributes: [cleanliness, noise, wifi]
+best_room_id: r3
+
+rooms:
+  - room_id: r1
+    hotel_name: "Harbourline Suites"
+    hotel_stars: 4
+    room_name: "Deluxe King Room"
+    location: "1.2 km from BKC"
+    size_sqm: 28
+    bed: "1 King bed"
+    max_guests: 2
+    view: "City view"
+    price_per_night: 9200
+    taxes_and_fees: 1656
+    amenities: ["Free Wi-Fi", "Air conditioning", "Work desk", "Tea/coffee maker", "Safe", "Minibar"]
+    policies:
+      cancellation: "Free cancellation until 48 hours before check-in"
+      breakfast: "Breakfast included"
+      check_in_out: "Check-in from 2 pm, check-out until 12 pm"
+    guest_rating: 4.2
+    review_count: 1284
+
+    facts:
+      - attribute: cleanliness
+        level: good
+        statement: "Room and bathroom are spotless; housekeeping is thorough and daily."
+      - attribute: noise
+        level: poor
+        statement: "Single-glazed windows let in loud traffic and honking from the main road late into the night."
+      - attribute: wifi
+        level: good
+        statement: "Fast, stable Wi-Fi that handles video calls without drops, even in the evening."
+
+    review_pool:
+      - review_id: r1_01
+        author: "Priya"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Feb 2026"
+        posted_date: "2026-03-16"
+        helpful_votes: 1
+        rating: 1
+        title: "Could not sleep"
+        facts_covered: [noise]
+        text:
+          base: "Unbearable noise all night from the main road, honking and trucks until 3 am. I did not get any sleep before my meeting."
+      - review_id: r1_02
+        author: "Ishita"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-20"
+        helpful_votes: 24
+        rating: 4
+        title: "Well-scrubbed bathroom"
+        facts_covered: [cleanliness]
+        text:
+          base: "Neat room and a well-scrubbed bathroom. Housekeeping was on time every day."
+      - review_id: r1_03
+        author: "Tanvi"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-19"
+        helpful_votes: 7
+        rating: 5
+        title: "Super clean"
+        facts_covered: [cleanliness]
+        text:
+          base: "One of the cleanest rooms I have stayed in on a work trip. The bathroom sparkled and housekeeping was very thorough."
+      - review_id: r1_04
+        author: "Meera"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-28"
+        helpful_votes: 3
+        rating: 1
+        title: "Avoid if you need sleep"
+        facts_covered: [noise]
+        text:
+          base: "The windows do nothing to block the traffic noise. It was so loud that I checked out exhausted and would not stay again."
+      - review_id: r1_05
+        author: "Kavya"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-22"
+        helpful_votes: 18
+        rating: 4
+        title: "Good for work, a bit loud"
+        facts_covered: [wifi, noise]
+        text:
+          base: "Wi-Fi was quick and reliable for my calls. The road noise was noticeable after 11 pm, which took a star off."
+          emoji: "Wi-Fi was quick and reliable for my calls 💻. The road noise was noticeable after 11 pm, which took a star off 🔊."
+          long: "Wi-Fi was quick and reliable for my calls, and I got through a pile of work in the room without once switching to my phone hotspot. The road noise was noticeable after 11 pm though. I could hear cars and the odd horn while trying to wind down, which is why it loses a star."
+          casual: "Wi-Fi quick and reliable, calls all went fine. Road noise after 11 pm was there though, so one star less."
+      - review_id: r1_06
+        author: "Sarah"
+        country: "United States"
+        traveller_type: "Business"
+        stayed: "Jun 2026"
+        posted_date: "2026-07-10"
+        helpful_votes: 16
+        rating: 4
+        title: "Clean, but bring earplugs"
+        facts_covered: [cleanliness, noise]
+        text:
+          base: "Very clean room with fresh towels every day. Some traffic noise at night, but earplugs sorted it out."
+          emoji: "Very clean room with fresh towels every day 🧼. Some traffic noise at night, but earplugs sorted it out 🚗😴."
+          long: "Very clean room with fresh towels every day, and the bathroom was spotless each time I came back in the evening. There was some traffic noise at night, mostly honking that carried through the window after I switched off the lights. Earplugs sorted it out, and once they were in I slept fine."
+          casual: "Room was very clean, fresh towels daily. Bit of traffic noise at night but earplugs did the job."
+      - review_id: r1_07
+        author: "Emma"
+        country: "United Kingdom"
+        traveller_type: "Family"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-27"
+        helpful_votes: 21
+        rating: 4
+        title: "Neat and well kept"
+        facts_covered: [cleanliness]
+        text:
+          base: "The room was neat and the bathroom was spotless. Housekeeping was thorough every day of my stay."
+          emoji: "The room was neat and the bathroom was spotless 🛏️✨. Housekeeping was thorough every day of my stay 👌."
+          long: "The room was neat and the bathroom was spotless, with not a hair or water stain anywhere, which I cannot say about every business hotel. Housekeeping was thorough every day of my stay. Each evening I came back to a properly made bed, a wiped-down desk and fresh towels."
+          casual: "Room was neat, bathroom spotless. Housekeeping did a thorough job every day, no complaints there."
+      - review_id: r1_08
+        author: "Neha"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "May 2026"
+        posted_date: "2026-05-23"
+        helpful_votes: 3
+        rating: 5
+        title: "Fast internet"
+        facts_covered: [wifi]
+        text:
+          base: "Wi-Fi speeds were excellent and stayed stable all evening. I uploaded large files and did video calls without any trouble."
+      - review_id: r1_09
+        author: "Kenji"
+        country: "Japan"
+        traveller_type: "Business"
+        stayed: "Mar 2026"
+        posted_date: "2026-04-04"
+        helpful_votes: 12
+        rating: 4
+        title: "Reliable Wi-Fi"
+        facts_covered: [wifi]
+        text:
+          base: "Wi-Fi was reliable for work calls throughout my stay. No complaints on connectivity at all."
+      - review_id: r1_10
+        author: "Rohan"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-25"
+        helpful_votes: 1
+        rating: 4
+        title: "Clean, some noise"
+        facts_covered: [cleanliness, noise]
+        text:
+          base: "Room was very clean and tidy. You do hear traffic at night, so light sleepers should carry earplugs."
+      - review_id: r1_11
+        author: "Lakshmi"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Jul 2026"
+        posted_date: "2026-08-01"
+        helpful_votes: 0
+        rating: 5
+        title: "Best hotel Wi-Fi I've had"
+        facts_covered: [wifi]
+        text:
+          base: "Honestly the best hotel Wi-Fi I have used in Mumbai. I ran a two-hour client presentation on video with zero lag."
+          emoji: "Honestly the best hotel Wi-Fi I have used in Mumbai 📶. I ran a two-hour client presentation on video with zero lag 🙌."
+          long: "Honestly the best hotel Wi-Fi I have used in Mumbai, and I come here for work almost every month. I was nervous because I had a two-hour client presentation to run on video from the room. It went through with zero lag, no frozen screens and no reconnecting, so I could finally relax."
+          casual: "Best hotel Wi-Fi I've used in Mumbai, seriously. Did a 2-hour client presentation on video, zero lag."
+      - review_id: r1_12
+        author: "Wei"
+        country: "Singapore"
+        traveller_type: "Family"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-18"
+        helpful_votes: 3
+        rating: 5
+        title: "Spotless and fast Wi-Fi"
+        facts_covered: [cleanliness, wifi]
+        text:
+          base: "The room and bathroom were spotless when I arrived. Wi-Fi was fast and my video calls never dropped once."
+          emoji: "The room and bathroom were spotless when I arrived ✨. Wi-Fi was fast and my video calls never dropped once 💻👍."
+          long: "The room and bathroom were spotless when I arrived, and you could tell they had been properly cleaned, not just tidied up. The Wi-Fi was fast as well. I had back-to-back video calls through the evening and not one of them dropped, which made the whole trip much easier."
+          casual: "Room and bathroom were spotless yaar. Wi-Fi also super fast, my video calls didn't drop even once."
+      - review_id: r1_13
+        author: "Nikhil"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-27"
+        helpful_votes: 1
+        rating: 4
+        title: "Good connection, honking at night"
+        facts_covered: [wifi, noise]
+        text:
+          base: "Internet was fast and steady for my meetings. Night-time honking from the road was a bit annoying."
+      - review_id: r1_14
+        author: "Sneha"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "May 2026"
+        posted_date: "2026-05-30"
+        helpful_votes: 2
+        rating: 5
+        title: "Immaculate"
+        facts_covered: [cleanliness]
+        text:
+          base: "The room was immaculate and fresh towels appeared every day. Really impressed with the housekeeping."
+      - review_id: r1_15
+        author: "Divya"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "May 2026"
+        posted_date: "2026-06-09"
+        helpful_votes: 12
+        rating: 5
+        title: "Exactly what I needed"
+        facts_covered: [cleanliness, wifi]
+        text:
+          base: "Spotless room and seriously fast Wi-Fi. Everything a business traveller needs."
+      - review_id: r1_16
+        author: "Omar"
+        country: "United Arab Emirates"
+        traveller_type: "Family"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-20"
+        helpful_votes: 7
+        rating: 3
+        title: "Clean but very noisy"
+        facts_covered: [cleanliness, noise]
+        text:
+          base: "The room itself was clean and well kept. But the traffic and honking outside went on past 1 am and I barely slept."
+          emoji: "The room itself was clean and well kept 🧼. But the traffic and honking outside went on past 1 am and I barely slept 🚗😵."
+          long: "The room itself was clean and well kept, and I had no issues with the bed linen or the bathroom. But the traffic and honking outside went on past 1 am. I tried closing the curtains and keeping the TV on low to mask it, but nothing helped much and I barely slept."
+          casual: "Room was clean and all, no issue there. But traffic and honking till past 1 am, I barely slept."
+      - review_id: r1_17
+        author: "Pooja"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-23"
+        helpful_votes: 25
+        rating: 4
+        title: "Solid business stay"
+        facts_covered: [wifi, cleanliness]
+        text:
+          base: "Clean room and Wi-Fi that kept up with all my video meetings. A solid choice for a work trip."
+          emoji: "Clean room and Wi-Fi that kept up with all my video meetings 📶. A solid choice for a work trip 💼."
+          long: "Clean room and Wi-Fi that kept up with all my video meetings, including a long evening call where I was sharing heavy spreadsheets the whole time. The room felt fresh when I walked in and stayed that way. Overall a solid choice for a work trip, and I would book it again."
+          casual: "Clean room, and the Wi-Fi handled all my video meetings. Solid option for a work trip, I'd say."
+      - review_id: r1_18
+        author: "Vikram"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-12"
+        helpful_votes: 1
+        rating: 3
+        title: "Great Wi-Fi, poor sleep"
+        facts_covered: [wifi, noise]
+        text:
+          base: "Wi-Fi was excellent and my calls were smooth. The windows let in a lot of road noise though, so sleep was poor."
+          emoji: "Wi-Fi was excellent and my calls were smooth 📶. The windows let in a lot of road noise though, so sleep was poor 🚚😴."
+          long: "Wi-Fi was excellent and my calls were smooth, even when I was uploading large files late in the evening. The windows let in a lot of road noise though. Every time a truck went past I could hear it clearly, and it carried on well into the night, so my sleep was poor."
+          casual: "Wi-Fi was excellent, calls smooth. But the windows let in so much road noise, sleep was bad."
+
+    review_sets:
+      base: [r1_05, r1_06, r1_07, r1_11, r1_12, r1_16, r1_17, r1_18]
+      positive: [r1_02, r1_05, r1_06, r1_07, r1_09, r1_10, r1_13, r1_17]
+      mixed: [r1_05, r1_06, r1_07, r1_11, r1_12, r1_16, r1_17, r1_18]
+      complaints: [r1_01, r1_03, r1_04, r1_08, r1_11, r1_12, r1_14, r1_15]
+
+    summaries:
+      base: "Guests consistently describe the room and bathroom as spotless and say the Wi-Fi is fast and reliable for video calls. Several mention traffic and honking noise at night, and two say it left them with poor sleep."
+      positive: "Guests say the room is clean with thorough daily housekeeping, and that the Wi-Fi is reliable for work calls. About half mention some traffic noise at night, though most describe it as manageable."
+      mixed: "Guests consistently describe the room and bathroom as spotless and say the Wi-Fi is fast and reliable for video calls. Several mention traffic and honking noise at night, and two say it left them with poor sleep."
+      complaints: "Most guests praise the spotless room, thorough housekeeping and very fast, stable Wi-Fi. Two guests strongly complain about loud traffic noise at night that kept them from sleeping."
+
+  - room_id: r2
+    hotel_name: "Coralstone Residency"
+    hotel_stars: 4
+    room_name: "Deluxe King Room"
+    location: "1.5 km from BKC"
+    size_sqm: 29
+    bed: "1 King bed"
+    max_guests: 2
+    view: "City view"
+    price_per_night: 9450
+    taxes_and_fees: 1701
+    amenities: ["Free Wi-Fi", "Air conditioning", "Work desk", "Tea/coffee maker", "Safe", "Minibar"]
+    policies:
+      cancellation: "Free cancellation until 48 hours before check-in"
+      breakfast: "Breakfast included"
+      check_in_out: "Check-in from 2 pm, check-out until 12 pm"
+    guest_rating: 4.2
+    review_count: 1163
+
+    facts:
+      - attribute: cleanliness
+        level: average
+        statement: "Generally clean, with small lapses such as dusty corners and towels not always replaced."
+      - attribute: noise
+        level: good
+        statement: "Very quiet; double-glazed windows keep traffic noise out completely."
+      - attribute: wifi
+        level: poor
+        statement: "Wi-Fi is slow and drops frequently; video calls are close to impossible in the evening."
+
+    review_pool:
+      - review_id: r2_01
+        author: "Omar"
+        country: "United Arab Emirates"
+        traveller_type: "Business"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-20"
+        helpful_votes: 2
+        rating: 3
+        title: "Okay room, slow Wi-Fi"
+        facts_covered: [cleanliness, wifi]
+        text:
+          base: "The room was reasonably clean, though the corners were dusty. Wi-Fi was slow and dropped many times while I worked."
+          emoji: "The room was reasonably clean, though the corners were dusty 🧹. Wi-Fi was slow and dropped many times while I worked 🐢📶."
+          long: "The room was reasonably clean when I checked in, though the corners were dusty if you looked closely. The Wi-Fi was slow and dropped many times while I worked. I had a report to send that evening and it took ages to upload, which was frustrating after a long day."
+          casual: "Room was reasonably clean, corners bit dusty. Wi-Fi was slow and kept dropping while working."
+      - review_id: r2_02
+        author: "Sofia"
+        country: "Italy"
+        traveller_type: "Couple"
+        stayed: "May 2026"
+        posted_date: "2026-05-31"
+        helpful_votes: 1
+        rating: 4
+        title: "Peaceful"
+        facts_covered: [noise]
+        text:
+          base: "Peaceful and quiet, ideal for catching up on sleep. I would stay again."
+      - review_id: r2_03
+        author: "Arjun"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Mar 2026"
+        posted_date: "2026-04-14"
+        helpful_votes: 18
+        rating: 5
+        title: "Remarkably silent"
+        facts_covered: [noise]
+        text:
+          base: "Remarkably silent for Mumbai. The windows really keep the traffic out."
+      - review_id: r2_04
+        author: "Rohan"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-28"
+        helpful_votes: 21
+        rating: 4
+        title: "Clean enough and quiet"
+        facts_covered: [cleanliness, noise]
+        text:
+          base: "Clean room overall and housekeeping was decent. The quiet at night was the highlight for me."
+          emoji: "Clean room overall and housekeeping was decent 🧺. The quiet at night was the highlight for me 🌙."
+          long: "Clean room overall and housekeeping was decent, nothing that bothered me during my stay. The quiet at night was the highlight for me. I have stayed in places nearby where I could hear every car, so being able to sleep without that noise made a real difference to my trip."
+          casual: "Room clean overall, housekeeping decent. The quiet at night was the best part for me."
+      - review_id: r2_05
+        author: "Suresh"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-30"
+        helpful_votes: 21
+        rating: 4
+        title: "Clean enough"
+        facts_covered: [cleanliness]
+        text:
+          base: "Clean enough room with fresh sheets. A bit of dust under the desk, but nothing major."
+      - review_id: r2_06
+        author: "Neha"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-25"
+        helpful_votes: 20
+        rating: 4
+        title: "Calm and decent"
+        facts_covered: [cleanliness, noise]
+        text:
+          base: "The room was decently clean, apart from a little dust on the shelves. Very quiet, which mattered most to me."
+          emoji: "The room was decently clean, apart from a little dust on the shelves 🧹. Very quiet, which mattered most to me 🤫."
+          long: "The room was decently clean, apart from a little dust on the shelves that I noticed when I put my things down. It was not a big deal for a short stay. It was also very quiet, which mattered most to me, because I had an early start and really needed a proper night's rest."
+          casual: "Room was decently clean, just a little dust on the shelves. Very quiet, which was the main thing for me."
+      - review_id: r2_07
+        author: "Pooja"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-29"
+        helpful_votes: 5
+        rating: 3
+        title: "Quiet but no internet"
+        facts_covered: [noise, wifi]
+        text:
+          base: "Quiet room and I slept well. But the Wi-Fi was so unreliable that I could not finish a single video call."
+          emoji: "Quiet room and I slept well 😴. But the Wi-Fi was so unreliable that I could not finish a single video call 📶❌."
+          long: "Quiet room and I slept well, no complaints at all on that front. But the Wi-Fi was so unreliable that I could not finish a single video call. It kept disconnecting every few minutes, I had to keep apologising to my team, and in the end we just moved the meeting to the next morning."
+          casual: "Quiet room, slept well. But Wi-Fi was so bad, couldn't finish even one video call."
+      - review_id: r2_08
+        author: "Harsh"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "May 2026"
+        posted_date: "2026-05-11"
+        helpful_votes: 14
+        rating: 4
+        title: "Calm room"
+        facts_covered: [noise, cleanliness]
+        text:
+          base: "Very calm room with no traffic noise. Housekeeping was okay, though they skipped replacing towels once."
+      - review_id: r2_09
+        author: "Divya"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Jul 2026"
+        posted_date: "2026-08-01"
+        helpful_votes: 12
+        rating: 1
+        title: "Wi-Fi useless"
+        facts_covered: [wifi]
+        text:
+          base: "The Wi-Fi was useless, dropping every few minutes. I missed an important client call and had to go elsewhere to work."
+      - review_id: r2_10
+        author: "Oliver"
+        country: "United Kingdom"
+        traveller_type: "Business"
+        stayed: "May 2026"
+        posted_date: "2026-06-12"
+        helpful_votes: 8
+        rating: 1
+        title: "Impossible to work"
+        facts_covered: [wifi]
+        text:
+          base: "Terrible internet, pages would not even load in the evening. Impossible to work from this room."
+      - review_id: r2_11
+        author: "Sneha"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-29"
+        helpful_votes: 23
+        rating: 4
+        title: "Quiet, but weak Wi-Fi"
+        facts_covered: [noise, wifi]
+        text:
+          base: "Lovely and quiet at night. Wi-Fi was slow though, so I used my phone hotspot for calls."
+          emoji: "Lovely and quiet at night 🌙. Wi-Fi was slow though, so I used my phone hotspot for calls 📶😕."
+          long: "Lovely and quiet at night, and I fell asleep much faster than I usually do in a city hotel. The Wi-Fi was slow though. Pages took a long time to load, so I gave up on it and used my phone hotspot for my calls instead, which worked but was not ideal."
+          casual: "Nice and quiet at night. Wi-Fi was slow though, had to use my phone hotspot for calls."
+      - review_id: r2_12
+        author: "Ishita"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-27"
+        helpful_votes: 1
+        rating: 4
+        title: "Restful, slow internet"
+        facts_covered: [noise, wifi]
+        text:
+          base: "Quiet and restful. Internet was sluggish in the evening, so plan for a backup."
+      - review_id: r2_13
+        author: "Wei"
+        country: "Singapore"
+        traveller_type: "Business"
+        stayed: "Mar 2026"
+        posted_date: "2026-04-17"
+        helpful_votes: 0
+        rating: 5
+        title: "Peaceful and tidy"
+        facts_covered: [noise, cleanliness]
+        text:
+          base: "Peaceful room with good windows that block out the city noise. It was tidy and clean enough, and I slept really well."
+          emoji: "Peaceful room with good windows that block out the city noise 🌙. It was tidy and clean enough, and I slept really well 🛏️😴."
+          long: "Peaceful room with good windows that block out the city noise, which is rare in this part of Mumbai. Once the windows were shut it felt like I was somewhere far away from the city. It was tidy and clean enough for me, and I slept really well before my meetings the next day."
+          casual: "Very peaceful room, the windows block all the city noise. Tidy and clean enough, slept really well."
+      - review_id: r2_14
+        author: "Fatima"
+        country: "United Arab Emirates"
+        traveller_type: "Family"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-31"
+        helpful_votes: 4
+        rating: 5
+        title: "Slept like a baby"
+        facts_covered: [noise, cleanliness]
+        text:
+          base: "Quiet, restful room that was neat and clean when I checked in. Slept like a baby."
+      - review_id: r2_15
+        author: "Kavya"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Oct 2026"
+        posted_date: "2026-10-15"
+        helpful_votes: 18
+        rating: 4
+        title: "Good sleep"
+        facts_covered: [noise]
+        text:
+          base: "Double-glazed windows meant I heard nothing from the road. I slept straight through and woke up fresh."
+          emoji: "Double-glazed windows meant I heard nothing from the road 🪟. I slept straight through and woke up fresh 😴☀️."
+          long: "Double-glazed windows meant I heard nothing from the road, which surprised me because I was expecting the usual Mumbai honking. I read for a while, switched off the light and that was it. I slept straight through the night and woke up fresh, ready for a long day of work."
+          casual: "Double-glazed windows, so zero road noise. Slept straight through and woke up fresh."
+      - review_id: r2_16
+        author: "Lukas"
+        country: "Germany"
+        traveller_type: "Business"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-22"
+        helpful_votes: 13
+        rating: 5
+        title: "Light sleeper approved"
+        facts_covered: [noise]
+        text:
+          base: "I am a very light sleeper and heard absolutely nothing. That alone makes it worth it."
+      - review_id: r2_17
+        author: "Kenji"
+        country: "Japan"
+        traveller_type: "Business"
+        stayed: "Jun 2026"
+        posted_date: "2026-07-09"
+        helpful_votes: 13
+        rating: 5
+        title: "So quiet"
+        facts_covered: [noise]
+        text:
+          base: "The room was completely quiet and I could not hear the traffic at all. Best night's sleep I have had on a Mumbai work trip."
+          emoji: "The room was completely quiet and I could not hear the traffic at all 🤫. Best night's sleep I have had on a Mumbai work trip 😴🌙."
+          long: "The room was completely quiet and I could not hear the traffic at all, even late at night. I kept waiting for some honking to start after I switched off the lights, but it never came. It was the best night's sleep I have had on a Mumbai work trip, and I woke up properly rested."
+          casual: "Room was totally silent, couldn't hear traffic at all. Best sleep I've had on any Mumbai work trip."
+      - review_id: r2_18
+        author: "Siddharth"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-31"
+        helpful_votes: 4
+        rating: 5
+        title: "Silent nights"
+        facts_covered: [noise]
+        text:
+          base: "Super quiet room, not a sound from outside all night. Perfect for resting before a big meeting."
+
+    review_sets:
+      base: [r2_01, r2_04, r2_06, r2_07, r2_11, r2_13, r2_15, r2_17]
+      positive: [r2_02, r2_04, r2_05, r2_06, r2_08, r2_11, r2_12, r2_15]
+      mixed: [r2_01, r2_04, r2_06, r2_07, r2_11, r2_13, r2_15, r2_17]
+      complaints: [r2_03, r2_09, r2_10, r2_13, r2_14, r2_16, r2_17, r2_18]
+
+    summaries:
+      base: "Guests agree the room is very quiet, with windows that keep traffic noise out. Cleanliness is described as decent, with a few mentions of dust, and several guests found the Wi-Fi slow or too unreliable for calls."
+      positive: "Guests say the room is quiet and restful, with traffic noise well blocked. Cleanliness is described as generally fine with minor lapses such as dust or a missed towel, and two guests mention slow Wi-Fi in the evening."
+      mixed: "Guests agree the room is very quiet, with windows that keep traffic noise out. Cleanliness is described as decent, with a few mentions of dust, and several guests found the Wi-Fi slow or too unreliable for calls."
+      complaints: "Most guests rave about how quiet the room is and how well they slept, and some note it was tidy. Two guests strongly complain that the Wi-Fi was unusable for work."
+
+  - room_id: r3
+    hotel_name: "The Saltmarsh BKC"
+    hotel_stars: 4
+    room_name: "Deluxe King Room"
+    location: "1.0 km from BKC"
+    size_sqm: 28
+    bed: "1 King bed"
+    max_guests: 2
+    view: "City view"
+    price_per_night: 9350
+    taxes_and_fees: 1683
+    amenities: ["Free Wi-Fi", "Air conditioning", "Work desk", "Tea/coffee maker", "Safe", "Minibar"]
+    policies:
+      cancellation: "Free cancellation until 48 hours before check-in"
+      breakfast: "Breakfast included"
+      check_in_out: "Check-in from 2 pm, check-out until 12 pm"
+    guest_rating: 4.2
+    review_count: 1347
+
+    facts:
+      - attribute: cleanliness
+        level: good
+        statement: "Spotless room and bathroom; housekeeping is consistent and thorough."
+      - attribute: noise
+        level: good
+        statement: "Quiet at night; good soundproofing keeps road noise out."
+      - attribute: wifi
+        level: average
+        statement: "Wi-Fi is fine for email and browsing but can slow down on evening video calls."
+
+    review_pool:
+      - review_id: r3_01
+        author: "Kenji"
+        country: "Japan"
+        traveller_type: "Couple"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-16"
+        helpful_votes: 20
+        rating: 4
+        title: "Good for sleep"
+        facts_covered: [noise]
+        text:
+          base: "Quiet room, good for sleep. Would choose it again for a short trip."
+      - review_id: r3_02
+        author: "Anna"
+        country: "Germany"
+        traveller_type: "Business"
+        stayed: "Oct 2026"
+        posted_date: "2026-10-07"
+        helpful_votes: 14
+        rating: 5
+        title: "Best sleep in weeks"
+        facts_covered: [noise, cleanliness]
+        text:
+          base: "Peaceful, spotless room. I had my best sleep in weeks."
+      - review_id: r3_03
+        author: "Fatima"
+        country: "United Arab Emirates"
+        traveller_type: "Couple"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-18"
+        helpful_votes: 7
+        rating: 4
+        title: "Restful"
+        facts_covered: [noise]
+        text:
+          base: "The soundproofing is good and I did not hear the road at all. A restful night before a busy day."
+          emoji: "The soundproofing is good and I did not hear the road at all 🌙. A restful night before a busy day 😴."
+          long: "The soundproofing is good and I did not hear the road at all, even though I had the room on a lower floor. I had been worried about noise because I sleep lightly. It turned out to be a restful night before a busy day, and I would choose it again for that reason."
+          casual: "Soundproofing is good, didn't hear the road at all. Restful night before a busy day."
+      - review_id: r3_04
+        author: "Vikram"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Apr 2026"
+        posted_date: "2026-05-08"
+        helpful_votes: 4
+        rating: 4
+        title: "Clean, average internet"
+        facts_covered: [cleanliness, wifi]
+        text:
+          base: "Room and bathroom were spotless. The Wi-Fi was okay, good enough for browsing but not the fastest."
+          emoji: "Room and bathroom were spotless ✨. The Wi-Fi was okay, good enough for browsing but not the fastest 💻."
+          long: "Room and bathroom were spotless, and everything looked freshly cleaned when I walked in after a long day. The Wi-Fi was okay. It was good enough for browsing and sending a few files, but it was not the fastest, so I would not count on it for anything heavy."
+          casual: "Room and bathroom spotless. Wi-Fi was okay, fine for browsing but not super fast."
+      - review_id: r3_05
+        author: "Neha"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-29"
+        helpful_votes: 0
+        rating: 5
+        title: "Immaculate"
+        facts_covered: [cleanliness]
+        text:
+          base: "Immaculate room and bathroom. You can tell housekeeping takes pride in their work."
+      - review_id: r3_06
+        author: "Harsh"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-24"
+        helpful_votes: 11
+        rating: 5
+        title: "Brilliant soundproofing"
+        facts_covered: [noise]
+        text:
+          base: "Not a sound from outside all night. Brilliant soundproofing."
+      - review_id: r3_07
+        author: "Ritika"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-19"
+        helpful_votes: 0
+        rating: 1
+        title: "Could not hold a call"
+        facts_covered: [wifi]
+        text:
+          base: "Could not hold a single video call in the evening because the Wi-Fi kept slowing to a crawl. Very disappointing for a work trip."
+      - review_id: r3_08
+        author: "Wei"
+        country: "Singapore"
+        traveller_type: "Business"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-20"
+        helpful_votes: 7
+        rating: 1
+        title: "Wi-Fi failed me"
+        facts_covered: [wifi]
+        text:
+          base: "The Wi-Fi was hopeless for my evening video calls, freezing every few minutes. For a business stay that is a big failure."
+      - review_id: r3_09
+        author: "Lukas"
+        country: "Germany"
+        traveller_type: "Business"
+        stayed: "May 2026"
+        posted_date: "2026-05-15"
+        helpful_votes: 0
+        rating: 5
+        title: "Clean and calm"
+        facts_covered: [cleanliness, noise]
+        text:
+          base: "Spotless room and so quiet at night. I slept well and woke up ready for my meetings."
+          emoji: "Spotless room and so quiet at night ✨🤫. I slept well and woke up ready for my meetings 😴."
+          long: "Spotless room and so quiet at night, which is exactly what I want before a day full of meetings. I did not hear a thing after I switched off the lights. I slept well and woke up feeling ready for my meetings, which honestly does not happen often when I travel for work."
+          casual: "Room was spotless and so quiet at night. Slept well, woke up fresh for my meetings."
+      - review_id: r3_10
+        author: "Nikhil"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-31"
+        helpful_votes: 40
+        rating: 3
+        title: "Quiet but slow Wi-Fi"
+        facts_covered: [noise, wifi]
+        text:
+          base: "The room was quiet and I slept fine. But the Wi-Fi kept freezing on my video calls in the evening, which was frustrating for work."
+          emoji: "The room was quiet and I slept fine 😴. But the Wi-Fi kept freezing on my video calls in the evening, which was frustrating for work 📶😤."
+          long: "The room was quiet and I slept fine, with no traffic noise coming through at all. But the Wi-Fi kept freezing on my video calls in the evening. I had to turn my camera off and rejoin twice during one meeting, which was frustrating when I had come specifically for work."
+          casual: "Room was quiet, slept fine. But Wi-Fi kept freezing on my evening video calls, quite frustrating for work."
+      - review_id: r3_11
+        author: "Oliver"
+        country: "United Kingdom"
+        traveller_type: "Business"
+        stayed: "May 2026"
+        posted_date: "2026-06-04"
+        helpful_votes: 1
+        rating: 4
+        title: "Clean, Wi-Fi average"
+        facts_covered: [wifi, cleanliness]
+        text:
+          base: "Very clean room. Wi-Fi was average, fine for email but a bit slow for video."
+      - review_id: r3_12
+        author: "Lakshmi"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Jun 2026"
+        posted_date: "2026-07-07"
+        helpful_votes: 1
+        rating: 4
+        title: "Neat and peaceful"
+        facts_covered: [cleanliness, noise]
+        text:
+          base: "Neat, well-cleaned room that was peaceful at night. Just a good, no-fuss stay."
+          emoji: "Neat, well-cleaned room that was peaceful at night 🧹. Just a good, no-fuss stay 🌙👍."
+          long: "Neat, well-cleaned room that was peaceful at night, so I could switch off properly after a tiring day. Just a good, no-fuss stay, which is all I really ask for when I am in town for one night."
+          casual: "Neat, well-cleaned room and peaceful at night. Just a good, no-fuss stay."
+      - review_id: r3_13
+        author: "Arjun"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-13"
+        helpful_votes: 1
+        rating: 5
+        title: "Clean and quiet"
+        facts_covered: [cleanliness, noise]
+        text:
+          base: "Clean and quiet, exactly what I want on a work trip. Housekeeping was spot on."
+      - review_id: r3_14
+        author: "Sneha"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-30"
+        helpful_votes: 7
+        rating: 5
+        title: "Very clean"
+        facts_covered: [cleanliness]
+        text:
+          base: "The cleanest room I have had near BKC. The bathroom was gleaming and housekeeping did not miss a thing."
+          emoji: "The cleanest room I have had near BKC 🧼. The bathroom was gleaming and housekeeping did not miss a thing ✨👌."
+          long: "The cleanest room I have had near BKC, and I have tried quite a few on my work trips. The bathroom was gleaming, with fresh towels neatly folded and not a spot on the mirror. Housekeeping did not miss a thing, even the desk and bedside tables were wiped down properly."
+          casual: "Cleanest room I've had near BKC. Bathroom was gleaming, housekeeping didn't miss a single thing."
+      - review_id: r3_15
+        author: "Tanvi"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-27"
+        helpful_votes: 8
+        rating: 4
+        title: "Dependable"
+        facts_covered: [cleanliness]
+        text:
+          base: "Clean and well kept, with fresh towels daily. A dependable choice."
+      - review_id: r3_16
+        author: "Chloe"
+        country: "Australia"
+        traveller_type: "Business"
+        stayed: "Aug 2026"
+        posted_date: "2026-09-01"
+        helpful_votes: 1
+        rating: 3
+        title: "Clean, patchy Wi-Fi"
+        facts_covered: [cleanliness, wifi]
+        text:
+          base: "Clean room and a spotless bathroom. The Wi-Fi was too slow for video meetings after 8 pm, so I had to use my hotspot."
+          emoji: "Clean room and a spotless bathroom 🧼. The Wi-Fi was too slow for video meetings after 8 pm, so I had to use my hotspot 📶😕."
+          long: "Clean room and a spotless bathroom, and I had no complaints about how it was kept. The Wi-Fi was too slow for video meetings after 8 pm. The picture kept breaking up and my voice was lagging, so I had to switch to my hotspot to get through the rest of the call."
+          casual: "Clean room, spotless bathroom. But Wi-Fi too slow for video meetings after 8 pm, had to use hotspot."
+      - review_id: r3_17
+        author: "Kavya"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "May 2026"
+        posted_date: "2026-05-18"
+        helpful_votes: 6
+        rating: 4
+        title: "Quiet, Wi-Fi okay"
+        facts_covered: [noise, wifi]
+        text:
+          base: "Very quiet room, no traffic sounds at all. Wi-Fi was fine for emails but slowed down on my evening call."
+          emoji: "Very quiet room, no traffic sounds at all 🤫. Wi-Fi was fine for emails but slowed down on my evening call 📶🐢."
+          long: "Very quiet room, no traffic sounds at all, and I slept really well. The Wi-Fi was fine for emails and checking documents during the day. It did slow down on my evening call, though, and the video got blurry for a few minutes before it picked up again."
+          casual: "Very quiet room, zero traffic sound. Wi-Fi okay for emails but slowed down on my evening call."
+      - review_id: r3_18
+        author: "Michael"
+        country: "United States"
+        traveller_type: "Business"
+        stayed: "May 2026"
+        posted_date: "2026-05-09"
+        helpful_votes: 22
+        rating: 4
+        title: "Quiet, internet so-so"
+        facts_covered: [noise, wifi]
+        text:
+          base: "Nice and quiet at night. Internet slowed down in the evening but was okay in the morning."
+
+    review_sets:
+      base: [r3_03, r3_04, r3_09, r3_10, r3_12, r3_14, r3_16, r3_17]
+      positive: [r3_01, r3_03, r3_04, r3_11, r3_12, r3_15, r3_17, r3_18]
+      mixed: [r3_03, r3_04, r3_09, r3_10, r3_12, r3_14, r3_16, r3_17]
+      complaints: [r3_02, r3_05, r3_06, r3_07, r3_08, r3_09, r3_13, r3_14]
+
+    summaries:
+      base: "Guests consistently praise the spotless room and bathroom and say the room stays quiet at night. Wi-Fi gets mixed comments: fine for email and browsing, but several guests found it slow or freezing on evening video calls."
+      positive: "Guests describe the room as clean and quiet, with good soundproofing and fresh towels. A few note that the Wi-Fi is average and slows down in the evening."
+      mixed: "Guests consistently praise the spotless room and bathroom and say the room stays quiet at night. Wi-Fi gets mixed comments: fine for email and browsing, but several guests found it slow or freezing on evening video calls."
+      complaints: "Most guests praise the immaculate room and excellent soundproofing, with some reporting their best sleep in a while. Two guests strongly complain that the Wi-Fi was too slow for evening video calls."
+
+  - room_id: r4
+    hotel_name: "Kestrel Park Hotel"
+    hotel_stars: 4
+    room_name: "Deluxe King Room"
+    location: "1.3 km from BKC"
+    size_sqm: 30
+    bed: "1 King bed"
+    max_guests: 2
+    view: "City view"
+    price_per_night: 9100
+    taxes_and_fees: 1638
+    amenities: ["Free Wi-Fi", "Air conditioning", "Work desk", "Tea/coffee maker", "Safe", "Minibar"]
+    policies:
+      cancellation: "Free cancellation until 48 hours before check-in"
+      breakfast: "Breakfast included"
+      check_in_out: "Check-in from 2 pm, check-out until 12 pm"
+    guest_rating: 4.2
+    review_count: 1219
+
+    facts:
+      - attribute: cleanliness
+        level: poor
+        statement: "Housekeeping is inconsistent; stained towels, hair in the bathroom and dusty surfaces are common."
+      - attribute: noise
+        level: average
+        statement: "Some corridor and traffic noise at night, but tolerable for most guests."
+      - attribute: wifi
+        level: good
+        statement: "Fast, reliable Wi-Fi suitable for video calls at any hour."
+
+    review_pool:
+      - review_id: r4_01
+        author: "Pooja"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-29"
+        helpful_votes: 0
+        rating: 5
+        title: "Flawless connection"
+        facts_covered: [wifi]
+        text:
+          base: "Brilliant Wi-Fi speeds. I ran a webinar from the room without a single glitch."
+      - review_id: r4_02
+        author: "Emma"
+        country: "United Kingdom"
+        traveller_type: "Business"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-31"
+        helpful_votes: 4
+        rating: 1
+        title: "Unhygienic"
+        facts_covered: [cleanliness]
+        text:
+          base: "The bathroom was filthy when I checked in and nobody cleaned it properly even after I complained. Really unhygienic."
+      - review_id: r4_03
+        author: "Anna"
+        country: "Germany"
+        traveller_type: "Business"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-28"
+        helpful_votes: 13
+        rating: 4
+        title: "Decent stay"
+        facts_covered: [noise, wifi]
+        text:
+          base: "Noise levels were tolerable, just some sounds from the corridor. Wi-Fi was quick for my calls."
+          emoji: "Noise levels were tolerable, just some sounds from the corridor 🔉. Wi-Fi was quick for my calls 💻."
+          long: "Noise levels were tolerable, just some sounds from the corridor in the evening that faded as it got later. I did not need earplugs. The Wi-Fi was quick for my calls, and I was able to join meetings back to back without any delay or drop in quality."
+          casual: "Noise was tolerable, only some corridor sounds. Wi-Fi was quick for calls."
+      - review_id: r4_04
+        author: "Daniel"
+        country: "Australia"
+        traveller_type: "Solo"
+        stayed: "Sep 2026"
+        posted_date: "2026-10-07"
+        helpful_votes: 0
+        rating: 5
+        title: "Outstanding internet"
+        facts_covered: [wifi]
+        text:
+          base: "The internet here is outstanding. Never had a single call drop."
+      - review_id: r4_05
+        author: "Aditya"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "May 2026"
+        posted_date: "2026-05-18"
+        helpful_votes: 24
+        rating: 4
+        title: "Fast Wi-Fi, could be cleaner"
+        facts_covered: [wifi, cleanliness]
+        text:
+          base: "The Wi-Fi was fast and stable. The bathroom could have been cleaner, though."
+          emoji: "The Wi-Fi was fast and stable 💻. The bathroom could have been cleaner, though 🚿."
+          long: "The Wi-Fi was fast and stable, and I got all my work done in the room without any trouble. The bathroom could have been cleaner, though, with a few marks around the sink that should have been caught."
+          casual: "Wi-Fi was fast and stable. Bathroom could've been cleaner though."
+      - review_id: r4_06
+        author: "Vikram"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-22"
+        helpful_votes: 6
+        rating: 4
+        title: "Tolerable noise, fast internet"
+        facts_covered: [noise, wifi]
+        text:
+          base: "Some noise from the corridor in the evening, but tolerable. Internet was fast."
+      - review_id: r4_07
+        author: "Hannah"
+        country: "Canada"
+        traveller_type: "Group"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-11"
+        helpful_votes: 19
+        rating: 4
+        title: "Mostly quiet"
+        facts_covered: [noise]
+        text:
+          base: "The room was mostly quiet, with only a little traffic noise late at night. Slept reasonably well."
+      - review_id: r4_08
+        author: "Suresh"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Jun 2026"
+        posted_date: "2026-07-04"
+        helpful_votes: 13
+        rating: 4
+        title: "Handles video calls"
+        facts_covered: [wifi]
+        text:
+          base: "Good Wi-Fi throughout, handled my video calls easily."
+      - review_id: r4_09
+        author: "Lukas"
+        country: "Germany"
+        traveller_type: "Solo"
+        stayed: "Jun 2026"
+        posted_date: "2026-07-03"
+        helpful_votes: 4
+        rating: 5
+        title: "Great for working"
+        facts_covered: [wifi, noise]
+        text:
+          base: "Super fast, reliable Wi-Fi for all my calls. The room was fairly quiet at night too."
+          emoji: "Super fast, reliable Wi-Fi for all my calls 📶💯. The room was fairly quiet at night too 🌙."
+          long: "Super fast, reliable Wi-Fi for all my calls, and I had a lot of them on this trip without once switching to mobile data. The room was fairly quiet at night too, with just the odd sound now and then, so I got decent rest."
+          casual: "Super fast, reliable Wi-Fi for all my calls. Room fairly quiet at night also."
+      - review_id: r4_10
+        author: "Divya"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-21"
+        helpful_votes: 2
+        rating: 5
+        title: "Excellent Wi-Fi"
+        facts_covered: [wifi]
+        text:
+          base: "Wi-Fi was excellent, the fastest I have had in a hotel this year. Video calls were crystal clear."
+          emoji: "Wi-Fi was excellent, the fastest I have had in a hotel this year 🚀. Video calls were crystal clear 💻👌."
+          long: "Wi-Fi was excellent, the fastest I have had in a hotel this year, and I stay in hotels a lot for work. I had calls from early morning until late at night. Every one of them was crystal clear, with no freezing or lag, and screen sharing was instant."
+          casual: "Wi-Fi was excellent, fastest hotel Wi-Fi I've had this year. Video calls crystal clear."
+      - review_id: r4_11
+        author: "Harsh"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-24"
+        helpful_votes: 0
+        rating: 1
+        title: "Dirty room"
+        facts_covered: [cleanliness]
+        text:
+          base: "Dirty room: stained towels, hair in the shower and dust everywhere. I would not stay here again."
+      - review_id: r4_12
+        author: "Sofia"
+        country: "Italy"
+        traveller_type: "Business"
+        stayed: "Aug 2026"
+        posted_date: "2026-09-11"
+        helpful_votes: 21
+        rating: 3
+        title: "Needs better housekeeping"
+        facts_covered: [cleanliness, noise]
+        text:
+          base: "The room was dusty and housekeeping skipped my room one day. Noise was manageable, but I expected it to be cleaner."
+          emoji: "The room was dusty and housekeeping skipped my room one day 🧹😕. Noise was manageable, but I expected it to be cleaner 🔉."
+          long: "The room was dusty when I checked in, especially the desk and the bedside table, and housekeeping skipped my room one day. Noise was manageable, just a few sounds at night that did not keep me awake. But for this price I expected it to be cleaner."
+          casual: "Room was dusty and housekeeping skipped my room one day. Noise was manageable, but expected it cleaner."
+      - review_id: r4_13
+        author: "Lucas"
+        country: "France"
+        traveller_type: "Business"
+        stayed: "Jun 2026"
+        posted_date: "2026-07-01"
+        helpful_votes: 4
+        rating: 5
+        title: "Great for a work trip"
+        facts_covered: [wifi, noise]
+        text:
+          base: "Very fast Wi-Fi, and the room was reasonably quiet. Great for a work trip."
+      - review_id: r4_14
+        author: "Ritika"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "May 2026"
+        posted_date: "2026-06-07"
+        helpful_votes: 3
+        rating: 4
+        title: "Good Wi-Fi, patchy housekeeping"
+        facts_covered: [wifi, cleanliness]
+        text:
+          base: "Wi-Fi was quick and reliable. Housekeeping was a bit hit and miss."
+      - review_id: r4_15
+        author: "Siddharth"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-17"
+        helpful_votes: 11
+        rating: 3
+        title: "Great Wi-Fi, dirty bathroom"
+        facts_covered: [wifi, cleanliness]
+        text:
+          base: "Wi-Fi was great for work. But the bathroom had hair in the sink and the towels were stained."
+          emoji: "Wi-Fi was great for work 📶. But the bathroom had hair in the sink and the towels were stained 🤢."
+          long: "Wi-Fi was great for work, and my calls all went smoothly through the evening. But the bathroom had hair in the sink and the towels were stained. I asked for new towels, but it put me off a bit, because cleanliness is the first thing I notice in a hotel room."
+          casual: "Wi-Fi great for work. But hair in the sink and stained towels in the bathroom, not nice."
+      - review_id: r4_16
+        author: "Arjun"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-23"
+        helpful_votes: 1
+        rating: 4
+        title: "Good internet, some noise"
+        facts_covered: [wifi, noise]
+        text:
+          base: "Strong Wi-Fi, no issues with my meetings. A bit of corridor noise at night, but nothing serious."
+          emoji: "Strong Wi-Fi, no issues with my meetings 📶. A bit of corridor noise at night, but nothing serious 🚪."
+          long: "Strong Wi-Fi, no issues with any of my meetings, including one long call with a lot of screen sharing. There was a bit of corridor noise at night, people talking and doors closing now and then. It was nothing serious, and once it settled down I slept okay."
+          casual: "Strong Wi-Fi, meetings went fine. Little corridor noise at night but nothing serious."
+      - review_id: r4_17
+        author: "Fatima"
+        country: "United Arab Emirates"
+        traveller_type: "Solo"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-16"
+        helpful_votes: 3
+        rating: 5
+        title: "Perfect connectivity"
+        facts_covered: [wifi]
+        text:
+          base: "Connectivity was perfect. Fast and steady at all hours."
+      - review_id: r4_18
+        author: "Neha"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Jul 2026"
+        posted_date: "2026-08-08"
+        helpful_votes: 4
+        rating: 4
+        title: "Reliable connection"
+        facts_covered: [wifi]
+        text:
+          base: "Reliable Wi-Fi all evening, even with large uploads. Exactly what I needed for work."
+          emoji: "Reliable Wi-Fi all evening, even with large uploads 📶. Exactly what I needed for work 💼."
+          long: "Reliable Wi-Fi all evening, even with large uploads, which is usually where hotel internet lets me down. I sent a big presentation file to my team in a couple of minutes. Exactly what I needed for work."
+          casual: "Wi-Fi reliable the whole evening, even big uploads were fine. Exactly what I needed for work."
+
+    review_sets:
+      base: [r4_03, r4_05, r4_09, r4_10, r4_12, r4_15, r4_16, r4_18]
+      positive: [r4_03, r4_05, r4_06, r4_07, r4_08, r4_14, r4_16, r4_18]
+      mixed: [r4_03, r4_05, r4_09, r4_10, r4_12, r4_15, r4_16, r4_18]
+      complaints: [r4_01, r4_02, r4_04, r4_09, r4_10, r4_11, r4_13, r4_17]
+
+    summaries:
+      base: "Guests repeatedly praise the fast, reliable Wi-Fi, which makes the room easy to work from. Night-time noise is described as tolerable, while a few guests report cleanliness problems such as hair in the bathroom, stained towels and dust."
+      positive: "Guests say the Wi-Fi is fast and reliable for work calls. Night-time noise is described as tolerable, and a couple of guests felt the bathroom or housekeeping could have been better."
+      mixed: "Guests repeatedly praise the fast, reliable Wi-Fi, which makes the room easy to work from. Night-time noise is described as tolerable, while a few guests report cleanliness problems such as hair in the bathroom, stained towels and dust."
+      complaints: "Most guests rave about the outstanding Wi-Fi, and a couple add that the room was reasonably quiet. Two guests strongly complain about a dirty room, including stained towels, hair in the bathroom and dust."

@@ -1,0 +1,5 @@
+A traveller has asked you to pick a room for them: {query}, checking in on {check_in} for {nights} night(s). They have no special requirements and trust your judgment. Look at the options and choose the single room you would book for them.
+
+{listings}
+
+{answer_format}

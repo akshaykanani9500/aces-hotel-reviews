@@ -204,6 +204,11 @@ Do not include any other text outside the JSON object."""
 
         elif engine_type == EngineType.OPENAI:
             client = self._clients.get(EngineType.OPENAI)
+            if engine_params.base_url:
+                # [Hotel Lab patch] OpenAI-compatible local/hosted server (Ollama, vLLM, OpenRouter ...)
+                import openai
+                client = openai.OpenAI(base_url=engine_params.base_url,
+                                       api_key=os.getenv("OPENAI_API_KEY") or "not-needed")
             if not client:
                 raise ValueError("OpenAI client not available")
             response = client.chat.completions.create(
