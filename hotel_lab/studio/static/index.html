@@ -15,7 +15,11 @@ button{font:inherit;border:1px solid var(--line);background:#fff;border-radius:6
 button.primary{background:var(--brand);color:#fff;border-color:var(--brand)}button.primary:hover{background:var(--brand2)}
 button.danger{color:var(--bad)}button:disabled{opacity:.5;cursor:default}
 header button{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.3)}
-.grid{display:grid;grid-template-columns:340px 1fr 340px;gap:14px;padding:14px;align-items:start}
+.grid{display:grid;grid-template-columns:340px 1fr 340px;gap:14px;padding:14px 14px 0;align-items:start}
+.grid>div{max-height:calc(100vh - 250px);overflow:auto;padding-right:2px}
+.runbar{position:sticky;bottom:0;z-index:20;margin:0 14px;box-shadow:0 -6px 18px rgba(0,0,0,.08)}
+.runbar .card{margin-bottom:0;padding:10px 14px}.runbar h2{display:none}
+.runbar label{margin:2px 0}.runbar .log{max-height:70px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px}
 .card h2{font-size:15px;margin:0 0 10px}.card h3{font-size:13px;margin:12px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
 select,input,textarea{font:inherit;width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:#fff}
@@ -27,8 +31,8 @@ label{display:block;font-size:12px;color:var(--muted);margin:8px 0 3px}
 .tag.confirmatory{background:#dbeefe}.tag.secondary{background:#efe7fb}.tag.check{background:#e5f6ec}.tag.gate{background:#fff1d6}
 ul.tight{margin:4px 0;padding-left:18px}ul.tight li{margin:2px 0}
 .tabs{display:flex;gap:4px;margin-bottom:8px}.tabs button{border-radius:6px 6px 0 0}.tabs button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
-iframe{width:100%;height:640px;border:1px solid var(--line);border-radius:8px;background:#fff}
-pre{white-space:pre-wrap;word-break:break-word;background:#0f1720;color:#e6edf3;border-radius:8px;padding:12px;max-height:640px;overflow:auto;font-size:12px}
+iframe{width:100%;height:calc(100vh - 430px);min-height:320px;border:1px solid var(--line);border-radius:8px;background:#fff}
+pre{white-space:pre-wrap;word-break:break-word;background:#0f1720;color:#e6edf3;border-radius:8px;padding:12px;max-height:calc(100vh - 430px);overflow:auto;font-size:12px}
 table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
 th{background:#f7fafc;font-size:12px;color:var(--muted)}
 .model{border:1px solid var(--line);border-radius:8px;padding:8px;margin-bottom:6px;display:flex;gap:8px;align-items:flex-start}
@@ -43,7 +47,7 @@ th{background:#f7fafc;font-size:12px;color:var(--muted)}
 details summary{cursor:pointer;font-weight:600}
 .modal{position:fixed;inset:0;background:rgba(10,20,30,.45);display:flex;align-items:flex-start;justify-content:center;padding-top:70px;z-index:50}
 .modal .card{width:620px;max-width:94vw;box-shadow:0 12px 40px rgba(0,0,0,.25)}
-@media(max-width:1200px){.grid{grid-template-columns:1fr}}
+@media(max-width:1200px){.grid{grid-template-columns:1fr}.grid>div{max-height:none}}
 </style>
 </head>
 <body>
@@ -64,7 +68,6 @@ details summary{cursor:pointer;font-weight:600}
       <select id="hyp" onchange="showHyp()"></select>
       <div id="hypbox"></div>
     </div>
-</div>
   </div>
 
   <!-- CENTRE: what the agent sees -->
@@ -109,8 +112,8 @@ details summary{cursor:pointer;font-weight:600}
   </div>
 </div>
 
-<!-- BOTTOM: run + results -->
-<div class="bottom">
+<!-- RUN BAR (always visible) -->
+<div class="runbar">
   <div class="card">
     <h2>4. Run the experiment</h2>
     <div class="row" style="flex-wrap:wrap">
@@ -118,13 +121,15 @@ details summary{cursor:pointer;font-weight:600}
       <div><label>Pilot: trials per cell</label><input id="percell" value="5"></div>
       <div><label>Interface</label><select id="iface"><option value="text">Text / JSON (main)</option><option value="screenshot">Screenshots (vision models)</option></select></div>
       <div><label>Reasoning</label><select id="reason"><option value="low">Low (direct answer)</option><option value="high">High (think first)</option></select></div>
-      <div style="flex:2"><label>&nbsp;</label><div class="row"><button class="primary" id="runbtn" onclick="startRun()">▶ Run selected hypothesis</button><button class="danger" onclick="stopRun()">■ Stop</button></div></div>
+      <div style="flex:2"><label>&nbsp;</label><div class="row"><button class="primary" id="runbtn" onclick="startRun()">▶ Run selected hypothesis</button><button class="danger" onclick="stopRun()">■ Stop</button><button onclick="analyze();document.getElementById('verdicts').scrollIntoView({behavior:'smooth'})">📊 Analyse &amp; show results</button></div></div>
     </div>
     <p class="small muted" id="planinfo"></p>
     <div class="bar" style="margin-top:8px"><div id="bar"></div></div>
     <p class="small" id="jobline"></p>
     <div class="log" id="log"></div>
   </div>
+</div>
+<div class="bottom" style="margin-top:14px">
   <div class="card">
     <div class="row"><h2 style="margin:0">5. Results: verdict per hypothesis</h2>
       <span class="sp"></span><button class="primary" style="flex:0 0 auto" onclick="analyze()">Analyse all</button>
