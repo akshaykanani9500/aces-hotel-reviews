@@ -2,7 +2,9 @@
 
 Everything is on ONE scale: percentage points (pp) of choice share (or agreement, for H1).
 Uncertainty comes from a cluster bootstrap. A cluster = one scenario x focal room (6 x 4 = 24 units),
-because trials that share the same reviews are not independent.
+because trials that share the same reviews are not independent (this holds for any items_per_scenario).
+Test agents (mock models) are never mixed into the pooled "mean of models" row.
+Below 12 clusters or 50 trials per cell, confirmatory results are labelled "Pilot (descriptive only)".
 
 For every hypothesis we report:
   estimate (pp), 95% CI, 90% CI, p-value, q (Benjamini-Hochberg across the confirmatory family),
@@ -33,12 +35,19 @@ def block_experiment(study: str, block: str) -> str:
     return f"{study}__{block}"
 
 
+MIN_CLUSTERS = 12
+MIN_PER_CELL = 50
+
+
 def _sesoi_pp(h: dict[str, Any], default_pp: float) -> float:
+    """Equivalence margin in percentage points (the Sheet's 'sesoi' column, else Settings 'sesoi_pp')."""
     try:
         v = float(h.get("sesoi") or default_pp)
     except ValueError:
-        v = default_pp
-    return v * 100 if v < 1 else v      # "0.10" means 10 pp
+        return default_pp
+    if h.get("estimand") == "agreement_gap" and v < 1:   # older sheets wrote H1's margin as 0.10
+        v *= 100
+    return v
 
 
 def _weights(G: int, B: int, rng: np.random.Generator) -> np.ndarray:
@@ -54,7 +63,7 @@ def _ratio(k: np.ndarray, n: np.ndarray, W: np.ndarray) -> np.ndarray:
 
 def _cells(df: pd.DataFrame, clusters: list[str], mask: pd.Series, col: str) -> tuple[np.ndarray, np.ndarray]:
     d = df[mask]
-    g = d.groupby("item_id")[col]
+    g = d.groupby("cluster")[col]
     k = g.sum().reindex(clusters, fill_value=0).values.astype(float)
     n = g.size().reindex(clusters, fill_value=0).values.astype(float)
     return k, n
@@ -108,15 +117,15 @@ def est_share(col):
 def est_agreement_gap(df_all, clusters, W, h):
     """A_FS - mean(A_FF, A_SS) on trials matched by scenario, item, repeat and prompt (same layout)."""
     keys = ["scenario_id", "item", "repeat", "prompt_id"]
-    d = df_all[["item_id", "cell_format", "retest", "chosen_room_uid"] + keys]
+    d = df_all[["cluster", "cell_format", "retest", "chosen_room_uid"] + keys]
     def pick(fmt, rt):
         x = d[(d["cell_format"] == fmt) & (d["retest"] == rt)]
-        return x.set_index(keys)[["item_id", "chosen_room_uid"]]
+        return x.set_index(keys)[["cluster", "chosen_room_uid"]]
     F, S, F2, S2 = pick("full", False), pick("summary", False), pick("full", True), pick("summary", True)
     def agree(a, b):
         j = a.join(b, how="inner", lsuffix="_a", rsuffix="_b")
         j["agree"] = (j["chosen_room_uid_a"] == j["chosen_room_uid_b"]).astype(float)
-        g = j.groupby("item_id_a")["agree"]
+        g = j.groupby("cluster_a")["agree"]
         return (g.sum().reindex(clusters, fill_value=0).values, g.size().reindex(clusters, fill_value=0).values.astype(float))
     (kfs, nfs), (kff, nff), (kss, nss) = agree(F, S), agree(F, F2), agree(S, S2)
     one = np.ones((1, len(clusters)))
@@ -209,35 +218,59 @@ def plain_english(h: dict[str, Any], r: dict[str, Any]) -> str:
                 f"-> {'PASS' if r['verdict'] == 'PASS' else 'FAIL'}.") if h["estimand"].startswith("threshold") else \
                f"{hid}: difference {est:+.1f} pp ({ci}), p = {r['p']:.3f} -> {r['verdict']}."
     if fam == "gate":
-        return (f"{hid}: accuracy is {est + 25:.1f}% vs 25% chance ({est:+.1f} pp, {ci}); "
-                f"top single room chosen {r.get('max_room_share', math.nan):.0f}% of the time -> {r['verdict']}.")
+        return (f"{hid}: accuracy is {est + 25:.1f}% vs 25% chance ({est:+.1f} pp, {ci}); within a scenario the most-picked "
+                f"room gets {r.get('max_room_share', math.nan):.0f}% and the most-picked position {r.get('max_position_share', math.nan):.0f}% "
+                f"of choices -> {r['verdict']}.{r.get('warn', '')}")
     unit = "pp of agreement" if h["estimand"] == "agreement_gap" else "pp"
     what = {"agreement_gap": "Full-vs-summary agreement minus rerun agreement",
-            "best_omnibus": "Largest shift in the best room's share across sort rules",
-            "focal_did": "Change in the complaint penalty (summary minus full)"}.get(
+            "best_omnibus": "Omnibus test of the sort rules vs random; largest shift in the best room's share shown (not tested on its own)",
+            "focal_did": "Change in the complaint penalty, summary minus full (positive = complaints hurt less with a summary)"}.get(
         h["estimand"], f"Focal room share with '{h['contrast_a']}' minus '{h['contrast_b']}'")
     dec = "Reject H0" if r["significant"] else "Do not reject H0"
     dirn = ""
     if r["significant"] and h.get("predicted") in ("+", "-"):
         dirn = " (as predicted)" if r["direction"] == h["predicted"] else " (opposite to prediction)"
+    half = (r["ci90_high"] - r["ci90_low"]) / 2 if not math.isnan(r.get("ci90_high", math.nan)) else math.nan
+    prec = (f" Precision: 90% CI is +/-{half:.1f} pp; 'No meaningful effect' needs it inside +/-{r['sesoi']:g}."
+            if not math.isnan(half) else "")
+    if r["verdict"].startswith("Pilot"):
+        return (f"{hid}: {what} = {est:+.1f} {unit} ({ci}). PILOT data ({r.get('clusters')} units, "
+                f"{r.get('min_cell_n', '?')} trials in the smallest cell): use it to check the pipeline, not to conclude.")
     return (f"{hid}: {what} = {est:+.1f} {unit} ({ci}), p = {r['p']:.3f}"
             f"{', q = %.3f' % r['q_bh'] if not math.isnan(r.get('q_bh', math.nan)) else ''}. "
-            f"{dec}{dirn}. Verdict: {r['verdict']}.")
+            f"{dec}{dirn}. Verdict: {r['verdict']}.{prec}{r.get('warn', '')}")
 
 
 # ------------------------------------------------------------------ main
-def load_block_trials(study: str, block: str) -> Optional[pd.DataFrame]:
+def _read_trials(study: str, block: str) -> Optional[pd.DataFrame]:
     p = RUNS_DIR / block_experiment(study, block) / "tables" / "trials.csv"
     if not p.exists():
         return None
-    df = pd.read_csv(p)
+    df = pd.read_csv(p, keep_default_na=False, na_values=[""])   # an arm called "NA" stays a name
     for c in ("retest", "parse_ok", "api_error"):
         if c in df:
             df[c] = df[c].astype(str).str.lower().isin(["true", "1"])
-    df = df[df["parse_ok"] & ~df["api_error"]].copy()
     for c in ("chose_best", "chose_focal"):
         df[c] = df[c].astype(str).str.lower().isin(["true", "1"]).astype(float)
+    df["cluster"] = df["scenario_id"].astype(str) + ":" + df["focal_room_id"].astype(str)
+    df["is_test_agent"] = (df.get("serving", pd.Series("", index=df.index)).astype(str) == "mock") | \
+        df["model_name"].astype(str).str.startswith("mock")
     return df
+
+
+def load_block_trials(study: str, block: str) -> Optional[pd.DataFrame]:
+    df = _read_trials(study, block)
+    if df is None:
+        return None
+    return df[df["parse_ok"] & ~df["api_error"]].copy()
+
+
+def _cell_sizes(d: pd.DataFrame, h: dict[str, Any]) -> int:
+    """Trials in the smallest compared cell (non-retest)."""
+    d = d[~d["retest"]]
+    if d.empty or "cell" not in d:
+        return 0
+    return int(d.groupby("cell").size().min())
 
 
 def evaluate(study: str, hypotheses: list[dict[str, Any]], settings: dict[str, Any],
@@ -246,11 +279,13 @@ def evaluate(study: str, hypotheses: list[dict[str, Any]], settings: dict[str, A
     default_sesoi = float(settings.get("sesoi_pp", 5))
     B = int(settings.get("bootstrap_reps", 2000))
     rows: list[dict[str, Any]] = []
+    gate_fail: dict[str, bool] = {}          # arm -> failed HB/V1/V5
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
-    for h in hypotheses:
-        if not h.get("enabled", True):
-            continue
-        df_block = load_block_trials(study, h["block"])
+    order = sorted([h for h in hypotheses if h.get("enabled", True)],
+                   key=lambda h: {"check": 0, "gate": 1}.get(h.get("family", ""), 2))   # checks first
+    for h in order:
+        all_rows = _read_trials(study, h["block"])
+        df_block = None if all_rows is None else all_rows[all_rows["parse_ok"] & ~all_rows["api_error"]].copy()
         base = {"timestamp": now, "experiment": block_experiment(study, h["block"]), "hypothesis_id": h["hypothesis_id"],
                 "family": h.get("family", ""), "estimand": h["estimand"], "predicted": h.get("predicted", ""),
                 "sesoi": _sesoi_pp(h, default_sesoi)}
@@ -258,7 +293,7 @@ def evaluate(study: str, hypotheses: list[dict[str, Any]], settings: dict[str, A
             rows.append({**base, "arm": "(all)", "verdict": "Not run yet", "estimate": math.nan,
                          "plain_english": f"{h['hypothesis_id']}: not run yet (block '{h['block']}')."})
             continue
-        clusters = sorted(df_block["item_id"].unique())
+        clusters = sorted(df_block["cluster"].unique())
         G = len(clusters)
         if G < 4:
             rows.append({**base, "arm": "(all)", "clusters": G, "verdict": "Too little data",
@@ -268,37 +303,54 @@ def evaluate(study: str, hypotheses: list[dict[str, Any]], settings: dict[str, A
             continue
         rng = np.random.default_rng(seed)
         W = _weights(G, B, rng)          # same resamples for every arm -> valid pooled estimate
-        arms = sorted(df_block["arm"].unique())
-        per_arm = {}
+        arms = sorted(df_block["arm"].astype(str).unique())
+        per_arm, info = {}, {}
         for arm in arms:
             d_all = df_block[df_block["arm"] == arm]
             d = d_all if h["estimand"] == "agreement_gap" else d_all[~d_all["retest"]]
-            if h["estimand"] == "best_omnibus":
-                per_arm[arm] = est_best_omnibus(d, clusters, W, h)
-            else:
-                per_arm[arm] = ESTIMANDS[h["estimand"]](d, clusters, W, h)
-        groups = [(a, [a]) for a in arms] + ([("(pooled: mean of models)", arms)] if len(arms) > 1 else [])
+            per_arm[arm] = (est_best_omnibus if h["estimand"] == "best_omnibus" else ESTIMANDS[h["estimand"]])(d, clusters, W, h)
+            a_all = all_rows[all_rows["arm"] == arm]
+            info[arm] = {"min_cell_n": _cell_sizes(d_all, h), "clusters_arm": d_all["cluster"].nunique(),
+                         "failure_rate": round(100 * (1 - a_all["parse_ok"].mean()), 1) if len(a_all) else math.nan,
+                         "test_agent": bool(d_all["is_test_agent"].all()),
+                         "mixed_versions": d_all["manifest_sha"].nunique() > 1 if "manifest_sha" in d_all else False}
+        real = [a for a in arms if not info[a]["test_agent"]]
+        groups = [(a, [a]) for a in arms]
+        if h.get("family") in ("confirmatory", "secondary") and len(real) > 1:
+            groups.append(("(pooled: mean of real models)", real))
         for label, members in groups:
-            r = {**base, "arm": label, "clusters": G, "unit": "pp"}
+            r = {**base, "arm": label, "clusters": min(info[a]["clusters_arm"] for a in members), "unit": "pp",
+                 "min_cell_n": min(info[a]["min_cell_n"] for a in members),
+                 "failure_rate": max(info[a]["failure_rate"] for a in members)}
+            warn = []
+            if any(info[a]["test_agent"] for a in members):
+                warn.append("test agent, not a real model")
+            if any(info[a]["mixed_versions"] for a in members):
+                warn.append("data from different stimulus/config versions are mixed: re-run under a new experiment_name")
+            if r["failure_rate"] > 5:
+                warn.append(f"parse failures {r['failure_rate']:.1f}% (brief: under 5%)")
             if h["estimand"] == "best_omnibus":
                 pts = np.mean([per_arm[a][0] for a in members], axis=0)
                 boots = np.mean([per_arm[a][1] for a in members], axis=0)
                 labels = per_arm[members[0]][3]
                 n = sum(per_arm[a][2] for a in members)
                 ok = ~np.isnan(boots).any(axis=1)
-                cov = np.cov(boots[ok].T) if ok.sum() > 2 else None
+                k = len(pts)
                 try:
-                    wald = float(pts @ np.linalg.pinv(np.atleast_2d(cov)) @ pts) if cov is not None else math.nan
-                    p = float(stats.chi2.sf(wald, len(pts)))
+                    cov = np.atleast_2d(np.cov(boots[ok].T))
+                    wald = float(pts @ np.linalg.pinv(cov) @ pts)
+                    # small-sample F correction (Hotelling-type) for a covariance from G clusters
+                    Fstat = wald / k * (G - k) / (G - 1)
+                    p = float(stats.f.sf(Fstat, k, G - k)) if G > k else math.nan
                 except Exception:
                     p = math.nan
                 i = int(np.nanargmax(np.abs(pts)))
-                cis90 = [_ci(boots[:, j], 0.90) for j in range(len(pts))]
+                cis90 = [_ci(boots[:, j], 0.90) for j in range(k)]
                 lo95, hi95 = _ci(boots[:, i], 0.95)
                 equiv = all(lo > -r["sesoi"] and hi < r["sesoi"] for lo, hi in cis90)
                 r.update(estimate=float(pts[i]), ci95_low=lo95, ci95_high=hi95, ci90_low=cis90[i][0],
                          ci90_high=cis90[i][1], p=p, n_trials=n, equivalent=equiv,
-                         notes="; ".join(f"{l}: {v:+.1f}" for l, v in zip(labels, pts)))
+                         notes="; ".join(f"{l} vs random: {v:+.1f}" for l, v in zip(labels, pts)))
             else:
                 est = float(np.mean([per_arm[a][0] for a in members]))
                 boot = np.mean([per_arm[a][1] for a in members], axis=0)
@@ -314,22 +366,40 @@ def evaluate(study: str, hypotheses: list[dict[str, Any]], settings: dict[str, A
             r["direction"] = "+" if r["estimate"] > 0 else "-" if r["estimate"] < 0 else "0"
             if h["estimand"] == "accuracy_vs_chance":
                 d = df_block[(df_block["arm"].isin(members)) & ~df_block["retest"]]
-                r["max_room_share"] = float(d["chosen_room_uid"].value_counts(normalize=True).max() * 100) if len(d) else math.nan
+                room = d.groupby("scenario_id")["chosen_room_uid"].agg(lambda x: x.value_counts(normalize=True).max())
+                r["max_room_share"] = float(room.mean() * 100) if len(room) else math.nan
+                r["max_position_share"] = float(d["chosen_position"].value_counts(normalize=True).max() * 100) if len(d) else math.nan
+            if h.get("family") in ("confirmatory", "secondary") and len(members) == 1 and gate_fail.get(members[0]):
+                warn.append("this model FAILED a gate/check (HB, V1 or V5): treat as descriptive only")
+            r["warn"] = (" Warning: " + "; ".join(warn) + ".") if warn else ""
             rows.append(r)
-        # heterogeneity across models (Cochran's Q with bootstrap SEs), on the per-arm rows
-        if len(arms) > 1 and h["estimand"] != "best_omnibus":
-            ests = np.array([per_arm[a][0] for a in arms])
-            ses = np.array([np.nanstd(per_arm[a][1], ddof=1) for a in arms])
+        # heterogeneity across REAL models (Cochran's Q with bootstrap SEs; approximate, arms share items)
+        if len(real) > 1 and h["estimand"] != "best_omnibus":
+            ests = np.array([per_arm[a][0] for a in real])
+            ses = np.array([np.nanstd(per_arm[a][1], ddof=1) for a in real])
             w = 1 / np.where(ses > 0, ses, np.nan) ** 2
             if np.all(np.isfinite(w)):
                 mu = np.sum(w * ests) / np.sum(w)
                 Q = float(np.sum(w * (ests - mu) ** 2))
-                hp = float(stats.chi2.sf(Q, len(arms) - 1))
+                hp = float(stats.chi2.sf(Q, len(real) - 1))
                 for r in rows:
                     if r["hypothesis_id"] == h["hypothesis_id"] and r.get("arm", "").startswith("(pooled"):
                         r["heterogeneity_p"] = hp
+        # record gate/check failures per arm for later hypotheses
+        if h.get("family") in ("gate", "check") and h["estimand"] != "focal_diff":
+            for r in rows:
+                if r["hypothesis_id"] != h["hypothesis_id"] or r["arm"] not in per_arm:
+                    continue
+                thr_ok = True
+                if h["estimand"].startswith("threshold"):
+                    thr_ok = r["estimate"] >= float(h.get("pass_threshold") or 0) * 100
+                else:  # HB
+                    thr_ok = (r.get("p", 1) < alpha and r["estimate"] > 0 and r.get("max_position_share", 0) < 80
+                              and r.get("max_room_share", 0) < 90)
+                if not thr_ok:
+                    gate_fail[r["arm"]] = True
 
-    # multiple testing: BH across confirmatory hypotheses, within each arm label
+    # multiple testing: BH across confirmatory hypotheses, within each arm label (pilot rows excluded)
     by_arm: dict[str, list[dict[str, Any]]] = {}
     for r in rows:
         if r.get("family") == "confirmatory" and not math.isnan(r.get("estimate", math.nan)):
@@ -350,7 +420,8 @@ def evaluate(study: str, hypotheses: list[dict[str, Any]], settings: dict[str, A
             r["significant"], r["decision_H0"] = "", ""
         elif fam == "gate":
             sig = (r.get("p", 1) < alpha) and r["estimate"] > 0
-            r["verdict"] = "PASS" if sig else "FAIL"
+            ok = sig and r.get("max_position_share", 0) < 80 and r.get("max_room_share", 0) < 90
+            r["verdict"] = "PASS" if ok else "FAIL"
             r["significant"], r["decision_H0"] = sig, "Reject H0" if sig else "Do not reject H0"
         else:
             pv = r.get("q_bh") if fam == "confirmatory" and not math.isnan(r.get("q_bh", math.nan)) else r.get("p")
@@ -359,6 +430,9 @@ def evaluate(study: str, hypotheses: list[dict[str, Any]], settings: dict[str, A
             r["decision_H0"] = "Reject H0" if sig else "Do not reject H0"
             if fam == "check":   # placebo: pass when there is NO effect
                 r["verdict"] = "PASS" if not sig else "FAIL"
+            elif r.get("clusters", 0) < MIN_CLUSTERS or r.get("min_cell_n", 0) < MIN_PER_CELL:
+                r["verdict"] = "Pilot (descriptive only)"
+                r["decision_H0"] = ""
             else:
                 r["verdict"] = lakens_verdict(sig, bool(r.get("equivalent")))
         r["plain_english"] = plain_english(h, r)

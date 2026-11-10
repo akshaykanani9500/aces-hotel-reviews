@@ -29,12 +29,15 @@ FAIL_FAST_AFTER = 5          # stop if the first N trials all hit API/connection
 HIGH_REASONING_MIN_TOKENS = 1200
 
 
-def arm_name(model_name: str, interface: str, reasoning_depth: str) -> str:
-    return f"{model_name}__{interface}__{reasoning_depth}"
+def arm_name(model_name: str, interface: str, reasoning_depth: str, temperature: float = 1.0) -> str:
+    """An arm = model x interface x reasoning depth (x temperature when it is not the main 1.0)."""
+    t = "" if float(temperature) == 1.0 else f"__t{float(temperature):g}"
+    return f"{model_name}__{interface}__{reasoning_depth}{t}"
 
 
-def raw_path(experiment: str, model_name: str, interface: str = "text", reasoning_depth: str = "low") -> Path:
-    return RUNS_DIR / experiment / "raw" / f"{arm_name(model_name, interface, reasoning_depth)}.jsonl"
+def raw_path(experiment: str, model_name: str, interface: str = "text", reasoning_depth: str = "low",
+             temperature: float = 1.0) -> Path:
+    return RUNS_DIR / experiment / "raw" / f"{arm_name(model_name, interface, reasoning_depth, temperature)}.jsonl"
 
 
 def read_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -201,12 +204,12 @@ def run(experiment: str, model_names: Iterable[str], interface: str = "text", re
                       f"small and Ollama would cut the prompt. Raise num_ctx in {cfg.name}.yaml.")
         client = ModelClient(cfg)
         version = client.describe_version()
-        out = raw_path(experiment, cfg.name, interface, reasoning_depth)
+        out = raw_path(experiment, cfg.name, interface, reasoning_depth, cfg.temperature)
         out.parent.mkdir(parents=True, exist_ok=True)
         done = done_trial_ids(out)
         todo = [t for t in trials if t["trial_id"] not in done]
         if not quiet:
-            print(f"[{arm_name(cfg.name, interface, reasoning_depth)}] {len(todo)} trials to run "
+            print(f"[{arm_name(cfg.name, interface, reasoning_depth, cfg.temperature)}] {len(todo)} trials to run "
                   f"({len(done)} already done) -> {out}")
 
         site = shooter = None

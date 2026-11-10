@@ -198,6 +198,7 @@ def analyze(study: Optional[dict[str, Any]] = None, push: bool = True) -> dict[s
         if (exp_dir / "raw").exists() and any((exp_dir / "raw").glob("*.jsonl")):
             export(f"{name}__{block}")
     rows = evaluate(name, study["hypotheses"], study["settings"])
+    reasons_sheet(name, list(blocks(study["hypotheses"])))
     out_dir = RUNS_DIR / f"{name}__verdicts"
     out_dir.mkdir(parents=True, exist_ok=True)
     df = pd.DataFrame(rows)
@@ -206,10 +207,31 @@ def analyze(study: Optional[dict[str, Any]] = None, push: bool = True) -> dict[s
     if push and sheetdb.get_db() is not None:
         try:
             clean = [{k: ("" if (isinstance(v, float) and v != v) else v) for k, v in r.items()} for r in rows]
-            pushed = sheetdb.get_db().replace("Verdicts", clean, sheetdb.VERDICT_COLUMNS + ["notes", "max_room_share"])
+            pushed = sheetdb.get_db().replace("Verdicts", clean, sheetdb.VERDICT_COLUMNS)
         except Exception as e:
             pushed = f"failed: {e}"
     return {"rows": rows, "csv": str(out_dir / "verdicts.csv"), "pushed": pushed}
+
+
+def reasons_sheet(name: str, block_names: list[str], share: float = 0.10, seed: int = 11) -> Optional[str]:
+    """Brief: two coders label whether stated reasons cite FACTS or STYLE, on a random 10% sample."""
+    frames = []
+    for b in block_names:
+        p = RUNS_DIR / f"{name}__{b}" / "tables" / "trials.csv"
+        if p.exists():
+            d = pd.read_csv(p, keep_default_na=False)
+            d = d[(d["parse_ok"].astype(str).str.lower() == "true") & ~d["model_name"].astype(str).str.startswith("mock")]
+            if len(d):
+                frames.append(d.sample(frac=share, random_state=seed) if len(d) >= 10 else d)
+    if not frames:
+        return None
+    out = pd.concat(frames)[["arm", "block", "cell", "scenario_id", "trial_id", "reason"]]
+    for c in ("coder1 (facts/style/both/other)", "coder2 (facts/style/both/other)", "notes"):
+        out[c] = ""
+    path = RUNS_DIR / f"{name}__verdicts" / "reasons_coding_sheet.csv"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    out.to_csv(path, index=False, encoding="utf-8-sig")
+    return str(path)
 
 
 def new_run_id() -> str:

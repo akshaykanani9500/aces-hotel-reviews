@@ -28,7 +28,9 @@ def load_raw(experiment: str) -> list[dict]:
         for rec in read_jsonl(p):
             if "trial_id" not in rec:
                 continue
-            arm = f"{rec['model_name']}__{rec.get('interface', 'text')}__{rec.get('reasoning_depth', 'low')}"
+            from hotel_lab.runner import arm_name
+            arm = arm_name(rec["model_name"], rec.get("interface", "text"), rec.get("reasoning_depth", "low"),
+                           rec.get("temperature", 1.0) if rec.get("temperature") is not None else 1.0)
             rec["arm"] = arm
             key = (arm, rec["trial_id"])
             # keep the latest record; a successful record is never replaced by an API-error record
@@ -44,7 +46,8 @@ def export(experiment: str) -> tuple[Path, Path]:
     for r in recs:
         base = {k: r.get(k) for k in ("arm", "model_name", "family", "size_b", "quantisation", "serving", "interface",
                                        "reasoning_depth", "trial_id", "block", "cell", "scenario_id", "item",
-                                       "repeat", "prompt_id", "retest", "focal_room_id", "best_room_id", "seed")}
+                                       "repeat", "prompt_id", "retest", "focal_room_id", "best_room_id", "seed",
+                                       "temperature", "manifest_sha")}
         base["retest"] = bool(base.get("retest"))
         base["item_id"] = f"{r['scenario_id']}__i{r['item']}"
         api_error = bool(r.get("error"))

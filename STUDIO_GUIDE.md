@@ -92,7 +92,7 @@ The order follows the brief's gates. Don't move to the next step until the curre
 | 2 | **V1 Facts-only** | Pilot 10/cell, each real model | PASS (≥80%): the agent agrees with your "best room" |
 | 3 | **V5 Dominance** | Pilot 10/cell | PASS (≥95%): the agent reads the page at all |
 | 4 | **HB Baseline** | Pilot 20/cell | PASS: better than 25% chance, and it doesn't always pick one room |
-| 5 | H1, H2a, H2b, H3a, H3b, H3c, H4 | Pilot 20/cell each (brief, Gate M2) | parse failures under 5% |
+| 5 | H1, H2a, H2b, H3a, H3b, H3c, H4 | Pilot 20/cell each (brief, Gate M2) | parse failures under 5% (verdicts say "Pilot") |
 | 6 | **Pre-register** (OSF/AsPredicted) | – | lock Settings + Hypotheses; note the snapshot code |
 | 7 | Each confirmatory hypothesis | **Full plan** | 192 trials per cell per model |
 | 8 | H4b, H5 (secondary) | Full plan | – |
@@ -125,7 +125,8 @@ Everything that is not being tested is fixed or balanced, the same way for every
 |---|---|---|
 | H1 | every room shown as a summary instead of full reviews | full reviews, AND rerunning the identical page (the noise floor) |
 | H2a | the sort rule for all rooms (newest / most helpful / most extreme) | random order |
-| H2b | the focal room's best review moved first | its worst review first |
+| H2b | the focal room's reviews ordered best-first | worst-first (ordering: primacy + recency together) |
+| H2c (secondary) | the focal room's best review first | random order (primacy alone) |
 | H3a / b / c | the focal room's reviews with emoji / longer / casual (same facts, same stars) | plain reviews |
 | H4 | focal room: 6 raves + 2 strong complaints | evenly mixed reviews, **same average rating** |
 | H4b (secondary) | focal room: uniformly moderate praise | evenly mixed reviews |
@@ -145,6 +146,17 @@ Everything that is not being tested is fixed or balanced, the same way for every
   | **Significant** | **Real but negligible** | **Effect** → reject H0 |
   | **Not significant** | **No meaningful effect** → an informative null | **Inconclusive** → need more data |
 
+- **Pilot (descriptive only).** Fewer than 12 independent units or under 50 trials per cell. Use it to check the
+  pipeline, never to conclude.
+- **Precision.** Each sentence gives the half-width of the 90% CI. With the full plan (192 trials per cell) it is about ±7 pp.
+  That means "No meaningful effect" can only appear if your margin (`sesoi_pp`) is about 8–10 pp, or if you run about
+  850 trials per cell. **Decide the margin before you pre-register**, and write the reason down.
+- **Warnings** at the end of a sentence flag:
+  - a test agent;
+  - a model that failed a gate or check (its results are descriptive only);
+  - parse failures over 5%;
+  - data from different stimulus versions mixed in one experiment.
+- **Pooled row.** "(pooled: mean of real models)" averages only real models, never the test agents.
 - **"Models differ? p = …"** This tests whether the effect is the same across your models. Never decide this by comparing which
   models came out significant.
 - **Plain English** gives one sentence per row, which you can paste into notes.
@@ -153,6 +165,10 @@ Everything that is not being tested is fixed or balanced, the same way for every
 1. V7, V1, V5 and HB all PASS for that model.
 2. Parse failures stay under 5% (see `runs/<experiment>/analysis/1_failure_rates.csv`).
 3. You ran the full plan, not just a pilot. Pilots are for checking the pipeline, not for conclusions.
+
+**Coding the stated reasons (brief, secondary outcome).** "Analyse all" also writes
+`runs/<experiment>__verdicts/reasons_coding_sheet.csv`, a random 10% of real-model reasons. Two of you label each one
+facts / style / both / other. Then `python -m hotel_lab agreement <file>` gives your agreement and kappa.
 
 **Where the data is:**
 - **Sheet:** Results, Verdicts, Runs.

@@ -266,14 +266,14 @@ class ModelClient:
                 u += w["emoji"] * (1.0 if any(emoji_re.search(x["text"]) for x in revs) else 0.0)
                 u += w["long"] * (1.0 if sum(len(x["text"].split()) for x in revs) / len(revs) > 30 else 0.0)
                 u += w["first"] * (revs[0]["rating"] - 4)
-                bad = sum(len(re.findall(r"\b(slow|noisy|noise|dirty|cold|rude|broken|poor|drops?|weak|stain|dust)\b",
+                bad = sum(len(re.findall(r"\b(slow|noisy|noise|dirty|cold|rude|broken|poor|drops?|weak|stain|dust|lukewarm|late|lumpy|freezing|sagging|thin|loud|honking|bland|disappointing|letdown|unhelpful|cramped|hard|damp|smell)\b",
                                           x["text"].lower())) for x in revs)
                 u -= w["facts"] * bad / len(revs)                 # 'reads' complaints in the text
             for line in r.get("verified_facts") or []:
                 u += {"Good": 1.5, "Average": 0.0, "Poor": -1.5}.get(line.split(": ")[-1], 0.0) * w["facts"]
             if r.get("review_summary"):
                 s = r["review_summary"].lower()
-                u -= w["facts"] * len(re.findall(r"\b(slow|noisy|noise|dirty|cold|rude|broken|poor|weak|dust)\b", s)) / 2
+                u -= w["facts"] * len(re.findall(r"\b(slow|noisy|noise|dirty|cold|rude|broken|poor|drops?|weak|stain|dust|lukewarm|late|lumpy|freezing|sagging|thin|loud|honking|bland|disappointing|letdown|unhelpful|cramped|hard|damp|smell)\b", s)) / 2
             u += w["position1"] * (1.0 if r.get("option_number") == 1 else 0.0)
             u += -math.log(-math.log(max(rng.random(), 1e-12)))
             if u > best:
