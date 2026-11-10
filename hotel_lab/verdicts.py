@@ -356,9 +356,17 @@ def evaluate(study: str, hypotheses: list[dict[str, Any]], settings: dict[str, A
                 boot = np.mean([per_arm[a][1] for a in members], axis=0)
                 n = sum(per_arm[a][2] for a in members)
                 one = "-" if h["estimand"] == "agreement_gap" else None
-                lo95, hi95 = _ci(boot, 0.95)
-                lo90, hi90 = _ci(boot, 0.90)
-                r.update(estimate=est, ci95_low=lo95, ci95_high=hi95, ci90_low=lo90, ci90_high=hi90,
+                # CIs = estimate +/- t(G-1) x bootstrap SE: the same SE and t as the p-value, so a 95% CI
+                # excludes 0 exactly when the two-sided p < 0.05
+                bb = boot[~np.isnan(boot)]
+                se = float(np.std(bb, ddof=1)) if len(bb) > 1 else math.nan
+                t95, t90 = stats.t.ppf(0.975, max(G - 1, 1)), stats.t.ppf(0.95, max(G - 1, 1))
+                lo95, hi95 = est - t95 * se, est + t95 * se
+                lo90, hi90 = est - t90 * se, est + t90 * se
+                if h["estimand"].startswith("threshold") or h["estimand"] == "accuracy_vs_chance":
+                    lo95, hi95 = _ci(boot, 0.95)          # shares near 0/100%: percentile CI is safer
+                    lo90, hi90 = _ci(boot, 0.90)
+                r.update(estimate=est, ci95_low=lo95, ci95_high=hi95, ci90_low=lo90, ci90_high=hi90, se=se,
                          p=_p(est, boot, G, one), n_trials=n,
                          equivalent=bool(lo90 > -r["sesoi"] and hi90 < r["sesoi"]))
                 if h["estimand"].startswith("threshold"):
@@ -411,6 +419,10 @@ def evaluate(study: str, hypotheses: list[dict[str, Any]], settings: dict[str, A
     hmap = {h["hypothesis_id"]: h for h in hypotheses}
     for r in rows:
         if math.isnan(r.get("estimate", math.nan)):
+            if not r.get("verdict"):
+                r["verdict"] = "Incomplete"
+                r["plain_english"] = (f"{r['hypothesis_id']}: some cells of this experiment have no trials yet "
+                                      f"(was the run stopped early?). Run the rest, then analyse again.")
             continue
         h = hmap[r["hypothesis_id"]]
         fam = h.get("family")
@@ -428,8 +440,9 @@ def evaluate(study: str, hypotheses: list[dict[str, Any]], settings: dict[str, A
             sig = bool(pv is not None and not math.isnan(pv) and pv < alpha)
             r["significant"] = sig
             r["decision_H0"] = "Reject H0" if sig else "Do not reject H0"
-            if fam == "check":   # placebo: pass when there is NO effect
-                r["verdict"] = "PASS" if not sig else "FAIL"
+            if fam == "check":   # placebo: pass when there is NO effect, but only with enough data to see one
+                small = r.get("clusters", 0) < MIN_CLUSTERS or r.get("min_cell_n", 0) < MIN_PER_CELL
+                r["verdict"] = "FAIL" if sig else ("PASS (pilot: weak check)" if small else "PASS")
             elif r.get("clusters", 0) < MIN_CLUSTERS or r.get("min_cell_n", 0) < MIN_PER_CELL:
                 r["verdict"] = "Pilot (descriptive only)"
                 r["decision_H0"] = ""

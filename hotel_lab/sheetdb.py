@@ -231,8 +231,36 @@ def _truthy(v: Any) -> bool:
     return str(v).strip().upper() in ("TRUE", "YES", "Y", "1")
 
 
+DATE_FIELDS = {"posted_date", "check_in"}
+
+
+def _norm_cell(v: Any) -> Any:
+    """Excel/Sheets dates and whole numbers -> plain text, so JSON and the pages never see datetimes."""
+    import datetime as _dt
+    if isinstance(v, _dt.datetime):
+        return v.strftime("%Y-%m-%d") if (v.hour, v.minute, v.second) == (0, 0, 0) else v.isoformat(sep=" ")
+    if isinstance(v, _dt.date):
+        return v.strftime("%Y-%m-%d")
+    if isinstance(v, float) and v.is_integer():
+        return str(int(v))
+    return v
+
+
+def norm_date(s: Any) -> str:
+    """Accept 2026-09-18, 18/09/2026, 18-09-2026, 2026-09-18 00:00:00 -> 2026-09-18 (day first, as in India)."""
+    import re as _re
+    s = str(s).strip()
+    m = _re.match(r"^(\d{4})-(\d{1,2})-(\d{1,2})", s)
+    if m:
+        return f"{int(m[1]):04d}-{int(m[2]):02d}-{int(m[3]):02d}"
+    m = _re.match(r"^(\d{1,2})[/.-](\d{1,2})[/.-](\d{4})$", s)
+    if m:
+        return f"{int(m[3]):04d}-{int(m[2]):02d}-{int(m[1]):02d}"
+    return s
+
+
 def rows_from_grid(grid: list[list[Any]]) -> list[dict[str, Any]]:
-    """Header row + data rows -> list of dicts. Blank rows are skipped."""
+    """Header row + data rows -> list of dicts. Blank rows are skipped; dates become YYYY-MM-DD."""
     if not grid:
         return []
     header = [str(h).strip() for h in grid[0]]
@@ -240,7 +268,10 @@ def rows_from_grid(grid: list[list[Any]]) -> list[dict[str, Any]]:
     for row in grid[1:]:
         if not any(str(c).strip() for c in row):
             continue
-        out.append({h: (row[i] if i < len(row) else "") for i, h in enumerate(header) if h})
+        d = {h: _norm_cell(row[i] if i < len(row) else "") for i, h in enumerate(header) if h}
+        for k in DATE_FIELDS & d.keys():
+            d[k] = norm_date(d[k])
+        out.append(d)
     return out
 
 
@@ -528,10 +559,10 @@ def save_snapshot(tabs: dict[str, list[dict[str, Any]]], source: str) -> dict[st
     DB_DIR.mkdir(parents=True, exist_ok=True)
     snap = {"sha": sha, "source": source, "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "tabs": content, "validation": {"errors": report.errors, "warnings": report.warnings}}
-    (DB_DIR / f"snapshot_{sha}.json").write_text(json.dumps(snap, ensure_ascii=False), encoding="utf-8")
+    (DB_DIR / f"snapshot_{sha}.json").write_text(json.dumps(snap, ensure_ascii=False, default=str), encoding="utf-8")
     if report.ok:
-        CURRENT.write_text(json.dumps(snap, ensure_ascii=False), encoding="utf-8")
-    return {"sha": sha, "ok": report.ok, "errors": report.errors, "warnings": report.warnings,
+        CURRENT.write_text(json.dumps(snap, ensure_ascii=False, default=str), encoding="utf-8")
+    return {"sha": sha, "ok": report.ok, "source_type": source, "errors": report.errors, "warnings": report.warnings,
             "scenarios": [s.id for s in scenarios], "fetched_at": snap["fetched_at"], "source": source}
 
 

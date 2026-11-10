@@ -70,7 +70,7 @@ python -m pytest hotel_lab
 python -m hotel_lab demo
 ```
 ✅ `validate` ends with "Validation passed."  
-✅ pytest shows "26 passed" (or more). Always run tests as `python -m pytest hotel_lab`. A bare
+✅ pytest shows "30 passed" (or more). Always run tests as `python -m pytest hotel_lab`. A bare
 `pytest` at the repo root also loads the original ACES tests, which need extra packages.  
 ✅ `demo` ends with a table where `mock-biased` picks position 1 about 60% of the time. That shows the
 analysis picks up a position bias when one exists.

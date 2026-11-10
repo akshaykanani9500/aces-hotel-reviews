@@ -95,6 +95,7 @@ class Job:
         self.finished: Optional[float] = None
         self.stop = False
         self.pushed = 0
+        self.planned = 0
         self.experiment = ""
 
     def say(self, msg: str) -> None:
@@ -143,7 +144,8 @@ def _run_job(job: Job, per_cell: Optional[int], interface: str, reasoning: str) 
                           parse_retries=int(st["settings"].get("parse_retries", 1)), per_cell=per_cell,
                           quiet=True, on_record=on_record, should_stop=lambda: job.stop)
                 r = res.get(m) or next(iter(res.values()), {})
-                job.say(f"{m}: {r.get('ran', 0)} trials, {r.get('failures', 0)} not usable.")
+                job.planned += r.get("planned", 0)
+                job.say(f"{m}: {r.get('ran', 0)} of {r.get('planned', 0)} trials run, {r.get('failures', 0)} not usable.")
             except SystemExit as e:          # e.g. model server not reachable (fail-fast)
                 job.say(f"{m} stopped: {e}")
                 job.last_error = str(e)
@@ -162,13 +164,17 @@ def _run_job(job: Job, per_cell: Optional[int], interface: str, reasoning: str) 
         job.finished = time.time()
         db = sheetdb.get_db()
         if db is not None and job.experiment:
+            commit = ""
             try:
                 import subprocess
                 commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=REPO_ROOT, capture_output=True,
                                         text=True, timeout=5).stdout.strip()
-                db.append("Runs", [{"timestamp": time.strftime("%Y-%m-%d %H:%M:%S"), "run_id": job.id,
+            except Exception:
+                commit = "(git not found)"
+            try:
+                db.append("Runs", [{"timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "run_id": job.id,
                                     "experiment": job.experiment, "block": job.block, "models": ", ".join(job.models),
-                                    "trials_planned": job.total, "trials_done": job.done, "failures": job.failures,
+                                    "trials_planned": job.planned, "trials_done": job.done, "failures": job.failures,
                                     "snapshot_sha": (sheetdb.current_snapshot() or {}).get("sha", "yaml"),
                                     "git_commit": commit, "status": job.status, "notes": job.mode}])
             except Exception as e:
@@ -223,7 +229,12 @@ def create_studio(site_port: Optional[int] = None) -> FastAPI:
     app.mount("/static", StaticFiles(directory=str(STATIC)), name="studio_static")
 
     from hotel_lab.screenshots import LocalSite
-    site = LocalSite(experiment=None, port=site_port).__enter__()   # the hotel website the agents see
+    try:
+        site = LocalSite(experiment=None, port=site_port).__enter__()   # the hotel website the agents see
+    except Exception as e:
+        raise SystemExit(f"Could not start the hotel website on port {site_port}: {e}\n"
+                         f"Another 'python -m hotel_lab serve' or Studio is probably still running. Close it, or start "
+                         f"with a different port:  python -m hotel_lab studio --site-port 8790")
 
     def hyp(hid: str, st: dict[str, Any]) -> dict[str, Any]:
         for h in st["hypotheses"]:
@@ -248,6 +259,10 @@ def create_studio(site_port: Optional[int] = None) -> FastAPI:
 
     def held_constant(h: dict[str, Any], st: dict[str, Any]) -> list[str]:
         s = st["settings"]
+        if "facts_only" in (h.get("levels") or ""):
+            return ["NO reviews are shown: each room shows only its 3 facts as plain labels (Good/Average/Poor)",
+                    "price, amenities, room type, guest rating, review count and photo: identical for all rooms",
+                    "room positions balanced; hotel names rotate"]
         manipulated = {h.get("factor"), h.get("factor2")}
         fixed = {"order": s.get("default_order", "random"), "style": s.get("default_style", "base"),
                  "review_set": s.get("default_review_set", "base"), "format": s.get("default_format", "full")}
@@ -326,7 +341,7 @@ def create_studio(site_port: Optional[int] = None) -> FastAPI:
         p = RUNS_DIR / "_db" / "hotel_lab_database.xlsx"
         models = [{"name": m["name"], "provider": m.get("provider", ""), "base_url": m.get("base_url", ""),
                    "model": m.get("model", ""), "api_key_env": m.get("key_env", "")} for m in models_list()]
-        sheetdb.build_workbook(p, load_scenarios(STIMULI_DIR), models)
+        sheetdb.build_workbook(p, load_scenarios(STIMULI_DIR, source="yaml"), models)
         return FileResponse(p, filename="hotel_lab_database.xlsx")
 
     # ---- experiment ----
@@ -361,9 +376,14 @@ def create_studio(site_port: Optional[int] = None) -> FastAPI:
         rooms = []
         for r in view["rooms"]:
             room = sc.room(r["room_id"])
+            shown = r.get("verified_facts")
+            facts = ({ln.split(": ")[0]: ln.split(": ")[-1] + " (shown)" for ln in shown} if shown
+                     else {f["attribute"]: f["level"] for f in room["facts"]})
             rooms.append({"option": r["option_number"], "hotel_name": r["hotel_name"], "profile": r["room_id"],
-                          "focal": r["room_id"] == t["focal_room_id"], "best": r["room_id"] == t["best_room_id"],
-                          "levels": r["levels"], "facts": {f["attribute"]: f["level"] for f in room["facts"]},
+                          "focal": r["room_id"] == t["focal_room_id"],
+                          "best": (r["room_id"] == t["focal_room_id"]) if r["levels"].get("facts") in ("all_good", "all_poor")
+                          else r["room_id"] == t["best_room_id"],
+                          "levels": r["levels"], "facts": facts,
                           "first_review_stars": (r.get("reviews") or [{}])[0].get("rating")})
         return {"experiment": exp, "trial_id": t["trial_id"], "cell": cell, "cells": cells,
                 "scenario": t["scenario_id"], "query": view["query"],
@@ -376,7 +396,9 @@ def create_studio(site_port: Optional[int] = None) -> FastAPI:
     @app.post("/api/models")
     def save_model(body: ModelIn):
         if not re.fullmatch(r"[A-Za-z0-9_.\-]{1,60}", body.name):
-            raise HTTPException(400, "Name: letters, numbers, - _ . only")
+            raise HTTPException(400, "Short name: letters, numbers, - _ . only")
+        if not body.model.strip() and body.preset != "mock":
+            raise HTTPException(400, "Model name is empty: type the model id, e.g. qwen2.5:7b")
         pre = PROVIDER_PRESETS.get(body.preset)
         if pre is None:
             raise HTTPException(400, "Unknown provider")

@@ -173,7 +173,7 @@ def test_select_trials_spreads_limit(scenarios, cfg):
     assert len(sel) == 20 and len({(t["block"], t["cell"]) for t in sel}) >= 15
     pc = select_trials(plan, per_cell=2)
     cells = {(t["block"], t["cell"]) for t in plan}
-    assert len(pc) == 2 * len(cells)
+    assert len([t for t in pc if not t.get("retest")]) == 2 * len(cells)
 
 
 def test_damaged_log_line_is_skipped(tmp_path):
@@ -241,7 +241,7 @@ def test_block_configs_and_verdicts_with_simulated_agent():
     res = study.analyze(st, push=False)
     rows = {(r["hypothesis_id"], r["arm"]): r for r in res["rows"]}
     assert rows[("H3a", "mock-simulated__text__low")]["estimate"] > 0
-    assert rows[("V7", "mock__text__low")]["verdict"] in ("PASS", "FAIL")
+    assert rows[("V7", "mock__text__low")]["verdict"].split(" ")[0] in ("PASS", "FAIL")
     assert rows[("H1", "(all)")]["verdict"] == "Not run yet"
     for d in RUNS_DIR.glob("pytest_study__*"):
         shutil.rmtree(d)

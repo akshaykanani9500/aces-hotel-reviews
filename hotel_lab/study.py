@@ -28,7 +28,7 @@ def load_study() -> dict[str, Any]:
         tabs = snap["tabs"]
         hyps = sheetdb.tabs_to_hypotheses(tabs) or [dict(h, enabled=True) for h in sheetdb.HYPOTHESES]
         settings = sheetdb.tabs_to_settings(tabs)
-        source = {"type": "google_sheet" if snap["source"] == "google_sheet" else snap["source"],
+        source = {"type": "Google Sheet" if snap["source"] == "google_sheet" else f"uploaded {snap['source'].replace('xlsx:', '')}",
                   "sha": snap["sha"], "fetched_at": snap["fetched_at"], "validation": snap.get("validation", {})}
     else:
         hyps = [dict(h, enabled=str(h.get("enabled", "TRUE")).upper() == "TRUE") for h in sheetdb.HYPOTHESES]
@@ -104,6 +104,23 @@ def prepare(block: str, study: Optional[dict[str, Any]] = None) -> dict[str, Any
     if problems:
         raise ValueError("Cannot build this experiment: " + "; ".join(list(problems)[:3]))
     exp = cfg["experiment_name"]
+    from hotel_lab.design import plan_path
+    old_man = plan_path(exp).parent / "manifest.json"
+    raw_dir = plan_path(exp).parent / "raw"
+    if old_man.exists() and raw_dir.exists() and any(raw_dir.glob("*.jsonl")):
+        old = json.loads(old_man.read_text(encoding="utf-8"))
+        cfg_tmp = plan_path(exp).parent / "_new_experiment.yaml"
+        cfg_tmp.write_text(yaml.safe_dump(cfg, sort_keys=False, allow_unicode=True), encoding="utf-8")
+        new = manifest(cfg_tmp, study["scenarios"])
+        cfg_tmp.unlink()
+        sha_now = study["source"].get("sha")
+        data_changed = (old.get("snapshot_sha") != sha_now) if (sha_now or old.get("snapshot_sha")) \
+            else (old.get("stimuli_sha") != new.get("stimuli_sha"))
+        if data_changed or old.get("config_sha") != new.get("config_sha"):
+            raise ValueError(
+                f"The reviews, hypotheses or settings changed since '{exp}' started, and it already has results. "
+                f"Mixing them would spoil the experiment. Change experiment_name in the Settings tab "
+                f"(e.g. study_v2), Sync, and run again.")
     p = save_plan(trials, exp)
     with open(p.parent / "experiment.yaml", "w", encoding="utf-8") as f:
         yaml.safe_dump(cfg, f, sort_keys=False, allow_unicode=True)
@@ -144,10 +161,21 @@ def push_pending(experiment: str) -> dict[str, Any]:
     db = sheetdb.get_db()
     if not out.exists() or db is None:
         return {"pushed": 0, "pending": _count(out)}
-    rows = [json.loads(l) for l in out.read_text(encoding="utf-8").splitlines() if l.strip()]
-    n = 0
+    rows = []
+    for l in out.read_text(encoding="utf-8").splitlines():
+        try:
+            rows.append(json.loads(l))
+        except json.JSONDecodeError:
+            pass                       # a half-written last line from a crash
+    n, error = 0, None
     for i in range(0, len(rows), 200):
-        n += db.append("Results", rows[i:i + 200])
+        try:
+            n += db.append("Results", rows[i:i + 200])
+        except Exception as e:         # keep what was not sent; never send a batch twice
+            error = str(e)
+            rest = rows[i:]
+            out.write_text("".join(json.dumps(r, default=str, ensure_ascii=False) + "\n" for r in rest), encoding="utf-8")
+            return {"pushed": n, "pending": len(rest), "error": error}
     out.unlink()
     return {"pushed": n, "pending": 0}
 
@@ -168,24 +196,26 @@ class SheetPusher:
         self.outbox = RUNS_DIR / experiment / "sheet_outbox.jsonl"
 
     def add(self, rec: dict[str, Any]) -> None:
-        self.buf.append(result_row(rec, self.run_id, self.sha))
+        # write to the local outbox FIRST, so nothing is lost if the Studio is closed mid-run
+        row = result_row(rec, self.run_id, self.sha)
+        self.outbox.parent.mkdir(parents=True, exist_ok=True)
+        with open(self.outbox, "a", encoding="utf-8") as f:
+            f.write(json.dumps(row, default=str, ensure_ascii=False) + "\n")
+        self.buf.append(row)
         if len(self.buf) >= self.batch:
             self.flush()
 
     def flush(self) -> None:
-        if not self.buf:
+        self.buf = []
+        if self.db is None:
             return
-        rows, self.buf = self.buf, []
-        if self.db is not None:
-            try:
-                self.pushed += self.db.append("Results", rows)
-                return
-            except Exception as e:
-                self.last_error = str(e)
-        self.outbox.parent.mkdir(parents=True, exist_ok=True)
-        with open(self.outbox, "a", encoding="utf-8") as f:
-            for r in rows:
-                f.write(json.dumps(r, default=str, ensure_ascii=False) + "\n")
+        try:
+            res = push_pending(self.experiment)
+            self.pushed += res["pushed"]
+            if res.get("error"):
+                self.last_error = res["error"]
+        except Exception as e:
+            self.last_error = str(e)
 
 
 def analyze(study: Optional[dict[str, Any]] = None, push: bool = True) -> dict[str, Any]:

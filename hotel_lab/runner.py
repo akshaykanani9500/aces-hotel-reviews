@@ -63,31 +63,35 @@ def done_trial_ids(path: Path) -> set[str]:
 def select_trials(trials: list[dict[str, Any]], blocks: Optional[list[str]] = None,
                   scenarios: Optional[list[str]] = None, limit: Optional[int] = None,
                   per_cell: Optional[int] = None, include_retest: bool = True) -> list[dict[str, Any]]:
-    """Filter the plan. `per_cell` = first N trials of every cell (a proper pilot).
-    `limit` = N trials spread round-robin across all cells (not just the first cell)."""
+    """Filter and ORDER the plan so that any prefix of it is balanced:
+    cells are interleaved round-robin (a stopped run still covers every cell), and inside a cell the
+    trials are spread over scenarios and rooms. The same (scenario, item, repeat) slots are used in every
+    cell, so cells stay comparable. `per_cell` = N trials of every cell (a pilot; retest copies come on
+    top). `limit` = at most N trials in total."""
     out = [t for t in trials if (not blocks or t["block"] in blocks)
            and (not scenarios or t["scenario_id"] in scenarios)
            and (include_retest or not t.get("retest"))]
-    if per_cell or limit:
-        cells: dict[tuple, list] = defaultdict(list)
-        # inside each cell, spread the first trials over scenarios and items (not one scenario first),
-        # and use the SAME (scenario, item, repeat) positions in every cell so cells stay comparable
-        sc_index = {s: i for i, s in enumerate(dict.fromkeys(t["scenario_id"] for t in out))}
-        n_sc = max(len(sc_index), 1)
-        def spread(t):
-            si = sc_index[t["scenario_id"]]
-            return (t["repeat"], (t["item"] - si) % 4, si, t.get("retest", False), t["prompt_id"])
-        for t in sorted(out, key=spread):
-            cells[(t["block"], t["cell"])].append(t)
-        if per_cell:
-            out = [t for c in cells.values() for t in c[:per_cell]]
-        else:
-            mixed, i = [], 0
-            while len(mixed) < limit and any(i < len(c) for c in cells.values()):
-                mixed += [c[i] for c in cells.values() if i < len(c)]
-                i += 1
-            out = mixed[:limit]
-    return out
+    sc_index = {s: i for i, s in enumerate(dict.fromkeys(t["scenario_id"] for t in out))}
+
+    def spread(t):
+        si = sc_index[t["scenario_id"]]
+        return (t["repeat"], (t["item"] - si) % 4, si, t["prompt_id"])
+
+    retest = {t["trial_id"][: -len("__retest")]: t for t in out if t.get("retest")}
+    cells: dict[tuple, list] = defaultdict(list)
+    for t in sorted((t for t in out if not t.get("retest")), key=spread):
+        cells[(t["block"], t["cell"])].append(t)
+    if per_cell:
+        cells = {k: v[:per_cell] for k, v in cells.items()}
+    ordered, i = [], 0
+    while any(i < len(c) for c in cells.values()):
+        for c in cells.values():
+            if i < len(c):
+                ordered.append(c[i])
+                if c[i]["trial_id"] in retest:
+                    ordered.append(retest[c[i]["trial_id"]])
+        i += 1
+    return ordered[:limit] if limit else ordered
 
 
 def run_trial(client: ModelClient, trial: dict[str, Any], prompt: str, n_options: int, view: dict[str, Any],
@@ -281,7 +285,8 @@ def run(experiment: str, model_names: Iterable[str], interface: str = "text", re
                 shooter.__exit__(None, None, None)
             if site:
                 site.__exit__(None, None, None)
-        summary[cfg.name] = {"path": out, "ran": len(todo), "failures": n_fail, "api_errors": n_api}
+        summary[cfg.name] = {"path": out, "ran": n_ok + n_fail, "failures": n_fail, "api_errors": n_api,
+                             "planned": len(todo)}
     return summary
 
 

@@ -50,6 +50,8 @@ Drive, and open it with Google Sheets.
 
 > **SPJIMR account note.** Your Sheet is in your SPJIMR Google Workspace. Some college workspaces don't allow
 > "Anyone" for web apps, and offer only "Anyone within SPJIMR".
+> Some admins also block unverified scripts completely ("Access blocked").
+> Note that "Anyone" plus the token gives read access to the whole Sheet, hidden Facts included, so never share the link.
 > If you can't pick **Anyone**, there are two ways round it:
 > - **(a)** Make a copy of the Sheet in a personal Gmail account (File → Make a copy) and deploy the script there.
 > - **(b)** Use the offline route in A5.
@@ -66,7 +68,13 @@ with every trial.
 
 ### A5. Offline alternative (no Apps Script)
 In Google Sheets: **File → Download → Microsoft Excel (.xlsx)**. In the Studio: **Data source → Upload a downloaded .xlsx**.
-Results are then saved locally only. To send them to the Sheet later, connect the Sheet and click **Send pending rows to Sheet**.
+Results are then saved locally only. You can send them to the Sheet in two ways:
+- connect the Sheet later and click **Send pending rows to Sheet**;
+- or in the Sheet use **File → Import** with `runs/<experiment>__<block>/tables/trials.csv` and
+  `runs/<experiment>__verdicts/verdicts.csv`.
+
+**Tip when adding rows in the Sheet.** Select the new rows and choose **Format → Number → Plain text** before you type
+dates or ids. Dates are accepted as 2026-09-18 or 18/09/2026; the website converts them to 2026-09-18.
 
 ### A6. Add your models (right panel → ➕ Add a model)
 - **Local and free:**
@@ -86,9 +94,14 @@ Click **Test** next to each model. A ✓ means it returned a valid JSON answer.
 
 The order follows the brief's gates. Don't move to the next step until the current one passes.
 
+**Before the real study, try everything once with the test agents in a separate experiment.** In the Settings tab, set
+`experiment_name` to `trial_run`, Sync, and run V7 and a couple of hypotheses with `mock` and `mock-simulated`.
+Then set it back to `study_v1` and Sync. Test agents are never averaged into the pooled row, but keeping them out of the real
+experiment keeps the tables clean.
+
 | Step | Pick in the dropdown | Mode | Pass condition |
 |---|---|---|---|
-| 1 | **V7 Placebo** with `mock` | Pilot 10/cell | PASS: the pipeline does not invent effects |
+| 1 | **V7 Placebo** with your real model(s) | Pilot 20/cell, then full | PASS: the pipeline does not invent effects (a pilot PASS is marked "weak") |
 | 2 | **V1 Facts-only** | Pilot 10/cell, each real model | PASS (≥80%): the agent agrees with your "best room" |
 | 3 | **V5 Dominance** | Pilot 10/cell | PASS (≥95%): the agent reads the page at all |
 | 4 | **HB Baseline** | Pilot 20/cell | PASS: better than 25% chance, and it doesn't always pick one room |
@@ -103,8 +116,10 @@ The order follows the brief's gates. Don't move to the next step until the curre
 - **Temperature 0:** add a copy of a model with temperature 0.
 - **Screenshots:** choose *Interface: Screenshots* with a vision model, for one block (e.g. H2b).
 
-**Important:** change `experiment_name` in Settings for every new study (for example after editing reviews). Runs with
-different names never mix.
+**Important:** if you edit reviews, hypotheses or settings after an experiment has results, the Studio **refuses to
+run** and asks you to change `experiment_name`, for example to `study_v2`. Old and new data can never mix. A stopped run
+continues where it stopped when you press Run again, and every run spreads its trials over all cells, so even a
+stopped run is balanced.
 
 ---
 
@@ -186,4 +201,7 @@ facts / style / both / other. Then `python -m hotel_lab agreement <file>` gives 
 | Synced but "NOT used, fix these errors" | The message lists the rows. Most often a review id in ReviewSets is missing from Reviews, or balance sets don't have equal mean stars |
 | Changed `Code.gs` and nothing happened | Deploy → Manage deployments → ✏️ → Version: **New version** → Deploy |
 | A model test fails with ConnectError | Ollama isn't running: open the Ollama app |
+| "Port 8800/8765 is already in use" | Another Studio or `serve` is still running. Close that terminal, or start with `--port 8820 --site-port 8785` |
+| "The reviews, hypotheses or settings changed since …" | You edited the Sheet mid-study: change `experiment_name` in Settings, Sync, and run again |
+| Closed the terminal mid-run | Start the Studio again and press Run: finished trials are skipped, and unsent Sheet rows are sent on the next run or with **Send pending rows** |
 | Rows not in the Sheet | Click **Send pending rows to Sheet**. Rows wait locally if the internet or the link failed |

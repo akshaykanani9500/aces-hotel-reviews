@@ -254,7 +254,7 @@ class ModelClient:
             start = prompt.index("[")
             rooms = json.loads(prompt[start:prompt.rindex("]") + 1])
         except Exception:
-            return json.dumps({"option_number": rng.randint(1, n), "reason": "mock could not read rooms"})
+            return json.dumps({"option_number": rng.randint(1, n), "reason": "test agent is working (no rooms in this prompt)"})
         emoji_re = re.compile("[\U0001F300-\U0001FAFF\u2600-\u27BF]")
         best, pick = -1e9, 1
         for r in rooms:

@@ -60,6 +60,10 @@ function doPost(e) {
     lock.waitLock(30000);
     var body = JSON.parse(e.postData.contents);
     if (!checkToken_(body.token)) return json_({ ok: false, error: 'bad or missing token' });
+    if (body.action !== 'append' && body.action !== 'replace') return json_({ ok: false, error: 'unknown action ' + body.action });
+    if (!body.tab || ['Results', 'Verdicts', 'Runs'].indexOf(body.tab) < 0) {
+      return json_({ ok: false, error: 'the website may only write the Results, Verdicts and Runs tabs' });
+    }
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var sh = ss.getSheetByName(body.tab) || ss.insertSheet(body.tab);
     var rows = body.rows || [];
@@ -67,8 +71,9 @@ function doPost(e) {
     if (body.action === 'append') {
       if (rows.length === 0) return json_({ ok: true, appended: 0 });
       var header = sh.getLastRow() > 0
-        ? sh.getRange(1, 1, 1, Math.max(sh.getLastColumn(), 1)).getDisplayValues()[0].filter(String)
+        ? sh.getRange(1, 1, 1, Math.max(sh.getLastColumn(), 1)).getDisplayValues()[0].map(String)
         : [];
+      while (header.length && header[header.length - 1] === '') header.pop();   // keep positions of blank columns
       // add any new columns at the end
       rows.forEach(function (r) {
         Object.keys(r).forEach(function (k) { if (header.indexOf(k) < 0) header.push(k); });

@@ -43,7 +43,11 @@ def cmd_validate(args) -> int:
         print(f"WARNING  {w}")
     for e in rep.errors:
         print(f"ERROR    {e}")
-    print(f"\n{len(scs)} scenario(s): {', '.join(s.id for s in scs)}")
+    from hotel_lab.stimuli import data_source
+    src = data_source()
+    print(f"\nData source: {'synced Google Sheet snapshot (runs/_db)' if src == 'sheet' else 'YAML files in hotel_lab/stimuli'}"
+          f" (force with HOTEL_LAB_SOURCE=yaml|sheet)")
+    print(f"{len(scs)} scenario(s): {', '.join(s.id for s in scs)}")
     print("Validation passed." if rep.ok else f"Validation FAILED with {len(rep.errors)} error(s).")
     return 0 if rep.ok else 1
 
@@ -205,10 +209,26 @@ def cmd_agreement(args) -> int:
 
 
 def cmd_studio(args) -> int:
+    import socket
+    import threading
+    import webbrowser
     import uvicorn
     from hotel_lab.studio.app import create_studio
-    print(f"Hotel Lab Studio running at http://127.0.0.1:{args.port}  (press Ctrl+C to stop)")
-    uvicorn.run(create_studio(site_port=args.site_port), host="127.0.0.1", port=args.port, log_level="warning")
+    for port, what in ((args.port, "--port"), (args.site_port, "--site-port")):
+        with socket.socket() as s:
+            if s.connect_ex(("127.0.0.1", port)) == 0:
+                print(f"Port {port} is already in use (another Studio or 'serve' is running?). Close it, or use "
+                      f"{what} with another number, e.g. {what} {port + 20}")
+                return 1
+    app = create_studio(site_port=args.site_port)
+    url = f"http://127.0.0.1:{args.port}"
+    print(f"Hotel Lab Studio running at {url}  (press Ctrl+C to stop)")
+    if not args.no_browser:
+        threading.Timer(1.5, lambda: webbrowser.open(url)).start()
+    try:
+        uvicorn.run(app, host="127.0.0.1", port=args.port, log_level="warning")
+    except KeyboardInterrupt:
+        pass
     return 0
 
 
@@ -217,7 +237,7 @@ def cmd_make_db(args) -> int:
     from hotel_lab import sheetdb
     from hotel_lab.stimuli import STIMULI_DIR, load_scenarios
     out = Path(args.out)
-    sheetdb.build_workbook(out, load_scenarios(STIMULI_DIR))
+    sheetdb.build_workbook(out, load_scenarios(STIMULI_DIR, source="yaml"))
     print(f"Wrote {out}. Upload it to Google Drive and open it with Google Sheets (File -> Save as Google Sheets).")
     return 0
 
@@ -309,6 +329,7 @@ def main(argv=None) -> None:
     s = sub.add_parser("studio", help="open the Hotel Lab Studio control panel in your browser")
     s.add_argument("--port", type=int, default=8800)
     s.add_argument("--site-port", type=int, default=8765, help="port of the hotel website the agents see")
+    s.add_argument("--no-browser", action="store_true", help="do not open the browser automatically")
     s = sub.add_parser("make-db", help="write the starter Google Sheet workbook (.xlsx) from the YAML stimuli")
     s.add_argument("--out", default="runs/_db/hotel_lab_database.xlsx")
     s = sub.add_parser("sync", help="pull the Google Sheet (or an .xlsx copy) into a local snapshot")

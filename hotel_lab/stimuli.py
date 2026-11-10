@@ -79,9 +79,11 @@ def data_source() -> str:
     return "sheet" if CURRENT.exists() else "yaml"
 
 
-def load_scenarios(stimuli_dir: Path | str = STIMULI_DIR, only: list[str] | None = None) -> list[Scenario]:
-    """Load scenarios from the synced Google Sheet snapshot if there is one, else from the YAML files."""
-    if data_source() == "sheet" and Path(stimuli_dir) == STIMULI_DIR:
+def load_scenarios(stimuli_dir: Path | str = STIMULI_DIR, only: list[str] | None = None,
+                   source: str | None = None) -> list[Scenario]:
+    """Load scenarios from the synced Google Sheet snapshot if there is one, else from the YAML files.
+    source='yaml' forces the YAML files (used by make-db and the starter workbook)."""
+    if (source or data_source()) == "sheet" and Path(stimuli_dir) == STIMULI_DIR:
         from hotel_lab.sheetdb import current_snapshot, tabs_to_scenarios
         snap = current_snapshot()
         if snap is None:
@@ -108,7 +110,7 @@ def validate_scenario(sc: Scenario, style_levels: list[str] | None = None,
     """Mechanical checks. Human coders still need to check that variants carry the same facts."""
     rep = ValidationReport()
     d = sc.data
-    tag = sc.path.name
+    tag = sc.path.name if sc.path.suffix in (".yaml", ".yml") else f"{d.get('scenario_id', '?')} (Sheet)"
     for key in ("scenario_id", "query", "rooms", "best_room_id", "fact_attributes"):
         if key not in d:
             rep.errors.append(f"{tag}: missing top-level key '{key}'")
@@ -154,8 +156,11 @@ def validate_scenario(sc: Scenario, style_levels: list[str] | None = None,
                 if a not in attrs:
                     rep.errors.append(f"{rt}/{rv['review_id']}: facts_covered '{a}' not in fact_attributes")
             for k in ("posted_date", "helpful_votes"):
-                if k not in rv:
+                if k not in rv or str(rv.get(k, "")).strip() == "":
                     rep.errors.append(f"{rt}/{rv['review_id']}: missing '{k}' (needed for order conditions)")
+            import re as _re
+            if str(rv.get("posted_date", "")) and not _re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(rv.get("posted_date"))):
+                rep.errors.append(f"{rt}/{rv['review_id']}: posted_date '{rv.get('posted_date')}' must look like 2026-09-18")
 
         sets = r["review_sets"]
         if "base" not in sets:
