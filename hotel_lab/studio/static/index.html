@@ -41,6 +41,8 @@ th{background:#f7fafc;font-size:12px;color:var(--muted)}
 .bottom{padding:0 14px 30px}.flash{padding:8px 10px;border-radius:6px;margin-top:8px;font-size:13px}
 .flash.err{background:#fde8e7;color:var(--bad)}.flash.okk{background:#e5f6ec;color:var(--good)}
 details summary{cursor:pointer;font-weight:600}
+.modal{position:fixed;inset:0;background:rgba(10,20,30,.45);display:flex;align-items:flex-start;justify-content:center;padding-top:70px;z-index:50}
+.modal .card{width:620px;max-width:94vw;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 @media(max-width:1200px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -62,17 +64,7 @@ details summary{cursor:pointer;font-weight:600}
       <select id="hyp" onchange="showHyp()"></select>
       <div id="hypbox"></div>
     </div>
-    <div class="card" id="sourcecard" style="display:none">
-      <h2>Data source (Google Sheet)</h2>
-      <p class="small muted">Paste the Apps Script <b>Web app URL</b> (ends in /exec) and the <b>api_token</b> from the Sheet's Settings tab.</p>
-      <label>Web app URL</label><input id="surl" placeholder="https://script.google.com/macros/s/.../exec">
-      <label>api_token</label><input id="stok" placeholder="from Settings tab">
-      <div class="row" style="margin-top:8px"><button class="primary" onclick="saveSource()">Save &amp; test</button><button onclick="doSync()">Sync now</button></div>
-      <h3>Or offline</h3>
-      <label>Upload a downloaded .xlsx of the Sheet</label><input type="file" id="xlsx" accept=".xlsx" onchange="uploadXlsx()">
-      <div class="row" style="margin-top:8px"><a href="/api/workbook"><button>Download starter workbook</button></a><button onclick="useYaml()">Use repo YAML files</button></div>
-      <div id="srcmsg"></div>
-    </div>
+</div>
   </div>
 
   <!-- CENTRE: what the agent sees -->
@@ -142,6 +134,20 @@ details summary{cursor:pointer;font-weight:600}
   </div>
 </div>
 
+<div id="sourcecard" class="modal" style="display:none" onclick="closeSource()">
+    <div class="card" onclick="event.stopPropagation()">
+      <div class="row"><h2 style="margin:0">Data source (Google Sheet)</h2><button style="flex:0 0 auto" onclick="closeSource()">✕ Close</button></div>
+      <p class="small muted">Paste the Apps Script <b>Web app URL</b> (ends in /exec) and the <b>api_token</b> from the Sheet's Settings tab.</p>
+      <p class="small" id="srcnow"></p>
+      <label>Web app URL (or just the deployment ID starting with AKfy…)</label><input id="surl" placeholder="https://script.google.com/macros/s/.../exec">
+      <label>api_token</label><input id="stok" placeholder="from Settings tab">
+      <div class="row" style="margin-top:8px"><button class="primary" onclick="saveSource()">Save &amp; test</button><button onclick="doSync()">Sync now</button></div>
+      <h3>Or offline</h3>
+      <label>Upload a downloaded .xlsx of the Sheet</label><input type="file" id="xlsx" accept=".xlsx" onchange="uploadXlsx()">
+      <div class="row" style="margin-top:8px"><a href="/api/workbook"><button>Download starter workbook</button></a><button onclick="useYaml()">Use repo YAML files</button></div>
+      <div id="srcmsg"></div>
+    </div>
+</div>
 <script>
 let S = null, P = null;
 const $ = id => document.getElementById(id);
@@ -265,12 +271,14 @@ async function analyze(){ $("verdicts").textContent = "Analysing…";
   }catch(e){ $("verdicts").innerHTML = `<span class="no">${esc(e.message)}</span>` } }
 async function pushPending(){ const r = await api("/api/push_pending",{method:"POST"}); alert(JSON.stringify(r,null,1)) }
 
-function openSource(){ const c=$("sourcecard"); c.style.display = c.style.display==="none"?"":"none" }
-async function saveSource(){ try{ const r=await api("/api/source",{method:"POST",body:JSON.stringify({sheet_url:$("surl").value,sheet_token:$("stok").value})});
+function openSource(){ $("sourcecard").style.display="flex";
+  $("srcnow").innerHTML = S && S.sheet_linked ? `Linked now: <code>${esc(S.sheet_url_hint)}</code>` : "No Sheet linked yet." }
+function closeSource(){ $("sourcecard").style.display="none" }
+async function saveSource(){ $("srcmsg").textContent="Testing the link…"; try{ const r=await api("/api/source",{method:"POST",body:JSON.stringify({sheet_url:$("surl").value,sheet_token:$("stok").value})});
   flash("srcmsg","Connected. Tabs: "+Object.entries(r.tabs).map(([k,v])=>k+" ("+v+")").join(", ")+". Now press Sync.",true) }catch(e){ flash("srcmsg",e.message) } }
-async function doSync(){ $("sourcecard").style.display=""; $("srcmsg").textContent="Syncing…"; try{ const r=await api("/api/sync",{method:"POST"});
+async function doSync(){ $("sourcecard").style.display="flex"; $("srcmsg").textContent="Syncing…"; try{ const r=await api("/api/sync",{method:"POST"});
   flash("srcmsg",(r.ok?"Synced snapshot "+r.sha+": ":"Synced but NOT used, fix these errors: ")+r.scenarios.length+" scenarios. "+(r.errors||[]).slice(0,5).join(" | "), r.ok);
-  if(!r.ok) $("sourcecard").style.display=""; await load($("hyp").value) }catch(e){ $("sourcecard").style.display=""; flash("srcmsg",e.message) } }
+  if(!r.ok) $("sourcecard").style.display="flex"; await load($("hyp").value) }catch(e){ $("sourcecard").style.display="flex"; flash("srcmsg",e.message) } }
 async function uploadXlsx(){ const f=$("xlsx").files[0]; if(!f) return; const fd=new FormData(); fd.append("file",f);
   const r=await fetch("/api/sync_xlsx",{method:"POST",body:fd}); const j=await r.json();
   flash("srcmsg", r.ok ? (j.ok?"Loaded snapshot "+j.sha:"Loaded with errors: "+(j.errors||[]).slice(0,5).join(" | ")) : (j.detail||"failed"), r.ok&&j.ok); load($("hyp").value) }

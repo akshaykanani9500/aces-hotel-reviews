@@ -18,6 +18,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import secrets
 from datetime import datetime, timezone
 from pathlib import Path
@@ -480,15 +481,20 @@ class AppsScriptDB:
     """Talks to the Apps Script web app pasted into the Sheet (hotel_lab/apps_script/Code.gs)."""
 
     def __init__(self, url: str, token: str, timeout: float = 60):
-        self.url, self.token, self.timeout = url.strip(), token.strip(), timeout
+        self.url, self.token, self.timeout = clean_url(url), token.strip(), timeout
 
     def _client(self):
         import httpx
         return httpx.Client(timeout=self.timeout, follow_redirects=True)
 
     def read_all(self) -> dict[str, list[dict[str, Any]]]:
-        with self._client() as c:
-            r = c.get(self.url, params={"action": "read", "token": self.token})
+        import httpx
+        try:
+            with self._client() as c:
+                r = c.get(self.url, params={"action": "read", "token": self.token})
+        except httpx.HTTPError as e:
+            raise RuntimeError(f"Could not reach Google ({type(e).__name__}: {e}). Check your internet connection, "
+                               f"VPN or college firewall, and that the URL starts with https://script.google.com/")
         data = self._json(r)
         return {name: rows_from_grid(grid) for name, grid in data["tabs"].items() if name != "README"}
 
@@ -510,6 +516,22 @@ class AppsScriptDB:
 
     @staticmethod
     def _json(r) -> dict[str, Any]:
+        final = str(getattr(r, "url", ""))
+        body = r.text[:4000] if hasattr(r, "text") else ""
+        low = body.lower()
+        if "accounts.google.com" in final or "servicelogin" in low or ("sign in" in low and "google" in low):
+            raise RuntimeError(
+                "Google asked for a sign-in, so the website cannot read the Sheet. Your web app is limited to signed-in "
+                "users (links containing /a/macros/spjimr.org/ usually are). Fix: in Apps Script -> Deploy -> Manage "
+                "deployments -> edit (pencil) -> 'Who has access' = Anyone -> Version: New version -> Deploy, and copy "
+                "the new URL. If 'Anyone' is not offered (SPJIMR may block it), make a copy of the Sheet in a personal "
+                "Gmail account and deploy there, or use the offline .xlsx route.")
+        if "script function not found" in low:
+            raise RuntimeError("The web app has no doGet/doPost: paste Code.gs into Apps Script, Save, then "
+                               "Deploy -> Manage deployments -> edit -> Version: New version -> Deploy.")
+        if "unable to open the file" in low or r.status_code == 404:
+            raise RuntimeError("Google cannot find this web app. Copy the full 'Web app URL' (ending in /exec) "
+                               "from Deploy -> Manage deployments, not the deployment ID or the editor URL.")
         if r.status_code != 200:
             raise RuntimeError(f"Sheet link returned HTTP {r.status_code}. Check the URL and that the "
                                f"deployment has access 'Anyone'.")
@@ -521,6 +543,15 @@ class AppsScriptDB:
         if not data.get("ok"):
             raise RuntimeError(f"Sheet error: {data.get('error')}")
         return data
+
+
+def clean_url(url: str) -> str:
+    """Accept the full web-app URL, a bare deployment ID (AKfy...), or a URL with stray spaces/quotes."""
+    u = url.strip().strip('"').strip("'")
+    if re.fullmatch(r"AKfy[A-Za-z0-9_\-]{20,}", u):
+        return f"https://script.google.com/macros/s/{u}/exec"
+    u = re.sub(r"/dev$", "/exec", u)          # the /dev test URL only works when signed in
+    return u
 
 
 # ----------------------------------------------------------------------------- local settings + snapshot

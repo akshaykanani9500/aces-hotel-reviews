@@ -196,6 +196,7 @@ facts / style / both / other. Then `python -m hotel_lab agreement <file>` gives 
 
 | Problem | Fix |
 |---|---|
+| "Google asked for a sign-in" / your URL contains `/a/macros/spjimr.org/` | The web app only works for signed-in SPJIMR users. Deploy → Manage deployments → ✏️ → *Who has access* = **Anyone** → Version: New version → Deploy, then copy the new URL. If **Anyone** isn't offered, copy the Sheet to a personal Gmail account and deploy there, or use the offline .xlsx route |
 | "The Sheet link did not return JSON" | Deployment access must be **Anyone**, and use the `/exec` URL, not the editor URL |
 | "bad or missing token" | Copy `api_token` from the Settings tab exactly |
 | Synced but "NOT used, fix these errors" | The message lists the rows. Most often a review id in ReviewSets is missing from Reviews, or balance sets don't have equal mean stars |
