@@ -8,9 +8,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --porcelain:#F4F6F7; --paper:#FFFFFF; --ink:#17232D; --slate:#5D6A74; --line:#DCE2E6; --soft:#EEF2F4;
-  --brass:#A9782A; --brass-soft:#F6EEDF; --teal:#1E7566; --teal-soft:#E3F2EE; --brick:#A63A32; --brick-soft:#F8E6E4;
-  --amber:#8A6100; --amber-soft:#FBF1D9; --focus:#2F6FB0;
+  /* one accent (cobalt) for everything you can click; green / amber / rose only for verdicts */
+  --porcelain:#F1F4F9; --paper:#FFFFFF; --ink:#18213A; --slate:#586179; --line:#DDE2EC; --soft:#ECF0F7;
+  --brass:#2F55D4; --brass-dark:#2443AE; --brass-soft:#E8EEFD; --brass-line:#C4D2F8;
+  --teal:#1C7A4C; --teal-soft:#E1F3E8; --brick:#B3263F; --brick-soft:#FBE8EC;
+  --amber:#995A00; --amber-soft:#FDF0DB; --focus:#2F55D4;
   --ui:"Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --serif:"Newsreader", Georgia, "Times New Roman", serif;
   --hdr:56px;
@@ -23,17 +25,17 @@ button,input,select{font:inherit;color:inherit}
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
 
 /* ---------- header ---------- */
-header{height:var(--hdr);display:flex;align-items:center;gap:12px;padding:0 18px;background:var(--ink);color:#fff;position:sticky;top:0;z-index:30}
+header{height:var(--hdr);display:flex;align-items:center;gap:12px;padding:0 18px;background:var(--paper);color:var(--ink);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
 .brand{font-weight:700;font-size:17px;letter-spacing:.2px;display:flex;align-items:center;gap:10px}
-.brand .key{width:22px;height:22px;border-radius:50%;border:3px solid var(--brass);position:relative}
+.brand .key{width:22px;height:22px;border-radius:50%;border:3px solid var(--brass);position:relative;margin-right:12px}
 .brand .key:after{content:"";position:absolute;left:16px;top:6px;width:12px;height:4px;background:var(--brass);border-radius:2px}
 .sp{flex:1}
-.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.06);color:#fff;border-radius:999px;padding:6px 12px;cursor:pointer;font-size:13px;white-space:nowrap}
-.pill:hover{background:rgba(255,255,255,.12)}
+.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--soft);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer;font-size:13px;font-weight:500;white-space:nowrap}
+.pill:hover{border-color:var(--brass-line);background:var(--brass-soft)}
 .dot{width:8px;height:8px;border-radius:50%;background:#9aa6ae;flex:0 0 auto}
-.dot.ok{background:#4cc3a8}.dot.warn{background:#e6b54a}.dot.run{background:#e6b54a;animation:pulse 1.2s infinite}
+.dot.ok{background:#22A061}.dot.warn{background:#E0A021}.dot.run{background:var(--brass);animation:pulse 1.2s infinite}
 @keyframes pulse{50%{opacity:.35}}
-.minibar{width:70px;height:5px;border-radius:3px;background:rgba(255,255,255,.18);overflow:hidden}.minibar i{display:block;height:100%;background:var(--brass);width:0}
+.minibar{width:70px;height:5px;border-radius:3px;background:var(--line);overflow:hidden}.minibar i{display:block;height:100%;background:var(--brass);width:0}
 
 /* ---------- shell ---------- */
 .shell{display:grid;grid-template-columns:300px minmax(0,1fr);height:calc(100vh - var(--hdr))}
@@ -42,7 +44,7 @@ main{overflow:auto;padding:0 0 40px;min-width:0}
 .group{margin:14px 6px 6px;font-size:12px;font-weight:600;color:var(--slate);display:flex;align-items:center;gap:6px}
 .hitem{display:block;width:100%;text-align:left;background:none;border:0;border-left:3px solid transparent;border-radius:6px;padding:8px 10px;margin:2px 0;cursor:pointer}
 .hitem:hover{background:var(--soft)}
-.hitem.on{background:var(--brass-soft);border-left-color:var(--brass)}
+.hitem.on{background:var(--brass-soft);border-left-color:var(--brass)}.hitem.on .id{color:var(--brass-dark)}
 .hitem .top{display:flex;align-items:center;gap:8px}
 .hitem .id{font-weight:700;min-width:34px}
 .hitem .q{font-size:12.5px;color:var(--slate);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:2px}
@@ -54,7 +56,7 @@ main{overflow:auto;padding:0 0 40px;min-width:0}
 .tline{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
 .hid{font-size:22px;font-weight:700}
 .fam{font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--soft);color:var(--slate)}
-.fam.confirmatory{background:#E4ECF6;color:#2B4E78}.fam.secondary{background:#EEE8F6;color:#5B3F82}.fam.check{background:var(--teal-soft);color:var(--teal)}.fam.gate{background:var(--amber-soft);color:var(--amber)}
+.fam.confirmatory{background:var(--brass-soft);color:var(--brass-dark)}.fam.secondary{background:#F0EAFB;color:#5A3D8F}.fam.check{background:var(--teal-soft);color:var(--teal)}.fam.gate{background:var(--amber-soft);color:var(--amber)}
 .question{font-family:var(--serif);font-size:21px;line-height:1.35;margin:8px 0 12px;max-width:78ch}
 .tabs{display:flex;gap:2px;overflow-x:auto}
 .tab{background:none;border:0;border-bottom:3px solid transparent;padding:10px 14px;cursor:pointer;color:var(--slate);font-weight:600;white-space:nowrap}
@@ -74,17 +76,18 @@ main{overflow:auto;padding:0 0 40px;min-width:0}
 .pred{padding:10px 18px;border-top:1px solid var(--line);grid-column:1/-1;font-size:13.5px;color:var(--slate)}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chip{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:3px 10px;font-size:13px}
-.chip.ctrl{background:var(--brass-soft);border-color:#E7D3AE}
+.chip.ctrl{background:var(--brass-soft);border-color:var(--brass-line);color:var(--brass-dark)}
 ul.plain{margin:0;padding-left:18px}ul.plain li{margin:3px 0}
 .kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px}.kv b{font-weight:600}
 .big{font-size:26px;font-weight:700}.muted{color:var(--slate)}.small{font-size:12.5px}
 .btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:8px 14px;cursor:pointer;font-weight:600}
-.btn:hover{border-color:#b9c3ca}
-.btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}.btn.primary:hover{background:#26394a}
-.btn.brass{background:var(--brass);border-color:var(--brass);color:#fff}
+.btn:hover{border-color:var(--brass-line);color:var(--brass-dark)}
+.btn.primary,.btn.brass{background:var(--brass);border-color:var(--brass);color:#fff}
+.btn.primary:hover,.btn.brass:hover{background:var(--brass-dark);border-color:var(--brass-dark);color:#fff}
+.btn.danger:hover{border-color:#E9B3BE;color:var(--brick)}
 .btn.danger{color:var(--brick)}.btn:disabled{opacity:.45;cursor:default}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
-.i{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;border:1px solid #b7c1c8;color:var(--slate);font-size:11px;font-weight:700;cursor:help;flex:0 0 auto;background:var(--paper)}
+.i{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;border:1px solid var(--brass-line);color:var(--brass-dark);font-size:11px;font-weight:700;cursor:help;flex:0 0 auto;background:var(--paper)}
 label.f{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--slate);margin:10px 0 4px}
 input.t,select.t{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
@@ -93,21 +96,24 @@ input.t,select.t{width:100%;padding:8px 10px;border:1px solid var(--line);border
 .toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
 .seg button{border:0;background:none;padding:7px 12px;cursor:pointer;font-weight:600;color:var(--slate)}
-.seg button.on{background:var(--ink);color:#fff}
+.seg button.on{background:var(--brass);color:#fff}
 .frame{width:100%;height:calc(100vh - 330px);min-height:420px;border:1px solid var(--line);border-radius:10px;background:#fff}
-pre.prompt{white-space:pre-wrap;word-break:break-word;background:#13202a;color:#e7eef3;border-radius:10px;padding:16px;height:calc(100vh - 330px);min-height:420px;overflow:auto;font-size:12.5px;margin:0}
+pre.prompt{white-space:pre-wrap;word-break:break-word;background:#18213A;color:#E6EBF5;border-radius:10px;padding:16px;height:calc(100vh - 330px);min-height:420px;overflow:auto;font-size:12.5px;margin:0}
 table{width:100%;border-collapse:collapse}
 th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;font-size:13.5px}
 th{font-size:12.5px;color:var(--slate);font-weight:600;background:#FAFBFC;position:sticky;top:0}
 th .i{margin-left:4px}
 .tag{font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px}
-.tag.best{background:var(--teal-soft);color:var(--teal)}.tag.focal{background:var(--brass-soft);color:var(--brass)}
+.tag.best{background:var(--teal-soft);color:var(--teal)}.tag.focal{background:var(--brass-soft);color:var(--brass-dark)}
 
 /* ---------- models ---------- */
 .mrow{display:grid;grid-template-columns:28px minmax(0,1.3fr) minmax(0,1.4fr) minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line)}
 .mrow:last-child{border-bottom:0}
 .mrow .nm{font-weight:700}.ok{color:var(--teal)}.no{color:var(--brick)}
 .mres{grid-column:2/-1;font-size:12.5px}
+.mrow.test{background:#FAFBFD}.mgroup{padding:10px 16px 6px;font-size:12px;font-weight:600;color:var(--slate);background:var(--soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;gap:6px;align-items:center}
+.dup{display:inline-block;margin-top:3px;font-size:11.5px;font-weight:700;color:var(--amber);background:var(--amber-soft);border-radius:999px;padding:1px 8px}
+.chip.test{background:#FAFBFD;border-style:dashed}
 
 /* ---------- run ---------- */
 .modes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -139,8 +145,8 @@ th .i{margin-left:4px}
 #toast{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:8px;z-index:70;max-width:380px}
 .toast{background:var(--ink);color:#fff;border-radius:10px;padding:10px 14px;font-size:13.5px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
 .toast.err{background:var(--brick)}
-#tip{position:fixed;z-index:80;max-width:340px;background:#17232D;color:#F3F6F8;font-size:13px;line-height:1.45;padding:10px 12px;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.28);pointer-events:none;opacity:0;transition:opacity .12s}
-#tip.on{opacity:1}#tip b{color:#E8C98F}
+#tip{position:fixed;z-index:80;max-width:340px;background:#18213A;color:#F1F4FA;font-size:13px;line-height:1.45;padding:10px 12px;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.28);pointer-events:none;opacity:0;transition:opacity .12s}
+#tip.on{opacity:1}#tip b{color:#A9C0FF}#tip code{background:rgba(255,255,255,.12);padding:0 4px;border-radius:4px}
 
 @media (max-width: 640px){
   header{height:auto;flex-wrap:wrap;padding:8px 12px;gap:8px}.brand{width:100%}
@@ -217,14 +223,14 @@ th .i{margin-left:4px}
 
     <!-- 3. MODELS -->
     <section class="pane" id="p-models">
-      <div class="cols" style="grid-template-columns:minmax(0,1.6fr) minmax(300px,1fr)">
-        <div class="block" style="padding:0">
+      <div style="max-width:1100px">
+        <div class="block" style="padding:0;overflow:hidden">
           <div style="padding:14px 16px 4px"><h3>Your models <span class="i" tabindex="0" data-tip="models">?</span></h3>
-          <p class="small muted" style="margin:0 0 8px">Tick the models to use in the next run. Click Test to check a model answers correctly.</p></div>
+          <p class="small muted" style="margin:0 0 8px">Tick the models to use in the next run. Click Test to check a model answers correctly. Start with the test agent.</p></div>
           <div id="models"></div>
         </div>
-        <div class="block">
-          <h3>Add a model</h3>
+        <details class="block" id="addmodel"><summary style="cursor:pointer;font-weight:600">Add another model (optional) <span class="i" tabindex="0" data-tip="<b>Not needed for this study.</b> Your four models are already set up. Use this only to try an extra model later, e.g. another Ollama model or a hosted one with an API key.">?</span></summary>
+          <div style="max-width:560px">
           <label class="f">Provider <span class="i" tabindex="0" data-tip="provider">?</span></label><select class="t" id="m_preset" onchange="presetChanged()"></select>
           <label class="f">Model name <span class="i" tabindex="0" data-tip="modelname">?</span></label><input class="t" id="m_model">
           <label class="f">Short name for this study <span class="i" tabindex="0" data-tip="shortname">?</span></label><input class="t" id="m_name" placeholder="e.g. qwen7b">
@@ -239,7 +245,8 @@ th .i{margin-left:4px}
           <label class="f" style="font-weight:500"><input type="checkbox" id="m_vis"> Can read images (vision model) <span class="i" tabindex="0" data-tip="vision">?</span></label>
           <div class="actions" style="margin-top:12px"><button class="btn primary" onclick="saveModel()">Save model</button></div>
           <div id="mmsg"></div>
-        </div>
+          </div>
+        </details>
       </div>
     </section>
 
@@ -334,7 +341,10 @@ const TIPS = {
   v_behind:"Information hidden from the agent: which room is the fact-best (⭐), which room is treated (focal), each room's hidden facts and levels.",
   v_prompt:"The exact text sent to the AI model in text mode, including the instructions and the rooms as JSON.",
   newtab:"Open this hotel page in a separate browser tab.",
-  models:"<b>AI models to test.</b> Local models (Ollama) are free and run on your laptop. Hosted ones need an API key, which is saved only in your local .env file, never in the Sheet or on GitHub. Test agents (mock…) are fake agents for checking the pipeline; they are never mixed into real results.",
+  models:"<b>AI models to test.</b> The study uses three free models that run on your laptop through Ollama (qwen2.5 7B, llama3.1 8B, gemma3 12B) and one no-AI test agent. Hosted models would need an API key, saved only in your local .env file, never in the Sheet or on GitHub. The list is also written to the Models tab of your Sheet (without keys).",
+  realmodels:"<b>Real AI models.</b> Their answers are the study's data. Tick the ones to use. Before the first run, download each once in a terminal: <code>ollama pull qwen2.5:7b</code>, <code>ollama pull llama3.1:8b</code>, <code>ollama pull gemma3:12b</code>.",
+  testagent:"<b>Test agent, no AI.</b> A fake agent with known, planted preferences (likes higher stars, emoji, position 1). Run it first: if the verdicts find those planted effects, the whole pipeline works. It answers instantly, costs nothing and is never mixed into real results.",
+  dup:"<b>Repeated model.</b> This copy has the same provider, model id and temperature as another row, so running both would only repeat the same model. Remove this copy with ✕.",
   provider:"<b>Where the model runs.</b> Ollama / LM Studio = your laptop, free. OpenRouter, Groq, Hugging Face = hosted open-weight models. OpenAI, Gemini, Anthropic = closed models (only if your professor allows).",
   modelname:"<b>The model's id at the provider.</b> For Ollama it is what <code>ollama list</code> shows, e.g. qwen2.5:7b. For OpenRouter e.g. meta-llama/llama-3.3-70b-instruct.",
   shortname:"<b>A short label for tables and file names</b>, e.g. qwen7b. Letters, numbers, - _ . only.",
@@ -342,7 +352,7 @@ const TIPS = {
   apikey:"<b>Secret key from the provider's website.</b> Leave empty for local models. It is saved in .env on this computer only.",
   temperature:"<b>Randomness of the model's answers.</b> 1.0 is the main setting in the brief (natural variation). 0.0 = most predictable, used as a robustness check: add a copy of the model with 0.0.",
   maxtokens:"<b>Longest reply allowed</b>, in tokens (about ¾ of a word each). 400 is enough for a direct answer; 'High reasoning' raises it automatically.",
-  family_m:"<b>Model family</b> (qwen, llama, mistral…). Used to compare families in the analysis.",
+  family_m:"<b>Model family</b> (qwen, llama, gemma…). Used to compare families in the analysis.",
   size:"<b>Number of parameters in billions</b> (7, 8, 70…). The brief compares small and large models.",
   vision:"Tick only if the model can read images. Needed for the screenshot interface.",
   pilot:"<b>Pilot run.</b> A small number of trials in every condition, spread over all scenarios and rooms. Use it to check the setup, timing and failure rate. Verdicts say 'Pilot' and must not be used as conclusions.",
@@ -373,6 +383,7 @@ const TIPS = {
   c_het:"<b>Do models differ?</b> Tests whether the effect is the same across your real models. Small p (< 0.05) = they differ.",
 };
 function tipFor(key){ return TIPS[key] || key }
+const isTest = name => /^(mock|no-ai)/.test(String(name));
 
 /* ---------------- tooltip engine (hover + keyboard focus) ---------------- */
 const tip = document.getElementById("tip");
@@ -427,7 +438,7 @@ async function load(keep){
 
 function statusOf(h){
   const rows = V.filter(r => r.hypothesis_id === h.hypothesis_id && r.verdict && r.verdict !== "Not run yet");
-  const pick = rows.find(r => String(r.arm).startsWith("(pooled")) || rows.find(r => !String(r.arm).startsWith("mock")) || rows[0];
+  const pick = rows.find(r => String(r.arm).startsWith("(pooled")) || rows.find(r => !isTest(r.arm)) || rows[0];
   if (pick) return {text: pick.verdict.replace(" (descriptive only)", "").replace(" (pilot: weak check)", "*"), cls: vcls(pick.verdict)};
   const n = Object.values(S.block_status[h.block] || {}).reduce((a, b) => a + b, 0);
   return n ? {text: n + " trials", cls: "mid"} : {text: "not run", cls: ""};
@@ -502,14 +513,19 @@ function viewMode(m){ document.querySelectorAll(".seg button[data-v]").forEach(b
   ["page","behind","prompt"].forEach(x => $("v-" + x).style.display = x === m ? "" : "none") }
 
 /* ---------------- models ---------------- */
+function modelRow(m){
+  if (m.error) return `<div class="mrow"><span></span><span class="no">${esc(m.name)}: ${esc(m.error)}</span></div>`;
+  const what = m.test_agent ? "no AI · instant · free" : `${esc(m.provider)}${m.size_b ? " · " + m.size_b + "B" : ""}${m.vision ? " · reads images" : ""}`;
+  return `<div class="mrow ${m.test_agent?"test":""}"><input type="checkbox" class="mchk" value="${esc(m.name)}" ${checked.has(m.name)?"checked":""} onchange="toggleModel(this)" aria-label="Use ${esc(m.name)}">
+     <div><div class="nm">${esc(m.name)}</div><div class="small muted">${what}</div>${m.duplicate_of?`<span class="dup" data-tip="dup">Same as ${esc(m.duplicate_of)}</span>`:""}</div>
+     <div class="small hide-s">${m.test_agent ? "planted preferences" : esc(m.model)}<br><span class="muted">${m.test_agent ? "never in real results" : "temperature " + m.temperature}</span></div>
+     <div class="small hide-s">${m.key_env ? (m.key_set ? `<span class="ok">key ${esc(m.key_env)} set</span>` : `<span class="no">needs ${esc(m.key_env)}</span>`) : (m.test_agent ? "" : "free, on your laptop")}</div>
+     <div><button class="btn" onclick="testModel('${esc(m.name)}')" data-tip="<b>Test.</b> Sends one tiny question and checks the model returns a valid answer. For Ollama models, the Ollama app must be open.">Test</button>${m.local?` <button class="btn danger" onclick="delModel('${esc(m.name)}')" aria-label="Remove ${esc(m.name)}" data-tip="Remove this model you added from the Studio.">✕</button>`:""}</div>
+     <div class="mres" id="test-${esc(m.name)}"></div></div>` }
 function renderModels(){
-  $("models").innerHTML = S.models.map(m => m.error ? `<div class="mrow"><span></span><span class="no">${esc(m.name)}: ${esc(m.error)}</span></div>` :
-   `<div class="mrow"><input type="checkbox" class="mchk" value="${esc(m.name)}" ${checked.has(m.name)?"checked":""} onchange="toggleModel(this)" aria-label="Use ${esc(m.name)}">
-     <div><div class="nm">${esc(m.name)}</div><div class="small muted">${m.provider==="mock"?"test agent, not a real AI":esc(m.provider)}${m.vision?" · reads images":""}</div></div>
-     <div class="small hide-s">${esc(m.model)}<br><span class="muted">temperature ${m.temperature}</span></div>
-     <div class="small hide-s">${m.key_env ? (m.key_set ? `<span class="ok">key ${esc(m.key_env)} set</span>` : `<span class="no">needs ${esc(m.key_env)}</span>`) : "no key needed"}</div>
-     <div><button class="btn" onclick="testModel('${esc(m.name)}')" data-tip="<b>Test.</b> Sends one tiny question and checks the model returns a valid JSON answer.">Test</button>${m.local?` <button class="btn danger" onclick="delModel('${esc(m.name)}')" aria-label="Remove">✕</button>`:""}</div>
-     <div class="mres" id="test-${esc(m.name)}"></div></div>`).join("");
+  const real = S.models.filter(m => !m.test_agent), test = S.models.filter(m => m.test_agent);
+  $("models").innerHTML = `<div class="mgroup">Real models (${real.length}) <span class="i" tabindex="0" data-tip="realmodels">?</span></div>` + real.map(modelRow).join("")
+    + (test.length ? `<div class="mgroup">Test agent: no AI <span class="i" tabindex="0" data-tip="testagent">?</span></div>` + test.map(modelRow).join("") : "");
   renderRunSel();
 }
 function toggleModel(el){ el.checked ? checked.add(el.value) : checked.delete(el.value); localStorageSet("hl_models", JSON.stringify([...checked])); renderRunSel(); estimate() }
@@ -523,9 +539,12 @@ async function saveModel(){
       supports_vision:$("m_vis").checked, family:$("m_fam").value, size_b:$("m_size").value ? parseFloat($("m_size").value) : null};
     const r = await api("/api/models", {method:"POST", body: JSON.stringify(body)}); $("m_key").value = "";
     checked.add(r.name); localStorageSet("hl_models", JSON.stringify([...checked]));
-    msg("mmsg", `Saved as ${r.name} and ticked for the next run. Press Test next to it.`, "ok"); await load(CUR) }
+    msg("mmsg", `Saved as ${r.name} and ticked for the next run. Press Test next to it.`, "ok"); sheetNote(r.sheet); await load(CUR) }
   catch(e) { msg("mmsg", e.message, "err") } }
-async function delModel(n){ if (!confirm("Remove " + n + "?")) return; await api("/api/models/" + n, {method:"DELETE"}); checked.delete(n); load(CUR) }
+async function delModel(n){ if (!confirm("Remove " + n + "?")) return;
+  try { const r = await api("/api/models/" + n, {method:"DELETE"}); checked.delete(n); localStorageSet("hl_models", JSON.stringify([...checked])); toast("Removed " + n + "."); sheetNote(r.sheet); load(CUR) }
+  catch(e) { toast(e.message, true) } }
+function sheetNote(r){ if (r && !r.ok && !r.skipped) toast("Models tab of the Sheet not updated: " + r.error, true) }
 async function testModel(n){ const el = $("test-" + n); el.innerHTML = '<span class="muted">testing…</span>';
   try { const r = await api(`/api/models/${n}/test`, {method:"POST"});
     el.innerHTML = r.parse_ok ? `<span class="ok">Works (${r.latency_s}s). Reply: ${esc(String(r.raw_output).slice(0,90))}</span>` : `<span class="no">Not working: ${esc(r.error || r.note || r.raw_output)} ${esc(r.hint || "")}</span>` }
@@ -535,7 +554,7 @@ async function testModel(n){ const el = $("test-" + n); el.innerHTML = '<span cl
 function selModels(){ return [...checked].filter(n => S.models.some(m => m.name === n)) }
 function renderRunSel(){ if (!S) return; const ms = selModels();
   $("selmodels").innerHTML = ms.length ? ms.map(n => { const m = S.models.find(x => x.name === n);
-    return `<span class="chip" data-tip="${m.provider==="mock"?"Test agent: checks the pipeline, never mixed into real results.":"Real model: "+esc(m.model)}">${esc(n)}${m.provider==="mock"?" (test)":""}</span>` }).join("")
+    return `<span class="chip ${m.test_agent?"test":""}" data-tip="${m.test_agent?"testagent":"<b>Real model:</b> "+esc(m.model)}">${esc(n)}${m.test_agent?" (test, no AI)":""}</span>` }).join("")
     : `<span class="no small">No model ticked yet. Go to the Models tab and tick at least one.</span>`; estimate() }
 function setMode(m){ MODE = m; $("mode-pilot").classList.toggle("on", m === "pilot"); $("mode-full").classList.toggle("on", m === "full"); estimate() }
 function estimate(){ if (!INFO) { $("estimate").textContent = ""; return } const n = selModels().length;
@@ -561,7 +580,7 @@ async function poll(){ window._polling = true; let j; try { j = await api("/api/
 /* ---------------- results ---------------- */
 async function analyze(jump){ toast("Analysing all results…");
   try { const r = await api("/api/analyze", {method:"POST"}); V = r.rows; $("reswhen").textContent = "Last analysed just now";
-    toast(r.pushed === null ? "Verdicts updated (saved locally; no Sheet linked)." : `Verdicts updated and written to the Sheet (${r.pushed}).`);
+    toast(r.pushed === null ? "Verdicts updated (saved locally; no Sheet linked)." : `Verdicts updated and written to the Sheet (${r.pushed}).`); sheetNote(r.models_tab);
     renderList(); renderResults(); if (jump) showTab("results") } catch(e) { toast(e.message, true) } }
 function resFilter(f){ RESF = f; document.querySelectorAll(".seg button[data-r]").forEach(b => b.classList.toggle("on", b.dataset.r === f)); renderResults() }
 function vchip(v){ const t = v || "–"; const map = [["Effect","effect","v_effect"],["No meaningful","null","v_null"],["Inconclusive","inc","v_inc"],["Real but","negl","v_negl"],["Pilot","pilot","v_pilot"],["PASS","pass","v_pass"],["FAIL","fail","v_fail"]];
@@ -574,7 +593,7 @@ function renderResults(){
     <th>95% interval <span class="i" tabindex="0" data-tip="c_ci">?</span></th><th>p <span class="i" tabindex="0" data-tip="c_p">?</span></th><th>q <span class="i" tabindex="0" data-tip="c_q">?</span></th>
     <th>Trials / units <span class="i" tabindex="0" data-tip="c_n">?</span></th><th>Verdict <span class="i" tabindex="0" data-tip="c_verdict">?</span></th></tr></thead><tbody>
     ${rows.map(r => { const w = (r.plain_english||"").split(" Warning: "); return `<tr>${RESF==="all"?`<td><b>${esc(r.hypothesis_id)}</b></td>`:""}
-      <td>${esc(r.arm)}${String(r.arm).startsWith("mock")?' <span class="small muted">(test agent)</span>':""}</td>
+      <td>${esc(r.arm)}${isTest(r.arm)?' <span class="small muted" data-tip="testagent">(test agent, no AI)</span>':""}</td>
       <td><b>${f1(r.estimate)}</b> <span class="small muted">${r.estimate!=null?esc(r.unit||""):""}</span></td>
       <td>${r.ci95_low!=null&&r.ci95_low!==""?f1(r.ci95_low)+" to "+f1(r.ci95_high):"–"}</td><td>${fp(r.p)}</td><td>${fp(r.q_bh)}</td>
       <td class="small">${r.n_trials??"–"} / ${r.clusters??"–"}</td><td>${vchip(r.verdict)}${r.heterogeneity_p!=null&&r.heterogeneity_p!==""?`<div class="small muted" data-tip="c_het">models differ? p = ${fp(r.heterogeneity_p)}</div>`:""}</td></tr>
@@ -588,11 +607,11 @@ function openData(){ $("datadlg").classList.add("on"); $("dnow").innerHTML = S &
 function closeData(){ $("datadlg").classList.remove("on") }
 async function saveSource(){ msg("srcmsg", "Testing the link…");
   try { const r = await api("/api/source", {method:"POST", body: JSON.stringify({sheet_url: $("surl").value, sheet_token: $("stok").value})});
-    msg("srcmsg", "Connected. Tabs found: " + Object.entries(r.tabs).map(([k,v]) => `${k} (${v})`).join(", ") + ". Now press Sync.", "ok"); S.sheet_linked = true }
+    msg("srcmsg", "Connected. Tabs found: " + Object.entries(r.tabs).map(([k,v]) => `${k} (${v})`).join(", ") + ". Now press Sync." + (r.models_tab && !r.models_tab.ok ? " Note: " + r.models_tab.error : ""), "ok"); S.sheet_linked = true }
   catch(e) { msg("srcmsg", e.message, "err") } }
 async function doSync(){ openData(); msg("srcmsg", "Syncing…");
   try { const r = await api("/api/sync", {method:"POST"});
-    if (r.ok) { msg("srcmsg", `Synced: snapshot ${r.sha}, ${r.scenarios.length} scenarios. You can close this window.`, "ok"); toast("Sheet synced.") }
+    if (r.ok) { const mt = r.models_tab || {}; msg("srcmsg", `Synced: snapshot ${r.sha}, ${r.scenarios.length} scenarios. ` + (mt.ok ? `Models tab updated (${mt.written} models). ` : mt.error ? `Models tab NOT updated: ${mt.error} ` : "") + "You can close this window.", mt.ok || !mt.error ? "ok" : "err"); toast("Sheet synced.") }
     else msg("srcmsg", "The Sheet has problems, so the old data is still used. Fix these rows: " + (r.errors||[]).slice(0,6).join(" | "), "err");
     load(CUR) } catch(e) { msg("srcmsg", e.message, "err") } }
 async function uploadXlsx(){ const f = $("xlsx").files[0]; if (!f) return; const fd = new FormData(); fd.append("file", f); msg("srcmsg", "Reading the file…");

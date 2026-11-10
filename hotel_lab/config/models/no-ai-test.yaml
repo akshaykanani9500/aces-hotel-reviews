@@ -1,0 +1,9 @@
+# No AI: a fake agent with KNOWN, planted preferences. Use it to check the pipeline and the analysis
+# before spending hours on real models. It is never mixed into real results.
+# Planted: likes higher stars, reads complaint words, emoji preference, position-1 bias.
+provider: mock
+model: mock-simulated
+family: mock
+serving: mock
+strategy: simulated
+extra_body: {rating: 2.0, facts: 2.0, emoji: 0.6, long: 0.0, first: 0.3, position1: 0.4}

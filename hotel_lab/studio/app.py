@@ -26,7 +26,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from hotel_lab import REPO_ROOT, RUNS_DIR, sheetdb, study
-from hotel_lab.models import MODELS_DIR, ModelConfig
+from hotel_lab.models import MODELS_DIR, ModelConfig, is_test_agent
 
 STATIC = Path(__file__).resolve().parent / "static"
 ENV_FILE = REPO_ROOT / ".env"
@@ -211,6 +211,7 @@ class ModelIn(BaseModel):
     json_mode: bool = False
     family: str = ""
     size_b: Optional[float] = None
+    allow_duplicate: bool = False
 
 
 class RunIn(BaseModel):
@@ -242,6 +243,10 @@ def create_studio(site_port: Optional[int] = None) -> FastAPI:
                 return h
         raise HTTPException(404, f"Unknown hypothesis {hid}")
 
+    def _model_key(provider: str, base_url: str, model: str, temperature: Any) -> tuple:
+        return (provider, (base_url or "").rstrip("/").lower(), (model or "").strip().lower(),
+                "" if provider == "mock" else float(temperature or 0))
+
     def models_list() -> list[dict[str, Any]]:
         out = []
         for p in sorted(MODELS_DIR.glob("*.yaml")):
@@ -254,7 +259,21 @@ def create_studio(site_port: Optional[int] = None) -> FastAPI:
             out.append({"name": c.name, "provider": c.provider, "model": c.model, "base_url": c.base_url,
                         "serving": c.serving, "vision": c.supports_vision, "temperature": c.temperature,
                         "key_env": needs, "key_set": (not needs) or bool(os.getenv(needs)),
-                        "local": p.stem.startswith("local-")})
+                        "test_agent": is_test_agent(c.name, c.provider), "size_b": c.size_b,
+                        "local": p.stem.startswith("local-"),
+                        "_key": _model_key(c.provider, c.base_url, c.model, c.temperature)})
+        first: dict[tuple, str] = {}
+        for m in out:                      # built-in files first, so a local- copy is the one flagged
+            if "_key" in m and not m["local"]:
+                first.setdefault(m["_key"], m["name"])
+        for m in out:
+            if "_key" in m and m["local"]:
+                if m["_key"] in first:
+                    m["duplicate_of"] = first[m["_key"]]
+                else:
+                    first[m["_key"]] = m["name"]
+            m.pop("_key", None)
+        out.sort(key=lambda m: (bool(m.get("test_agent")), m["name"]))
         return out
 
     def held_constant(h: dict[str, Any], st: dict[str, Any]) -> list[str]:
@@ -310,14 +329,16 @@ def create_studio(site_port: Optional[int] = None) -> FastAPI:
         except Exception as e:
             raise HTTPException(400, f"Could not read the Sheet: {e}")
         sheetdb.save_local_settings(sheet_url=body.sheet_url.strip(), sheet_token=body.sheet_token.strip())
-        return {"ok": True, "tabs": {k: len(v) for k, v in tabs.items()}}
+        return {"ok": True, "tabs": {k: len(v) for k, v in tabs.items()}, "models_tab": sheetdb.push_models(db)}
 
     @app.post("/api/sync")
     def sync():
         try:
-            return sheetdb.sync_from_sheet()
+            out = sheetdb.sync_from_sheet()
         except Exception as e:
             raise HTTPException(400, str(e))
+        out["models_tab"] = sheetdb.push_models()
+        return out
 
     @app.post("/api/sync_xlsx")
     async def sync_xlsx(file: UploadFile = File(...)):
@@ -339,9 +360,7 @@ def create_studio(site_port: Optional[int] = None) -> FastAPI:
     def workbook():
         from hotel_lab.stimuli import STIMULI_DIR, load_scenarios
         p = RUNS_DIR / "_db" / "hotel_lab_database.xlsx"
-        models = [{"name": m["name"], "provider": m.get("provider", ""), "base_url": m.get("base_url", ""),
-                   "model": m.get("model", ""), "api_key_env": m.get("key_env", "")} for m in models_list()]
-        sheetdb.build_workbook(p, load_scenarios(STIMULI_DIR, source="yaml"), models)
+        sheetdb.build_workbook(p, load_scenarios(STIMULI_DIR, source="yaml"))
         return FileResponse(p, filename="hotel_lab_database.xlsx")
 
     # ---- experiment ----
@@ -418,9 +437,18 @@ def create_studio(site_port: Optional[int] = None) -> FastAPI:
             cfg = {"provider": "mock", "model": body.model or "mock-random", "serving": "mock", "family": "mock",
                    "strategy": "simulated" if "simulated" in (body.model or "") else "random"}
         path = MODELS_DIR / f"local-{body.name}.yaml"
+        if (MODELS_DIR / f"{body.name}.yaml").exists() or path.exists():
+            raise HTTPException(409, f"A model called '{body.name}' already exists. Pick another short name.")
+        if not body.allow_duplicate:
+            key = _model_key(cfg["provider"], cfg.get("base_url", ""), cfg["model"], cfg.get("temperature"))
+            for m in models_list():
+                if m.get("provider") and _model_key(m["provider"], m.get("base_url", ""), m.get("model", ""),
+                                                    m.get("temperature")) == key:
+                    raise HTTPException(409, f"This is the same model as '{m['name']}' (same provider, model id and "
+                                             f"temperature), so it would only repeat it. Use '{m['name']}' instead.")
         path.write_text("# Added from Hotel Lab Studio. API keys are NOT stored here (see .env).\n" +
                         yaml.safe_dump(cfg, sort_keys=False), encoding="utf-8")
-        return {"ok": True, "name": path.stem}
+        return {"ok": True, "name": path.stem, "sheet": sheetdb.push_models()}
 
     @app.delete("/api/models/{name}")
     def delete_model(name: str):
@@ -428,7 +456,7 @@ def create_studio(site_port: Optional[int] = None) -> FastAPI:
         if not name.startswith("local-") or not p.exists():
             raise HTTPException(400, "Only models added from the Studio (local-...) can be deleted here")
         p.unlink()
-        return {"ok": True}
+        return {"ok": True, "sheet": sheetdb.push_models()}
 
     @app.post("/api/models/{name}/test")
     def test_model(name: str):
@@ -495,7 +523,7 @@ def create_studio(site_port: Optional[int] = None) -> FastAPI:
     def analyze():
         res = study.analyze()
         rows = [{k: (None if isinstance(v, float) and v != v else v) for k, v in r.items()} for r in res["rows"]]
-        return {"rows": rows, "csv": res["csv"], "pushed": res["pushed"]}
+        return {"rows": rows, "csv": res["csv"], "pushed": res["pushed"], "models_tab": sheetdb.push_models()}
 
     @app.post("/api/push_pending")
     def push_pending():

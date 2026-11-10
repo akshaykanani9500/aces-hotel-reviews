@@ -29,6 +29,7 @@ import pandas as pd
 from scipy import stats
 
 from hotel_lab import RUNS_DIR
+from hotel_lab.models import TEST_AGENT_PREFIXES
 
 
 def block_experiment(study: str, block: str) -> str:
@@ -254,7 +255,7 @@ def _read_trials(study: str, block: str) -> Optional[pd.DataFrame]:
         df[c] = df[c].astype(str).str.lower().isin(["true", "1"]).astype(float)
     df["cluster"] = df["scenario_id"].astype(str) + ":" + df["focal_room_id"].astype(str)
     df["is_test_agent"] = (df.get("serving", pd.Series("", index=df.index)).astype(str) == "mock") | \
-        df["model_name"].astype(str).str.startswith("mock")
+        df["model_name"].astype(str).str.startswith(TEST_AGENT_PREFIXES)
     return df
 
 

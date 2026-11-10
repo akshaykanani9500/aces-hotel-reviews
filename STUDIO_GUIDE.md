@@ -12,7 +12,7 @@ hypotheses and settings there.
 - **Tabs, in the order you use them:**
   1. **Plan:** H0 and Ha side by side, what changes, what is held constant, how big the experiment is, and the human benchmark.
   2. **What the agent sees:** the hotel page exactly as the agent sees it. *Show another trial* gives a new random trial. *Behind the scenes* shows the hidden facts, the best room and the focal room. *Exact prompt* shows the text sent to the model.
-  3. **Models:** add a model (Ollama, OpenRouter, Groq, Hugging Face, OpenAI, Gemini, Anthropic, or a test agent), click *Test*, and tick the models you want to use.
+  3. **Models:** your three real models (qwen2.5 7B, llama3.1 8B, gemma3 12B, all free through Ollama) and one no-AI test agent. Click *Test*, then tick the ones you want. If a model appears twice, the copy is marked *Same as …*: remove it with ✕. *Add another model* is optional.
   4. **Run:** choose Pilot or Full, the interface and the reasoning level, then *Run*. Progress and the log appear here and in the top bar.
   5. **Results:** *Analyse all results* gives one verdict per hypothesis and model, each with a plain-English sentence. They are also written to the Sheet.
 
@@ -40,7 +40,7 @@ Drive, and open it with Google Sheets.
 | Reviews | 18 reviews per room; `text_base` plus `text_emoji`, `text_long`, `text_casual` variants | you |
 | ReviewSets | which 8 reviews form base/mixed, positive, complaints | you |
 | Summaries | platform-written summary per review set | you |
-| Models | reference list only (the website reads models from `hotel_lab/config/models/`) | – |
+| Models | written by the website: the models it can use, without API keys. Updated on every Sync, Analyse, and when you add or remove a model. (The website reads models from `hotel_lab/config/models/`, not from this tab.) | ✏️ website |
 | Results | one row per trial, **written by the website** | website |
 | Verdicts | one row per hypothesis × model, **written by the website** | website |
 | Runs | one row per run, **written by the website** | website |
@@ -84,17 +84,32 @@ Results are then saved locally only. You can send them to the Sheet in two ways:
 **Tip when adding rows in the Sheet.** Select the new rows and choose **Format → Number → Plain text** before you type
 dates or ids. Dates are accepted as 2026-09-18 or 18/09/2026; the website converts them to 2026-09-18.
 
-### A6. Add your models (right panel → ➕ Add a model)
-- **Local and free:**
-  1. Install Ollama.
-  2. Run `ollama pull qwen2.5:7b`.
-  3. Provider: *Ollama*. Model name: `qwen2.5:7b`. Short name: `qwen7b`.
-- **Hosted open-weight models:** OpenRouter, Groq or Hugging Face. Paste your API key once. It is saved in your local `.env` file,
-  **never** in the Sheet or on GitHub.
-- **Closed models:** OpenAI, Gemini or Anthropic. Use these only if Prof. Jha allows them.
-- **Test agent:** `mock-simulated` is a fake agent with planted preferences. Use it to check the pipeline before you spend money.
+### A6. Your models
 
-Click **Test** next to each model. A ✓ means it returned a valid JSON answer.
+The study uses **three real models and one test agent**. All are already set up in the repo:
+
+| In the Studio | What it is | Size | First time (in a terminal) |
+|---|---|---|---|
+| `ollama-qwen2.5-7b` | Alibaba's Qwen 2.5 | 7B, about 4.7 GB | `ollama pull qwen2.5:7b` |
+| `ollama-llama3.1-8b` | Meta's Llama 3.1 | 8B, about 4.9 GB | `ollama pull llama3.1:8b` |
+| `ollama-gemma3-12b` | Google's Gemma 3 (also reads images) | 12B, about 8 GB, needs 16 GB RAM | `ollama pull gemma3:12b` |
+| `no-ai-test` | Test agent, **no AI**. It has planted preferences, so you can check the analysis finds them | – | nothing |
+
+1. Install Ollama (https://ollama.com/download) and keep the Ollama app open while you run.
+2. Pull the three models with the commands above (once).
+3. In the Studio's **Models** tab, click **Test** on each model. *Works* means the model returned a valid answer.
+4. Tick the models you want to use in the next run.
+
+If you added models yourself earlier, they show up as `local-…`. A copy of one of the four is marked **Same as …**: remove it with ✕.
+**Add another model (optional)** is only for trying an extra model later. A hosted model's API key is saved in your local `.env`, never
+in the Sheet or on GitHub.
+
+**Update the Apps Script once (November 2026 version).** The new script lets the website fill the Models tab. In the Sheet:
+1. **Extensions → Apps Script**.
+2. Replace `Code.gs` with the new `hotel_lab/apps_script/Code.gs`, then click **Save**.
+3. **Deploy → Manage deployments → ✏️ → Version: New version → Deploy**.
+
+The link and token stay the same. Until you do this, the website says "Models tab NOT updated", and everything else still works.
 
 ---
 
@@ -103,7 +118,8 @@ Click **Test** next to each model. A ✓ means it returned a valid JSON answer.
 The order follows the brief's gates. Don't move to the next step until the current one passes.
 
 **Before the real study, try everything once with the test agents in a separate experiment.** In the Settings tab, set
-`experiment_name` to `trial_run`, Sync, and run V7 and a couple of hypotheses with `mock` and `mock-simulated`.
+`experiment_name` to `trial_run`, Sync, and run V7 and a couple of hypotheses with the test agent `no-ai-test`. It has planted
+preferences (emoji, position 1, higher stars), so H3a should come out as **Effect**. That shows the analysis finds a real effect.
 Then set it back to `study_v1` and Sync. Test agents are never averaged into the pooled row, but keeping them out of the real
 experiment keeps the tables clean.
 

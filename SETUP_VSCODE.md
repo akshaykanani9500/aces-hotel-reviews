@@ -101,13 +101,14 @@ python -m hotel_lab models                              # list model configs
 python -m hotel_lab hello --model ollama-qwen2.5-7b     # ✅ "parse_ok": true
 ```
 
-Other models already configured: `ollama-llama3.1-8b`, `ollama-mistral-7b`, `ollama-gemma3-12b` (vision),
-`ollama-qwen2.5vl-7b` (vision). To add one, copy a YAML file in `hotel_lab/config/models/` and change
-`model:` to the name shown by `ollama list`.
+The study uses three models. Pull the other two once as well:
+```bash
+ollama pull llama3.1:8b     # ~4.9 GB
+ollama pull gemma3:12b      # ~8 GB, can also read images (screenshot mode)
+```
+Their configs are `ollama-llama3.1-8b` and `ollama-gemma3-12b`. `no-ai-test` is a test agent with no AI, for checking the pipeline.
 
-**Hardware:** 7–8B models need about 8 GB of free RAM (16 GB laptop recommended). 12B needs about 12 GB.
-For 30B+ models, use OpenRouter or the Hugging Face router: copy `.env.sample` to `.env`, add your key,
-then use `openrouter-llama3.3-70b` or `hf-router-example`.
+**Hardware:** 7–8B models need about 8 GB of free RAM (16 GB laptop recommended). gemma3 12B needs about 12 GB.
 
 ## 8. Run a pilot
 
@@ -127,7 +128,7 @@ If the run stops (laptop sleeps, Ctrl+C), run the same command again. It continu
 
 Screenshot mode with a vision model:
 ```bash
-python -m hotel_lab run --models ollama-gemma3-12b --interface screenshot --blocks format --limit 10
+python -m hotel_lab run --models ollama-gemma3-12b --interface screenshot --blocks format --limit 10   # gemma3 reads images
 ```
 
 ## 9. Daily workflow

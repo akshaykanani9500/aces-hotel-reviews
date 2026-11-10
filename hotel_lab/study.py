@@ -16,6 +16,7 @@ import pandas as pd
 import yaml
 
 from hotel_lab import RUNS_DIR
+from hotel_lab.models import TEST_AGENT_PREFIXES
 from hotel_lab import sheetdb
 from hotel_lab.design import build_plan, check_config, manifest, save_plan
 from hotel_lab.stimuli import load_scenarios
@@ -250,7 +251,7 @@ def reasons_sheet(name: str, block_names: list[str], share: float = 0.10, seed: 
         p = RUNS_DIR / f"{name}__{b}" / "tables" / "trials.csv"
         if p.exists():
             d = pd.read_csv(p, keep_default_na=False)
-            d = d[(d["parse_ok"].astype(str).str.lower() == "true") & ~d["model_name"].astype(str).str.startswith("mock")]
+            d = d[(d["parse_ok"].astype(str).str.lower() == "true") & ~d["model_name"].astype(str).str.startswith(TEST_AGENT_PREFIXES)]
             if len(d):
                 frames.append(d.sample(frac=share, random_state=seed) if len(d) >= 10 else d)
     if not frames:

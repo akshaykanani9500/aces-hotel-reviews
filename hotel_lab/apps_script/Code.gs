@@ -11,10 +11,14 @@
  *     Settings tab, then press "Sync from Sheet".
  *
  * Security: the link only works with the api_token from the Settings tab. Do not share either.
- * If you change this code later: Deploy -> Manage deployments -> Edit -> Version: New version.
+ * If you change this code later: Deploy -> Manage deployments -> Edit (pencil) -> Version: New version -> Deploy.
+ * The link stays the same, so nothing changes in the website.
+ *
+ * Version 2 (Nov 2026): the website may also write the Models tab (list of models, never API keys).
  */
 
 var PROTECTED_READ = ['Results', 'Verdicts', 'Runs'];   // large tabs, not needed to run experiments
+var WRITE_TABS = ['Results', 'Verdicts', 'Runs', 'Models'];   // the only tabs the website may change
 
 function getToken_() {
   var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Settings');
@@ -61,8 +65,8 @@ function doPost(e) {
     var body = JSON.parse(e.postData.contents);
     if (!checkToken_(body.token)) return json_({ ok: false, error: 'bad or missing token' });
     if (body.action !== 'append' && body.action !== 'replace') return json_({ ok: false, error: 'unknown action ' + body.action });
-    if (!body.tab || ['Results', 'Verdicts', 'Runs'].indexOf(body.tab) < 0) {
-      return json_({ ok: false, error: 'the website may only write the Results, Verdicts and Runs tabs' });
+    if (!body.tab || WRITE_TABS.indexOf(body.tab) < 0) {
+      return json_({ ok: false, error: 'the website may only write the Results, Verdicts, Runs and Models tabs' });
     }
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var sh = ss.getSheetByName(body.tab) || ss.insertSheet(body.tab);

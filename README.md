@@ -24,7 +24,7 @@ A local control panel for the whole study:
 - **Database:** a Google Sheet holds every scenario, review, variant, hypothesis and setting, and receives every result.
 - **Hypothesis dropdown:** H1–H4 with their sub-hypotheses, plus the validity checks.
 - **Live preview:** the hotel page exactly as the agent sees it, with a Randomise button.
-- **Model panel:** Ollama, OpenRouter, Groq, Hugging Face, OpenAI, Gemini, Anthropic, or a test agent.
+- **Models:** qwen2.5 7B, llama3.1 8B and gemma3 12B through Ollama (free, on your laptop), plus a no-AI test agent. Other providers (OpenRouter, Groq, Hugging Face, OpenAI, Gemini, Anthropic) can be added from the Studio.
 - **Verdicts:** one per hypothesis, with H0/Ha decisions.
 
 **Full step-by-step guide: [STUDIO_GUIDE.md](STUDIO_GUIDE.md).**
@@ -138,7 +138,7 @@ hotel_lab/
   stimuli/          scenario YAML files (rooms, hidden facts, review pool, variants, summaries) + SCHEMA.md
   config/
     experiment.yaml design: blocks, levels, repeats, prompts, interface
-    models/         one YAML per model (Ollama, OpenRouter, HF router, mock)
+    models/         one YAML per model the Studio offers (3 Ollama models + the no-AI test agent)
     prompts/        prompt templates (main + 2 paraphrases, answer formats)
   site/             the mock booking website (FastAPI + Jinja templates)
   design.py         experiment.yaml -> reproducible trial plan

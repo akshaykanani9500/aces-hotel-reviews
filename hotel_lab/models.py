@@ -35,6 +35,14 @@ import yaml
 from hotel_lab import CONFIG_DIR
 
 MODELS_DIR = CONFIG_DIR / "models"
+# Extra no-AI agents used only by the automated tests and `demo`; the Studio does not list them.
+TEST_MODELS_DIR = Path(__file__).resolve().parent / "tests" / "models"
+TEST_AGENT_PREFIXES = ("mock", "no-ai")
+
+
+def is_test_agent(name: str, provider_or_serving: str = "") -> bool:
+    """True for agents that are not a real AI (never pooled into real results)."""
+    return provider_or_serving == "mock" or str(name).startswith(TEST_AGENT_PREFIXES)
 
 
 @dataclass
@@ -63,6 +71,8 @@ class ModelConfig:
         p = Path(name_or_path)
         if not p.exists():
             p = MODELS_DIR / f"{name_or_path}.yaml"
+        if not p.exists():
+            p = TEST_MODELS_DIR / f"{name_or_path}.yaml"
         if not p.exists():
             avail = ", ".join(sorted(x.stem for x in MODELS_DIR.glob("*.yaml")))
             raise FileNotFoundError(f"No model config '{name_or_path}'. Available: {avail}")

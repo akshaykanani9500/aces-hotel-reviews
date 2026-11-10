@@ -256,3 +256,57 @@ def test_studio_api_smoke():
     p = c.post("/api/preview", json={"hypothesis_id": "H3a", "seed": 1}).json()
     assert p["rooms"] and "style=" in p["cell"] and p["prompt"]
     assert c.get("/").status_code == 200
+
+
+def test_studio_models_are_the_four_and_duplicates_are_refused():
+    from fastapi.testclient import TestClient
+    from hotel_lab.models import MODELS_DIR
+    from hotel_lab.studio.app import create_studio
+    c = TestClient(create_studio(site_port=None))
+    ms = {m["name"]: m for m in c.get("/api/state").json()["models"] if not m["local"]}
+    assert set(ms) == {"ollama-qwen2.5-7b", "ollama-llama3.1-8b", "ollama-gemma3-12b", "no-ai-test"}
+    assert ms["no-ai-test"]["test_agent"] and not ms["ollama-qwen2.5-7b"]["test_agent"]
+    r = c.post("/api/models", json={"name": "qwen-copy", "preset": "ollama", "model": "qwen2.5:7b"})
+    assert r.status_code == 409 and "ollama-qwen2.5-7b" in r.json()["detail"]
+    assert not (MODELS_DIR / "local-qwen-copy.yaml").exists()
+    # an existing copy (e.g. added before this check existed) is flagged, not hidden
+    p = MODELS_DIR / "local-pytest-dup.yaml"
+    p.write_text('provider: ollama\nbase_url: http://localhost:11434/\nmodel: "Qwen2.5:7b"\n', encoding="utf-8")
+    try:
+        ms = {m["name"]: m for m in c.get("/api/state").json()["models"]}
+        assert ms["local-pytest-dup"]["duplicate_of"] == "ollama-qwen2.5-7b"
+        assert "duplicate_of" not in ms["ollama-qwen2.5-7b"]
+    finally:
+        p.unlink()
+
+
+def test_models_tab_rows_and_push(monkeypatch):
+    from hotel_lab import sheetdb
+    rows = sheetdb.model_rows()
+    assert [r["name"] for r in rows if r["kind"] == "real model"] and all(set(r) == set(sheetdb.MODEL_COLUMNS) for r in rows)
+    assert not any("key" in str(v).lower() and k != "api_key_env" for r in rows for k, v in r.items())
+    sent = {}
+
+    class FakeDB:
+        def replace(self, tab, rows, columns):
+            sent.update(tab=tab, n=len(rows), cols=columns)
+            return len(rows)
+    assert sheetdb.push_models(FakeDB())["ok"] and sent["tab"] == "Models" and sent["cols"] == sheetdb.MODEL_COLUMNS
+
+    class OldScript:
+        def replace(self, *a):
+            raise RuntimeError("the website may only write the Results, Verdicts and Runs tabs")
+    r = sheetdb.push_models(OldScript())
+    assert not r["ok"] and "Apps Script" in r["error"]
+    gs = (sheetdb.Path(sheetdb.__file__).parent / "apps_script" / "Code.gs").read_text(encoding="utf-8")
+    assert "'Models'" in gs
+
+
+def test_models_tab_not_in_data_fingerprint(tmp_path, monkeypatch, scenarios):
+    from hotel_lab import sheetdb
+    monkeypatch.setattr(sheetdb, "DB_DIR", tmp_path)
+    monkeypatch.setattr(sheetdb, "CURRENT", tmp_path / "current.json")
+    tabs = sheetdb.scenarios_to_tabs(scenarios)
+    a = sheetdb.save_snapshot({**tabs, "Models": []}, "t")["sha"]
+    b = sheetdb.save_snapshot({**tabs, "Models": [{"name": "x"}]}, "t")["sha"]
+    assert a == b

@@ -386,6 +386,50 @@ README_ROWS = [
 ]
 
 
+WRITE_TABS = ("Results", "Verdicts", "Runs", "Models")    # tabs the Studio writes; everything else is yours
+MODEL_COLUMNS = ["name", "kind", "provider", "model", "base_url", "family", "size_b", "quantisation", "serving",
+                 "temperature", "max_tokens", "num_ctx", "supports_vision", "api_key_env", "updated_at"]
+
+
+def model_rows() -> list[dict[str, Any]]:
+    """The models the Studio can use (hotel_lab/config/models/*.yaml). Never contains API keys."""
+    from hotel_lab.models import MODELS_DIR, ModelConfig, is_test_agent
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    out = []
+    for p in sorted(MODELS_DIR.glob("*.yaml")):
+        try:
+            c = ModelConfig.load(str(p))
+        except Exception:
+            continue
+        test = is_test_agent(c.name, c.provider)
+        out.append({"name": c.name, "kind": "test agent (no AI)" if test else "real model", "provider": c.provider,
+                    "model": c.model, "base_url": c.base_url or "", "family": c.family or "",
+                    "size_b": "" if c.size_b is None else c.size_b, "quantisation": c.quantisation or "",
+                    "serving": c.serving or "", "temperature": "" if test else c.temperature,
+                    "max_tokens": "" if test else c.max_tokens,
+                    "num_ctx": c.num_ctx if c.provider == "ollama" else "",
+                    "supports_vision": c.supports_vision, "api_key_env": c.api_key_env or "", "updated_at": now})
+    out.sort(key=lambda r: (r["kind"] != "real model", r["name"]))
+    return out
+
+
+def push_models(db: Optional["AppsScriptDB"] = None) -> dict[str, Any]:
+    """Write the current model list to the Sheet's Models tab. Never raises."""
+    db = db or get_db()
+    if db is None:
+        return {"ok": False, "skipped": True, "error": "no Sheet connected"}
+    rows = model_rows()
+    try:
+        db.replace("Models", rows, MODEL_COLUMNS)
+        return {"ok": True, "written": len(rows)}
+    except Exception as e:
+        msg = str(e)
+        if "may only write" in msg:
+            msg = ("Your Apps Script is the old version, so it cannot write the Models tab. Paste the new "
+                   "hotel_lab/apps_script/Code.gs and deploy a new version (see STUDIO_GUIDE.md).")
+        return {"ok": False, "error": msg}
+
+
 def build_workbook(path: Path, scenarios, models: list[dict[str, Any]] | None = None, token: str | None = None) -> Path:
     from openpyxl import Workbook
     from openpyxl.styles import Alignment, Font, PatternFill
@@ -441,9 +485,7 @@ def build_workbook(path: Path, scenarios, models: list[dict[str, Any]] | None = 
     add("Reviews", tabs["Reviews"], std + extra)
     add("ReviewSets", tabs["ReviewSets"], ["scenario_id", "room_id", "set_name", "review_ids"], {"review_ids": 80})
     add("Summaries", tabs["Summaries"], ["scenario_id", "room_id", "set_name", "summary"])
-    model_cols = ["name", "provider", "base_url", "model", "api_key_env", "family", "size_b", "quantisation",
-                  "serving", "temperature", "max_tokens", "num_ctx", "supports_vision", "notes"]
-    add("Models", models or [], model_cols)
+    add("Models", model_rows() if models is None else models, MODEL_COLUMNS)
     add("Results", [], RESULT_COLUMNS)
     add("Verdicts", [], VERDICT_COLUMNS)
     add("Runs", [], RUN_COLUMNS)
@@ -585,7 +627,9 @@ def save_snapshot(tabs: dict[str, list[dict[str, Any]]], source: str) -> dict[st
     styles = sorted({k for sc in scenarios for r in sc.rooms for rv in r["review_pool"] for k in rv["text"]})
     report = validate_all(scenarios, style_levels=[s for s in ("emoji", "long", "casual") if s in styles],
                           summary_sets=["base", "positive", "mixed", "complaints"])
-    content = {k: v for k, v in tabs.items() if k not in ("Results", "Verdicts", "Runs")}
+    # Models is a record the Studio writes itself; it never changes what the agent sees, so it is not
+    # part of the data fingerprint (otherwise adding a model would look like changed reviews).
+    content = {k: v for k, v in tabs.items() if k not in WRITE_TABS}
     sha = hashlib.sha256(json.dumps(content, sort_keys=True, default=str).encode()).hexdigest()[:16]
     DB_DIR.mkdir(parents=True, exist_ok=True)
     snap = {"sha": sha, "source": source, "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
