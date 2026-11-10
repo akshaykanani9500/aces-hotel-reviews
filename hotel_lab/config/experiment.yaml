@@ -13,6 +13,7 @@ repeats: 5                # same item and cell again; positions rotate (Latin sq
 # With the 2 sample scenarios: 2 x 8 x 5 = 80. The brief asks for 150-200 per cell:
 # use 6 scenarios (6 x 8 x 4 = 192) or raise repeats. More SCENARIOS also means more independent
 # clusters for the standard errors, which matters more than more repeats.
+identical_rooms: true     # all rooms show the same price/amenities/rating; only reviews (and names) differ
 rotate_shells: true       # visible identity (name, location, price, size) rotates across fact profiles
 position_balance: latin   # latin = each room in each position equally often | random
 prompt_ids: [main]        # add para1, para2 for the paraphrase robustness check

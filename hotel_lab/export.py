@@ -15,7 +15,7 @@ import pandas as pd
 from hotel_lab import RUNS_DIR
 from hotel_lab.runner import read_jsonl
 
-FACTORS = ("order", "style", "review_set", "format")
+FACTORS = ("order", "style", "review_set", "format", "facts", "placebo")
 
 
 def load_raw(experiment: str) -> list[dict]:

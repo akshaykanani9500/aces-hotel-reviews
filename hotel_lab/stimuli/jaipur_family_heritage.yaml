@@ -1,0 +1,1145 @@
+scenario_id: jaipur_family_heritage
+title: "Family Suite at a heritage hotel, Jaipur"
+query: "a family suite at a heritage hotel in Jaipur for a two-night family trip with kids"
+check_in: "2026-12-18"
+nights: 2
+currency: "INR"
+fact_attributes: [cleanliness, breakfast, staff_service]
+best_room_id: r4
+
+rooms:
+  - room_id: r1
+    hotel_name: "Kesar Bagh Haveli"
+    hotel_stars: 5
+    room_name: "Heritage Family Suite"
+    location: "Old City, Jaipur"
+    size_sqm: 52
+    bed: "1 King bed and 1 Sofa bed"
+    max_guests: 4
+    view: "Courtyard view"
+    price_per_night: 16000
+    taxes_and_fees: 2880
+    amenities: ["Free Wi-Fi", "Air conditioning", "Separate living area", "Bathtub", "Tea/coffee maker", "Minibar", "Safe"]
+    policies:
+      cancellation: "Free cancellation until 72 hours before check-in"
+      breakfast: "Breakfast included"
+      check_in_out: "Check-in from 2 pm, check-out until 12 pm"
+    guest_rating: 4.2
+    review_count: 1236
+
+    facts:
+      - attribute: cleanliness
+        level: good
+        statement: "Suite and bathroom are spotless; housekeeping is thorough every day."
+      - attribute: breakfast
+        level: poor
+        statement: "Breakfast is a small, poorly kept buffet; dishes are often cold or run out early and there is almost nothing for children."
+      - attribute: staff_service
+        level: good
+        statement: "Warm, attentive staff who handle family requests quickly and are very good with children."
+
+    review_pool:
+      - review_id: r1_01
+        author: "Oliver"
+        country: "United Kingdom"
+        traveller_type: "Family"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-26"
+        helpful_votes: 0
+        rating: 5
+        title: "Lovely people, clean rooms"
+        facts_covered: [staff_service, cleanliness]
+        text:
+          base: "Super friendly staff and a spotless suite. The kids felt at home from the first hour."
+      - review_id: r1_02
+        author: "Michael"
+        country: "United States"
+        traveller_type: "Family"
+        stayed: "Apr 2026"
+        posted_date: "2026-05-05"
+        helpful_votes: 2
+        rating: 4
+        title: "Caring staff"
+        facts_covered: [staff_service]
+        text:
+          base: "The staff were caring and quick whenever we called. They made the trip easy for us."
+      - review_id: r1_03
+        author: "Lukas"
+        country: "Germany"
+        traveller_type: "Family"
+        stayed: "Jul 2026"
+        posted_date: "2026-08-02"
+        helpful_votes: 5
+        rating: 4
+        title: "Well kept suite"
+        facts_covered: [cleanliness]
+        text:
+          base: "The suite was very clean and the bathroom was spotless. Housekeeping did a good job both days."
+          emoji: "The suite was very clean and the bathroom was spotless 🧼. Housekeeping did a good job both days 🧹."
+          long: "We spent two nights here with the kids and were in and out of the suite a lot. The suite was very clean, and the bathroom was spotless each time we came back. Housekeeping did a good job on both days of our stay."
+          casual: "Suite was very clean and the bathroom totally spotless. Housekeeping did a good job on both days."
+      - review_id: r1_04
+        author: "Chloe"
+        country: "Australia"
+        traveller_type: "Family"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-27"
+        helpful_votes: 12
+        rating: 3
+        title: "Clean suite, sad breakfast"
+        facts_covered: [breakfast, cleanliness]
+        text:
+          base: "The suite was spotless and housekeeping was thorough. Breakfast was very poor, a tiny buffet with cold eggs and stale bread."
+          emoji: "The suite was spotless and housekeeping was thorough 🧼. Breakfast was very poor, a tiny buffet with cold eggs and stale bread 🍽️."
+          long: "We checked in on a Friday evening with our two children for a weekend away. The suite was spotless, and housekeeping was thorough during our stay. Breakfast, though, was very poor, a tiny buffet with cold eggs and stale bread on the table when we went down."
+          casual: "Suite was spotless and housekeeping was thorough. But breakfast was very poor, tiny buffet with cold eggs and stale bread."
+      - review_id: r1_05
+        author: "Sofia"
+        country: "Italy"
+        traveller_type: "Family"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-18"
+        helpful_votes: 6
+        rating: 5
+        title: "Warm staff, spotless suite"
+        facts_covered: [staff_service, cleanliness]
+        text:
+          base: "The staff were so warm with our kids and helped with everything we asked. The suite was spotless when we arrived."
+          emoji: "The staff were so warm with our kids and helped with everything we asked 🛎️🧒. The suite was spotless when we arrived 🧼."
+          long: "We came to Jaipur for two nights with our two kids during the school holidays. The staff were so warm with our kids, and they helped with everything we asked for during the stay. The suite was spotless when we arrived, and it was clean everywhere we looked."
+          casual: "Staff were so so warm with our kids and helped with everything we asked. The suite was spotless when we reached."
+      - review_id: r1_06
+        author: "Nikhil"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-29"
+        helpful_votes: 28
+        rating: 4
+        title: "Good service"
+        facts_covered: [staff_service]
+        text:
+          base: "The staff were attentive and always smiling. They arranged an extra bed for our daughter without any fuss."
+          emoji: "The staff were attentive and always smiling 🙂. They arranged an extra bed for our daughter without any fuss 🛏️."
+          long: "We were a family of four on a short holiday in the city. The staff were attentive and always smiling whenever we met them. When we asked, they arranged an extra bed for our daughter without any fuss at all, and it was set up for us."
+          casual: "Staff were attentive and always smiling. Arranged an extra bed for our daughter without any fuss at all."
+      - review_id: r1_07
+        author: "Lakshmi"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-19"
+        helpful_votes: 5
+        rating: 5
+        title: "Staff made our trip"
+        facts_covered: [staff_service]
+        text:
+          base: "The staff went out of their way for our family, from extra pillows to a cot within minutes. Our children loved them."
+          emoji: "The staff went out of their way for our family, from extra pillows to a cot within minutes 🛎️. Our children loved them 🧸."
+          long: "We were travelling with two young children, and that always means a lot of small requests. The staff went out of their way for our family, from extra pillows to a cot that came within minutes of asking. Our children loved them, and by the second day they were waving to everyone at the desk."
+          casual: "Staff went out of their way for our family, extra pillows, a cot, all within minutes. Our kids just loved them."
+      - review_id: r1_08
+        author: "Kavya"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-23"
+        helpful_votes: 3
+        rating: 3
+        title: "Great staff, bad breakfast"
+        facts_covered: [breakfast, staff_service]
+        text:
+          base: "The staff were wonderful and nothing was too much trouble. But the breakfast was cold and ran out early, and there was nothing for the kids."
+          emoji: "The staff were wonderful and nothing was too much trouble 🛎️. But the breakfast was cold and ran out early, and there was nothing for the kids 🍳."
+          long: "We were in Jaipur for two nights as a family and had early starts for sightseeing. The staff were wonderful, and nothing we asked for was too much trouble for them. But the breakfast was cold and ran out early both mornings, and there was nothing at all for the kids to eat."
+          casual: "Staff were wonderful, nothing was too much trouble for them. But breakfast was cold and ran out early, and nothing at all for the kids yaar."
+      - review_id: r1_09
+        author: "Fatima"
+        country: "United Arab Emirates"
+        traveller_type: "Family"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-21"
+        helpful_votes: 33
+        rating: 5
+        title: "Spotless and welcoming"
+        facts_covered: [staff_service, cleanliness]
+        text:
+          base: "Housekeeping kept the suite immaculate both days, and the staff remembered our children by name."
+      - review_id: r1_10
+        author: "Harsh"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "May 2026"
+        posted_date: "2026-05-28"
+        helpful_votes: 0
+        rating: 1
+        title: "Terrible breakfast"
+        facts_covered: [breakfast]
+        text:
+          base: "Worst hotel breakfast we have had, cold food, empty trays by 8:30 and nothing a child would eat. We had to go out every morning."
+      - review_id: r1_11
+        author: "Wei"
+        country: "Singapore"
+        traveller_type: "Family"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-19"
+        helpful_votes: 5
+        rating: 4
+        title: "Clean and friendly"
+        facts_covered: [staff_service, cleanliness]
+        text:
+          base: "Clean suite and friendly staff who were quick to help. A good base for a family trip."
+          emoji: "Clean suite and friendly staff who were quick to help 🧹. A good base for a family trip 🛎️."
+          long: "We booked this for a short family trip to Jaipur with our son. The suite was clean, and the staff were friendly and quick to help whenever we called. Taking both together, it was a good base for a family trip like ours."
+          casual: "Clean suite and friendly staff, quick to help also. Good base for a family trip, I'd say."
+      - review_id: r1_12
+        author: "Neha"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-08"
+        helpful_votes: 4
+        rating: 4
+        title: "Great staff, poor breakfast"
+        facts_covered: [breakfast, staff_service]
+        text:
+          base: "The staff were lovely and very helpful with the kids. Breakfast was a real letdown though, cold food and hardly anything our children would eat."
+      - review_id: r1_13
+        author: "Hannah"
+        country: "Canada"
+        traveller_type: "Family"
+        stayed: "May 2026"
+        posted_date: "2026-05-16"
+        helpful_votes: 6
+        rating: 5
+        title: "Would come back"
+        facts_covered: [staff_service, cleanliness]
+        text:
+          base: "The bathroom sparkled and the staff were attentive to every request. Would come back with the family."
+      - review_id: r1_14
+        author: "Rahul"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Jun 2026"
+        posted_date: "2026-07-05"
+        helpful_votes: 14
+        rating: 1
+        title: "Breakfast is a disaster"
+        facts_covered: [breakfast]
+        text:
+          base: "The breakfast was awful, a handful of cold dishes that were never refilled. Very poor for a hotel at this price."
+      - review_id: r1_15
+        author: "Priya"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Sep 2026"
+        posted_date: "2026-10-08"
+        helpful_votes: 9
+        rating: 4
+        title: "Clean, but skip breakfast"
+        facts_covered: [breakfast, cleanliness]
+        text:
+          base: "Spotless suite and fresh towels every day. The breakfast was poor, with half the dishes empty by 9 am, so we ate outside."
+      - review_id: r1_16
+        author: "Karthik"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Mar 2026"
+        posted_date: "2026-04-04"
+        helpful_votes: 3
+        rating: 4
+        title: "Helpful team"
+        facts_covered: [staff_service]
+        text:
+          base: "Staff were helpful and patient with our kids. Requests were handled quickly."
+          emoji: "Staff were helpful and patient with our kids 🛎️. Requests were handled quickly 🧒."
+          long: "We stayed two nights with our kids and asked the front desk for quite a few things. The staff were helpful and patient with our kids. Our requests were handled quickly every time."
+          casual: "Staff were helpful and very patient with our kids. Requests got handled quickly."
+      - review_id: r1_17
+        author: "Tanvi"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-22"
+        helpful_votes: 14
+        rating: 5
+        title: "Fantastic service"
+        facts_covered: [staff_service]
+        text:
+          base: "The front desk sorted a late check-out and a doctor's number for us in minutes. Fantastic, caring service."
+      - review_id: r1_18
+        author: "Suresh"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-14"
+        helpful_votes: 6
+        rating: 4
+        title: "Nice stay"
+        facts_covered: [staff_service, cleanliness]
+        text:
+          base: "Friendly, quick staff and a clean, well-kept suite. A pleasant stay overall."
+
+    review_sets:
+      base: [r1_03, r1_04, r1_05, r1_06, r1_07, r1_08, r1_11, r1_16]
+      positive: [r1_02, r1_03, r1_06, r1_11, r1_12, r1_15, r1_16, r1_18]
+      mixed: [r1_03, r1_04, r1_05, r1_06, r1_07, r1_08, r1_11, r1_16]
+      complaints: [r1_01, r1_05, r1_07, r1_09, r1_10, r1_13, r1_14, r1_17]
+
+    summaries:
+      base: "Guests consistently praise the warm, attentive staff, who are especially good with children, and describe the suite as spotless. Two guests report a very poor breakfast, with cold food that runs out early and little for kids."
+      positive: "Guests describe friendly, quick staff and a very clean suite with thorough housekeeping. Two guests say the breakfast is poor, with cold food, empty dishes and little for children."
+      mixed: "Guests consistently praise the warm, attentive staff, who are especially good with children, and describe the suite as spotless. Two guests report a very poor breakfast, with cold food that runs out early and little for kids."
+      complaints: "Most guests rave about the caring staff and the immaculate suite. Two guests strongly complain that the breakfast is cold, quickly runs out and has nothing suitable for children."
+
+  - room_id: r2
+    hotel_name: "The Jharokha House"
+    hotel_stars: 5
+    room_name: "Heritage Family Suite"
+    location: "Old City, Jaipur"
+    size_sqm: 52
+    bed: "1 King bed and 1 Sofa bed"
+    max_guests: 4
+    view: "Courtyard view"
+    price_per_night: 16000
+    taxes_and_fees: 2880
+    amenities: ["Free Wi-Fi", "Air conditioning", "Separate living area", "Bathtub", "Tea/coffee maker", "Minibar", "Safe"]
+    policies:
+      cancellation: "Free cancellation until 72 hours before check-in"
+      breakfast: "Breakfast included"
+      check_in_out: "Check-in from 2 pm, check-out until 12 pm"
+    guest_rating: 4.2
+    review_count: 1236
+
+    facts:
+      - attribute: cleanliness
+        level: poor
+        statement: "Housekeeping is unreliable; dusty floors, stained bed linen and a bathroom that is not properly cleaned are common."
+      - attribute: breakfast
+        level: average
+        statement: "Breakfast is decent but repetitive, with a limited spread and few options for children."
+      - attribute: staff_service
+        level: good
+        statement: "Friendly, quick and helpful staff who look after families well."
+
+    review_pool:
+      - review_id: r2_01
+        author: "Rohan"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Sep 2026"
+        posted_date: "2026-10-12"
+        helpful_votes: 9
+        rating: 1
+        title: "Filthy suite"
+        facts_covered: [cleanliness]
+        text:
+          base: "The suite was filthy, dust everywhere, stained bedsheets and a dirty bathroom. Not acceptable with small children."
+      - review_id: r2_02
+        author: "Rahul"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-23"
+        helpful_votes: 8
+        rating: 4
+        title: "Friendly, decent food"
+        facts_covered: [staff_service, breakfast]
+        text:
+          base: "Friendly staff and a decent breakfast, though the spread was small. Good enough for us."
+          emoji: "Friendly staff and a decent breakfast, though the spread was small 🙂. Good enough for us 🍳."
+          long: "We stayed two nights with our son during the holidays. The staff were friendly, and the breakfast was decent, though the spread was small. For our needs it was good enough for us."
+          casual: "Friendly staff and decent breakfast, though the spread was small. Good enough for us only."
+      - review_id: r2_03
+        author: "Lakshmi"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "May 2026"
+        posted_date: "2026-05-23"
+        helpful_votes: 7
+        rating: 3
+        title: "Great staff, poor housekeeping"
+        facts_covered: [cleanliness, staff_service]
+        text:
+          base: "The staff were lovely and helped with everything. But the suite was dirty, with dusty floors and stained sheets on the sofa bed."
+          emoji: "The staff were lovely and helped with everything 🛎️. But the suite was dirty, with dusty floors and stained sheets on the sofa bed 🧹."
+          long: "We booked this suite for two nights with our two kids during the holidays. The staff were lovely, and they helped us with everything we asked. But the suite was dirty, with dusty floors and stained sheets on the sofa bed when we opened it for the children."
+          casual: "Staff were lovely, they helped with everything. But the suite was dirty, dusty floors and stained sheets on the sofa bed."
+      - review_id: r2_04
+        author: "Sneha"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-27"
+        helpful_votes: 14
+        rating: 5
+        title: "Best service"
+        facts_covered: [staff_service]
+        text:
+          base: "The staff were the best part of our trip, always smiling and quick to help."
+      - review_id: r2_05
+        author: "Chloe"
+        country: "Australia"
+        traveller_type: "Family"
+        stayed: "May 2026"
+        posted_date: "2026-05-22"
+        helpful_votes: 9
+        rating: 4
+        title: "Helpful staff"
+        facts_covered: [staff_service]
+        text:
+          base: "The staff were helpful and quick with anything we needed. Very good with kids."
+          emoji: "The staff were helpful and quick with anything we needed 🛎️. Very good with kids 🧒."
+          long: "We were a family of four on a short trip. The staff were helpful and quick with anything we needed during the two days. They were also very good with kids, which made things easier."
+          casual: "Staff were helpful and quick with whatever we needed. Very good with kids."
+      - review_id: r2_06
+        author: "James"
+        country: "United Kingdom"
+        traveller_type: "Family"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-22"
+        helpful_votes: 4
+        rating: 5
+        title: "Lovely staff"
+        facts_covered: [staff_service, breakfast]
+        text:
+          base: "The staff were so helpful and kind to our children. Breakfast was decent too, simple but fine for the kids."
+          emoji: "The staff were so helpful and kind to our children 🛎️. Breakfast was decent too, simple but fine for the kids 🍳."
+          long: "We came here for a two-night family trip with our two children. The staff were so helpful, and they were kind to our children every time we saw them. Breakfast was decent too, simple food, but it was fine for the kids each morning."
+          casual: "Staff were so helpful and kind to our children. Breakfast was decent also, simple but fine for the kids."
+      - review_id: r2_07
+        author: "Ananya"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Feb 2026"
+        posted_date: "2026-03-09"
+        helpful_votes: 3
+        rating: 4
+        title: "Pleasant"
+        facts_covered: [staff_service, breakfast]
+        text:
+          base: "Pleasant, helpful staff and a reasonable breakfast. The kids had a good time."
+      - review_id: r2_08
+        author: "Ritika"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Apr 2026"
+        posted_date: "2026-05-13"
+        helpful_votes: 1
+        rating: 5
+        title: "Wonderful team"
+        facts_covered: [staff_service, breakfast]
+        text:
+          base: "Wonderful, attentive staff and an okay breakfast. The kids loved the people here."
+      - review_id: r2_09
+        author: "Daniel"
+        country: "Australia"
+        traveller_type: "Family"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-30"
+        helpful_votes: 6
+        rating: 4
+        title: "Good service"
+        facts_covered: [staff_service]
+        text:
+          base: "The front desk sorted our late check-in smoothly and checked on us the next day. Good service."
+          emoji: "The front desk sorted our late check-in smoothly and checked on us the next day 🛎️. Good service 📞."
+          long: "Our train was delayed, so we reached the hotel close to midnight with the kids. The front desk sorted our late check-in smoothly, and they checked on us the next day to see if all was fine. It was good service from them."
+          casual: "Front desk sorted our late check-in smoothly and checked on us the next day. Good service, no doubt."
+      - review_id: r2_10
+        author: "Kenji"
+        country: "Japan"
+        traveller_type: "Couple"
+        stayed: "Jul 2026"
+        posted_date: "2026-08-08"
+        helpful_votes: 4
+        rating: 4
+        title: "Breakfast was okay"
+        facts_covered: [breakfast]
+        text:
+          base: "Breakfast was okay, with the same few dishes both days. Fine, but nothing special."
+          emoji: "Breakfast was okay, with the same few dishes both days 🍳. Fine, but nothing special 🍽️."
+          long: "We had breakfast at the hotel both mornings before heading out for sightseeing. The breakfast was okay, with the same few dishes on both days. It was fine for us, but nothing special."
+          casual: "Breakfast was okay, same few dishes on both days. Fine, but nothing special."
+      - review_id: r2_11
+        author: "Omar"
+        country: "United Arab Emirates"
+        traveller_type: "Couple"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-20"
+        helpful_votes: 1
+        rating: 1
+        title: "Not clean at all"
+        facts_covered: [cleanliness]
+        text:
+          base: "Housekeeping barely cleaned the room in two days and the bathroom smelled. Very disappointed at this price."
+      - review_id: r2_12
+        author: "Fatima"
+        country: "United Arab Emirates"
+        traveller_type: "Family"
+        stayed: "May 2026"
+        posted_date: "2026-05-05"
+        helpful_votes: 5
+        rating: 4
+        title: "Okay breakfast, not clean"
+        facts_covered: [cleanliness, breakfast]
+        text:
+          base: "Breakfast was decent, if repetitive. The bathroom was not cleaned properly and we found hair in the tub, which was a real problem with small kids."
+      - review_id: r2_13
+        author: "Nikhil"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-04"
+        helpful_votes: 8
+        rating: 5
+        title: "Kind staff"
+        facts_covered: [staff_service, breakfast]
+        text:
+          base: "Very kind staff who helped us plan our sightseeing, and a decent breakfast. Happy family."
+      - review_id: r2_14
+        author: "Suresh"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Sep 2026"
+        posted_date: "2026-10-03"
+        helpful_votes: 17
+        rating: 4
+        title: "Great staff, dirty room"
+        facts_covered: [cleanliness, staff_service]
+        text:
+          base: "The staff were brilliant and very caring with our kids. The suite was not clean though, with dust on the floor and a stained bedsheet, which was a real problem."
+      - review_id: r2_15
+        author: "Oliver"
+        country: "United Kingdom"
+        traveller_type: "Couple"
+        stayed: "Aug 2026"
+        posted_date: "2026-09-18"
+        helpful_votes: 10
+        rating: 3
+        title: "Average breakfast, unclean bathroom"
+        facts_covered: [cleanliness, breakfast]
+        text:
+          base: "Breakfast was average, the same dishes every day. Worse, the bathroom was not cleaned properly and the towels had stains."
+          emoji: "Breakfast was average, the same dishes every day 🍳. Worse, the bathroom was not cleaned properly and the towels had stains 🚿."
+          long: "We came to Jaipur for two nights as a family and ate breakfast at the hotel both mornings. The breakfast was average, with the same dishes every day. Worse, the bathroom was not cleaned properly during our stay, and the towels had stains on them."
+          casual: "Breakfast was average, the same dishes every day. Worse, the bathroom wasn't cleaned properly and the towels had stains on them."
+      - review_id: r2_16
+        author: "Hannah"
+        country: "Canada"
+        traveller_type: "Family"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-14"
+        helpful_votes: 6
+        rating: 5
+        title: "So welcoming"
+        facts_covered: [staff_service, breakfast]
+        text:
+          base: "Staff were quick and friendly with every request, and breakfast was fine, if a bit repetitive."
+      - review_id: r2_17
+        author: "Farhan"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-17"
+        helpful_votes: 9
+        rating: 5
+        title: "Service was excellent"
+        facts_covered: [staff_service]
+        text:
+          base: "The staff could not do enough for us, from booking a cab to warming milk for our toddler at midnight. Excellent service."
+          emoji: "The staff could not do enough for us, from booking a cab to warming milk for our toddler at midnight 🛎️. Excellent service 🚕."
+          long: "We were travelling with a toddler and our parents, so we needed help with quite a lot of things. The staff could not do enough for us, from booking a cab for the day to warming milk for our toddler at midnight. It was excellent service from start to finish."
+          casual: "Staff couldn't do enough for us, booking a cab, even warming milk for our toddler at midnight. Excellent service really."
+      - review_id: r2_18
+        author: "Aditya"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Jun 2026"
+        posted_date: "2026-07-01"
+        helpful_votes: 1
+        rating: 4
+        title: "Very helpful"
+        facts_covered: [staff_service]
+        text:
+          base: "Every request was handled fast and with a smile. Very helpful team."
+
+    review_sets:
+      base: [r2_02, r2_03, r2_05, r2_06, r2_09, r2_10, r2_15, r2_17]
+      positive: [r2_02, r2_05, r2_07, r2_09, r2_10, r2_12, r2_14, r2_18]
+      mixed: [r2_02, r2_03, r2_05, r2_06, r2_09, r2_10, r2_15, r2_17]
+      complaints: [r2_01, r2_04, r2_06, r2_08, r2_11, r2_13, r2_16, r2_17]
+
+    summaries:
+      base: "Guests consistently praise the friendly, helpful staff, who are good with children, and describe the breakfast as decent but repetitive. Two guests report a dirty suite, with dusty floors, stained linen and a poorly cleaned bathroom."
+      positive: "Guests describe quick, caring staff and an acceptable breakfast with a limited spread. Two guests say the suite and bathroom were not properly cleaned, with dust, stains or hair."
+      mixed: "Guests consistently praise the friendly, helpful staff, who are good with children, and describe the breakfast as decent but repetitive. Two guests report a dirty suite, with dusty floors, stained linen and a poorly cleaned bathroom."
+      complaints: "Most guests rave about the attentive staff and call the breakfast fine, if repetitive. Two guests strongly complain that the suite and bathroom were dirty."
+
+  - room_id: r3
+    hotel_name: "Chandni Niwas"
+    hotel_stars: 5
+    room_name: "Heritage Family Suite"
+    location: "Old City, Jaipur"
+    size_sqm: 52
+    bed: "1 King bed and 1 Sofa bed"
+    max_guests: 4
+    view: "Courtyard view"
+    price_per_night: 16000
+    taxes_and_fees: 2880
+    amenities: ["Free Wi-Fi", "Air conditioning", "Separate living area", "Bathtub", "Tea/coffee maker", "Minibar", "Safe"]
+    policies:
+      cancellation: "Free cancellation until 72 hours before check-in"
+      breakfast: "Breakfast included"
+      check_in_out: "Check-in from 2 pm, check-out until 12 pm"
+    guest_rating: 4.2
+    review_count: 1236
+
+    facts:
+      - attribute: cleanliness
+        level: average
+        statement: "Generally clean, with minor lapses such as dust in corners or towels not always replaced."
+      - attribute: breakfast
+        level: good
+        statement: "Excellent, freshly made breakfast with Rajasthani and continental dishes and good options for children."
+      - attribute: staff_service
+        level: poor
+        statement: "Staff are slow and indifferent; requests are often forgotten and calls to the front desk go unanswered."
+
+    review_pool:
+      - review_id: r3_01
+        author: "Sofia"
+        country: "Italy"
+        traveller_type: "Family"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-28"
+        helpful_votes: 8
+        rating: 5
+        title: "Best breakfast in Jaipur"
+        facts_covered: [breakfast]
+        text:
+          base: "Honestly the best hotel breakfast we have had in Rajasthan. Our kids still talk about the fresh juice and the dosa counter."
+          emoji: "Honestly the best hotel breakfast we have had in Rajasthan 🍳. Our kids still talk about the fresh juice and the dosa counter 🍽️🧒."
+          long: "We have travelled around Rajasthan a few times as a family and have eaten a lot of hotel breakfasts. Honestly, this was the best hotel breakfast we have had in Rajasthan. Our kids still talk about the fresh juice and the dosa counter, weeks after we got back home."
+          casual: "Honestly the best hotel breakfast we've had in Rajasthan. Our kids still talk about the fresh juice and the dosa counter."
+      - review_id: r3_02
+        author: "Wei"
+        country: "Singapore"
+        traveller_type: "Family"
+        stayed: "May 2026"
+        posted_date: "2026-05-19"
+        helpful_votes: 7
+        rating: 4
+        title: "Nice breakfast"
+        facts_covered: [breakfast]
+        text:
+          base: "The breakfast had good Rajasthani dishes and a continental section. Everything was fresh."
+          emoji: "The breakfast had good Rajasthani dishes and a continental section 🍽️. Everything was fresh 🥐."
+          long: "We were here for two nights over a long weekend. The breakfast had good Rajasthani dishes and a continental section for those who wanted it. Everything on the buffet was fresh both mornings that we went."
+          casual: "Breakfast had good Rajasthani dishes plus a continental section. Everything was fresh."
+      - review_id: r3_03
+        author: "Harsh"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-19"
+        helpful_votes: 18
+        rating: 5
+        title: "Food was the highlight"
+        facts_covered: [breakfast, cleanliness]
+        text:
+          base: "Breakfast was the highlight, everything fresh and tasty, and the suite was clean apart from a dusty shelf."
+      - review_id: r3_04
+        author: "Michael"
+        country: "United States"
+        traveller_type: "Family"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-16"
+        helpful_votes: 10
+        rating: 5
+        title: "Superb breakfast"
+        facts_covered: [breakfast]
+        text:
+          base: "Superb breakfast with Rajasthani dishes and a proper kids' corner. We loved it."
+      - review_id: r3_05
+        author: "Siddharth"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "May 2026"
+        posted_date: "2026-05-18"
+        helpful_votes: 13
+        rating: 1
+        title: "Worst service"
+        facts_covered: [staff_service]
+        text:
+          base: "The staff were rude and useless, our requests were ignored for hours and nobody picked up the phone. Never again with kids."
+      - review_id: r3_06
+        author: "Rohan"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Jul 2026"
+        posted_date: "2026-08-05"
+        helpful_votes: 9
+        rating: 4
+        title: "Good breakfast"
+        facts_covered: [breakfast, cleanliness]
+        text:
+          base: "Very good breakfast and a clean enough suite, though one towel was not replaced. Happy overall."
+          emoji: "Very good breakfast and a clean enough suite, though one towel was not replaced 🍳. Happy overall 🧺."
+          long: "We stayed two nights with our daughter on a short holiday. The breakfast was very good, and the suite was clean enough, though one towel was not replaced on the second day. Overall we were happy with it."
+          casual: "Very good breakfast, and suite was clean enough, though one towel wasn't replaced. Happy overall."
+      - review_id: r3_07
+        author: "Divya"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-17"
+        helpful_votes: 11
+        rating: 4
+        title: "Great food, slow staff"
+        facts_covered: [staff_service, breakfast]
+        text:
+          base: "Breakfast was excellent with lots of choice. The staff were very slow and forgot our request for an extra bed, which was a real problem with kids."
+      - review_id: r3_08
+        author: "Lucas"
+        country: "France"
+        traveller_type: "Couple"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-25"
+        helpful_votes: 4
+        rating: 1
+        title: "Ignored all stay"
+        facts_covered: [staff_service]
+        text:
+          base: "We asked four times for an extra bed and it never came. The service was shockingly poor for a hotel like this."
+      - review_id: r3_09
+        author: "Nikhil"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-05"
+        helpful_votes: 14
+        rating: 3
+        title: "Great breakfast, terrible service"
+        facts_covered: [staff_service, breakfast]
+        text:
+          base: "Breakfast was excellent and the kids loved it. But the staff were indifferent and forgot every request we made."
+          emoji: "Breakfast was excellent and the kids loved it 🍳. But the staff were indifferent and forgot every request we made 🛎️."
+          long: "We came to Jaipur for a two-night family trip with our two children. The breakfast was excellent, and the kids loved it both mornings. But the staff were indifferent during our stay, and they forgot every single request we made at the desk."
+          casual: "Breakfast was excellent, the kids loved it. But the staff were indifferent and forgot every request we made."
+      - review_id: r3_10
+        author: "Fatima"
+        country: "United Arab Emirates"
+        traveller_type: "Family"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-24"
+        helpful_votes: 4
+        rating: 3
+        title: "Okay room, unhelpful staff"
+        facts_covered: [staff_service, cleanliness]
+        text:
+          base: "The suite was clean enough, apart from some dust. But nobody answered the front desk phone at night when our son was unwell."
+          emoji: "The suite was clean enough, apart from some dust 🧹. But nobody answered the front desk phone at night when our son was unwell 📞."
+          long: "We stayed here for two nights with our son, who fell ill on the first night. The suite was clean enough, apart from some dust on the side tables. But nobody answered the front desk phone at night when our son was unwell, even after we called several times."
+          casual: "Suite was clean enough, except some dust. But nobody picked up the front desk phone at night when our son was unwell."
+      - review_id: r3_11
+        author: "Rahul"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Sep 2026"
+        posted_date: "2026-10-03"
+        helpful_votes: 2
+        rating: 4
+        title: "Tasty food"
+        facts_covered: [breakfast]
+        text:
+          base: "Breakfast was fresh and tasty, with plenty of choice. The kids found lots they liked."
+          emoji: "Breakfast was fresh and tasty, with plenty of choice 🍳. The kids found lots they liked 🧒."
+          long: "We are a family of four and ate breakfast at the hotel before going out each day. The breakfast was fresh and tasty, and there was plenty of choice on the counters. The kids found lots of things they liked to eat."
+          casual: "Breakfast was fresh and tasty, plenty of choice. The kids found lots they liked."
+      - review_id: r3_12
+        author: "Kavya"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Aug 2026"
+        posted_date: "2026-09-06"
+        helpful_votes: 3
+        rating: 4
+        title: "Good food"
+        facts_covered: [breakfast, cleanliness]
+        text:
+          base: "Fresh, tasty breakfast and a reasonably clean suite. A comfortable stay."
+      - review_id: r3_13
+        author: "Priya"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-24"
+        helpful_votes: 1
+        rating: 5
+        title: "Great food"
+        facts_covered: [breakfast, cleanliness]
+        text:
+          base: "Lovely breakfast spread and a reasonably clean suite. The kids ate really well."
+      - review_id: r3_14
+        author: "Tanvi"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Oct 2026"
+        posted_date: "2026-10-17"
+        helpful_votes: 7
+        rating: 5
+        title: "Amazing breakfast"
+        facts_covered: [breakfast, cleanliness]
+        text:
+          base: "The breakfast was amazing, fresh parathas, eggs to order and pancakes for the kids. The suite was clean enough for us."
+          emoji: "The breakfast was amazing, fresh parathas, eggs to order and pancakes for the kids 🍳🥞. The suite was clean enough for us 🧹."
+          long: "We were in Jaipur for two nights with our two kids and had breakfast at the hotel both days. The breakfast was amazing, with fresh parathas, eggs made to order and pancakes for the kids. The suite was clean enough for us for a short family stay."
+          casual: "Breakfast was amazing, fresh parathas, eggs to order and pancakes for the kids. Suite was clean enough for us."
+      - review_id: r3_15
+        author: "Sarah"
+        country: "United States"
+        traveller_type: "Couple"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-26"
+        helpful_votes: 7
+        rating: 4
+        title: "Decent room, poor service"
+        facts_covered: [staff_service, cleanliness]
+        text:
+          base: "The suite was reasonably clean. Service was poor though, we called the front desk three times for towels before anyone came."
+      - review_id: r3_16
+        author: "Ishita"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-29"
+        helpful_votes: 0
+        rating: 4
+        title: "Mostly clean"
+        facts_covered: [cleanliness]
+        text:
+          base: "The suite was mostly clean, with a bit of dust in the corners. Fine for two nights."
+          emoji: "The suite was mostly clean, with a bit of dust in the corners 🧹. Fine for two nights 🛏️."
+          long: "We checked in with the kids on a Saturday afternoon for a short stay. The suite was mostly clean, with a bit of dust in the corners that we noticed later. It was fine for two nights."
+          casual: "Suite was mostly clean, just a little dust in the corners. Fine for two nights, no issue."
+      - review_id: r3_17
+        author: "Ananya"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-16"
+        helpful_votes: 8
+        rating: 4
+        title: "Lovely breakfast"
+        facts_covered: [breakfast]
+        text:
+          base: "The breakfast was lovely, fresh and with plenty for the kids."
+      - review_id: r3_18
+        author: "Kenji"
+        country: "Japan"
+        traveller_type: "Family"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-17"
+        helpful_votes: 0
+        rating: 5
+        title: "Fantastic mornings"
+        facts_covered: [breakfast, cleanliness]
+        text:
+          base: "Fantastic fresh breakfast with lots for children, and the room was decently clean."
+
+    review_sets:
+      base: [r3_01, r3_02, r3_06, r3_09, r3_10, r3_11, r3_14, r3_16]
+      positive: [r3_02, r3_06, r3_07, r3_11, r3_12, r3_15, r3_16, r3_17]
+      mixed: [r3_01, r3_02, r3_06, r3_09, r3_10, r3_11, r3_14, r3_16]
+      complaints: [r3_01, r3_03, r3_04, r3_05, r3_08, r3_13, r3_14, r3_18]
+
+    summaries:
+      base: "Guests consistently praise the fresh, varied breakfast with good options for children, and describe the suite as mostly clean, with some dust. Two guests report slow, indifferent staff who forgot requests and did not answer the phone."
+      positive: "Guests describe an excellent breakfast and a reasonably clean suite with minor lapses. Two guests say the staff were slow to respond and forgot requests."
+      mixed: "Guests consistently praise the fresh, varied breakfast with good options for children, and describe the suite as mostly clean, with some dust. Two guests report slow, indifferent staff who forgot requests and did not answer the phone."
+      complaints: "Most guests rave about the superb breakfast and several call the suite reasonably clean. Two guests strongly complain that staff ignored their requests and were unhelpful."
+
+  - room_id: r4
+    hotel_name: "Morpankh Heritage Haveli"
+    hotel_stars: 5
+    room_name: "Heritage Family Suite"
+    location: "Old City, Jaipur"
+    size_sqm: 52
+    bed: "1 King bed and 1 Sofa bed"
+    max_guests: 4
+    view: "Courtyard view"
+    price_per_night: 16000
+    taxes_and_fees: 2880
+    amenities: ["Free Wi-Fi", "Air conditioning", "Separate living area", "Bathtub", "Tea/coffee maker", "Minibar", "Safe"]
+    policies:
+      cancellation: "Free cancellation until 72 hours before check-in"
+      breakfast: "Breakfast included"
+      check_in_out: "Check-in from 2 pm, check-out until 12 pm"
+    guest_rating: 4.2
+    review_count: 1236
+
+    facts:
+      - attribute: cleanliness
+        level: good
+        statement: "Spotless suite and bathroom; housekeeping is consistent and thorough."
+      - attribute: breakfast
+        level: good
+        statement: "Generous, fresh breakfast with Indian and continental dishes and plenty for children."
+      - attribute: staff_service
+        level: average
+        statement: "Staff are polite but slow at busy times; requests sometimes need a reminder."
+
+    review_pool:
+      - review_id: r4_01
+        author: "Oliver"
+        country: "United Kingdom"
+        traveller_type: "Family"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-27"
+        helpful_votes: 3
+        rating: 5
+        title: "Immaculate"
+        facts_covered: [cleanliness]
+        text:
+          base: "Immaculate suite and bathroom. Housekeeping clearly takes pride in their work."
+      - review_id: r4_02
+        author: "Harsh"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Feb 2026"
+        posted_date: "2026-03-15"
+        helpful_votes: 4
+        rating: 4
+        title: "Clean, good food"
+        facts_covered: [cleanliness, breakfast]
+        text:
+          base: "Clean suite and a good breakfast spread. A solid family choice."
+          emoji: "Clean suite and a good breakfast spread 🧹. A solid family choice 🍳."
+          long: "We stayed for two nights with our son on a short trip. The suite was clean, and the breakfast spread was good. Taking both together, it was a solid family choice for us."
+          casual: "Clean suite and a good breakfast spread. Solid family choice."
+      - review_id: r4_03
+        author: "Fatima"
+        country: "United Arab Emirates"
+        traveller_type: "Family"
+        stayed: "Jun 2026"
+        posted_date: "2026-07-12"
+        helpful_votes: 1
+        rating: 4
+        title: "Good breakfast"
+        facts_covered: [breakfast]
+        text:
+          base: "Breakfast was fresh and had both Indian and continental dishes. The kids found plenty to eat."
+          emoji: "Breakfast was fresh and had both Indian and continental dishes 🍳. The kids found plenty to eat 🥐."
+          long: "We had breakfast at the hotel both mornings before going out to see the forts. The breakfast was fresh, and it had both Indian and continental dishes on the buffet. The kids found plenty to eat each morning."
+          casual: "Breakfast was fresh, with both Indian and continental dishes. The kids found plenty to eat."
+      - review_id: r4_04
+        author: "Divya"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "May 2026"
+        posted_date: "2026-06-19"
+        helpful_votes: 8
+        rating: 4
+        title: "Clean and tasty"
+        facts_covered: [cleanliness, breakfast]
+        text:
+          base: "Clean suite and tasty breakfast. Happy with our two nights."
+      - review_id: r4_05
+        author: "Karthik"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Apr 2026"
+        posted_date: "2026-05-10"
+        helpful_votes: 0
+        rating: 5
+        title: "Spotless"
+        facts_covered: [cleanliness, breakfast]
+        text:
+          base: "Spotless rooms and a breakfast our fussy eaters actually enjoyed. Loved it."
+      - review_id: r4_06
+        author: "Hannah"
+        country: "Canada"
+        traveller_type: "Family"
+        stayed: "Apr 2026"
+        posted_date: "2026-05-03"
+        helpful_votes: 6
+        rating: 4
+        title: "Spotless suite"
+        facts_covered: [cleanliness]
+        text:
+          base: "Very clean suite with fresh linen. Exactly what you want with small kids."
+      - review_id: r4_07
+        author: "Priya"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Jun 2026"
+        posted_date: "2026-07-10"
+        helpful_votes: 1
+        rating: 1
+        title: "Slow front desk"
+        facts_covered: [staff_service]
+        text:
+          base: "Check-in took ages and our request for a cot needed a reminder. A letdown for a hotel at this price."
+      - review_id: r4_08
+        author: "Siddharth"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Sep 2026"
+        posted_date: "2026-10-03"
+        helpful_votes: 0
+        rating: 3
+        title: "Good food, average service"
+        facts_covered: [staff_service, breakfast]
+        text:
+          base: "Breakfast was fresh and there was plenty for the kids. The staff were polite but took a long time with requests at check-in."
+          emoji: "Breakfast was fresh and there was plenty for the kids 🍳. The staff were polite but took a long time with requests at check-in ⏳."
+          long: "We arrived on a busy Friday afternoon with the kids and ate breakfast at the hotel both days. The breakfast was fresh, and there was plenty for the kids. The staff were polite, but they took a long time with our requests at check-in, when the desk was crowded."
+          casual: "Breakfast was fresh, and plenty for the kids. Staff were polite but took a long time with our requests at check-in."
+      - review_id: r4_09
+        author: "Kenji"
+        country: "Japan"
+        traveller_type: "Family"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-21"
+        helpful_votes: 2
+        rating: 5
+        title: "Perfect for families"
+        facts_covered: [cleanliness, breakfast]
+        text:
+          base: "Immaculate suite and a generous breakfast. Perfect for families."
+      - review_id: r4_10
+        author: "Anna"
+        country: "Germany"
+        traveller_type: "Family"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-22"
+        helpful_votes: 0
+        rating: 4
+        title: "Clean, service a bit slow"
+        facts_covered: [staff_service, cleanliness]
+        text:
+          base: "The suite was spotless. Staff were polite but slow, and we had to remind them about the extra blanket."
+      - review_id: r4_11
+        author: "Lukas"
+        country: "Germany"
+        traveller_type: "Family"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-31"
+        helpful_votes: 4
+        rating: 5
+        title: "Lovely stay"
+        facts_covered: [cleanliness, breakfast]
+        text:
+          base: "Fresh, tasty breakfast every morning and a suite that was cleaned beautifully."
+      - review_id: r4_12
+        author: "Suresh"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-11"
+        helpful_votes: 13
+        rating: 4
+        title: "Well kept"
+        facts_covered: [cleanliness]
+        text:
+          base: "Housekeeping was thorough and the suite was dust-free. Good with toys lying everywhere!"
+          emoji: "Housekeeping was thorough and the suite was dust-free 🧹. Good with toys lying everywhere 🧸!"
+          long: "We had two kids with us, and our suite was always a mess with their things. Housekeeping was thorough every time, and the suite was dust-free when we came back. That was good with toys lying everywhere!"
+          casual: "Housekeeping was thorough, the suite was dust-free. Good with toys lying everywhere!"
+      - review_id: r4_13
+        author: "Aditya"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Oct 2026"
+        posted_date: "2026-10-12"
+        helpful_votes: 5
+        rating: 4
+        title: "Great food, slow desk"
+        facts_covered: [staff_service, breakfast]
+        text:
+          base: "Breakfast was excellent. The front desk took a while to respond at busy times, but they got there."
+      - review_id: r4_14
+        author: "Neha"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Jul 2026"
+        posted_date: "2026-08-08"
+        helpful_votes: 0
+        rating: 4
+        title: "Very clean"
+        facts_covered: [cleanliness]
+        text:
+          base: "The suite and bathroom were spotless, and fresh towels were left every day. Very well kept."
+          emoji: "The suite and bathroom were spotless, and fresh towels were left every day 🧼. Very well kept 🧺."
+          long: "We were a family of four here for two nights during the holidays. The suite and bathroom were spotless, and fresh towels were left for us every day. Overall, it was very well kept from start to finish."
+          casual: "The suite and bathroom were spotless, fresh towels left for us every day. Very well kept, really."
+      - review_id: r4_15
+        author: "Farhan"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-25"
+        helpful_votes: 8
+        rating: 5
+        title: "Clean and great food"
+        facts_covered: [cleanliness, breakfast]
+        text:
+          base: "The suite was spotless and the breakfast was lovely, with lots for the kids. A really easy family stay."
+          emoji: "The suite was spotless and the breakfast was lovely, with lots for the kids 🧼. A really easy family stay 🍳🧒."
+          long: "We came to Jaipur for two nights with our two young kids. The suite was spotless when we arrived, and the breakfast was lovely, with lots for the kids to choose from. It was a really easy family stay for all of us."
+          casual: "The suite was spotless and breakfast was lovely, lots for the kids. Really easy family stay for us."
+      - review_id: r4_16
+        author: "Wei"
+        country: "Singapore"
+        traveller_type: "Couple"
+        stayed: "Feb 2026"
+        posted_date: "2026-03-11"
+        helpful_votes: 4
+        rating: 3
+        title: "Clean, but slow service"
+        facts_covered: [staff_service, cleanliness]
+        text:
+          base: "The suite was spotless and well kept. But the staff were slow, and we had to ask twice for the extra bed."
+          emoji: "The suite was spotless and well kept 🧼. But the staff were slow, and we had to ask twice for the extra bed 🛏️."
+          long: "We booked this suite for two nights with our two children. The suite was spotless, and it was well kept during the whole stay. But the staff were slow, and we had to ask twice for the extra bed before it was set up."
+          casual: "Suite was spotless and well kept. But the staff were slow, we had to ask twice for the extra bed."
+      - review_id: r4_17
+        author: "Sarah"
+        country: "United States"
+        traveller_type: "Family"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-30"
+        helpful_votes: 16
+        rating: 5
+        title: "So clean"
+        facts_covered: [cleanliness]
+        text:
+          base: "The cleanest hotel room we have stayed in with the kids. The bathroom was gleaming and the sheets were fresh every day."
+          emoji: "The cleanest hotel room we have stayed in with the kids 🧼. The bathroom was gleaming and the sheets were fresh every day 🛏️."
+          long: "We travel quite a lot with our children, so we always notice how clean a room is. This was the cleanest hotel room we have stayed in with the kids. The bathroom was gleaming, and the sheets were fresh every day of our stay."
+          casual: "Cleanest hotel room we've stayed in with the kids, honestly. The bathroom was gleaming and the sheets were fresh every day."
+      - review_id: r4_18
+        author: "Sneha"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "May 2026"
+        posted_date: "2026-06-08"
+        helpful_votes: 10
+        rating: 1
+        title: "Service let it down"
+        facts_covered: [staff_service]
+        text:
+          base: "Staff were polite but so slow, and we had to chase every request twice. Disappointing when you have tired kids."
+
+    review_sets:
+      base: [r4_02, r4_03, r4_08, r4_12, r4_14, r4_15, r4_16, r4_17]
+      positive: [r4_02, r4_03, r4_04, r4_06, r4_10, r4_12, r4_13, r4_14]
+      mixed: [r4_02, r4_03, r4_08, r4_12, r4_14, r4_15, r4_16, r4_17]
+      complaints: [r4_01, r4_05, r4_07, r4_09, r4_11, r4_15, r4_17, r4_18]
+
+    summaries:
+      base: "Guests consistently praise the spotless suite and the fresh breakfast with plenty for children. Two guests found the staff polite but slow, with requests needing a reminder."
+      positive: "Guests describe a very clean suite and a good, fresh breakfast. Two guests say staff were polite but slow at busy times, so some requests needed a reminder."
+      mixed: "Guests consistently praise the spotless suite and the fresh breakfast with plenty for children. Two guests found the staff polite but slow, with requests needing a reminder."
+      complaints: "Most guests rave about the immaculate suite and the generous breakfast. Two guests were disappointed that the staff were slow and requests had to be chased."

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hotel Lab Studio</title>
+<style>
+:root{--ink:#17212b;--muted:#5b6875;--line:#dbe2e8;--bg:#f3f6f9;--card:#fff;--brand:#0b5c8f;--brand2:#084669;
+--good:#1f7a4d;--bad:#b3261e;--warn:#9a6700;--chip:#eaf1f6}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:14px}
+header{background:var(--brand);color:#fff;padding:10px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+header h1{font-size:18px;margin:0;font-weight:700}header .src{background:rgba(255,255,255,.15);border-radius:6px;padding:4px 10px;font-size:13px}
+header .sp{flex:1}
+button{font:inherit;border:1px solid var(--line);background:#fff;border-radius:6px;padding:6px 11px;cursor:pointer}
+button.primary{background:var(--brand);color:#fff;border-color:var(--brand)}button.primary:hover{background:var(--brand2)}
+button.danger{color:var(--bad)}button:disabled{opacity:.5;cursor:default}
+header button{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.3)}
+.grid{display:grid;grid-template-columns:340px 1fr 340px;gap:14px;padding:14px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px}
+.card h2{font-size:15px;margin:0 0 10px}.card h3{font-size:13px;margin:12px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+select,input,textarea{font:inherit;width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:#fff}
+label{display:block;font-size:12px;color:var(--muted);margin:8px 0 3px}
+.row{display:flex;gap:8px;align-items:center}.row>*{flex:1}
+.muted{color:var(--muted)}.small{font-size:12px}
+.hbox{background:#f7fafc;border:1px solid var(--line);border-radius:8px;padding:10px;margin-top:8px}
+.hbox p{margin:4px 0}.tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:10px;background:var(--chip)}
+.tag.confirmatory{background:#dbeefe}.tag.secondary{background:#efe7fb}.tag.check{background:#e5f6ec}.tag.gate{background:#fff1d6}
+ul.tight{margin:4px 0;padding-left:18px}ul.tight li{margin:2px 0}
+.tabs{display:flex;gap:4px;margin-bottom:8px}.tabs button{border-radius:6px 6px 0 0}.tabs button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+iframe{width:100%;height:640px;border:1px solid var(--line);border-radius:8px;background:#fff}
+pre{white-space:pre-wrap;word-break:break-word;background:#0f1720;color:#e6edf3;border-radius:8px;padding:12px;max-height:640px;overflow:auto;font-size:12px}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#f7fafc;font-size:12px;color:var(--muted)}
+.model{border:1px solid var(--line);border-radius:8px;padding:8px;margin-bottom:6px;display:flex;gap:8px;align-items:flex-start}
+.model input[type=checkbox]{width:auto;margin-top:3px}.model .nm{font-weight:600}.ok{color:var(--good)}.no{color:var(--bad)}
+.bar{height:10px;background:var(--chip);border-radius:6px;overflow:hidden}.bar div{height:100%;background:var(--brand);width:0}
+.log{font-family:ui-monospace,Consolas,monospace;font-size:12px;background:#f7fafc;border:1px solid var(--line);border-radius:6px;padding:8px;max-height:160px;overflow:auto;white-space:pre-wrap}
+.v-Effect{color:var(--bad);font-weight:700}.v-Inconclusive{color:var(--warn);font-weight:700}.v-No.meaningful.effect,.v-PASS{color:var(--good);font-weight:700}
+.v-FAIL{color:var(--bad);font-weight:700}.v-Real{color:var(--warn);font-weight:700}
+.bottom{padding:0 14px 30px}.flash{padding:8px 10px;border-radius:6px;margin-top:8px;font-size:13px}
+.flash.err{background:#fde8e7;color:var(--bad)}.flash.okk{background:#e5f6ec;color:var(--good)}
+details summary{cursor:pointer;font-weight:600}
+@media(max-width:1200px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Hotel Lab Studio</h1>
+  <span class="src" id="src">loading…</span>
+  <span class="sp"></span>
+  <button onclick="openSource()">Data source</button>
+  <button onclick="doSync()">Sync from Sheet</button>
+</header>
+
+<div class="grid">
+  <!-- LEFT: hypothesis -->
+  <div>
+    <div class="card">
+      <h2>1. What do you want to test?</h2>
+      <label>Hypothesis</label>
+      <select id="hyp" onchange="showHyp()"></select>
+      <div id="hypbox"></div>
+    </div>
+    <div class="card" id="sourcecard" style="display:none">
+      <h2>Data source (Google Sheet)</h2>
+      <p class="small muted">Paste the Apps Script <b>Web app URL</b> (ends in /exec) and the <b>api_token</b> from the Sheet's Settings tab.</p>
+      <label>Web app URL</label><input id="surl" placeholder="https://script.google.com/macros/s/.../exec">
+      <label>api_token</label><input id="stok" placeholder="from Settings tab">
+      <div class="row" style="margin-top:8px"><button class="primary" onclick="saveSource()">Save &amp; test</button><button onclick="doSync()">Sync now</button></div>
+      <h3>Or offline</h3>
+      <label>Upload a downloaded .xlsx of the Sheet</label><input type="file" id="xlsx" accept=".xlsx" onchange="uploadXlsx()">
+      <div class="row" style="margin-top:8px"><a href="/api/workbook"><button>Download starter workbook</button></a><button onclick="useYaml()">Use repo YAML files</button></div>
+      <div id="srcmsg"></div>
+    </div>
+  </div>
+
+  <!-- CENTRE: what the agent sees -->
+  <div>
+    <div class="card">
+      <div class="row" style="flex-wrap:wrap">
+        <h2 style="flex:2;margin:0">2. What the agent sees</h2>
+        <select id="cell" style="flex:2" onchange="preview()"></select>
+        <button style="flex:1" onclick="preview(true)">🎲 Randomise</button>
+      </div>
+      <p class="small muted" id="pinfo">Pick a hypothesis, then a cell. Each click of Randomise shows another real trial from the plan (scenario, positions, names, review order).</p>
+      <div class="tabs">
+        <button class="on" data-t="page" onclick="tab('page')">Hotel page</button>
+        <button data-t="behind" onclick="tab('behind')">Behind the scenes</button>
+        <button data-t="prompt" onclick="tab('prompt')">Exact prompt</button>
+      </div>
+      <div id="t-page"><iframe id="frame" title="Hotel page the agent sees"></iframe></div>
+      <div id="t-behind" style="display:none"></div>
+      <div id="t-prompt" style="display:none"><pre id="prompt"></pre></div>
+    </div>
+  </div>
+
+  <!-- RIGHT: models -->
+  <div>
+    <div class="card">
+      <h2>3. Which AI models?</h2>
+      <p class="small muted">Tick the models to run. Keys are kept in your local <code>.env</code> file, never in the Sheet.</p>
+      <div id="models"></div>
+      <details style="margin-top:10px"><summary>➕ Add a model</summary>
+        <label>Provider</label><select id="m_preset" onchange="presetChanged()"></select>
+        <label>Model name (as the provider calls it)</label><input id="m_model">
+        <label>Short name for this study</label><input id="m_name" placeholder="e.g. qwen7b">
+        <label>Base URL</label><input id="m_url">
+        <label>API key (leave empty for local models)</label><input id="m_key" type="password" autocomplete="off">
+        <div class="row"><div><label>Temperature</label><input id="m_temp" value="1.0"></div><div><label>Max tokens</label><input id="m_max" value="400"></div></div>
+        <div class="row"><div><label>Family</label><input id="m_fam" placeholder="qwen"></div><div><label>Size (B)</label><input id="m_size" placeholder="7"></div></div>
+        <label><input type="checkbox" id="m_vis" style="width:auto"> Vision model (can read screenshots)</label>
+        <button class="primary" style="margin-top:8px;width:100%" onclick="saveModel()">Save model</button>
+        <div id="mmsg"></div>
+      </details>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM: run + results -->
+<div class="bottom">
+  <div class="card">
+    <h2>4. Run the experiment</h2>
+    <div class="row" style="flex-wrap:wrap">
+      <div><label>Mode</label><select id="mode"><option value="pilot">Pilot (N trials per cell)</option><option value="full">Full plan</option></select></div>
+      <div><label>Pilot: trials per cell</label><input id="percell" value="5"></div>
+      <div><label>Interface</label><select id="iface"><option value="text">Text / JSON (main)</option><option value="screenshot">Screenshots (vision models)</option></select></div>
+      <div><label>Reasoning</label><select id="reason"><option value="low">Low (direct answer)</option><option value="high">High (think first)</option></select></div>
+      <div style="flex:2"><label>&nbsp;</label><div class="row"><button class="primary" id="runbtn" onclick="startRun()">▶ Run selected hypothesis</button><button class="danger" onclick="stopRun()">■ Stop</button></div></div>
+    </div>
+    <p class="small muted" id="planinfo"></p>
+    <div class="bar" style="margin-top:8px"><div id="bar"></div></div>
+    <p class="small" id="jobline"></p>
+    <div class="log" id="log"></div>
+  </div>
+  <div class="card">
+    <div class="row"><h2 style="margin:0">5. Results: verdict per hypothesis</h2>
+      <span class="sp"></span><button class="primary" style="flex:0 0 auto" onclick="analyze()">Analyse all</button>
+      <button style="flex:0 0 auto" onclick="pushPending()">Send pending rows to Sheet</button></div>
+    <p class="small muted">Estimates are in percentage points with 95% intervals from a cluster bootstrap (cluster = scenario × focal room). Verdict: <b>Effect</b> = reject H0 and not negligible · <b>No meaningful effect</b> = 90% CI inside ±margin · <b>Inconclusive</b> = need more data · <b>Real but negligible</b>. Checks show PASS/FAIL.</p>
+    <div id="verdicts" class="small muted">Press "Analyse all" after a run.</div>
+  </div>
+</div>
+
+<script>
+let S = null, P = null;
+const $ = id => document.getElementById(id);
+async function api(path, opts = {}) {
+  const r = await fetch(path, {headers: {"Content-Type": "application/json"}, ...opts});
+  const t = await r.text(); let j; try { j = JSON.parse(t) } catch { j = {detail: t} }
+  if (!r.ok) throw new Error(j.detail || r.statusText); return j;
+}
+function esc(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function flash(el, msg, ok){ $(el).innerHTML = `<div class="flash ${ok?'okk':'err'}">${esc(msg)}</div>` }
+
+async function load(keepHyp) {
+  S = await api("/api/state");
+  const src = S.source;
+  $("src").textContent = src.sha ? `Data: Google Sheet snapshot ${src.sha} (${src.fetched_at})` : `Data: ${src.type}` ;
+  const sel = $("hyp"), cur = keepHyp || sel.value;
+  const fams = [["confirmatory","Confirmatory hypotheses"],["secondary","Secondary (pre-registered)"],["gate","Gate"],["check","Validity checks"]];
+  sel.innerHTML = fams.map(([f,lab]) => {
+    const hs = S.hypotheses.filter(h => (h.family||"") === f && h.enabled);
+    return hs.length ? `<optgroup label="${lab}">` + hs.map(h => `<option value="${h.hypothesis_id}">${h.hypothesis_id} — ${esc(h.question).slice(0,70)}</option>`).join("") + "</optgroup>" : "";
+  }).join("");
+  if (cur) sel.value = cur;
+  renderModels(); renderPresets(); showHyp(); renderJob(S.job);
+}
+function curHyp(){ return S.hypotheses.find(h => h.hypothesis_id === $("hyp").value) }
+
+function showHyp() {
+  const h = curHyp(); if (!h) return;
+  const lv = (h.levels||"").split(",").map(s=>s.trim()).filter(Boolean);
+  const f2 = h.factor2 ? `<p><b>Second factor:</b> ${esc(h.factor2)} = ${esc(h.levels2)} (${esc(h.assign2)}, control ${esc(h.control2)})</p>` : "";
+  const assignTxt = h.assign === "focal" ? "only the focal room is changed; the other 3 stay at control" : "every room on the page gets the level";
+  const done = S.block_status[h.block] || {};
+  $("hypbox").innerHTML = `<div class="hbox">
+    <p><span class="tag ${h.family}">${esc(h.family)}</span> <b>${esc(h.hypothesis_id)}</b> · block <code>${esc(h.block)}</code></p>
+    <p>${esc(h.question)}</p>
+    ${h.H0 ? `<p><b>H0:</b> ${esc(h.H0)}</p><p><b>Ha:</b> ${esc(h.Ha)}</p>` : ""}
+    ${h.predicted ? `<p><b>Predicted direction:</b> ${esc(h.predicted)}</p>` : ""}
+    ${h.pass_threshold ? `<p><b>Pass rule:</b> ${esc(h.pass_threshold)}</p>` : ""}
+    <h3>Manipulated</h3><p>${esc(h.factor)} = ${lv.map(esc).join(" / ")} · ${assignTxt}${h.control ? ` · control: <b>${esc(h.control)}</b>`:""}</p>${f2}
+    <h3>Held constant</h3><ul class="tight">${h.held_constant.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+    ${h.benchmark ? `<h3>Human benchmark</h3><p class="small">${esc(h.benchmark)}</p>` : ""}
+    ${h.notes ? `<p class="small muted">${esc(h.notes)}</p>` : ""}
+    <h3>Already run</h3><p class="small">${Object.keys(done).length ? Object.entries(done).map(([k,v])=>`${esc(k)}: ${v} trials`).join("<br>") : "nothing yet"}</p>
+  </div>`;
+  P = null; $("cell").innerHTML = ""; preview(true);
+}
+
+async function preview(newSeed) {
+  const h = curHyp(); if (!h) return;
+  try {
+    P = await api("/api/preview", {method:"POST", body: JSON.stringify({hypothesis_id: h.hypothesis_id, cell: $("cell").value || null, seed: newSeed ? null : 1})});
+  } catch(e) { $("pinfo").textContent = "Preview failed: " + e.message; return }
+  const cs = $("cell"), keep = P.cell;
+  cs.innerHTML = P.cells.map(c => `<option ${c===keep?"selected":""}>${esc(c)}</option>`).join("");
+  $("pinfo").innerHTML = `Trial <code>${esc(P.trial_id)}</code> · scenario <b>${esc(P.scenario)}</b> · “${esc(P.query)}”`;
+  $("frame").src = P.page_url;
+  $("prompt").textContent = P.prompt;
+  $("t-behind").innerHTML = `<p class="small muted">Hidden from the agent. ⭐ = fact-sheet-best room; 🎯 = focal (treated) room.</p>
+   <table><tr><th>Option</th><th>Hotel name</th><th>Profile</th><th>Hidden facts</th><th>Levels for this room</th><th>1st review ★</th></tr>
+   ${P.rooms.map(r=>`<tr><td>${r.option}</td><td>${esc(r.hotel_name)} ${r.best?"⭐":""}${r.focal?" 🎯":""}</td><td>${esc(r.profile)}</td>
+     <td>${Object.entries(r.facts).map(([a,l])=>`${esc(a)}: ${esc(l)}`).join("<br>")}</td>
+     <td>${Object.entries(r.levels).map(([a,l])=>`${esc(a)}=${esc(l)}`).join("<br>")}</td><td>${r.first_review_stars??"–"}</td></tr>`).join("")}</table>
+   <p class="small"><a href="${P.json_url}" target="_blank">Open the exact JSON the agent receives ↗</a> · <a href="${P.page_url}" target="_blank">Open page in a new tab ↗</a></p>`;
+  const done = S.block_status[h.block];
+}
+function tab(t){ document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("on", b.dataset.t===t));
+  ["page","behind","prompt"].forEach(x => $("t-"+x).style.display = x===t ? "" : "none") }
+
+function renderModels() {
+  const checked = new Set([...document.querySelectorAll(".mchk:checked")].map(c=>c.value));
+  $("models").innerHTML = S.models.map(m => m.error ? `<div class="model no">${esc(m.name)}: ${esc(m.error)}</div>` :
+   `<div class="model"><input type="checkbox" class="mchk" value="${esc(m.name)}" ${checked.has(m.name)?"checked":""}>
+     <div style="flex:1"><div class="nm">${esc(m.name)}</div>
+     <div class="small muted">${esc(m.provider)} · ${esc(m.model)}${m.vision?" · vision":""} · T=${m.temperature}</div>
+     <div class="small">${m.key_env ? (m.key_set ? `<span class="ok">key ${esc(m.key_env)} set</span>` : `<span class="no">needs ${esc(m.key_env)}</span>`) : "no key needed"}</div>
+     <div id="test-${esc(m.name)}" class="small"></div></div>
+     <div><button onclick="testModel('${esc(m.name)}')">Test</button>${m.local?`<br><button class="danger" style="margin-top:4px" onclick="delModel('${esc(m.name)}')">✕</button>`:""}</div></div>`).join("");
+}
+function renderPresets(){ const s=$("m_preset"); if (s.options.length) return;
+  s.innerHTML = Object.entries(S.presets).map(([k,p])=>`<option value="${k}">${esc(p.label)}</option>`).join(""); presetChanged() }
+function presetChanged(){ const p=S.presets[$("m_preset").value]; $("m_url").value=p.base_url; $("m_model").placeholder=p.example||"model id";
+  $("m_key").placeholder = p.api_key_env ? `saved as ${p.api_key_env} in .env` : "not needed" }
+async function saveModel(){
+  try{ const body={name:$("m_name").value.trim(), preset:$("m_preset").value, model:$("m_model").value.trim(), base_url:$("m_url").value.trim(),
+    api_key:$("m_key").value||null, temperature:parseFloat($("m_temp").value||"1"), max_tokens:parseInt($("m_max").value||"400"),
+    supports_vision:$("m_vis").checked, family:$("m_fam").value, size_b:$("m_size").value?parseFloat($("m_size").value):null};
+    const r = await api("/api/models",{method:"POST",body:JSON.stringify(body)}); $("m_key").value=""; flash("mmsg","Saved as "+r.name+". Press Test.",true); await load($("hyp").value)
+  }catch(e){ flash("mmsg", e.message) } }
+async function delModel(n){ if(!confirm("Remove "+n+"?")) return; await api("/api/models/"+n,{method:"DELETE"}); load($("hyp").value) }
+async function testModel(n){ const el=$("test-"+n); el.textContent="testing…";
+  const r = await api(`/api/models/${n}/test`,{method:"POST"});
+  el.innerHTML = r.parse_ok ? `<span class="ok">✓ works (${r.latency_s}s): ${esc(r.raw_output).slice(0,80)}</span>` : `<span class="no">✗ ${esc(r.error||r.note||r.raw_output)} ${esc(r.hint||"")}</span>` }
+
+async function startRun(){
+  const models=[...document.querySelectorAll(".mchk:checked")].map(c=>c.value);
+  try{ const h=curHyp(); const info = await api("/api/prepare",{method:"POST",body:JSON.stringify({hypothesis_id:h.hypothesis_id})});
+    const pc = parseInt($("percell").value||"5"); const n = $("mode").value==="pilot" ? pc*info.cells.length : info.trials;
+    $("planinfo").textContent = `${h.hypothesis_id} → block ${info.block}: ${info.cells.length} cells, ${info.per_cell} trials per cell in the full plan (${info.trials} incl. ${info.retest_copies} retest copies). This run: about ${n} trials × ${models.length} model(s) = ${n*models.length} calls.`;
+    if ($("mode").value==="full" && !confirm(`Run the FULL plan: ${n*models.length} calls?`)) return;
+    await api("/api/run",{method:"POST",body:JSON.stringify({hypothesis_id:h.hypothesis_id, models, mode:$("mode").value, per_cell:pc, interface:$("iface").value, reasoning:$("reason").value})});
+    poll();
+  }catch(e){ $("jobline").innerHTML = `<span class="no">${esc(e.message)}</span>` } }
+async function stopRun(){ await api("/api/stop",{method:"POST"}) }
+function renderJob(j){ if(!j||!j.id) return; const pct = j.total ? Math.round(100*j.done/(j.total*Math.max(1,j.models.length))) : 0;
+  $("bar").style.width = Math.min(100, j.status==="finished"?100:pct)+"%";
+  $("jobline").innerHTML = `<b>${esc(j.status)}</b> · ${esc(j.hypothesis_id)} · model: ${esc(j.current_model)} · ${j.done} trials done · ${j.failures} not usable · ${j.pushed} rows sent to Sheet · ${j.elapsed_s}s ${j.last_error?`<br><span class="no">Last error: ${esc(j.last_error)}</span>`:""}`;
+  $("log").textContent = (j.log||[]).join("\n"); $("log").scrollTop = 1e9; $("runbtn").disabled = ["starting","running"].includes(j.status) }
+async function poll(){ const j = await api("/api/job"); renderJob(j); if (["starting","running"].includes(j.status)) setTimeout(poll, 1500); else load($("hyp").value) }
+
+async function analyze(){ $("verdicts").textContent = "Analysing…";
+  try{ const r = await api("/api/analyze",{method:"POST"}); const rows = r.rows;
+    const fmt = v => v===null||v===undefined||v==="" ? "–" : (typeof v==="number" ? v.toFixed(Math.abs(v)<1?3:1) : esc(v));
+    $("verdicts").innerHTML = `<p class="small">Saved to <code>${esc(r.csv)}</code>${r.pushed!==null?` · Sheet: ${esc(r.pushed)}`:""}</p>
+    <table><tr><th>Hyp.</th><th>Family</th><th>Model / arm</th><th>Estimate</th><th>95% CI</th><th>p</th><th>q (BH)</th><th>Verdict</th><th>In plain English</th></tr>
+    ${rows.map(x=>`<tr><td><b>${esc(x.hypothesis_id)}</b></td><td>${esc(x.family)}</td><td>${esc(x.arm)}</td><td>${fmt(x.estimate)} ${x.estimate!=null?esc(x.unit||""):""}</td>
+      <td>${x.ci95_low!=null?fmt(x.ci95_low)+" to "+fmt(x.ci95_high):"–"}</td><td>${fmt(x.p)}</td><td>${fmt(x.q_bh)}</td>
+      <td class="v-${esc((x.verdict||"").split(" ")[0])}">${esc(x.verdict)}</td><td class="small">${esc(x.plain_english)}${x.heterogeneity_p!=null?`<br><span class="muted">Models differ? p = ${fmt(x.heterogeneity_p)}</span>`:""}</td></tr>`).join("")}</table>`;
+  }catch(e){ $("verdicts").innerHTML = `<span class="no">${esc(e.message)}</span>` } }
+async function pushPending(){ const r = await api("/api/push_pending",{method:"POST"}); alert(JSON.stringify(r,null,1)) }
+
+function openSource(){ const c=$("sourcecard"); c.style.display = c.style.display==="none"?"":"none" }
+async function saveSource(){ try{ const r=await api("/api/source",{method:"POST",body:JSON.stringify({sheet_url:$("surl").value,sheet_token:$("stok").value})});
+  flash("srcmsg","Connected. Tabs: "+Object.entries(r.tabs).map(([k,v])=>k+" ("+v+")").join(", ")+". Now press Sync.",true) }catch(e){ flash("srcmsg",e.message) } }
+async function doSync(){ try{ const r=await api("/api/sync",{method:"POST"});
+  flash("srcmsg",(r.ok?"Synced snapshot "+r.sha+": ":"Synced but NOT used, fix these errors: ")+r.scenarios.length+" scenarios. "+(r.errors||[]).slice(0,5).join(" | "), r.ok);
+  if(!r.ok) $("sourcecard").style.display=""; await load($("hyp").value) }catch(e){ $("sourcecard").style.display=""; flash("srcmsg",e.message) } }
+async function uploadXlsx(){ const f=$("xlsx").files[0]; if(!f) return; const fd=new FormData(); fd.append("file",f);
+  const r=await fetch("/api/sync_xlsx",{method:"POST",body:fd}); const j=await r.json();
+  flash("srcmsg", r.ok ? (j.ok?"Loaded snapshot "+j.sha:"Loaded with errors: "+(j.errors||[]).slice(0,5).join(" | ")) : (j.detail||"failed"), r.ok&&j.ok); load($("hyp").value) }
+async function useYaml(){ await api("/api/use_yaml",{method:"POST"}); flash("srcmsg","Using the YAML files in hotel_lab/stimuli.",true); load($("hyp").value) }
+load();
+</script>
+</body>
+</html>

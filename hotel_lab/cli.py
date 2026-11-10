@@ -204,6 +204,31 @@ def cmd_agreement(args) -> int:
     return 0
 
 
+def cmd_studio(args) -> int:
+    import uvicorn
+    from hotel_lab.studio.app import create_studio
+    print(f"Hotel Lab Studio running at http://127.0.0.1:{args.port}  (press Ctrl+C to stop)")
+    uvicorn.run(create_studio(site_port=args.site_port), host="127.0.0.1", port=args.port, log_level="warning")
+    return 0
+
+
+def cmd_make_db(args) -> int:
+    from pathlib import Path
+    from hotel_lab import sheetdb
+    from hotel_lab.stimuli import STIMULI_DIR, load_scenarios
+    out = Path(args.out)
+    sheetdb.build_workbook(out, load_scenarios(STIMULI_DIR))
+    print(f"Wrote {out}. Upload it to Google Drive and open it with Google Sheets (File -> Save as Google Sheets).")
+    return 0
+
+
+def cmd_sync(args) -> int:
+    from hotel_lab import sheetdb
+    res = sheetdb.sync_from_xlsx(args.xlsx) if args.xlsx else sheetdb.sync_from_sheet()
+    print(json.dumps({k: v for k, v in res.items() if k != "warnings"}, indent=2))
+    return 0 if res["ok"] else 1
+
+
 def cmd_models(args) -> int:
     from hotel_lab.models import MODELS_DIR, ModelConfig
     for p in sorted(MODELS_DIR.glob("*.yaml")):
@@ -281,6 +306,13 @@ def main(argv=None) -> None:
     s = sub.add_parser("summarize", help="generate review summaries with a fixed prompt")
     s.add_argument("--model", required=True)
     s.add_argument("--sets", nargs="+", default=None)
+    s = sub.add_parser("studio", help="open the Hotel Lab Studio control panel in your browser")
+    s.add_argument("--port", type=int, default=8800)
+    s.add_argument("--site-port", type=int, default=8765, help="port of the hotel website the agents see")
+    s = sub.add_parser("make-db", help="write the starter Google Sheet workbook (.xlsx) from the YAML stimuli")
+    s.add_argument("--out", default="runs/_db/hotel_lab_database.xlsx")
+    s = sub.add_parser("sync", help="pull the Google Sheet (or an .xlsx copy) into a local snapshot")
+    s.add_argument("--xlsx", default=None)
     s = sub.add_parser("agreement", help="coder agreement for a filled coder sheet CSV")
     s.add_argument("file")
     sub.add_parser("models", help="list model configs")
@@ -289,5 +321,6 @@ def main(argv=None) -> None:
     args = ap.parse_args(argv)
     handler = {"validate": cmd_validate, "checks": cmd_checks, "plan": cmd_plan, "serve": cmd_serve,
                "hello": cmd_hello, "run": cmd_run, "export": cmd_export, "analyze": cmd_analyze,
-               "summarize": cmd_summarize, "models": cmd_models, "agreement": cmd_agreement, "demo": cmd_demo}[args.cmd]
+               "summarize": cmd_summarize, "models": cmd_models, "agreement": cmd_agreement,
+               "studio": cmd_studio, "make-db": cmd_make_db, "sync": cmd_sync, "demo": cmd_demo}[args.cmd]
     sys.exit(handler(args))

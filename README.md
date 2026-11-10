@@ -15,6 +15,22 @@ models through Ollama.
 
 ---
 
+## Start here: Hotel Lab Studio (website + Google Sheet database)
+
+```bash
+python -m hotel_lab studio          # then open http://127.0.0.1:8800
+```
+A local control panel for the whole study:
+- **Database:** a Google Sheet holds every scenario, review, variant, hypothesis and setting, and receives every result.
+- **Hypothesis dropdown:** H1–H4 with their sub-hypotheses, plus the validity checks.
+- **Live preview:** the hotel page exactly as the agent sees it, with a Randomise button.
+- **Model panel:** Ollama, OpenRouter, Groq, Hugging Face, OpenAI, Gemini, Anthropic, or a test agent.
+- **Verdicts:** one per hypothesis, with H0/Ha decisions.
+
+**Full step-by-step guide: [STUDIO_GUIDE.md](STUDIO_GUIDE.md).**
+
+The command-line tools below still work and use the same engine.
+
 ## What it does
 
 1. **A mock hotel booking site, run on your computer** (`StayCompare`, entirely fictional). It has a

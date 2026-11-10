@@ -201,3 +201,58 @@ def test_clogit_recovers_effect():
             y.append(float(j == ch)); X.append([x[j]]); g.append(s); c.append(s % 50)
     b, se, G = _clogit_cluster(np.array(y), np.array(X), np.array(g), np.array(c))
     assert abs(b[0] - 0.8) < 3 * se[0] and G == 50
+
+
+# ---------------------------------------------------------------- Google Sheet database + Studio
+def test_sheet_roundtrip(tmp_path, scenarios):
+    from hotel_lab import sheetdb
+    p = tmp_path / "db.xlsx"
+    sheetdb.build_workbook(p, scenarios)
+    back = {s.id: s for s in sheetdb.tabs_to_scenarios(sheetdb.read_xlsx(p))}
+    for sc in scenarios:
+        b = back[sc.id]
+        assert b.best_room_id == sc.best_room_id
+        for ra, rb in zip(sc.rooms, b.rooms):
+            assert ra["facts"] == rb["facts"] and ra["review_sets"] == rb["review_sets"]
+            assert {r["review_id"]: r["text"] for r in ra["review_pool"]} == {r["review_id"]: r["text"] for r in rb["review_pool"]}
+
+
+def test_identical_rooms_only_names_differ(scenarios, cfg):
+    from hotel_lab.conditions import build_view
+    t = dict(build_plan(cfg, scenarios)[0], identical_rooms=True)
+    sc = next(s for s in scenarios if s.id == t["scenario_id"])
+    rooms = build_view(sc, t)["rooms"]
+    for k in ("price_per_night", "amenities", "guest_rating", "review_count", "room_name", "location"):
+        assert len({str(r[k]) for r in rooms}) == 1, k
+    assert len({r["hotel_name"] for r in rooms}) == 4
+
+
+def test_block_configs_and_verdicts_with_simulated_agent():
+    """Every hypothesis block plans; a fake agent with a planted emoji preference is detected,
+    and the placebo check passes for a random agent."""
+    import shutil
+    from hotel_lab import RUNS_DIR, study
+    from hotel_lab.runner import run
+    st = study.load_study()
+    st["settings"] = dict(st["settings"], experiment_name="pytest_study", repeats="2", bootstrap_reps="300")
+    for b in ("style_emoji", "placebo"):
+        info = study.prepare(b, st)
+        run(info["experiment"], ["mock-simulated", "mock"], quiet=True)
+    res = study.analyze(st, push=False)
+    rows = {(r["hypothesis_id"], r["arm"]): r for r in res["rows"]}
+    assert rows[("H3a", "mock-simulated__text__low")]["estimate"] > 0
+    assert rows[("V7", "mock__text__low")]["verdict"] in ("PASS", "FAIL")
+    assert rows[("H1", "(all)")]["verdict"] == "Not run yet"
+    for d in RUNS_DIR.glob("pytest_study__*"):
+        shutil.rmtree(d)
+
+
+def test_studio_api_smoke():
+    from fastapi.testclient import TestClient
+    from hotel_lab.studio.app import create_studio
+    c = TestClient(create_studio(site_port=None))
+    s = c.get("/api/state").json()
+    assert s["hypotheses"] and s["models"] and "H3a" in {h["hypothesis_id"] for h in s["hypotheses"]}
+    p = c.post("/api/preview", json={"hypothesis_id": "H3a", "seed": 1}).json()
+    assert p["rooms"] and "style=" in p["cell"] and p["prompt"]
+    assert c.get("/").status_code == 200

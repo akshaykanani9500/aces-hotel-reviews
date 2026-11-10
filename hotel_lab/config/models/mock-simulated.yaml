@@ -1,0 +1,8 @@
+# No real model: a fake agent with KNOWN preferences, used to check the analysis finds what is really there.
+# It likes higher stars, reads complaint words, and has a planted emoji preference and position-1 bias.
+provider: mock
+model: mock-simulated
+family: mock
+serving: mock
+strategy: simulated
+extra_body: {rating: 2.0, facts: 2.0, emoji: 0.6, long: 0.0, first: 0.3, position1: 0.4}

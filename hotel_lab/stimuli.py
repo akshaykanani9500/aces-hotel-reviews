@@ -68,8 +68,28 @@ class ValidationReport:
         self.warnings += other.warnings
 
 
+def data_source() -> str:
+    """'sheet' when a synced Google Sheet snapshot exists (runs/_db/current_snapshot.json), else 'yaml'.
+    Force one with the environment variable HOTEL_LAB_SOURCE=yaml|sheet."""
+    import os
+    forced = os.getenv("HOTEL_LAB_SOURCE", "").lower()
+    if forced in ("yaml", "sheet"):
+        return forced
+    from hotel_lab.sheetdb import CURRENT
+    return "sheet" if CURRENT.exists() else "yaml"
+
+
 def load_scenarios(stimuli_dir: Path | str = STIMULI_DIR, only: list[str] | None = None) -> list[Scenario]:
-    """Load every *.yaml in the stimuli folder (sorted by name)."""
+    """Load scenarios from the synced Google Sheet snapshot if there is one, else from the YAML files."""
+    if data_source() == "sheet" and Path(stimuli_dir) == STIMULI_DIR:
+        from hotel_lab.sheetdb import current_snapshot, tabs_to_scenarios
+        snap = current_snapshot()
+        if snap is None:
+            raise FileNotFoundError("HOTEL_LAB_SOURCE=sheet but no snapshot. Sync from the Google Sheet first.")
+        out = [s for s in tabs_to_scenarios(snap["tabs"]) if not only or s.id in only]
+        if not out:
+            raise FileNotFoundError("The synced Google Sheet has no enabled scenarios.")
+        return out
     out = []
     for p in sorted(Path(stimuli_dir).glob("*.yaml")):
         with open(p, encoding="utf-8") as f:

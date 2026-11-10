@@ -20,9 +20,12 @@ import yaml
 from hotel_lab import CONFIG_DIR, RUNS_DIR
 from hotel_lab.stimuli import Scenario
 
-FACTORS = ("order", "style", "review_set", "format")
+FACTORS = ("order", "style", "review_set", "format", "facts", "placebo")
+# Factors that older configs may not list in `defaults`
+OPTIONAL_DEFAULTS = {"facts": "real", "placebo": "A"}
 ORDER_LEVELS = {"random", "newest", "oldest", "most_helpful", "extreme_first", "best_first", "worst_first"}
-FORMAT_LEVELS = {"full", "summary", "both"}
+FORMAT_LEVELS = {"full", "summary", "both", "facts_only"}
+FACTS_LEVELS = {"real", "all_good", "all_poor"}   # all_* only make sense with format: facts_only
 ASSIGN_MODES = {"whole_set", "focal", "per_room"}
 
 
@@ -38,6 +41,8 @@ def check_config(cfg: dict[str, Any]) -> None:
     for k in ("experiment_name", "global_seed", "blocks", "defaults"):
         if k not in cfg:
             raise ValueError(f"experiment.yaml: missing '{k}'")
+    for f, v in OPTIONAL_DEFAULTS.items():
+        cfg["defaults"].setdefault(f, v)
     for f in FACTORS:
         if f not in cfg["defaults"]:
             raise ValueError(f"experiment.yaml: defaults needs '{f}'")
@@ -57,6 +62,10 @@ def check_config(cfg: dict[str, Any]) -> None:
                 bad = set(spec["levels"]) - FORMAT_LEVELS
                 if bad:
                     raise ValueError(f"block {b['name']}: unknown format levels {bad}")
+            if fname == "facts":
+                bad = (set(spec["levels"]) | {spec.get("control", "real")}) - FACTS_LEVELS
+                if bad:
+                    raise ValueError(f"block {b['name']}: unknown facts levels {bad}")
 
 
 def used_levels(cfg: dict[str, Any], factor: str) -> list[str]:
@@ -172,6 +181,7 @@ def build_plan(cfg: dict[str, Any], scenarios: list[Scenario]) -> list[dict[str,
                                     "shell_map": shell_map,
                                     "room_levels": room_levels,
                                     "best_room_id": sc.best_room_id,
+                                    "identical_rooms": bool(cfg.get("identical_rooms", False)),
                                 })
     return trials
 

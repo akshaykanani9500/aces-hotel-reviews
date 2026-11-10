@@ -175,3 +175,6 @@ local_datasets/**/screenshots/*
 runs/*
 !runs/.gitkeep
 .venv/
+# Hotel Lab Studio: your Sheet link + token, and models you add from the website (may name your keys)
+.hotel_lab_local.json
+hotel_lab/config/models/local-*.yaml

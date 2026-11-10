@@ -1,0 +1,1145 @@
+scenario_id: manali_mountain_trip
+title: "Deluxe Room with mountain view, Manali"
+query: "a deluxe mountain-view hotel room in Manali for a three-night winter trip with friends"
+check_in: "2026-12-28"
+nights: 3
+currency: "INR"
+fact_attributes: [room_heating, food_quality, staff_service]
+best_room_id: r2
+
+rooms:
+  - room_id: r1
+    hotel_name: "Deodar Ridge Cottages"
+    hotel_stars: 4
+    room_name: "Deluxe Room with Mountain View"
+    location: "Manali, Himachal Pradesh"
+    size_sqm: 26
+    bed: "1 King bed and 1 Single bed"
+    max_guests: 3
+    view: "Mountain view"
+    price_per_night: 7500
+    taxes_and_fees: 900
+    amenities: ["Free Wi-Fi", "Room heater", "Tea/coffee maker", "TV", "Wardrobe", "Hot water"]
+    policies:
+      cancellation: "Free cancellation until 7 days before check-in"
+      breakfast: "Breakfast and dinner included"
+      check_in_out: "Check-in from 1 pm, check-out until 11 am"
+    guest_rating: 4.2
+    review_count: 1187
+
+    facts:
+      - attribute: room_heating
+        level: poor
+        statement: "The heater barely works; the room is freezing at night and guests sleep in jackets."
+      - attribute: food_quality
+        level: good
+        statement: "Hot, tasty, freshly cooked meals; dinner in particular is excellent."
+      - attribute: staff_service
+        level: average
+        statement: "Staff are friendly but slow; requests often need a reminder."
+
+    review_pool:
+      - review_id: r1_01
+        author: "Tanvi"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-28"
+        helpful_votes: 6
+        rating: 4
+        title: "Good dinner"
+        facts_covered: [food_quality]
+        text:
+          base: "Dinner was freshly cooked and full of flavour. Breakfast was good too."
+          emoji: "Dinner was freshly cooked and full of flavour 🍽️. Breakfast was good too 🍳."
+          long: "We came back to the hotel cold and hungry every evening after being out in the snow. The dinner was freshly cooked and full of flavour each night. The breakfast in the morning was good too."
+          casual: "Dinner was freshly cooked and full of flavour. Breakfast was also good."
+      - review_id: r1_02
+        author: "Oliver"
+        country: "United Kingdom"
+        traveller_type: "Group"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-16"
+        helpful_votes: 8
+        rating: 5
+        title: "Great food"
+        facts_covered: [food_quality, staff_service]
+        text:
+          base: "Delicious home-style meals and friendly enough staff. We loved the dinners."
+      - review_id: r1_03
+        author: "Rahul"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Feb 2026"
+        posted_date: "2026-03-02"
+        helpful_votes: 1
+        rating: 5
+        title: "Ate so well"
+        facts_covered: [food_quality, staff_service]
+        text:
+          base: "We ate really well, fresh parathas in the morning and lovely curries at night. Staff were nice too."
+      - review_id: r1_04
+        author: "Aditya"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Sep 2026"
+        posted_date: "2026-10-12"
+        helpful_votes: 3
+        rating: 5
+        title: "Food was superb"
+        facts_covered: [food_quality, staff_service]
+        text:
+          base: "The food was superb, hot rajma chawal and fresh rotis every night. Staff were friendly, if a little slow."
+          emoji: "The food was superb, hot rajma chawal and fresh rotis every night 🍲. Staff were friendly, if a little slow 🛎️."
+          long: "Four of us friends came up for a three-night winter trip and ate most of our meals at the hotel. The food was superb, with hot rajma chawal and fresh rotis every night at dinner. The staff were friendly with us, if a little slow at times."
+          casual: "Food was superb yaar, hot rajma chawal and fresh rotis every single night. Staff were friendly, bit slow though."
+      - review_id: r1_05
+        author: "Lucas"
+        country: "France"
+        traveller_type: "Couple"
+        stayed: "Feb 2026"
+        posted_date: "2026-03-18"
+        helpful_votes: 0
+        rating: 1
+        title: "Way too cold"
+        facts_covered: [room_heating]
+        text:
+          base: "Freezing room, the heater just blew cold air. Terrible for a winter trip."
+      - review_id: r1_06
+        author: "Arjun"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "May 2026"
+        posted_date: "2026-05-16"
+        helpful_votes: 12
+        rating: 4
+        title: "Tasty meals"
+        facts_covered: [food_quality]
+        text:
+          base: "The meals were hot and tasty, especially dinner. We never felt like eating outside."
+          emoji: "The meals were hot and tasty, especially dinner 🍲. We never felt like eating outside 🍽️."
+          long: "We had breakfast and dinner included and ate at the hotel for all three nights. The meals were hot and tasty, especially the dinner. We never once felt like going out to eat somewhere else."
+          casual: "Meals were hot and tasty, especially the dinner. We never once felt like eating outside."
+      - review_id: r1_07
+        author: "Suresh"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "May 2026"
+        posted_date: "2026-05-12"
+        helpful_votes: 0
+        rating: 4
+        title: "Great food, cold room"
+        facts_covered: [room_heating, food_quality]
+        text:
+          base: "The food was excellent every night. The heater hardly worked though, and the room was freezing, which was a real problem."
+      - review_id: r1_08
+        author: "Daniel"
+        country: "Australia"
+        traveller_type: "Group"
+        stayed: "Jun 2026"
+        posted_date: "2026-07-06"
+        helpful_votes: 5
+        rating: 4
+        title: "Lovely food"
+        facts_covered: [food_quality]
+        text:
+          base: "Lovely fresh food, the dinners especially. We were well fed."
+      - review_id: r1_09
+        author: "Anna"
+        country: "Germany"
+        traveller_type: "Group"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-05"
+        helpful_votes: 5
+        rating: 5
+        title: "Tasty and hot"
+        facts_covered: [food_quality, staff_service]
+        text:
+          base: "Every meal came hot and tasty, and the staff were pleasant, though not the quickest."
+      - review_id: r1_10
+        author: "Kenji"
+        country: "Japan"
+        traveller_type: "Group"
+        stayed: "May 2026"
+        posted_date: "2026-06-11"
+        helpful_votes: 5
+        rating: 3
+        title: "Great food, freezing room"
+        facts_covered: [room_heating, food_quality]
+        text:
+          base: "The food was delicious and always hot. But the heater barely worked and the room was freezing all night."
+          emoji: "The food was delicious and always hot 🍲. But the heater barely worked and the room was freezing all night 🌡️❄️."
+          long: "We were four friends on a three-night trip in late December. The food was delicious, and it always came to the table hot. But the heater in the room barely worked, and the room was freezing all night, every night of our stay."
+          casual: "Food was delicious and always hot. But the heater barely worked yaar, and the room was freezing all night."
+      - review_id: r1_11
+        author: "Emma"
+        country: "United Kingdom"
+        traveller_type: "Solo"
+        stayed: "Sep 2026"
+        posted_date: "2026-10-02"
+        helpful_votes: 8
+        rating: 4
+        title: "Good meals"
+        facts_covered: [food_quality, staff_service]
+        text:
+          base: "Hot, tasty meals and pleasant staff. A good base for our trip."
+      - review_id: r1_12
+        author: "Divya"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "May 2026"
+        posted_date: "2026-05-15"
+        helpful_votes: 4
+        rating: 3
+        title: "Okay service, very cold"
+        facts_covered: [room_heating, staff_service]
+        text:
+          base: "Staff were friendly but slow to respond. The room was so cold at night that we slept in our jackets and caps."
+          emoji: "Staff were friendly but slow to respond 🛎️. The room was so cold at night that we slept in our jackets and caps 🧣."
+          long: "We checked in on a snowy afternoon for a three-night winter trip with friends from college. The staff were friendly, but they were slow to respond to what we asked. The room was so cold at night that all of us slept in our jackets and caps."
+          casual: "Staff were friendly, but slow to respond. Room was so cold at night that we slept in our jackets and caps."
+      - review_id: r1_13
+        author: "Ishita"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "May 2026"
+        posted_date: "2026-06-09"
+        helpful_votes: 2
+        rating: 5
+        title: "Excellent kitchen"
+        facts_covered: [food_quality]
+        text:
+          base: "Excellent kitchen, everything freshly cooked and full of flavour."
+      - review_id: r1_14
+        author: "Hannah"
+        country: "Canada"
+        traveller_type: "Couple"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-12"
+        helpful_votes: 9
+        rating: 1
+        title: "Freezing room"
+        facts_covered: [room_heating]
+        text:
+          base: "The heater was useless and the room was ice cold every night. We could not sleep and left a day early."
+      - review_id: r1_15
+        author: "Chloe"
+        country: "Australia"
+        traveller_type: "Family"
+        stayed: "May 2026"
+        posted_date: "2026-06-07"
+        helpful_votes: 11
+        rating: 4
+        title: "Nice staff, freezing nights"
+        facts_covered: [room_heating, staff_service]
+        text:
+          base: "Staff were friendly, if slow. The room was freezing at night and we slept in our jackets, a real issue, but the rest was fine."
+      - review_id: r1_16
+        author: "Sarah"
+        country: "United States"
+        traveller_type: "Couple"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-30"
+        helpful_votes: 2
+        rating: 4
+        title: "Good food, nice people"
+        facts_covered: [food_quality, staff_service]
+        text:
+          base: "Good food and friendly staff, though we had to remind them about extra blankets. Enjoyed our stay."
+          emoji: "Good food and friendly staff, though we had to remind them about extra blankets 🍲. Enjoyed our stay 🧣."
+          long: "We were three friends on a short winter break in the mountains. The food was good and the staff were friendly, though we had to remind them about the extra blankets we asked for. Overall, we enjoyed our stay."
+          casual: "Good food and friendly staff, though we had to remind them about extra blankets. Enjoyed our stay."
+      - review_id: r1_17
+        author: "Sofia"
+        country: "Italy"
+        traveller_type: "Group"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-24"
+        helpful_votes: 5
+        rating: 4
+        title: "Friendly staff"
+        facts_covered: [staff_service]
+        text:
+          base: "The staff were friendly and polite, though requests took a while. Okay service overall."
+          emoji: "The staff were friendly and polite, though requests took a while 🛎️. Okay service overall ⏳."
+          long: "We were a group of friends staying three nights, so we asked the front desk for quite a few things. The staff were friendly and polite with us, though our requests took a while. It was okay service overall."
+          casual: "Staff were friendly and polite, though requests took a while to happen. Okay service overall."
+      - review_id: r1_18
+        author: "Lakshmi"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-16"
+        helpful_votes: 14
+        rating: 5
+        title: "Best dinners on our trip"
+        facts_covered: [food_quality]
+        text:
+          base: "Honestly the best food we had in Himachal, the trout and the dal were outstanding. We ate dinner at the hotel every night."
+          emoji: "Honestly the best food we had in Himachal, the trout and the dal were outstanding 🍽️. We ate dinner at the hotel every night 🍲."
+          long: "We were a group of friends travelling around Himachal for a week, and we tried food at a lot of places. Honestly, the best food we had in Himachal was here, and the trout and the dal were outstanding. We ate dinner at the hotel every night because of it."
+          casual: "Honestly the best food we had in all of Himachal, the trout and the dal were outstanding. Ate dinner here every night."
+
+    review_sets:
+      base: [r1_01, r1_04, r1_06, r1_10, r1_12, r1_16, r1_17, r1_18]
+      positive: [r1_01, r1_06, r1_07, r1_08, r1_11, r1_15, r1_16, r1_17]
+      mixed: [r1_01, r1_04, r1_06, r1_10, r1_12, r1_16, r1_17, r1_18]
+      complaints: [r1_02, r1_03, r1_04, r1_05, r1_09, r1_13, r1_14, r1_18]
+
+    summaries:
+      base: "Guests consistently praise the hot, freshly cooked food, especially dinner, and describe the staff as friendly but slow. Two guests report that the heater barely worked and the room was freezing at night."
+      positive: "Guests describe tasty, hot meals and pleasant staff who sometimes need a reminder. Two guests say the room was freezing at night because the heater hardly worked."
+      mixed: "Guests consistently praise the hot, freshly cooked food, especially dinner, and describe the staff as friendly but slow. Two guests report that the heater barely worked and the room was freezing at night."
+      complaints: "Most guests rave about the excellent food and several call the staff friendly. Two guests strongly complain that the heater did not work and the room was ice cold."
+
+  - room_id: r2
+    hotel_name: "Snowline Retreat"
+    hotel_stars: 4
+    room_name: "Deluxe Room with Mountain View"
+    location: "Manali, Himachal Pradesh"
+    size_sqm: 26
+    bed: "1 King bed and 1 Single bed"
+    max_guests: 3
+    view: "Mountain view"
+    price_per_night: 7500
+    taxes_and_fees: 900
+    amenities: ["Free Wi-Fi", "Room heater", "Tea/coffee maker", "TV", "Wardrobe", "Hot water"]
+    policies:
+      cancellation: "Free cancellation until 7 days before check-in"
+      breakfast: "Breakfast and dinner included"
+      check_in_out: "Check-in from 1 pm, check-out until 11 am"
+    guest_rating: 4.2
+    review_count: 1187
+
+    facts:
+      - attribute: room_heating
+        level: good
+        statement: "The room stays warm and cosy all night; the heater works well and extra blankets are provided."
+      - attribute: food_quality
+        level: average
+        statement: "Meals are okay but repetitive, and are sometimes served only lukewarm."
+      - attribute: staff_service
+        level: good
+        statement: "Warm, quick and helpful staff who go out of their way for guests."
+
+    review_pool:
+      - review_id: r2_01
+        author: "Fatima"
+        country: "United Arab Emirates"
+        traveller_type: "Couple"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-28"
+        helpful_votes: 22
+        rating: 4
+        title: "Warm room, average food"
+        facts_covered: [food_quality, room_heating]
+        text:
+          base: "The room was lovely and warm. The food was just okay, the same dishes every night and sometimes lukewarm."
+      - review_id: r2_02
+        author: "Omar"
+        country: "United Arab Emirates"
+        traveller_type: "Group"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-05"
+        helpful_votes: 5
+        rating: 4
+        title: "Comfortable stay"
+        facts_covered: [room_heating, staff_service]
+        text:
+          base: "Warm room and friendly staff who were quick to help. A comfortable winter stay."
+          emoji: "Warm room and friendly staff who were quick to help 🌡️. A comfortable winter stay 🛎️."
+          long: "We were three friends on a short trip to the mountains. The room was warm, and the staff were friendly and quick to help. Taking both together, it was a comfortable winter stay."
+          casual: "Warm room and friendly staff, quick to help also. A comfortable winter stay for us."
+      - review_id: r2_03
+        author: "Imran"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-29"
+        helpful_votes: 2
+        rating: 3
+        title: "Lovely staff, okay food"
+        facts_covered: [food_quality, staff_service]
+        text:
+          base: "The staff were lovely and helped with everything. The meals were okay but repetitive, and breakfast was a bit cold."
+          emoji: "The staff were lovely and helped with everything 🛎️. The meals were okay but repetitive, and breakfast was a bit cold 🍳."
+          long: "We stayed three nights on a winter trip and ate most of our meals at the hotel. The staff were lovely, and they helped us with everything. The meals were okay, but they were repetitive, and the breakfast was a bit cold when we got to it."
+          casual: "Staff were lovely and helped with everything. Meals were okay but repetitive, and breakfast was a bit cold."
+      - review_id: r2_04
+        author: "James"
+        country: "United Kingdom"
+        traveller_type: "Group"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-23"
+        helpful_votes: 13
+        rating: 5
+        title: "Great people"
+        facts_covered: [room_heating, staff_service]
+        text:
+          base: "The staff went out of their way for us, and the room stayed warm all night."
+      - review_id: r2_05
+        author: "Oliver"
+        country: "United Kingdom"
+        traveller_type: "Group"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-16"
+        helpful_votes: 2
+        rating: 4
+        title: "Warm and helpful"
+        facts_covered: [room_heating, staff_service]
+        text:
+          base: "Warm room and helpful staff throughout. Good trip."
+      - review_id: r2_06
+        author: "Neha"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "Feb 2026"
+        posted_date: "2026-03-07"
+        helpful_votes: 3
+        rating: 4
+        title: "Helpful staff"
+        facts_covered: [staff_service]
+        text:
+          base: "The staff were helpful and arranged our taxi and snow gear quickly. Good service."
+          emoji: "The staff were helpful and arranged our taxi and snow gear quickly 🛎️. Good service 🚕."
+          long: "We wanted to go up to the snow point one day and needed help with the planning. The staff were helpful, and they arranged our taxi and snow gear quickly. It was good service from them."
+          casual: "Staff were helpful, arranged our taxi and snow gear quickly. Good service from them."
+      - review_id: r2_07
+        author: "Lakshmi"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "May 2026"
+        posted_date: "2026-06-03"
+        helpful_votes: 2
+        rating: 4
+        title: "Cosy"
+        facts_covered: [room_heating]
+        text:
+          base: "Nice and cosy at night, no cold at all. Good heating."
+          emoji: "Nice and cosy at night, no cold at all 🌡️. Good heating 🌙."
+          long: "We came back late every evening after being out in the cold. The room was nice and cosy at night, and we felt no cold at all. Good heating."
+          casual: "Nice and cosy at night, no cold at all. Good heating here."
+      - review_id: r2_08
+        author: "Vikram"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Apr 2026"
+        posted_date: "2026-05-16"
+        helpful_votes: 1
+        rating: 5
+        title: "Warm and friendly"
+        facts_covered: [room_heating, staff_service]
+        text:
+          base: "Lovely warm room and super friendly, quick staff. Brilliant winter stay."
+      - review_id: r2_09
+        author: "Tanvi"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "Jun 2026"
+        posted_date: "2026-07-02"
+        helpful_votes: 5
+        rating: 4
+        title: "Great staff, food so-so"
+        facts_covered: [food_quality, staff_service]
+        text:
+          base: "The staff were great and very quick. Dinner was average and repetitive, but fine."
+      - review_id: r2_10
+        author: "Divya"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "May 2026"
+        posted_date: "2026-05-23"
+        helpful_votes: 10
+        rating: 5
+        title: "Loved it"
+        facts_covered: [room_heating, staff_service]
+        text:
+          base: "Toasty warm room and wonderful staff. Exactly what you want in winter."
+      - review_id: r2_11
+        author: "Kavya"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-27"
+        helpful_votes: 6
+        rating: 5
+        title: "So cosy"
+        facts_covered: [room_heating]
+        text:
+          base: "The warmest hotel room we have had in the hills. The heater worked perfectly and we slept in t-shirts in December."
+          emoji: "The warmest hotel room we have had in the hills 🌡️. The heater worked perfectly and we slept in t-shirts in December 💤."
+          long: "We have done a few winter trips to the mountains as a group of friends, and the rooms are usually cold. This was the warmest hotel room we have had in the hills. The heater worked perfectly, and we slept in t-shirts in December."
+          casual: "Warmest hotel room we've had in the hills, honestly. The heater worked perfectly, we slept in t-shirts in December."
+      - review_id: r2_12
+        author: "Pooja"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "May 2026"
+        posted_date: "2026-05-21"
+        helpful_votes: 9
+        rating: 1
+        title: "Food let us down"
+        facts_covered: [food_quality]
+        text:
+          base: "The food was disappointing, the same few dishes every night and often lukewarm. Not what we hoped for."
+      - review_id: r2_13
+        author: "Michael"
+        country: "United States"
+        traveller_type: "Group"
+        stayed: "May 2026"
+        posted_date: "2026-06-01"
+        helpful_votes: 16
+        rating: 3
+        title: "Warm room, average food"
+        facts_covered: [food_quality, room_heating]
+        text:
+          base: "The room stayed warm all night, which was great. But the food was average, the same dal and sabzi every night and often lukewarm."
+          emoji: "The room stayed warm all night, which was great 🌡️. But the food was average, the same dal and sabzi every night and often lukewarm 🍲."
+          long: "We were a group of friends here for three nights with breakfast and dinner included. The room stayed warm all night, which was great in that cold. But the food was average, with the same dal and sabzi every night, and it was often lukewarm by the time it reached us."
+          casual: "The room stayed warm all night, which was great. But food was average, same dal and sabzi every night and often lukewarm."
+      - review_id: r2_14
+        author: "Meera"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-25"
+        helpful_votes: 6
+        rating: 5
+        title: "Toasty room"
+        facts_covered: [room_heating]
+        text:
+          base: "The room stayed toasty all night, with extra blankets ready. Perfect after a day in the snow."
+      - review_id: r2_15
+        author: "Hannah"
+        country: "Canada"
+        traveller_type: "Group"
+        stayed: "Oct 2026"
+        posted_date: "2026-10-05"
+        helpful_votes: 5
+        rating: 4
+        title: "Good heating"
+        facts_covered: [room_heating]
+        text:
+          base: "The heating was great, warm all night even in the snow."
+      - review_id: r2_16
+        author: "Sofia"
+        country: "Italy"
+        traveller_type: "Group"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-16"
+        helpful_votes: 7
+        rating: 4
+        title: "Warm room"
+        facts_covered: [room_heating]
+        text:
+          base: "The heater worked well and the room stayed warm all night. We had plenty of blankets."
+          emoji: "The heater worked well and the room stayed warm all night 🌡️. We had plenty of blankets 🧣."
+          long: "It was well below zero outside on the nights we stayed in December. The heater worked well, and the room stayed warm all night long. We had plenty of blankets as well, so no issues."
+          casual: "Heater worked well and the room stayed warm the whole night. Plenty of blankets also."
+      - review_id: r2_17
+        author: "Arjun"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "May 2026"
+        posted_date: "2026-06-12"
+        helpful_votes: 14
+        rating: 5
+        title: "Warm and welcoming"
+        facts_covered: [room_heating, staff_service]
+        text:
+          base: "The room was warm and cosy even when it snowed outside. The staff were so helpful and quick with everything."
+          emoji: "The room was warm and cosy even when it snowed outside 🌡️❄️. The staff were so helpful and quick with everything 🛎️."
+          long: "We were four friends on a three-night winter trip and it snowed on two of the days. The room was warm and cosy even when it snowed outside, and we never felt cold. The staff were so helpful, and they were quick with everything we asked for."
+          casual: "Room was warm and cosy even when it was snowing outside. Staff were so helpful and quick with everything, yaar."
+      - review_id: r2_18
+        author: "Siddharth"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-18"
+        helpful_votes: 9
+        rating: 1
+        title: "Average meals"
+        facts_covered: [food_quality]
+        text:
+          base: "Meals were bland and repetitive, and dinner came lukewarm more than once. A letdown for a meal plan."
+
+    review_sets:
+      base: [r2_02, r2_03, r2_06, r2_07, r2_11, r2_13, r2_16, r2_17]
+      positive: [r2_01, r2_02, r2_05, r2_06, r2_07, r2_09, r2_15, r2_16]
+      mixed: [r2_02, r2_03, r2_06, r2_07, r2_11, r2_13, r2_16, r2_17]
+      complaints: [r2_04, r2_08, r2_10, r2_11, r2_12, r2_14, r2_17, r2_18]
+
+    summaries:
+      base: "Guests consistently praise the warm, cosy room and the friendly, quick staff. Two guests found the food average, repetitive and sometimes lukewarm."
+      positive: "Guests describe good heating that keeps the room warm all night and helpful staff. Two guests say the food is just okay, repetitive and sometimes lukewarm."
+      mixed: "Guests consistently praise the warm, cosy room and the friendly, quick staff. Two guests found the food average, repetitive and sometimes lukewarm."
+      complaints: "Most guests rave about the toasty room and the attentive staff. Two guests were disappointed that the meals were repetitive and often lukewarm."
+
+  - room_id: r3
+    hotel_name: "Pinecrest Lodge"
+    hotel_stars: 4
+    room_name: "Deluxe Room with Mountain View"
+    location: "Manali, Himachal Pradesh"
+    size_sqm: 26
+    bed: "1 King bed and 1 Single bed"
+    max_guests: 3
+    view: "Mountain view"
+    price_per_night: 7500
+    taxes_and_fees: 900
+    amenities: ["Free Wi-Fi", "Room heater", "Tea/coffee maker", "TV", "Wardrobe", "Hot water"]
+    policies:
+      cancellation: "Free cancellation until 7 days before check-in"
+      breakfast: "Breakfast and dinner included"
+      check_in_out: "Check-in from 1 pm, check-out until 11 am"
+    guest_rating: 4.2
+    review_count: 1187
+
+    facts:
+      - attribute: room_heating
+        level: good
+        statement: "Warm, well-heated room that stays cosy through the night."
+      - attribute: food_quality
+        level: average
+        statement: "Food is decent but the menu is limited and dishes are sometimes lukewarm."
+      - attribute: staff_service
+        level: poor
+        statement: "Staff are rude and unresponsive; requests are ignored and the front desk is often empty."
+
+    review_pool:
+      - review_id: r3_01
+        author: "Ishita"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "Apr 2026"
+        posted_date: "2026-05-05"
+        helpful_votes: 6
+        rating: 4
+        title: "Warm and fed"
+        facts_covered: [room_heating, food_quality]
+        text:
+          base: "Warm room and decent food. Fine for a winter trip."
+      - review_id: r3_02
+        author: "Harsh"
+        country: "India"
+        traveller_type: "Family"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-25"
+        helpful_votes: 11
+        rating: 5
+        title: "Great heating"
+        facts_covered: [room_heating]
+        text:
+          base: "Great heating, the room stayed warm through the night."
+      - review_id: r3_03
+        author: "Hannah"
+        country: "Canada"
+        traveller_type: "Group"
+        stayed: "May 2026"
+        posted_date: "2026-05-28"
+        helpful_votes: 7
+        rating: 4
+        title: "Food was fine"
+        facts_covered: [food_quality]
+        text:
+          base: "The food was fine, though the menu was limited and dinner was a bit lukewarm. Okay overall."
+          emoji: "The food was fine, though the menu was limited and dinner was a bit lukewarm 🍲. Okay overall 🍽️."
+          long: "We had breakfast and dinner included and ate at the hotel all three nights. The food was fine, though the menu was limited and the dinner was a bit lukewarm. It was okay overall."
+          casual: "Food was fine, though the menu was limited and dinner was a bit lukewarm. Okay overall."
+      - review_id: r3_04
+        author: "Vikram"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-15"
+        helpful_votes: 10
+        rating: 4
+        title: "Toasty"
+        facts_covered: [room_heating]
+        text:
+          base: "The room was toasty all night. Good heater."
+      - review_id: r3_05
+        author: "Aditya"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-16"
+        helpful_votes: 3
+        rating: 5
+        title: "No cold at all"
+        facts_covered: [room_heating, food_quality]
+        text:
+          base: "We never felt cold in the room, and the meals were okay. Happy with it."
+      - review_id: r3_06
+        author: "Nikhil"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-22"
+        helpful_votes: 7
+        rating: 4
+        title: "Warm room, rude staff"
+        facts_covered: [staff_service, room_heating]
+        text:
+          base: "The room was nice and warm. The staff were rude and ignored our requests though, a real problem on a three-night stay."
+      - review_id: r3_07
+        author: "Meera"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-27"
+        helpful_votes: 10
+        rating: 5
+        title: "Cosy"
+        facts_covered: [room_heating, food_quality]
+        text:
+          base: "Cosy, warm room and decent home food. Good for winter."
+      - review_id: r3_08
+        author: "Lucas"
+        country: "France"
+        traveller_type: "Couple"
+        stayed: "Aug 2026"
+        posted_date: "2026-09-06"
+        helpful_votes: 3
+        rating: 4
+        title: "Cosy room"
+        facts_covered: [room_heating]
+        text:
+          base: "The room was cosy and warm even in the snow. We slept well."
+          emoji: "The room was cosy and warm even in the snow 🌡️. We slept well ❄️."
+          long: "We came for a winter trip as three friends and were out in the snow most days. The room was cosy and warm even in the snow. We slept well every night."
+          casual: "Room was cosy and warm even in the snow. We slept well."
+      - review_id: r3_09
+        author: "Sofia"
+        country: "Italy"
+        traveller_type: "Group"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-27"
+        helpful_votes: 5
+        rating: 5
+        title: "Warmest room"
+        facts_covered: [room_heating]
+        text:
+          base: "The heating was brilliant, the room was toasty even at minus five outside. Best sleep of our whole trip."
+          emoji: "The heating was brilliant, the room was toasty even at minus five outside 🌡️❄️. Best sleep of our whole trip 💤."
+          long: "We were travelling around in January as a group, and most places we stayed were quite cold at night. Here the heating was brilliant, and the room was toasty even at minus five outside. It was the best sleep of our whole trip."
+          casual: "Heating was brilliant, room was toasty even at minus five outside. Best sleep of our whole trip, honestly."
+      - review_id: r3_10
+        author: "Fatima"
+        country: "United Arab Emirates"
+        traveller_type: "Group"
+        stayed: "Jul 2026"
+        posted_date: "2026-08-01"
+        helpful_votes: 12
+        rating: 4
+        title: "Warm, food okay"
+        facts_covered: [room_heating, food_quality]
+        text:
+          base: "Warm room and okay food, though the menu was small. Fine for us."
+          emoji: "Warm room and okay food, though the menu was small 🌡️. Fine for us 🍲."
+          long: "We stayed three nights on a short trip with friends. The room was warm, and the food was okay, though the menu was small. It was fine for us."
+          casual: "Warm room and okay food, though the menu was small. Fine for us only."
+      - review_id: r3_11
+        author: "Sneha"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-15"
+        helpful_votes: 0
+        rating: 4
+        title: "Food okay, poor service"
+        facts_covered: [staff_service, food_quality]
+        text:
+          base: "The food was decent, if limited. Nobody was at the front desk when we needed help, a real issue, but otherwise the stay was fine."
+      - review_id: r3_12
+        author: "Michael"
+        country: "United States"
+        traveller_type: "Family"
+        stayed: "Mar 2026"
+        posted_date: "2026-04-05"
+        helpful_votes: 10
+        rating: 3
+        title: "Warm room, terrible staff"
+        facts_covered: [staff_service, room_heating]
+        text:
+          base: "The room was warm and cosy. But the staff were rude and ignored every request we made."
+          emoji: "The room was warm and cosy 🌡️. But the staff were rude and ignored every request we made 🛎️."
+          long: "We were four friends on a three-night winter trip. The room was warm and cosy, and we were comfortable in it. But the staff were rude to us, and they ignored every request that we made."
+          casual: "Room was warm and cosy. But the staff were rude and ignored every request we made, yaar."
+      - review_id: r3_13
+        author: "Rahul"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-04"
+        helpful_votes: 5
+        rating: 5
+        title: "Warm all night"
+        facts_covered: [room_heating, food_quality]
+        text:
+          base: "The room stayed warm all night, and the food was fine for a hill station."
+      - review_id: r3_14
+        author: "Lakshmi"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-13"
+        helpful_votes: 1
+        rating: 3
+        title: "Okay food, no service"
+        facts_covered: [staff_service, food_quality]
+        text:
+          base: "The food was okay, nothing great. The front desk was empty most of the time and nobody answered when we called."
+          emoji: "The food was okay, nothing great 🍲. The front desk was empty most of the time and nobody answered when we called 📞."
+          long: "We checked in on a cold afternoon for three nights and ate dinner at the hotel each night. The food was okay, nothing great. The front desk was empty most of the time, and nobody answered when we called down from the room."
+          casual: "Food was okay, nothing great. Front desk was empty most of the time and nobody answered when we called."
+      - review_id: r3_15
+        author: "Omar"
+        country: "United Arab Emirates"
+        traveller_type: "Group"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-16"
+        helpful_votes: 1
+        rating: 1
+        title: "Ignored all trip"
+        facts_covered: [staff_service]
+        text:
+          base: "Nobody at the desk, nobody answering the phone, and the staff we did find were rude. Awful service."
+      - review_id: r3_16
+        author: "Lukas"
+        country: "Germany"
+        traveller_type: "Group"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-17"
+        helpful_votes: 18
+        rating: 1
+        title: "Rudest staff"
+        facts_covered: [staff_service]
+        text:
+          base: "The staff were rude and completely unhelpful, and our requests were ignored for hours. Never again."
+      - review_id: r3_17
+        author: "Ritika"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "Feb 2026"
+        posted_date: "2026-03-02"
+        helpful_votes: 10
+        rating: 5
+        title: "Warm room, decent food"
+        facts_covered: [room_heating, food_quality]
+        text:
+          base: "The room was warm and cosy every night. The food was decent too, simple but filling."
+          emoji: "The room was warm and cosy every night 🌡️🌙. The food was decent too, simple but filling 🍲."
+          long: "We were five friends on a three-night winter trip, and it was very cold outside. The room was warm and cosy every night that we stayed. The food was decent too, simple, but it was filling."
+          casual: "Room was warm and cosy every single night. Food was decent also, simple but filling."
+      - review_id: r3_18
+        author: "Arjun"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Feb 2026"
+        posted_date: "2026-03-05"
+        helpful_votes: 13
+        rating: 4
+        title: "Good heating"
+        facts_covered: [room_heating]
+        text:
+          base: "The heater worked well and the room was warm all night. No complaints there."
+          emoji: "The heater worked well and the room was warm all night 🌡️. No complaints there 🌙."
+          long: "It snowed heavily on our second night here, and it was very cold outside. The heater worked well, and the room was warm all night long. We had no complaints there at all."
+          casual: "Heater worked well and the room was warm all night. No complaints there."
+
+    review_sets:
+      base: [r3_03, r3_08, r3_09, r3_10, r3_12, r3_14, r3_17, r3_18]
+      positive: [r3_01, r3_03, r3_04, r3_06, r3_08, r3_10, r3_11, r3_18]
+      mixed: [r3_03, r3_08, r3_09, r3_10, r3_12, r3_14, r3_17, r3_18]
+      complaints: [r3_02, r3_05, r3_07, r3_09, r3_13, r3_15, r3_16, r3_17]
+
+    summaries:
+      base: "Guests consistently praise the warm, cosy room and describe the food as decent, with a limited menu. Two guests report rude, unresponsive staff and an often empty front desk."
+      positive: "Guests describe a well-heated room and acceptable food that is sometimes lukewarm. Two guests say the staff were rude or unavailable and ignored requests."
+      mixed: "Guests consistently praise the warm, cosy room and describe the food as decent, with a limited menu. Two guests report rude, unresponsive staff and an often empty front desk."
+      complaints: "Most guests rave about the excellent heating and several call the food decent. Two guests strongly complain that the staff were rude and ignored their requests."
+
+  - room_id: r4
+    hotel_name: "Himgiri House"
+    hotel_stars: 4
+    room_name: "Deluxe Room with Mountain View"
+    location: "Manali, Himachal Pradesh"
+    size_sqm: 26
+    bed: "1 King bed and 1 Single bed"
+    max_guests: 3
+    view: "Mountain view"
+    price_per_night: 7500
+    taxes_and_fees: 900
+    amenities: ["Free Wi-Fi", "Room heater", "Tea/coffee maker", "TV", "Wardrobe", "Hot water"]
+    policies:
+      cancellation: "Free cancellation until 7 days before check-in"
+      breakfast: "Breakfast and dinner included"
+      check_in_out: "Check-in from 1 pm, check-out until 11 am"
+    guest_rating: 4.2
+    review_count: 1187
+
+    facts:
+      - attribute: room_heating
+        level: good
+        statement: "Room heats up quickly and stays warm all night."
+      - attribute: food_quality
+        level: poor
+        statement: "Food is bland, often cold and sometimes stale; the menu is very limited."
+      - attribute: staff_service
+        level: good
+        statement: "Friendly, quick and helpful staff; requests are handled promptly."
+
+    review_pool:
+      - review_id: r4_01
+        author: "Rohan"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "Feb 2026"
+        posted_date: "2026-03-09"
+        helpful_votes: 1
+        rating: 4
+        title: "Great staff, bad food"
+        facts_covered: [food_quality, staff_service]
+        text:
+          base: "The staff were lovely and very quick. The food was poor though, cold and bland, and we ended up eating out most nights."
+      - review_id: r4_02
+        author: "Emma"
+        country: "United Kingdom"
+        traveller_type: "Couple"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-16"
+        helpful_votes: 3
+        rating: 4
+        title: "Warm room"
+        facts_covered: [room_heating]
+        text:
+          base: "The room heated up quickly and stayed warm all night. We slept well."
+          emoji: "The room heated up quickly and stayed warm all night 🌡️. We slept well 💤."
+          long: "It was freezing outside on the nights we stayed, so heating mattered a lot to us. The room heated up quickly, and it stayed warm all night. We slept well."
+          casual: "Room heated up quickly and stayed warm all night. We slept well."
+      - review_id: r4_03
+        author: "Priya"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "May 2026"
+        posted_date: "2026-05-24"
+        helpful_votes: 4
+        rating: 3
+        title: "Great staff, awful food"
+        facts_covered: [food_quality, staff_service]
+        text:
+          base: "The staff were lovely and helped with everything. But the food was cold and tasteless, and the rotis tasted stale."
+          emoji: "The staff were lovely and helped with everything 🛎️. But the food was cold and tasteless, and the rotis tasted stale 🍽️."
+          long: "We were four friends on a three-night trip with breakfast and dinner included. The staff were lovely, and they helped us with everything. But the food was cold and tasteless, and the rotis tasted stale at dinner on both nights we tried them."
+          casual: "Staff were lovely, they helped with everything. But food was cold and tasteless, and the rotis tasted stale."
+      - review_id: r4_04
+        author: "Divya"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "Sep 2026"
+        posted_date: "2026-10-09"
+        helpful_votes: 5
+        rating: 4
+        title: "Helpful staff"
+        facts_covered: [staff_service]
+        text:
+          base: "Helpful, quick staff throughout. They made our trip easy."
+      - review_id: r4_05
+        author: "Lukas"
+        country: "Germany"
+        traveller_type: "Group"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-26"
+        helpful_votes: 8
+        rating: 1
+        title: "Food is a disaster"
+        facts_covered: [food_quality]
+        text:
+          base: "Dinner was inedible, cold dal and dry rotis. Very poor for a meal plan at this price."
+      - review_id: r4_06
+        author: "Vikram"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-29"
+        helpful_votes: 1
+        rating: 5
+        title: "Excellent team"
+        facts_covered: [staff_service]
+        text:
+          base: "Excellent team, every request was handled within minutes."
+      - review_id: r4_07
+        author: "Sarah"
+        country: "United States"
+        traveller_type: "Family"
+        stayed: "Jul 2026"
+        posted_date: "2026-08-15"
+        helpful_votes: 1
+        rating: 1
+        title: "Terrible food"
+        facts_covered: [food_quality]
+        text:
+          base: "The worst hotel food we have had, cold, bland and the paneer smelled stale. We ate outside every night after that."
+      - review_id: r4_08
+        author: "Neha"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-26"
+        helpful_votes: 3
+        rating: 4
+        title: "Warm and friendly"
+        facts_covered: [staff_service, room_heating]
+        text:
+          base: "Warm room and friendly staff. Pleasant stay."
+      - review_id: r4_09
+        author: "Aditya"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-14"
+        helpful_votes: 1
+        rating: 5
+        title: "Great service"
+        facts_covered: [staff_service, room_heating]
+        text:
+          base: "Super helpful staff and a warm, cosy room. Couldn't ask for more."
+      - review_id: r4_10
+        author: "Ishita"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Jul 2026"
+        posted_date: "2026-08-04"
+        helpful_votes: 6
+        rating: 4
+        title: "Nice people"
+        facts_covered: [staff_service]
+        text:
+          base: "The staff were friendly and sorted out our sightseeing taxi in minutes. Good team."
+          emoji: "The staff were friendly and sorted out our sightseeing taxi in minutes 🙂. Good team 🚕."
+          long: "We wanted to visit a couple of places around town on our second day. The staff were friendly, and they sorted out our sightseeing taxi in minutes. They are a good team."
+          casual: "Staff were friendly and sorted our sightseeing taxi in minutes. Good team here."
+      - review_id: r4_11
+        author: "Ritika"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "Aug 2026"
+        posted_date: "2026-09-02"
+        helpful_votes: 17
+        rating: 5
+        title: "Warm people, warm room"
+        facts_covered: [staff_service, room_heating]
+        text:
+          base: "Warm people and a warm room. Brilliant winter stay with friends."
+      - review_id: r4_12
+        author: "Karthik"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Sep 2026"
+        posted_date: "2026-10-07"
+        helpful_votes: 8
+        rating: 3
+        title: "Warm room, bad food"
+        facts_covered: [food_quality, room_heating]
+        text:
+          base: "The room was warm and cosy at night. The food was very poor, bland and cold, so we ate outside after the first day."
+          emoji: "The room was warm and cosy at night 🌡️. The food was very poor, bland and cold, so we ate outside after the first day 🍲."
+          long: "We checked in on a snowy evening for a three-night winter break with friends, with dinner included in our plan. The room was warm and cosy at night, with no trouble at all on that side. The food, though, was very poor, bland and cold, so we ate outside after the first day."
+          casual: "Room was warm and cosy at night. But the food was very poor, bland and cold, so we ate outside after day one."
+      - review_id: r4_13
+        author: "Harsh"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-24"
+        helpful_votes: 8
+        rating: 5
+        title: "Lovely staff, warm room"
+        facts_covered: [staff_service, room_heating]
+        text:
+          base: "The staff were wonderful and nothing was too much trouble. The room stayed warm all night too."
+          emoji: "The staff were wonderful and nothing was too much trouble 🛎️. The room stayed warm all night too 🌡️🌙."
+          long: "We were a group of friends on a three-night winter trip in the mountains. The staff were wonderful, and nothing we asked for was too much trouble. The room stayed warm all night too, even when it was very cold outside."
+          casual: "Staff were wonderful, nothing was too much trouble for them. Room stayed warm all night also."
+      - review_id: r4_14
+        author: "Lucas"
+        country: "France"
+        traveller_type: "Couple"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-12"
+        helpful_votes: 19
+        rating: 4
+        title: "Helpful team"
+        facts_covered: [staff_service]
+        text:
+          base: "The staff were helpful and quick with our requests. Very good service."
+          emoji: "The staff were helpful and quick with our requests 🛎️. Very good service ⏰."
+          long: "We asked for a lot of things during our three nights, from extra blankets to taxi bookings. The staff were helpful and quick with our requests each time. It was very good service."
+          casual: "Staff were helpful and quick with our requests. Very good service really."
+      - review_id: r4_15
+        author: "Kenji"
+        country: "Japan"
+        traveller_type: "Solo"
+        stayed: "Feb 2026"
+        posted_date: "2026-03-01"
+        helpful_votes: 5
+        rating: 5
+        title: "Staff were the best"
+        facts_covered: [staff_service]
+        text:
+          base: "The staff were the best part of our trip, they even dried our wet boots by the heater. So caring."
+          emoji: "The staff were the best part of our trip, they even dried our wet boots by the heater 🛎️. So caring 🧣."
+          long: "It snowed heavily on our first day, and we came back to the hotel soaked from head to toe. The staff were the best part of our trip, and they even dried our wet boots by the heater for us. They were so caring."
+          casual: "Staff were the best part of our trip, they even dried our wet boots by the heater. So so caring."
+      - review_id: r4_16
+        author: "Chloe"
+        country: "Australia"
+        traveller_type: "Couple"
+        stayed: "Apr 2026"
+        posted_date: "2026-05-07"
+        helpful_votes: 6
+        rating: 5
+        title: "Felt welcome"
+        facts_covered: [staff_service, room_heating]
+        text:
+          base: "Friendly, quick staff and a room that heated up in minutes. Felt very welcome."
+      - review_id: r4_17
+        author: "Daniel"
+        country: "Australia"
+        traveller_type: "Solo"
+        stayed: "Oct 2026"
+        posted_date: "2026-10-18"
+        helpful_votes: 7
+        rating: 4
+        title: "Warm room, poor meals"
+        facts_covered: [food_quality, room_heating]
+        text:
+          base: "The room was warm and cosy. The meals were really poor, cold and tasteless, but the rest of the stay was good."
+      - review_id: r4_18
+        author: "Nikhil"
+        country: "India"
+        traveller_type: "Group"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-22"
+        helpful_votes: 3
+        rating: 4
+        title: "Good stay"
+        facts_covered: [staff_service, room_heating]
+        text:
+          base: "Friendly staff and a warm room. A good winter stay."
+          emoji: "Friendly staff and a warm room 🙂. A good winter stay 🌡️."
+          long: "We were four friends here for three nights over New Year. The staff were friendly, and the room was warm. It was a good winter stay."
+          casual: "Friendly staff and a warm room. Good winter stay for us."
+
+    review_sets:
+      base: [r4_02, r4_03, r4_10, r4_12, r4_13, r4_14, r4_15, r4_18]
+      positive: [r4_01, r4_02, r4_04, r4_08, r4_10, r4_14, r4_17, r4_18]
+      mixed: [r4_02, r4_03, r4_10, r4_12, r4_13, r4_14, r4_15, r4_18]
+      complaints: [r4_05, r4_06, r4_07, r4_09, r4_11, r4_13, r4_15, r4_16]
+
+    summaries:
+      base: "Guests consistently praise the friendly, helpful staff and the warm room. Two guests report very poor food that was cold, bland and sometimes stale."
+      positive: "Guests describe quick, caring staff and a room that heats up well. Two guests say the meals were cold and bland, so they ate out."
+      mixed: "Guests consistently praise the friendly, helpful staff and the warm room. Two guests report very poor food that was cold, bland and sometimes stale."
+      complaints: "Most guests rave about the excellent staff and the cosy room. Two guests strongly complain that the food was cold, bland and stale."

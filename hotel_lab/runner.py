@@ -67,7 +67,14 @@ def select_trials(trials: list[dict[str, Any]], blocks: Optional[list[str]] = No
            and (include_retest or not t.get("retest"))]
     if per_cell or limit:
         cells: dict[tuple, list] = defaultdict(list)
-        for t in out:
+        # inside each cell, spread the first trials over scenarios and items (not one scenario first),
+        # and use the SAME (scenario, item, repeat) positions in every cell so cells stay comparable
+        sc_index = {s: i for i, s in enumerate(dict.fromkeys(t["scenario_id"] for t in out))}
+        n_sc = max(len(sc_index), 1)
+        def spread(t):
+            si = sc_index[t["scenario_id"]]
+            return (t["repeat"], (t["item"] - si) % 4, si, t.get("retest", False), t["prompt_id"])
+        for t in sorted(out, key=spread):
             cells[(t["block"], t["cell"])].append(t)
         if per_cell:
             out = [t for c in cells.values() for t in c[:per_cell]]
@@ -153,7 +160,10 @@ def _manifest_sha(experiment: str) -> Optional[str]:
 def run(experiment: str, model_names: Iterable[str], interface: str = "text", reasoning_depth: str = "low",
         parse_retries: int = 1, blocks: Optional[list[str]] = None, scenarios: Optional[list[str]] = None,
         limit: Optional[int] = None, per_cell: Optional[int] = None, show_category_scores: bool = False,
-        quiet: bool = False) -> dict[str, dict[str, Any]]:
+        quiet: bool = False, on_record=None, should_stop=None,
+        model_overrides: Optional[dict[str, ModelConfig]] = None) -> dict[str, dict[str, Any]]:
+    """on_record(record) is called after every trial (the website uses it for progress and to push rows
+    to the Google Sheet); should_stop() lets the website cancel a run between trials."""
     trials = select_trials(load_plan(experiment), blocks, scenarios, limit, per_cell)
     sc_map = {s.id: s for s in load_scenarios()}
     manifest_sha = _manifest_sha(experiment)
@@ -173,7 +183,7 @@ def run(experiment: str, model_names: Iterable[str], interface: str = "text", re
 
     summary = {}
     for mname in model_names:
-        cfg = ModelConfig.load(mname)
+        cfg = (model_overrides or {}).get(mname) or ModelConfig.load(mname)
         if interface == "screenshot" and cfg.provider != "mock" and not cfg.supports_vision:
             raise SystemExit(f"{cfg.name} has supports_vision: false; screenshot mode needs a vision model")
         if reasoning_depth == "high":
@@ -209,6 +219,9 @@ def run(experiment: str, model_names: Iterable[str], interface: str = "text", re
         try:
             with open(out, "a", encoding="utf-8") as f:
                 for i, trial in enumerate(todo, 1):
+                    if should_stop and should_stop():
+                        print("  stopped by user")
+                        break
                     view, prompt = views[trial["trial_id"]], prompts[trial["trial_id"]]
                     shots = None
                     if shooter:
@@ -244,6 +257,11 @@ def run(experiment: str, model_names: Iterable[str], interface: str = "text", re
                         n_fail += 1
                     f.write(json.dumps({**base, **rec}, ensure_ascii=False) + "\n")
                     f.flush()
+                    if on_record:
+                        try:
+                            on_record({**base, **rec, "_i": i, "_total": len(todo), "_failures": n_fail})
+                        except Exception as e:  # never let the website callback break a run
+                            print(f"  note: progress callback failed: {e}")
                     if n_ok == 0 and n_api >= FAIL_FAST_AFTER and n_api == i:
                         hint = ("Is Ollama running? Open the Ollama app (or run `ollama serve`) and check "
                                 f"`ollama list` shows {cfg.model}." if cfg.provider == "ollama"

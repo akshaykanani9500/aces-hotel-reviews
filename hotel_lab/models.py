@@ -11,6 +11,11 @@ set the context window (num_ctx). Ollama's default window (2048-4096 tokens) is 
 full-review prompts (~5k tokens) and Ollama cuts the START of a long prompt without any error, which
 would silently delete the instructions and Option 1.
 
+Closed models (only if your professor allows them):
+  OpenAI      provider: openai_compatible, base_url: https://api.openai.com/v1   (OPENAI_API_KEY)
+  Gemini      provider: openai_compatible, base_url: https://generativelanguage.googleapis.com/v1beta/openai/  (GEMINI_API_KEY)
+  Anthropic   provider: anthropic (native Messages API)                          (ANTHROPIC_API_KEY)
+
 Plus a `mock` provider that needs no model at all, for testing the pipeline.
 Model settings live in config/models/<name>.yaml.
 """
@@ -35,7 +40,7 @@ MODELS_DIR = CONFIG_DIR / "models"
 @dataclass
 class ModelConfig:
     name: str
-    provider: str                       # ollama | openai_compatible | mock
+    provider: str                       # ollama | openai_compatible | anthropic | mock
     model: str = ""
     base_url: str = ""
     api_key_env: Optional[str] = None
@@ -99,6 +104,14 @@ class ModelClient:
         elif cfg.provider == "ollama":
             import httpx
             self._http = httpx.Client(base_url=cfg.base_url.rstrip("/").removesuffix("/v1"), timeout=cfg.timeout_s)
+        elif cfg.provider == "anthropic":
+            import httpx
+            key = os.getenv(cfg.api_key_env or "ANTHROPIC_API_KEY")
+            if not key:
+                raise RuntimeError(f"{cfg.name}: environment variable {cfg.api_key_env or 'ANTHROPIC_API_KEY'} is not set")
+            self._http = httpx.Client(base_url=(cfg.base_url or "https://api.anthropic.com").rstrip("/"),
+                                      timeout=cfg.timeout_s,
+                                      headers={"x-api-key": key, "anthropic-version": "2023-06-01"})
         elif cfg.provider != "mock":
             raise ValueError(f"{cfg.name}: unknown provider '{cfg.provider}'")
 
@@ -106,12 +119,14 @@ class ModelClient:
                  n_options: int = 4) -> Completion:
         t0 = time.time()
         if self.cfg.provider == "mock":
-            return Completion(self._mock(seed, n_options), latency_s=time.time() - t0)
+            return Completion(self._mock(seed, n_options, prompt), latency_s=time.time() - t0)
 
         if images and not self.cfg.supports_vision:
             raise RuntimeError(f"{self.cfg.name} is not marked supports_vision: true")
         if self.cfg.provider == "ollama":
             return self._ollama(prompt, images, seed, t0)
+        if self.cfg.provider == "anthropic":
+            return self._anthropic(prompt, images, t0)
         if images:
             content: Any = [{"type": "text", "text": prompt}] + [image_part(b) for b in images]
         else:
@@ -128,7 +143,7 @@ class ModelClient:
             kwargs["response_format"] = {"type": "json_object"}
         if self.cfg.extra_body:
             kwargs["extra_body"] = self.cfg.extra_body
-        resp = self._client.chat.completions.create(**kwargs)
+        resp = self._create_with_fallbacks(kwargs)
         usage = getattr(resp, "usage", None)
         meta = {"served_model": getattr(resp, "model", None), "response_id": getattr(resp, "id", None),
                 "system_fingerprint": getattr(resp, "system_fingerprint", None)}
@@ -143,6 +158,51 @@ class ModelClient:
             finish_reason=getattr(resp.choices[0], "finish_reason", None),
             response_meta=meta,
         )
+
+    def _create_with_fallbacks(self, kwargs: dict[str, Any]):
+        """Some providers reject parameters (newer OpenAI models want max_completion_tokens and only the
+        default temperature; some servers reject seed or response_format). Retry without them and
+        remember what was dropped, so it is logged."""
+        from openai import BadRequestError
+        self.dropped_params: list[str] = getattr(self, "dropped_params", [])
+        for _ in range(4):
+            try:
+                return self._client.chat.completions.create(**kwargs)
+            except BadRequestError as e:
+                msg = str(e).lower()
+                if "max_tokens" in msg and "max_tokens" in kwargs:
+                    kwargs["max_completion_tokens"] = kwargs.pop("max_tokens")
+                    self.dropped_params.append("max_tokens->max_completion_tokens")
+                elif "temperature" in msg and "temperature" in kwargs:
+                    kwargs.pop("temperature")
+                    self.dropped_params.append("temperature (provider default used)")
+                elif "seed" in msg and "seed" in kwargs:
+                    kwargs.pop("seed")
+                    self.dropped_params.append("seed")
+                elif "response_format" in msg and "response_format" in kwargs:
+                    kwargs.pop("response_format")
+                    self.dropped_params.append("response_format")
+                else:
+                    raise
+        return self._client.chat.completions.create(**kwargs)
+
+    def _anthropic(self, prompt: str, images: Optional[list[bytes]], t0: float) -> Completion:
+        content: list[dict[str, Any]] = []
+        for b in images or []:
+            content.append({"type": "image", "source": {"type": "base64", "media_type": "image/png",
+                                                         "data": base64.b64encode(b).decode()}})
+        content.append({"type": "text", "text": prompt})
+        body = {"model": self.cfg.model, "max_tokens": self.cfg.max_tokens, "temperature": self.cfg.temperature,
+                "messages": [{"role": "user", "content": content}]}
+        r = self._http.post("/v1/messages", json=body)
+        if r.status_code != 200:
+            raise RuntimeError(f"Anthropic error {r.status_code}: {r.text[:300]}")
+        data = r.json()
+        text = "".join(p.get("text", "") for p in data.get("content", []) if p.get("type") == "text")
+        usage = data.get("usage") or {}
+        return Completion(text=text, input_tokens=usage.get("input_tokens"), output_tokens=usage.get("output_tokens"),
+                          latency_s=time.time() - t0, finish_reason=data.get("stop_reason"),
+                          response_meta={"served_model": data.get("model"), "response_id": data.get("id")})
 
     def _ollama(self, prompt: str, images: Optional[list[bytes]], seed: Optional[int], t0: float) -> Completion:
         msg: dict[str, Any] = {"role": "user", "content": prompt}
@@ -169,8 +229,10 @@ class ModelClient:
             response_meta={"served_model": data.get("model")},
         )
 
-    def _mock(self, seed: Optional[int], n: int) -> str:
+    def _mock(self, seed: Optional[int], n: int, prompt: str = "") -> str:
         rng = random.Random(seed)
+        if self.cfg.strategy == "simulated":
+            return self._simulated(rng, n, prompt)
         if self.cfg.strategy == "first":
             pick = 1
         elif self.cfg.strategy == "biased_first":   # strong position-1 bias, for testing the analysis
@@ -178,6 +240,45 @@ class ModelClient:
         else:
             pick = rng.randint(1, n)
         return json.dumps({"option_number": pick, "hotel_name": "", "reason": f"mock ({self.cfg.strategy})"})
+
+    def _simulated(self, rng: random.Random, n: int, prompt: str) -> str:
+        """A fake 'agent' with KNOWN preferences, to check that the analysis recovers them.
+        Utility per room = w_rating * mean shown stars + w_emoji * (has emoji) + w_long * (long reviews)
+        + w_first * (first review stars - 4) + w_position1 * (is option 1) + Gumbel noise.
+        Weights come from `extra_body` in the model YAML. Text interface only."""
+        import math
+        import re
+        w = {"rating": 2.0, "emoji": 0.0, "long": 0.0, "first": 0.0, "position1": 0.0, "facts": 2.0}
+        w.update({k: float(v) for k, v in (self.cfg.extra_body or {}).items()})
+        try:
+            start = prompt.index("[")
+            rooms = json.loads(prompt[start:prompt.rindex("]") + 1])
+        except Exception:
+            return json.dumps({"option_number": rng.randint(1, n), "reason": "mock could not read rooms"})
+        emoji_re = re.compile("[\U0001F300-\U0001FAFF\u2600-\u27BF]")
+        best, pick = -1e9, 1
+        for r in rooms:
+            revs = r.get("reviews") or []
+            u = 0.0
+            if revs:
+                u += w["rating"] * (sum(x["rating"] for x in revs) / len(revs) - 4)
+                u -= 0.6 * w["rating"] * sum(1 for x in revs if x["rating"] <= 2)       # negativity
+                u += w["emoji"] * (1.0 if any(emoji_re.search(x["text"]) for x in revs) else 0.0)
+                u += w["long"] * (1.0 if sum(len(x["text"].split()) for x in revs) / len(revs) > 30 else 0.0)
+                u += w["first"] * (revs[0]["rating"] - 4)
+                bad = sum(len(re.findall(r"\b(slow|noisy|noise|dirty|cold|rude|broken|poor|drops?|weak|stain|dust)\b",
+                                          x["text"].lower())) for x in revs)
+                u -= w["facts"] * bad / len(revs)                 # 'reads' complaints in the text
+            for line in r.get("verified_facts") or []:
+                u += {"Good": 1.5, "Average": 0.0, "Poor": -1.5}.get(line.split(": ")[-1], 0.0) * w["facts"]
+            if r.get("review_summary"):
+                s = r["review_summary"].lower()
+                u -= w["facts"] * len(re.findall(r"\b(slow|noisy|noise|dirty|cold|rude|broken|poor|weak|dust)\b", s)) / 2
+            u += w["position1"] * (1.0 if r.get("option_number") == 1 else 0.0)
+            u += -math.log(-math.log(max(rng.random(), 1e-12)))
+            if u > best:
+                best, pick = u, r.get("option_number", 1)
+        return json.dumps({"option_number": pick, "hotel_name": "", "reason": "simulated preferences"})
 
     def describe_version(self) -> dict[str, Any]:
         """Best-effort model fingerprint for the log (detects silent model updates = drift)."""

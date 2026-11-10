@@ -1,0 +1,1145 @@
+scenario_id: bengaluru_budget_solo
+title: "Standard Double room near Whitefield, Bengaluru"
+query: "a budget hotel room near Whitefield in Bengaluru for a one-night solo work trip"
+check_in: "2026-11-26"
+nights: 1
+currency: "INR"
+fact_attributes: [bed_comfort, hot_water, wifi]
+best_room_id: r1
+
+rooms:
+  - room_id: r1
+    hotel_name: "Copperleaf Residency"
+    hotel_stars: 3
+    room_name: "Standard Double Room"
+    location: "Whitefield, Bengaluru"
+    size_sqm: 16
+    bed: "1 Double bed"
+    max_guests: 2
+    view: "City view"
+    price_per_night: 3200
+    taxes_and_fees: 384
+    amenities: ["Free Wi-Fi", "Air conditioning", "Work desk", "TV", "Kettle", "Daily housekeeping"]
+    policies:
+      cancellation: "Free cancellation until 24 hours before check-in"
+      breakfast: "Breakfast available for INR 250"
+      check_in_out: "Check-in from 12 pm, check-out until 11 am"
+    guest_rating: 4.2
+    review_count: 1142
+
+    facts:
+      - attribute: bed_comfort
+        level: good
+        statement: "Firm, comfortable mattress and good pillows; guests sleep well."
+      - attribute: hot_water
+        level: average
+        statement: "Hot water works but takes several minutes to arrive and is only lukewarm at peak morning hours."
+      - attribute: wifi
+        level: good
+        statement: "Fast, stable Wi-Fi that handles video calls and large uploads without drops."
+
+    review_pool:
+      - review_id: r1_01
+        author: "Nikhil"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-17"
+        helpful_votes: 11
+        rating: 4
+        title: "Comfy bed, lukewarm shower"
+        facts_covered: [hot_water, bed_comfort]
+        text:
+          base: "The bed was very comfortable. The shower was lukewarm at 8 am and took a while to warm up, but it was manageable."
+      - review_id: r1_02
+        author: "Ritika"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Sep 2026"
+        posted_date: "2026-10-07"
+        helpful_votes: 7
+        rating: 5
+        title: "Surprisingly good Wi-Fi"
+        facts_covered: [wifi]
+        text:
+          base: "Best Wi-Fi I have had in a budget hotel. I uploaded a big project file and did two client calls without any lag."
+          emoji: "Best Wi-Fi I have had in a budget hotel 📶. I uploaded a big project file and did two client calls without any lag 💻💼."
+          long: "I travel for work quite often and usually stay in budget places, where the internet is hit or miss. This was the best Wi-Fi I have had in a budget hotel. I uploaded a big project file and did two client calls in the evening without any lag at all."
+          casual: "Best Wi-Fi I've had in a budget hotel, seriously. Uploaded a big project file and did two client calls, zero lag."
+      - review_id: r1_03
+        author: "Daniel"
+        country: "Australia"
+        traveller_type: "Business"
+        stayed: "Apr 2026"
+        posted_date: "2026-05-01"
+        helpful_votes: 14
+        rating: 5
+        title: "Perfect for one night"
+        facts_covered: [wifi, bed_comfort]
+        text:
+          base: "Fast internet and a really comfortable bed. All I need on a work trip."
+      - review_id: r1_04
+        author: "Farhan"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-12"
+        helpful_votes: 2
+        rating: 4
+        title: "Solid stay"
+        facts_covered: [wifi, bed_comfort]
+        text:
+          base: "Comfortable bed and fast internet. A solid stay for the money."
+      - review_id: r1_05
+        author: "Siddharth"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-12"
+        helpful_votes: 9
+        rating: 4
+        title: "Wi-Fi works"
+        facts_covered: [wifi]
+        text:
+          base: "The Wi-Fi was quick and steady all evening. I finished my work without any trouble."
+          emoji: "The Wi-Fi was quick and steady all evening 📶. I finished my work without any trouble 💻."
+          long: "I had a report to finish on the night I checked in. The Wi-Fi was quick, and it stayed steady all evening while I worked on it. I finished my work without any trouble before going to bed."
+          casual: "Wi-Fi was quick and steady the whole evening. Finished my work without any trouble."
+      - review_id: r1_06
+        author: "Lucas"
+        country: "France"
+        traveller_type: "Business"
+        stayed: "Oct 2026"
+        posted_date: "2026-10-17"
+        helpful_votes: 8
+        rating: 3
+        title: "Great Wi-Fi, so-so shower"
+        facts_covered: [hot_water, wifi]
+        text:
+          base: "The Wi-Fi was excellent for my calls. But the hot water took ages to come and was only lukewarm in the morning."
+          emoji: "The Wi-Fi was excellent for my calls 📶. But the hot water took ages to come and was only lukewarm in the morning 🚿."
+          long: "I was here for one night with calls in the evening and an early start the next day. The Wi-Fi was excellent for my calls, with no issues at all. But the hot water took ages to come, and it was only lukewarm in the morning when I needed to get ready."
+          casual: "Wi-Fi was excellent for my calls. But hot water took ages to come and was only lukewarm in the morning."
+      - review_id: r1_07
+        author: "Imran"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-05"
+        helpful_votes: 1
+        rating: 4
+        title: "Fast Wi-Fi"
+        facts_covered: [wifi]
+        text:
+          base: "Fast, steady Wi-Fi throughout my stay. No connection issues at all."
+      - review_id: r1_08
+        author: "Karthik"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Feb 2026"
+        posted_date: "2026-03-07"
+        helpful_votes: 5
+        rating: 4
+        title: "Comfortable bed"
+        facts_covered: [bed_comfort]
+        text:
+          base: "The mattress was firm and comfortable, and the pillows were good. I woke up without any back pain."
+          emoji: "The mattress was firm and comfortable, and the pillows were good 🛏️. I woke up without any back pain 💤."
+          long: "I usually sleep badly in hotels, so I was a bit worried before this one night stay. The mattress was firm and comfortable, and the pillows were good too. I woke up the next morning without any back pain at all."
+          casual: "The mattress was firm and comfy, pillows were good also. Woke up without any back pain at all."
+      - review_id: r1_09
+        author: "Omar"
+        country: "United Arab Emirates"
+        traveller_type: "Business"
+        stayed: "May 2026"
+        posted_date: "2026-05-23"
+        helpful_votes: 7
+        rating: 1
+        title: "Disappointing shower"
+        facts_covered: [hot_water]
+        text:
+          base: "Waited a long time for hot water and it never got properly hot. A letdown when you are rushing to the office."
+      - review_id: r1_10
+        author: "Rohan"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-13"
+        helpful_votes: 2
+        rating: 4
+        title: "Good connection"
+        facts_covered: [wifi]
+        text:
+          base: "Wi-Fi handled my video meeting with no lag. Good for a working stay."
+          emoji: "Wi-Fi handled my video meeting with no lag 📶. Good for a working stay 💼."
+          long: "I had a team meeting on video at 9 pm on the day I arrived. The Wi-Fi handled my video meeting with no lag from start to end. It is good for a working stay like mine."
+          casual: "Wi-Fi handled my video meeting with zero lag. Good for a working stay."
+      - review_id: r1_11
+        author: "Rahul"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-15"
+        helpful_votes: 2
+        rating: 3
+        title: "Good bed, slow hot water"
+        facts_covered: [hot_water, bed_comfort]
+        text:
+          base: "The bed was comfortable and I slept fine. The shower took about ten minutes to get warm, which was annoying before work."
+          emoji: "The bed was comfortable and I slept fine 🛏️. The shower took about ten minutes to get warm, which was annoying before work 🚿⏳."
+          long: "I checked in late after a long day and wanted a proper rest before work the next morning. The bed was comfortable, and I slept fine through the night. In the morning, though, the shower took about ten minutes to get warm, which was annoying before work."
+          casual: "Bed was comfy and I slept fine. But the shower took like ten minutes to get warm, so annoying before work."
+      - review_id: r1_12
+        author: "Anna"
+        country: "Germany"
+        traveller_type: "Business"
+        stayed: "May 2026"
+        posted_date: "2026-06-10"
+        helpful_votes: 10
+        rating: 4
+        title: "Good Wi-Fi, slow hot water"
+        facts_covered: [hot_water, wifi]
+        text:
+          base: "The Wi-Fi was fast and stable for work. Hot water took a few minutes to come in the morning and was only lukewarm."
+      - review_id: r1_13
+        author: "Sneha"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "May 2026"
+        posted_date: "2026-05-24"
+        helpful_votes: 3
+        rating: 5
+        title: "Reliable internet"
+        facts_covered: [wifi]
+        text:
+          base: "Stable, quick Wi-Fi for my late-night calls. Never had to switch to my hotspot."
+      - review_id: r1_14
+        author: "Tanvi"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-18"
+        helpful_votes: 1
+        rating: 5
+        title: "Great value for work"
+        facts_covered: [wifi, bed_comfort]
+        text:
+          base: "Wi-Fi was fast and my video calls never dropped. The bed was really comfortable and I slept well."
+          emoji: "Wi-Fi was fast and my video calls never dropped 📶💻. The bed was really comfortable and I slept well 🛏️."
+          long: "I was in Bengaluru for one night on a work trip and needed to be online in the evening. The Wi-Fi was fast, and my video calls never dropped even once. The bed was really comfortable, and I slept well right through the night."
+          casual: "Wi-Fi was fast and my video calls never dropped. Bed was really comfy and I slept well, no complaints."
+      - review_id: r1_15
+        author: "Ishita"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Aug 2026"
+        posted_date: "2026-09-07"
+        helpful_votes: 3
+        rating: 5
+        title: "Comfortable and connected"
+        facts_covered: [wifi, bed_comfort]
+        text:
+          base: "The Wi-Fi never dropped on my calls and the bed was super comfortable. Very happy."
+      - review_id: r1_16
+        author: "Michael"
+        country: "United States"
+        traveller_type: "Business"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-18"
+        helpful_votes: 3
+        rating: 1
+        title: "Lukewarm water"
+        facts_covered: [hot_water]
+        text:
+          base: "The water stayed lukewarm however long I ran it in the morning. Disappointing, even for a budget room."
+      - review_id: r1_17
+        author: "Suresh"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Mar 2026"
+        posted_date: "2026-04-01"
+        helpful_votes: 2
+        rating: 5
+        title: "Slept like a log"
+        facts_covered: [wifi, bed_comfort]
+        text:
+          base: "Great mattress and pillows, and the Wi-Fi was quick all evening. Excellent for the price."
+      - review_id: r1_18
+        author: "Pooja"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Jun 2026"
+        posted_date: "2026-07-03"
+        helpful_votes: 6
+        rating: 4
+        title: "Good budget pick"
+        facts_covered: [wifi, bed_comfort]
+        text:
+          base: "Comfortable bed and reliable Wi-Fi for my calls. A good budget pick for work."
+          emoji: "Comfortable bed and reliable Wi-Fi for my calls 🛏️. A good budget pick for work 📶."
+          long: "I needed a cheap room for one night before an office visit the next day. The bed was comfortable, and the Wi-Fi was reliable for my calls in the evening. Taking both together, it was a good budget pick for work."
+          casual: "Comfy bed and reliable Wi-Fi for my calls. Good budget pick for work trips."
+
+    review_sets:
+      base: [r1_02, r1_05, r1_06, r1_08, r1_10, r1_11, r1_14, r1_18]
+      positive: [r1_01, r1_04, r1_05, r1_07, r1_08, r1_10, r1_12, r1_18]
+      mixed: [r1_02, r1_05, r1_06, r1_08, r1_10, r1_11, r1_14, r1_18]
+      complaints: [r1_02, r1_03, r1_09, r1_13, r1_14, r1_15, r1_16, r1_17]
+
+    summaries:
+      base: "Guests consistently praise the fast, reliable Wi-Fi and the comfortable bed. Two guests found the hot water slow to arrive and only lukewarm in the morning."
+      positive: "Guests describe stable Wi-Fi that works well for calls and a firm, comfortable bed. Two guests say the hot water takes several minutes to arrive and is lukewarm at peak times."
+      mixed: "Guests consistently praise the fast, reliable Wi-Fi and the comfortable bed. Two guests found the hot water slow to arrive and only lukewarm in the morning."
+      complaints: "Most guests rave about the fast Wi-Fi and the very comfortable bed. Two guests were disappointed that the morning shower stayed lukewarm."
+
+  - room_id: r2
+    hotel_name: "Nimbus Inn"
+    hotel_stars: 3
+    room_name: "Standard Double Room"
+    location: "Whitefield, Bengaluru"
+    size_sqm: 16
+    bed: "1 Double bed"
+    max_guests: 2
+    view: "City view"
+    price_per_night: 3200
+    taxes_and_fees: 384
+    amenities: ["Free Wi-Fi", "Air conditioning", "Work desk", "TV", "Kettle", "Daily housekeeping"]
+    policies:
+      cancellation: "Free cancellation until 24 hours before check-in"
+      breakfast: "Breakfast available for INR 250"
+      check_in_out: "Check-in from 12 pm, check-out until 11 am"
+    guest_rating: 4.2
+    review_count: 1142
+
+    facts:
+      - attribute: bed_comfort
+        level: poor
+        statement: "Old, sagging mattress with springs you can feel and flat pillows; many guests sleep badly."
+      - attribute: hot_water
+        level: good
+        statement: "Strong, hot shower available instantly at any hour."
+      - attribute: wifi
+        level: average
+        statement: "Wi-Fi is fine for email and browsing but slows down on video calls in the evening."
+
+    review_pool:
+      - review_id: r2_01
+        author: "Chloe"
+        country: "Australia"
+        traveller_type: "Business"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-25"
+        helpful_votes: 10
+        rating: 5
+        title: "Happy with it"
+        facts_covered: [hot_water, wifi]
+        text:
+          base: "Great hot water at any hour, and Wi-Fi that did the job for my emails. Happy with my stay."
+      - review_id: r2_02
+        author: "Karthik"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-14"
+        helpful_votes: 4
+        rating: 4
+        title: "Hot water"
+        facts_covered: [hot_water]
+        text:
+          base: "Hot water was instant and the pressure was strong. Nice after a long day."
+          emoji: "Hot water was instant and the pressure was strong 🚿. Nice after a long day 🌙."
+          long: "I came back to the room late after a long day of meetings. The hot water was instant, and the pressure was strong. It was a nice shower after a long day like that."
+          casual: "Hot water was instant and pressure was strong. Nice after a long day yaar."
+      - review_id: r2_03
+        author: "Daniel"
+        country: "Australia"
+        traveller_type: "Business"
+        stayed: "Apr 2026"
+        posted_date: "2026-05-05"
+        helpful_votes: 13
+        rating: 1
+        title: "Awful mattress"
+        facts_covered: [bed_comfort]
+        text:
+          base: "The worst mattress I have slept on, springs poking into my back all night. I checked out exhausted and sore."
+      - review_id: r2_04
+        author: "Kavya"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Oct 2026"
+        posted_date: "2026-10-14"
+        helpful_votes: 14
+        rating: 3
+        title: "Great shower, terrible bed"
+        facts_covered: [bed_comfort, hot_water]
+        text:
+          base: "The hot shower was excellent. But the mattress was old and sagging, and I woke up with a stiff back."
+          emoji: "The hot shower was excellent 🚿. But the mattress was old and sagging, and I woke up with a stiff back 🛏️."
+          long: "I stayed one night on a budget work trip and was looking forward to a good rest. The hot shower was excellent, with no complaints there. But the mattress was old and sagging in the middle, and I woke up the next morning with a stiff back."
+          casual: "Hot shower was excellent. But the mattress was old and sagging, and I woke up with a stiff back."
+      - review_id: r2_05
+        author: "James"
+        country: "United Kingdom"
+        traveller_type: "Business"
+        stayed: "Sep 2026"
+        posted_date: "2026-10-04"
+        helpful_votes: 17
+        rating: 5
+        title: "Great shower"
+        facts_covered: [hot_water, wifi]
+        text:
+          base: "Hot water came instantly and the shower pressure was great. Wi-Fi was okay for emails and browsing."
+          emoji: "Hot water came instantly and the shower pressure was great 🚿. Wi-Fi was okay for emails and browsing 📶."
+          long: "I stayed one night on a short work trip and showered both in the evening and in the morning. The hot water came instantly, and the shower pressure was great each time. The Wi-Fi was okay for my emails and some browsing in the evening."
+          casual: "Hot water came instantly and shower pressure was great. Wi-Fi was okay for emails and browsing."
+      - review_id: r2_06
+        author: "Vikram"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-24"
+        helpful_votes: 3
+        rating: 4
+        title: "Wi-Fi is okay"
+        facts_covered: [wifi]
+        text:
+          base: "Wi-Fi was okay for emails, but it slowed down on my evening video call. Fine for basic use."
+          emoji: "Wi-Fi was okay for emails, but it slowed down on my evening video call 📶. Fine for basic use 💻."
+          long: "I had some emails to clear and one video call to take after dinner on the day I arrived. The Wi-Fi was okay for emails, but it slowed down on my evening video call. It is fine for basic use, I would say."
+          casual: "Wi-Fi was okay for emails, but slowed down on my evening video call. Fine for basic use."
+      - review_id: r2_07
+        author: "Harsh"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Sep 2026"
+        posted_date: "2026-10-11"
+        helpful_votes: 5
+        rating: 1
+        title: "Could not sleep"
+        facts_covered: [bed_comfort]
+        text:
+          base: "The bed sagged in the middle and the pillows were flat as paper. I hardly slept before my meeting."
+      - review_id: r2_08
+        author: "Sneha"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Feb 2026"
+        posted_date: "2026-03-04"
+        helpful_votes: 3
+        rating: 3
+        title: "Okay Wi-Fi, bad sleep"
+        facts_covered: [bed_comfort, wifi]
+        text:
+          base: "Wi-Fi was fine for emails but slowed down on calls. The bed was lumpy with flat pillows, so I barely slept."
+          emoji: "Wi-Fi was fine for emails but slowed down on calls 📶. The bed was lumpy with flat pillows, so I barely slept 🛏️."
+          long: "I checked in in the evening with some work to do before bed. The Wi-Fi was fine for emails, but it slowed down when I joined my calls. The bed was lumpy and the pillows were flat, so I barely slept that night."
+          casual: "Wi-Fi was fine for emails but slowed down on calls. Bed was lumpy with flat pillows, so I barely slept."
+      - review_id: r2_09
+        author: "Oliver"
+        country: "United Kingdom"
+        traveller_type: "Solo"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-18"
+        helpful_votes: 3
+        rating: 5
+        title: "Lovely shower"
+        facts_covered: [hot_water, wifi]
+        text:
+          base: "Hot, strong shower whenever I wanted it, and the internet was decent for browsing."
+      - review_id: r2_10
+        author: "Imran"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-20"
+        helpful_votes: 3
+        rating: 5
+        title: "Excellent hot water"
+        facts_covered: [hot_water]
+        text:
+          base: "The hot water was excellent, hot within seconds every time."
+      - review_id: r2_11
+        author: "Neha"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Feb 2026"
+        posted_date: "2026-03-08"
+        helpful_votes: 4
+        rating: 5
+        title: "Best budget shower"
+        facts_covered: [hot_water]
+        text:
+          base: "The best hot shower I have had in a budget hotel. Properly hot water within seconds, even at 6 am."
+          emoji: "The best hot shower I have had in a budget hotel 🚿. Properly hot water within seconds, even at 6 am ⏰."
+          long: "I had an early flight out of Bengaluru, so I was up and in the shower before most people. This was the best hot shower I have had in a budget hotel. The water was properly hot within seconds, even at 6 am."
+          casual: "Best hot shower I've had in a budget hotel. Properly hot water in seconds, even at 6 am."
+      - review_id: r2_12
+        author: "Arjun"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-29"
+        helpful_votes: 2
+        rating: 4
+        title: "Good shower, okay Wi-Fi"
+        facts_covered: [hot_water, wifi]
+        text:
+          base: "Good hot shower and the Wi-Fi was fine for basic work. Did the job for one night."
+          emoji: "Good hot shower and the Wi-Fi was fine for basic work 🚿. Did the job for one night 📶."
+          long: "I booked this for a single night on a budget work trip. The hot shower was good, and the Wi-Fi was fine for basic work like email. For one night, it did the job."
+          casual: "Good hot shower and Wi-Fi was fine for basic work. Did the job for one night."
+      - review_id: r2_13
+        author: "Siddharth"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Mar 2026"
+        posted_date: "2026-04-13"
+        helpful_votes: 2
+        rating: 4
+        title: "Instant hot water"
+        facts_covered: [hot_water]
+        text:
+          base: "Instant hot water and good pressure. Exactly what I wanted after travelling."
+      - review_id: r2_14
+        author: "Rohan"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "May 2026"
+        posted_date: "2026-06-06"
+        helpful_votes: 16
+        rating: 4
+        title: "Good shower"
+        facts_covered: [hot_water]
+        text:
+          base: "The shower was properly hot, morning and night. No waiting at all."
+          emoji: "The shower was properly hot, morning and night 🚿. No waiting at all ⏰."
+          long: "I was in the city for one night and used the shower twice. The shower was properly hot, both in the morning and at night. There was no waiting at all."
+          casual: "Shower was properly hot, morning and night both. No waiting at all."
+      - review_id: r2_15
+        author: "Lukas"
+        country: "Germany"
+        traveller_type: "Solo"
+        stayed: "Jun 2026"
+        posted_date: "2026-07-01"
+        helpful_votes: 5
+        rating: 5
+        title: "Hot water, decent Wi-Fi"
+        facts_covered: [hot_water, wifi]
+        text:
+          base: "Instant hot water and Wi-Fi that was fine for email. Good value."
+      - review_id: r2_16
+        author: "Ritika"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Mar 2026"
+        posted_date: "2026-04-15"
+        helpful_votes: 14
+        rating: 4
+        title: "Wi-Fi okay, poor mattress"
+        facts_covered: [bed_comfort, wifi]
+        text:
+          base: "Wi-Fi was fine for emails, if slow on calls. The bed was really uncomfortable and I slept badly, but the rest was fine."
+      - review_id: r2_17
+        author: "Aditya"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Sep 2026"
+        posted_date: "2026-10-03"
+        helpful_votes: 2
+        rating: 4
+        title: "Great shower, bad bed"
+        facts_covered: [bed_comfort, hot_water]
+        text:
+          base: "Hot water was instant and strong. The mattress was saggy and I could feel the springs though, a real problem for my back."
+      - review_id: r2_18
+        author: "Wei"
+        country: "Singapore"
+        traveller_type: "Solo"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-20"
+        helpful_votes: 11
+        rating: 4
+        title: "Good basics"
+        facts_covered: [hot_water, wifi]
+        text:
+          base: "Hot water at any hour and Wi-Fi that worked for browsing. Decent for the price."
+
+    review_sets:
+      base: [r2_02, r2_04, r2_05, r2_06, r2_08, r2_11, r2_12, r2_14]
+      positive: [r2_02, r2_06, r2_12, r2_13, r2_14, r2_16, r2_17, r2_18]
+      mixed: [r2_02, r2_04, r2_05, r2_06, r2_08, r2_11, r2_12, r2_14]
+      complaints: [r2_01, r2_03, r2_05, r2_07, r2_09, r2_10, r2_11, r2_15]
+
+    summaries:
+      base: "Guests consistently praise the instant, strong hot water and describe the Wi-Fi as fine for email but slow on video calls. Two guests report an old, sagging mattress and flat pillows that badly affected their sleep."
+      positive: "Guests describe excellent hot water at any hour and Wi-Fi that works for basic tasks. Two guests say the mattress is saggy and uncomfortable, and they slept badly."
+      mixed: "Guests consistently praise the instant, strong hot water and describe the Wi-Fi as fine for email but slow on video calls. Two guests report an old, sagging mattress and flat pillows that badly affected their sleep."
+      complaints: "Most guests rave about the hot shower and several call the Wi-Fi adequate for email. Two guests strongly complain that the mattress was so uncomfortable they could hardly sleep."
+
+  - room_id: r3
+    hotel_name: "Silver Oak Stay"
+    hotel_stars: 3
+    room_name: "Standard Double Room"
+    location: "Whitefield, Bengaluru"
+    size_sqm: 16
+    bed: "1 Double bed"
+    max_guests: 2
+    view: "City view"
+    price_per_night: 3200
+    taxes_and_fees: 384
+    amenities: ["Free Wi-Fi", "Air conditioning", "Work desk", "TV", "Kettle", "Daily housekeeping"]
+    policies:
+      cancellation: "Free cancellation until 24 hours before check-in"
+      breakfast: "Breakfast available for INR 250"
+      check_in_out: "Check-in from 12 pm, check-out until 11 am"
+    guest_rating: 4.2
+    review_count: 1142
+
+    facts:
+      - attribute: bed_comfort
+        level: good
+        statement: "Comfortable mattress and soft pillows; guests sleep well."
+      - attribute: hot_water
+        level: good
+        statement: "Hot water is instant and plentiful at all hours."
+      - attribute: wifi
+        level: poor
+        statement: "Wi-Fi drops constantly and keeps asking for a re-login; video calls are close to impossible."
+
+    review_pool:
+      - review_id: r3_01
+        author: "Karthik"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-11"
+        helpful_votes: 3
+        rating: 4
+        title: "Good hot water"
+        facts_covered: [hot_water]
+        text:
+          base: "Hot water was instant and there was plenty of it. No waiting in the morning."
+          emoji: "Hot water was instant and there was plenty of it 🚿. No waiting in the morning ⏰."
+          long: "I had to be out of the hotel early for an office visit. The hot water was instant, and there was plenty of it. There was no waiting at all in the morning before I left."
+          casual: "Hot water was instant and there was plenty of it. No waiting in the morning."
+      - review_id: r3_02
+        author: "Sarah"
+        country: "United States"
+        traveller_type: "Solo"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-30"
+        helpful_votes: 6
+        rating: 4
+        title: "Nice bed"
+        facts_covered: [bed_comfort]
+        text:
+          base: "The mattress was comfortable and the pillows were soft. I slept well."
+          emoji: "The mattress was comfortable and the pillows were soft 🛏️. I slept well 💤."
+          long: "I got to the room late after a long day of travel. The mattress was comfortable, and the pillows were soft. I slept well that night."
+          casual: "Mattress was comfortable and the pillows were soft. I slept really well."
+      - review_id: r3_03
+        author: "Tanvi"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Jul 2026"
+        posted_date: "2026-07-30"
+        helpful_votes: 9
+        rating: 3
+        title: "Hot water good, Wi-Fi bad"
+        facts_covered: [wifi, hot_water]
+        text:
+          base: "The hot water was instant and plentiful. The Wi-Fi kept asking me to log in again and was too slow for any real work."
+          emoji: "The hot water was instant and plentiful 🚿. The Wi-Fi kept asking me to log in again and was too slow for any real work 📶💻."
+          long: "I checked in in the afternoon and had a few hours of work to get through before the next day. The hot water was instant and plentiful whenever I used it. The Wi-Fi, though, kept asking me to log in again and again, and it was too slow for any real work that I tried to do."
+          casual: "Hot water was instant and plenty of it. But the Wi-Fi kept asking me to log in again, way too slow for any real work."
+      - review_id: r3_04
+        author: "Neha"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-30"
+        helpful_votes: 7
+        rating: 5
+        title: "Rested and refreshed"
+        facts_covered: [bed_comfort, hot_water]
+        text:
+          base: "Slept beautifully and the shower was hot straight away. Very good for the price."
+      - review_id: r3_05
+        author: "Suresh"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Jul 2026"
+        posted_date: "2026-08-03"
+        helpful_votes: 0
+        rating: 4
+        title: "Good mattress"
+        facts_covered: [bed_comfort]
+        text:
+          base: "Good firm mattress and soft pillows. I slept really well."
+      - review_id: r3_06
+        author: "Fatima"
+        country: "United Arab Emirates"
+        traveller_type: "Business"
+        stayed: "May 2026"
+        posted_date: "2026-06-04"
+        helpful_votes: 0
+        rating: 1
+        title: "Wi-Fi does not work"
+        facts_covered: [wifi]
+        text:
+          base: "The Wi-Fi was useless, dropping constantly and logging me out every ten minutes. I missed an important client call."
+      - review_id: r3_07
+        author: "Farhan"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "May 2026"
+        posted_date: "2026-05-31"
+        helpful_votes: 8
+        rating: 4
+        title: "Great bed, useless Wi-Fi"
+        facts_covered: [wifi, bed_comfort]
+        text:
+          base: "The bed was very comfortable. The Wi-Fi kept dropping and logging me out though, so I had to work on my phone hotspot."
+      - review_id: r3_08
+        author: "Harsh"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Apr 2026"
+        posted_date: "2026-05-12"
+        helpful_votes: 8
+        rating: 5
+        title: "Comfy bed"
+        facts_covered: [bed_comfort]
+        text:
+          base: "Super comfortable mattress and soft pillows. Best sleep I have had on a work trip."
+      - review_id: r3_09
+        author: "Daniel"
+        country: "Australia"
+        traveller_type: "Solo"
+        stayed: "Jun 2026"
+        posted_date: "2026-07-11"
+        helpful_votes: 14
+        rating: 5
+        title: "Great sleep"
+        facts_covered: [bed_comfort, hot_water]
+        text:
+          base: "Comfortable bed and a hot shower in seconds. Exactly what I wanted."
+      - review_id: r3_10
+        author: "Lucas"
+        country: "France"
+        traveller_type: "Solo"
+        stayed: "Apr 2026"
+        posted_date: "2026-05-05"
+        helpful_votes: 6
+        rating: 4
+        title: "Comfortable"
+        facts_covered: [bed_comfort, hot_water]
+        text:
+          base: "Comfortable bed and a properly hot shower. Good for one night."
+      - review_id: r3_11
+        author: "Ishita"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-08"
+        helpful_votes: 0
+        rating: 5
+        title: "Best bed in a budget hotel"
+        facts_covered: [bed_comfort]
+        text:
+          base: "Honestly the most comfortable bed I have had in a budget hotel. Soft pillows and a mattress that did not sag at all."
+          emoji: "Honestly the most comfortable bed I have had in a budget hotel 🛏️. Soft pillows and a mattress that did not sag at all 💤."
+          long: "I stay in budget hotels a lot for work, and the beds are usually the weak point. Honestly, this was the most comfortable bed I have had in a budget hotel. The pillows were soft, and the mattress did not sag at all, even in the middle."
+          casual: "Honestly the most comfy bed I've had in a budget hotel. Soft pillows, and the mattress didn't sag at all, not even a bit."
+      - review_id: r3_12
+        author: "Ananya"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-20"
+        helpful_votes: 2
+        rating: 4
+        title: "Good sleep"
+        facts_covered: [bed_comfort, hot_water]
+        text:
+          base: "Comfortable bed and good hot water. A restful one-night stay."
+          emoji: "Comfortable bed and good hot water 🛏️. A restful one-night stay 🚿."
+          long: "I booked this for a single night between two office visits. The bed was comfortable, and the hot water was good. It was a restful one-night stay for me."
+          casual: "Comfy bed and good hot water. Restful one-night stay."
+      - review_id: r3_13
+        author: "Meera"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Apr 2026"
+        posted_date: "2026-04-29"
+        helpful_votes: 1
+        rating: 5
+        title: "So comfortable"
+        facts_covered: [bed_comfort, hot_water]
+        text:
+          base: "Lovely soft pillows and a great mattress, and plenty of hot water. Great value."
+      - review_id: r3_14
+        author: "James"
+        country: "United Kingdom"
+        traveller_type: "Solo"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-23"
+        helpful_votes: 2
+        rating: 5
+        title: "Slept so well"
+        facts_covered: [bed_comfort, hot_water]
+        text:
+          base: "The bed was so comfortable and I slept right through. Hot water was instant in the morning too."
+          emoji: "The bed was so comfortable and I slept right through 🛏️💤. Hot water was instant in the morning too 🚿."
+          long: "I was in Bengaluru for one night on a work trip and was very tired when I checked in. The bed was so comfortable, and I slept right through the night. The hot water was instant in the morning too, so getting ready was quick."
+          casual: "The bed was sooo comfortable, I slept right through. Hot water was instant in the morning also."
+      - review_id: r3_15
+        author: "Hannah"
+        country: "Canada"
+        traveller_type: "Business"
+        stayed: "Jun 2026"
+        posted_date: "2026-07-17"
+        helpful_votes: 10
+        rating: 4
+        title: "Hot shower, no internet"
+        facts_covered: [wifi, hot_water]
+        text:
+          base: "Plenty of hot water at any hour. The Wi-Fi barely worked and my video call kept freezing, a real problem, but otherwise a good stay."
+      - review_id: r3_16
+        author: "Emma"
+        country: "United Kingdom"
+        traveller_type: "Business"
+        stayed: "May 2026"
+        posted_date: "2026-06-03"
+        helpful_votes: 6
+        rating: 1
+        title: "Impossible to work"
+        facts_covered: [wifi]
+        text:
+          base: "Terrible internet, pages would not even load. Do not book this if you need to work."
+      - review_id: r3_17
+        author: "Divya"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-31"
+        helpful_votes: 12
+        rating: 4
+        title: "Restful"
+        facts_covered: [bed_comfort]
+        text:
+          base: "I slept well on a good, firm mattress. Woke up fresh for my meetings."
+          emoji: "I slept well on a good, firm mattress 🛏️. Woke up fresh for my meetings 💼."
+          long: "I had a full day of meetings planned and needed a good night's sleep. I slept well on a good, firm mattress. I woke up fresh for my meetings the next morning."
+          casual: "Slept well on a good, firm mattress. Woke up fresh for my meetings."
+      - review_id: r3_18
+        author: "Sneha"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Feb 2026"
+        posted_date: "2026-03-05"
+        helpful_votes: 3
+        rating: 3
+        title: "Comfy bed, Wi-Fi a joke"
+        facts_covered: [wifi, bed_comfort]
+        text:
+          base: "The bed was very comfortable and I slept well. But the Wi-Fi dropped every few minutes and I could not finish a single call."
+          emoji: "The bed was very comfortable and I slept well 🛏️. But the Wi-Fi dropped every few minutes and I could not finish a single call 📶."
+          long: "I was in the city for one night with a couple of work calls planned for the evening after check-in. The bed was very comfortable, and I slept well that night. But the Wi-Fi dropped every few minutes, again and again, and I could not finish a single call that evening."
+          casual: "The bed was very comfy and I slept well. But the Wi-Fi dropped every few minutes, I couldn't finish even one single call."
+
+    review_sets:
+      base: [r3_01, r3_02, r3_03, r3_11, r3_12, r3_14, r3_17, r3_18]
+      positive: [r3_01, r3_02, r3_05, r3_07, r3_10, r3_12, r3_15, r3_17]
+      mixed: [r3_01, r3_02, r3_03, r3_11, r3_12, r3_14, r3_17, r3_18]
+      complaints: [r3_04, r3_06, r3_08, r3_09, r3_11, r3_13, r3_14, r3_16]
+
+    summaries:
+      base: "Guests consistently praise the comfortable bed and the instant hot water. Two guests report Wi-Fi that drops constantly and was too slow for calls or real work."
+      positive: "Guests describe a comfortable mattress, soft pillows and plentiful hot water. Two guests say the Wi-Fi kept dropping and was unusable for video calls."
+      mixed: "Guests consistently praise the comfortable bed and the instant hot water. Two guests report Wi-Fi that drops constantly and was too slow for calls or real work."
+      complaints: "Most guests rave about the very comfortable bed and the hot shower. Two guests strongly complain that the Wi-Fi did not work, making it impossible to work."
+
+  - room_id: r4
+    hotel_name: "Marigold Comforts"
+    hotel_stars: 3
+    room_name: "Standard Double Room"
+    location: "Whitefield, Bengaluru"
+    size_sqm: 16
+    bed: "1 Double bed"
+    max_guests: 2
+    view: "City view"
+    price_per_night: 3200
+    taxes_and_fees: 384
+    amenities: ["Free Wi-Fi", "Air conditioning", "Work desk", "TV", "Kettle", "Daily housekeeping"]
+    policies:
+      cancellation: "Free cancellation until 24 hours before check-in"
+      breakfast: "Breakfast available for INR 250"
+      check_in_out: "Check-in from 12 pm, check-out until 11 am"
+    guest_rating: 4.2
+    review_count: 1142
+
+    facts:
+      - attribute: bed_comfort
+        level: average
+        statement: "The mattress is acceptable but a little worn, and the pillows are flat."
+      - attribute: hot_water
+        level: poor
+        statement: "Hot water often does not work in the morning; guests regularly report cold showers."
+      - attribute: wifi
+        level: good
+        statement: "Fast, reliable Wi-Fi suitable for video calls at any hour."
+
+    review_pool:
+      - review_id: r4_01
+        author: "Priya"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Mar 2026"
+        posted_date: "2026-04-11"
+        helpful_votes: 0
+        rating: 5
+        title: "Best Wi-Fi"
+        facts_covered: [wifi]
+        text:
+          base: "Best Wi-Fi I have found in a budget hotel. Uploads were instant."
+      - review_id: r4_02
+        author: "Ananya"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Aug 2026"
+        posted_date: "2026-08-25"
+        helpful_votes: 7
+        rating: 1
+        title: "No hot water"
+        facts_covered: [hot_water]
+        text:
+          base: "No hot water at all in the morning, and reception just shrugged. Freezing shower before my meeting, unacceptable."
+      - review_id: r4_03
+        author: "Emma"
+        country: "United Kingdom"
+        traveller_type: "Business"
+        stayed: "Sep 2026"
+        posted_date: "2026-10-10"
+        helpful_votes: 1
+        rating: 4
+        title: "Quick Wi-Fi"
+        facts_covered: [wifi]
+        text:
+          base: "Wi-Fi was quick and stable for my evening calls. No complaints there."
+          emoji: "Wi-Fi was quick and stable for my evening calls 📶. No complaints there 💻."
+          long: "I had three calls lined up for the evening after I checked in. The Wi-Fi was quick, and it stayed stable for all of my evening calls. I had no complaints there."
+          casual: "Wi-Fi was quick and stable for my evening calls. No complaints there."
+      - review_id: r4_04
+        author: "Ritika"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Aug 2026"
+        posted_date: "2026-09-04"
+        helpful_votes: 3
+        rating: 4
+        title: "Stable Wi-Fi"
+        facts_covered: [wifi]
+        text:
+          base: "Stable Wi-Fi for calls at any hour. Worked perfectly."
+      - review_id: r4_05
+        author: "Rahul"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-28"
+        helpful_votes: 4
+        rating: 5
+        title: "Good connection"
+        facts_covered: [wifi, bed_comfort]
+        text:
+          base: "The Wi-Fi never dropped once, and the bed was comfortable enough for a night."
+      - review_id: r4_06
+        author: "Chloe"
+        country: "Australia"
+        traveller_type: "Business"
+        stayed: "Sep 2026"
+        posted_date: "2026-10-13"
+        helpful_votes: 12
+        rating: 5
+        title: "Excellent internet"
+        facts_covered: [wifi]
+        text:
+          base: "The Wi-Fi was excellent, the fastest I have had in a hotel this year. My video calls were crystal clear."
+          emoji: "The Wi-Fi was excellent, the fastest I have had in a hotel this year 📶. My video calls were crystal clear 💻."
+          long: "I work remotely a lot, and I always test the hotel internet first when I check in anywhere. The Wi-Fi was excellent, the fastest I have had in a hotel this year. My video calls were crystal clear all evening, with no freezing."
+          casual: "The Wi-Fi was excellent, fastest I've had in a hotel this year. My video calls were all crystal clear."
+      - review_id: r4_07
+        author: "Ishita"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Jun 2026"
+        posted_date: "2026-07-09"
+        helpful_votes: 13
+        rating: 4
+        title: "Bed was okay"
+        facts_covered: [bed_comfort]
+        text:
+          base: "The mattress was acceptable but a little worn, and the pillows were flat. Fine for one night."
+          emoji: "The mattress was acceptable but a little worn, and the pillows were flat 🛏️. Fine for one night 💤."
+          long: "I was only staying one night, so I was not expecting too much from the bed. The mattress was acceptable but a little worn, and the pillows were flat. For one night, it was fine."
+          casual: "The mattress was acceptable but a bit worn, and the pillows were flat. Fine for one night."
+      - review_id: r4_08
+        author: "Imran"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-17"
+        helpful_votes: 4
+        rating: 5
+        title: "Fast Wi-Fi"
+        facts_covered: [wifi, bed_comfort]
+        text:
+          base: "Super fast Wi-Fi for all my calls. The bed was decent too, nothing fancy but fine for one night."
+          emoji: "Super fast Wi-Fi for all my calls 📶. The bed was decent too, nothing fancy but fine for one night 🛏️."
+          long: "I was on a one-night work trip with a lot of calls to take in the evening. The Wi-Fi was super fast for all of my calls. The bed was decent too, nothing fancy, but it was fine for one night."
+          casual: "Super fast Wi-Fi for all my calls. Bed was decent also, nothing fancy but fine for one night."
+      - review_id: r4_09
+        author: "Sneha"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "May 2026"
+        posted_date: "2026-05-30"
+        helpful_votes: 7
+        rating: 3
+        title: "Okay bed, cold water"
+        facts_covered: [hot_water, bed_comfort]
+        text:
+          base: "The bed was acceptable, though the pillows were flat. The water stayed ice cold in the morning even after I called reception."
+          emoji: "The bed was acceptable, though the pillows were flat 🛏️. The water stayed ice cold in the morning even after I called reception 🚿📞."
+          long: "I checked in in the evening for a one-night work trip and went to bed early. The bed was acceptable, though the pillows were flat and thin. In the morning, the water stayed ice cold, even after I called reception about it, and it did not change."
+          casual: "The bed was acceptable, though pillows were flat. Water stayed ice cold in the morning, even after I called reception."
+      - review_id: r4_10
+        author: "Hannah"
+        country: "Canada"
+        traveller_type: "Business"
+        stayed: "May 2026"
+        posted_date: "2026-06-17"
+        helpful_votes: 4
+        rating: 4
+        title: "Reliable connection"
+        facts_covered: [wifi]
+        text:
+          base: "The internet was fast and never dropped while I worked. Good for remote work."
+          emoji: "The internet was fast and never dropped while I worked 📶. Good for remote work 💼."
+          long: "I spent most of my evening in the room finishing a presentation. The internet was fast, and it never dropped while I worked. It is good for remote work."
+          casual: "Internet was fast and never dropped while I worked. Good for remote work."
+      - review_id: r4_11
+        author: "Lukas"
+        country: "Germany"
+        traveller_type: "Business"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-29"
+        helpful_votes: 4
+        rating: 1
+        title: "Cold showers only"
+        facts_covered: [hot_water]
+        text:
+          base: "The geyser did not work and I had to bathe in cold water. Really poor, even for a cheap room."
+      - review_id: r4_12
+        author: "Pooja"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Jul 2026"
+        posted_date: "2026-08-03"
+        helpful_votes: 4
+        rating: 4
+        title: "Okay bed, no hot water"
+        facts_covered: [hot_water, bed_comfort]
+        text:
+          base: "The bed was okay, if a bit worn. Hot water did not work at all in the morning, a real issue, but the rest of the stay was fine."
+      - review_id: r4_13
+        author: "Daniel"
+        country: "Australia"
+        traveller_type: "Business"
+        stayed: "Sep 2026"
+        posted_date: "2026-10-17"
+        helpful_votes: 4
+        rating: 5
+        title: "Work-friendly"
+        facts_covered: [wifi, bed_comfort]
+        text:
+          base: "Brilliant Wi-Fi for my late calls, and the mattress was acceptable. Great value."
+      - review_id: r4_14
+        author: "Lakshmi"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Mar 2026"
+        posted_date: "2026-03-24"
+        helpful_votes: 8
+        rating: 4
+        title: "Great Wi-Fi, cold shower"
+        facts_covered: [hot_water, wifi]
+        text:
+          base: "The Wi-Fi was fast for my calls. There was no hot water in the morning though, and I had to take a cold shower, which was a real problem."
+      - review_id: r4_15
+        author: "Harsh"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Apr 2026"
+        posted_date: "2026-05-02"
+        helpful_votes: 2
+        rating: 4
+        title: "Good for work"
+        facts_covered: [wifi, bed_comfort]
+        text:
+          base: "Reliable Wi-Fi and a bed that was okay, if a bit worn. Fine for a work night."
+          emoji: "Reliable Wi-Fi and a bed that was okay, if a bit worn 📶. Fine for a work night 🛏️."
+          long: "I needed a cheap room for one night before a client visit the next morning. The Wi-Fi was reliable, and the bed was okay, if a bit worn in places. It was fine for a work night."
+          casual: "Reliable Wi-Fi, and the bed was okay, a bit worn though. Fine for a work night."
+      - review_id: r4_16
+        author: "Rohan"
+        country: "India"
+        traveller_type: "Solo"
+        stayed: "Jun 2026"
+        posted_date: "2026-06-27"
+        helpful_votes: 3
+        rating: 5
+        title: "Great for working"
+        facts_covered: [wifi, bed_comfort]
+        text:
+          base: "Fast, reliable internet and an okay bed. Perfect for a working night."
+      - review_id: r4_17
+        author: "Kavya"
+        country: "India"
+        traveller_type: "Business"
+        stayed: "Sep 2026"
+        posted_date: "2026-09-15"
+        helpful_votes: 7
+        rating: 3
+        title: "Good Wi-Fi, no hot water"
+        facts_covered: [hot_water, wifi]
+        text:
+          base: "The Wi-Fi was excellent and my calls were smooth. But there was no hot water in the morning and I had a cold shower before work."
+          emoji: "The Wi-Fi was excellent and my calls were smooth 📶. But there was no hot water in the morning and I had a cold shower before work 🚿."
+          long: "I was here for one night before an early office visit and had a few calls lined up in the evening. The Wi-Fi was excellent, and my calls were smooth from start to finish. But there was no hot water at all in the morning, and I had to take a cold shower before work."
+          casual: "The Wi-Fi was excellent and my calls were smooth. But there was no hot water in the morning, so I had a cold shower before work."
+      - review_id: r4_18
+        author: "Aditya"
+        country: "India"
+        traveller_type: "Couple"
+        stayed: "Oct 2026"
+        posted_date: "2026-10-19"
+        helpful_votes: 6
+        rating: 4
+        title: "Fine stay"
+        facts_covered: [wifi, bed_comfort]
+        text:
+          base: "Fast internet and a bed that was good enough. Fine for the price."
+
+    review_sets:
+      base: [r4_03, r4_06, r4_07, r4_08, r4_09, r4_10, r4_15, r4_17]
+      positive: [r4_03, r4_04, r4_07, r4_10, r4_12, r4_14, r4_15, r4_18]
+      mixed: [r4_03, r4_06, r4_07, r4_08, r4_09, r4_10, r4_15, r4_17]
+      complaints: [r4_01, r4_02, r4_05, r4_06, r4_08, r4_11, r4_13, r4_16]
+
+    summaries:
+      base: "Guests consistently praise the fast, reliable Wi-Fi and describe the bed as acceptable, with flat pillows. Two guests report that there was no hot water in the morning, forcing a cold shower."
+      positive: "Guests describe stable Wi-Fi that handles calls well and a bed that is good enough, if a little worn. Two guests say the hot water did not work in the morning."
+      mixed: "Guests consistently praise the fast, reliable Wi-Fi and describe the bed as acceptable, with flat pillows. Two guests report that there was no hot water in the morning, forcing a cold shower."
+      complaints: "Most guests rave about the excellent Wi-Fi and several call the bed acceptable. Two guests strongly complain that there was no hot water in the morning."

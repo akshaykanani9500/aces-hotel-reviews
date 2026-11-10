@@ -52,10 +52,27 @@ def review_text(review: dict[str, Any], style: str) -> str:
     )
 
 
+LEVEL_WORDS = {"good": "Good", "average": "Average", "poor": "Poor"}
+
+
+def fact_lines(room: dict[str, Any], facts_level: str) -> list[str]:
+    """Facts-only check pages: the hidden facts shown plainly, e.g. 'Cleanliness: Good'."""
+    out = []
+    for f in room["facts"]:
+        lvl = {"all_good": "good", "all_poor": "poor"}.get(facts_level, f["level"])
+        out.append(f"{f['attribute'].replace('_', ' ').capitalize()}: {LEVEL_WORDS[lvl]}")
+    return out
+
+
 def room_view(sc: Scenario, room: dict[str, Any], levels: dict[str, str], seed: int,
-              show_category_scores: bool = False, shell: dict[str, Any] | None = None) -> dict[str, Any]:
-    """`room` supplies facts/reviews/summaries; `shell` (default: the same room) supplies what the page shows."""
+              show_category_scores: bool = False, shell: dict[str, Any] | None = None,
+              identical_rooms: bool = False) -> dict[str, Any]:
+    """`room` supplies facts/reviews/summaries; `shell` (default: the same room) supplies what the page shows.
+    identical_rooms: every visible field comes from the scenario's first room (the template), only the
+    hotel name comes from the shell, so the rooms differ ONLY in their reviews."""
     shell = shell or room
+    if identical_rooms:
+        shell = {**sc.rooms[0], "hotel_name": shell["hotel_name"], "room_id": shell["room_id"]}
     rng = random.Random(stable_seed(seed, room["room_id"], "order"))
     set_name = levels["review_set"]
     if set_name not in room["review_sets"]:
@@ -71,6 +88,8 @@ def room_view(sc: Scenario, room: dict[str, Any], levels: dict[str, str], seed: 
         view["category_scores"] = room["category_scores"]
 
     fmt = levels["format"]
+    if fmt == "facts_only":
+        view["verified_facts"] = fact_lines(room, levels.get("facts", "real"))
     if fmt in ("full", "both"):
         view["reviews"] = [
             {**{k: r[k] for k in VISIBLE_REVIEW_FIELDS if k in r},
@@ -94,7 +113,8 @@ def build_view(sc: Scenario, trial: dict[str, Any], show_category_scores: bool =
     shells = trial.get("shell_map") or {}
     for pos, rid in enumerate(trial["room_order"], start=1):
         shell = sc.room(shells[rid]) if rid in shells else None
-        v = room_view(sc, sc.room(rid), trial["room_levels"][rid], seed, show_category_scores, shell)
+        v = room_view(sc, sc.room(rid), trial["room_levels"][rid], seed, show_category_scores, shell,
+                      identical_rooms=bool(trial.get("identical_rooms")))
         v["option_number"] = pos
         rooms.append(v)
     return {
@@ -108,7 +128,8 @@ def build_view(sc: Scenario, trial: dict[str, Any], show_category_scores: bool =
     }
 
 
-def preview_trial(sc: Scenario, levels: dict[str, str], seed: int = 0, shuffle: bool = False) -> dict[str, Any]:
+def preview_trial(sc: Scenario, levels: dict[str, str], seed: int = 0, shuffle: bool = False,
+                  identical_rooms: bool = False) -> dict[str, Any]:
     """A one-off trial for looking at pages in the browser (same levels for every room)."""
     ids = [r["room_id"] for r in sc.rooms]
     if shuffle:
@@ -121,4 +142,5 @@ def preview_trial(sc: Scenario, levels: dict[str, str], seed: int = 0, shuffle: 
         "block": "preview",
         "cell": "preview",
         "scenario_id": sc.id,
+        "identical_rooms": identical_rooms,
     }

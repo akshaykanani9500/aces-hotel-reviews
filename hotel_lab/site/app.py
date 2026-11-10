@@ -59,7 +59,40 @@ def create_app(experiment: Optional[str] = None, show_category_scores: bool = Fa
     templates = Jinja2Templates(directory=str(SITE_DIR / "templates"))
     templates.env.globals["money"] = money
 
-    scenarios = {s.id: s for s in load_scenarios()}
+    _sc_cache: dict[str, Any] = {"key": None, "data": {}}
+
+    def _scenarios() -> dict[str, Any]:
+        """Reload scenarios when the synced Google Sheet snapshot changes (no server restart needed)."""
+        from hotel_lab.sheetdb import CURRENT
+        key = CURRENT.stat().st_mtime if CURRENT.exists() else "yaml"
+        if _sc_cache["key"] != key:
+            _sc_cache["data"] = {s.id: s for s in load_scenarios()}
+            _sc_cache["key"] = key
+        return _sc_cache["data"]
+
+    class _ScenarioProxy:
+        def get(self, k, default=None):
+            return _scenarios().get(k, default)
+
+        def values(self):
+            return _scenarios().values()
+
+    scenarios = _ScenarioProxy()
+    _plans: dict[str, tuple[float, dict[str, Any]]] = {}
+
+    def _trial_in(exp: str, trial_id: str) -> dict[str, Any]:
+        from hotel_lab.design import plan_path
+        p = plan_path(exp)
+        if not p.exists():
+            raise HTTPException(404, f"No plan for experiment {exp}")
+        m = p.stat().st_mtime
+        if exp not in _plans or _plans[exp][0] != m:
+            _plans[exp] = (m, {t["trial_id"]: t for t in load_plan(exp)})
+        t = _plans[exp][1].get(trial_id)
+        if t is None:
+            raise HTTPException(404, f"Unknown trial {trial_id} in {exp}")
+        return t
+
     trials: dict[str, dict[str, Any]] = {}
     if experiment:
         try:
@@ -84,6 +117,27 @@ def create_app(experiment: Optional[str] = None, show_category_scores: bool = Fa
         return templates.TemplateResponse(request, "home.html", {
             "view": None, "scenarios": list(scenarios.values()), "order_levels": sorted(ORDER_LEVELS),
             "experiment": experiment, "trials": first, "n_trials": len(trials)})
+
+    # ---- any experiment by name (used by the Studio previews) ----
+    @app.get("/e/{exp}/trial/{trial_id}", response_class=HTMLResponse)
+    def exp_results(request: Request, exp: str, trial_id: str):
+        view = _view(_trial_in(exp, trial_id))
+        return templates.TemplateResponse(request, "results.html", {
+            "view": view, "room_url": lambda r: f"/e/{exp}/trial/{trial_id}/room/{r['room_id']}"})
+
+    @app.get("/e/{exp}/trial/{trial_id}/room/{room_id}", response_class=HTMLResponse)
+    def exp_room(request: Request, exp: str, trial_id: str, room_id: str):
+        view = _view(_trial_in(exp, trial_id))
+        room = next((r for r in view["rooms"] if r["room_id"] == room_id), None)
+        if room is None:
+            raise HTTPException(404, "Unknown room")
+        return templates.TemplateResponse(request, "room.html", {"view": view, "r": room,
+                                                                 "back_url": f"/e/{exp}/trial/{trial_id}"})
+
+    @app.get("/e/{exp}/api/trial/{trial_id}")
+    def exp_json(exp: str, trial_id: str):
+        import json
+        return JSONResponse(json.loads(listings_json(_view(_trial_in(exp, trial_id)))))
 
     # ---- experiment trials (what the agent sees) ----
     @app.get("/trial/{trial_id}", response_class=HTMLResponse)
