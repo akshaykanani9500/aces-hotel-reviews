@@ -596,7 +596,10 @@ async function poll(){ window._polling = true; let j; try { j = await api("/api/
 /* ---------------- results ---------------- */
 async function analyze(jump){ toast("Analysing all results…");
   try { const r = await api("/api/analyze", {method:"POST"}); V = r.rows; $("reswhen").textContent = "Last analysed just now";
-    toast(r.pushed === null ? "Verdicts updated (saved locally; no Sheet linked)." : `Verdicts updated and written to the Sheet (${r.pushed}).`); sheetNote(r.models_tab);
+    if (r.pushed === null) toast("Verdicts updated (saved locally; no Sheet linked).");
+    else if (String(r.pushed).startsWith("failed")) toast("Verdicts updated and saved locally, but NOT sent to the Sheet: " + String(r.pushed).replace(/^failed:\s*/, "") + ". Check the internet and the Sheet link, then press Analyse again.", true);
+    else toast(`Verdicts updated and written to the Sheet (${r.pushed} rows).`);
+    sheetNote(r.models_tab);
     renderList(); renderResults(); if (jump) showTab("results") } catch(e) { toast(e.message, true) } }
 function resFilter(f){ RESF = f; document.querySelectorAll(".seg button[data-r]").forEach(b => b.classList.toggle("on", b.dataset.r === f)); renderResults() }
 function vchip(v){ const t = v || "–"; const map = [["Effect","effect","v_effect"],["No meaningful","null","v_null"],["Inconclusive","inc","v_inc"],["Real but","negl","v_negl"],["Pilot","pilot","v_pilot"],["PASS","pass","v_pass"],["FAIL","fail","v_fail"]];
@@ -632,7 +635,8 @@ async function saveSource(){ msg("srcmsg", "Testing the link…");
   catch(e) { msg("srcmsg", e.message, "err") } }
 async function doSync(){ openData(); msg("srcmsg", "Syncing…");
   try { const r = await api("/api/sync", {method:"POST"});
-    if (r.ok) { const mt = r.models_tab || {}; msg("srcmsg", `Synced: snapshot ${r.sha}, ${r.scenarios.length} scenarios. ` + (mt.ok ? `Models tab updated (${mt.written} models). ` : mt.error ? `Models tab NOT updated: ${mt.error} ` : "") + "You can close this window.", mt.ok || !mt.error ? "ok" : "err"); toast("Sheet synced.") }
+    if (r.ok) { const mt = r.models_tab || {}; msg("srcmsg", `Synced: snapshot ${r.sha}, ${r.scenarios.length} scenarios. ` + (mt.ok ? `Models tab updated (${mt.written} models). ` : "") + "You can close this window.", "ok");
+      if (mt.error && !mt.ok) $("srcmsg").insertAdjacentHTML("beforeend", `<div class="msg info" style="background:var(--amber-soft);color:var(--amber)">Models tab not updated: ${esc(mt.error)}</div>`); toast("Sheet synced.") }
     else msg("srcmsg", "The Sheet has problems, so the old data is still used. Fix these rows: " + (r.errors||[]).slice(0,6).join(" | "), "err");
     load(CUR) } catch(e) { msg("srcmsg", e.message, "err") } }
 async function uploadXlsx(){ const f = $("xlsx").files[0]; if (!f) return; const fd = new FormData(); fd.append("file", f); msg("srcmsg", "Reading the file…");

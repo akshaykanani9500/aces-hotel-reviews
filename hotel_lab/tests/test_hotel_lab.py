@@ -294,7 +294,9 @@ def test_studio_models_are_the_four_and_duplicates_are_refused():
 def test_models_tab_rows_and_push(monkeypatch):
     from hotel_lab import sheetdb
     rows = sheetdb.model_rows()
-    assert [r["name"] for r in rows if r["kind"] == "real model"] and all(set(r) == set(sheetdb.MODEL_COLUMNS) for r in rows)
+    assert [r["name"] for r in rows if r["kind"] == "real model"]
+    tabs = {"README": [], "Scenarios": [{"a": 1}]}
+    assert sheetdb.WRITE_TABS and "README" not in sheetdb.WRITE_TABS and all(set(r) == set(sheetdb.MODEL_COLUMNS) for r in rows)
     assert not any("key" in str(v).lower() and k != "api_key_env" for r in rows for k, v in r.items())
     sent = {}
 
@@ -321,3 +323,11 @@ def test_models_tab_not_in_data_fingerprint(tmp_path, monkeypatch, scenarios):
     a = sheetdb.save_snapshot({**tabs, "Models": []}, "t")["sha"]
     b = sheetdb.save_snapshot({**tabs, "Models": [{"name": "x"}]}, "t")["sha"]
     assert a == b
+
+
+def test_xlsx_and_sheet_routes_share_fingerprint(tmp_path, monkeypatch, scenarios):
+    from hotel_lab import sheetdb
+    monkeypatch.setattr(sheetdb, "DB_DIR", tmp_path)
+    monkeypatch.setattr(sheetdb, "CURRENT", tmp_path / "current.json")
+    tabs = sheetdb.scenarios_to_tabs(scenarios)
+    assert sheetdb.save_snapshot(tabs, "sheet")["sha"] == sheetdb.save_snapshot({**tabs, "README": []}, "xlsx")["sha"]

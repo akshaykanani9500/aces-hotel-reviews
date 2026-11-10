@@ -154,12 +154,17 @@ def _run_job(job: Job, per_cell: Optional[int], interface: str, reasoning: str) 
         if pusher.last_error:
             job.say(f"Some rows could not be sent to the Sheet ({pusher.last_error}); they wait in the outbox.")
         job.status = "stopped" if job.stop else "finished"
-        job.say("Done. Press 'Analyse and show results' to update the verdicts.")
+        job.say("Stopped. Press Run again later to continue where it stopped; finished trials are skipped."
+                if job.stop else "Done. Press 'Analyse and show results' to update the verdicts.")
+    except ValueError as e:              # expected problems (e.g. data changed): a clear message, no traceback
+        job.status = "error"
+        job.last_error = str(e)
+        job.say(job.last_error)
     except Exception as e:
         job.status = "error"
         job.last_error = f"{type(e).__name__}: {e}"
         job.say(job.last_error)
-        job.say(traceback.format_exc()[-800:])
+        print(traceback.format_exc())    # details go to the terminal, not the Studio log
     finally:
         job.finished = time.time()
         db = sheetdb.get_db()

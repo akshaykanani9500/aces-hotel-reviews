@@ -409,7 +409,14 @@ def model_rows() -> list[dict[str, Any]]:
                     "max_tokens": "" if test else c.max_tokens,
                     "num_ctx": c.num_ctx if c.provider == "ollama" else "",
                     "supports_vision": c.supports_vision, "api_key_env": c.api_key_env or "", "updated_at": now})
-    out.sort(key=lambda r: (r["kind"] != "real model", r["name"]))
+    seen: dict[tuple, str] = {}
+    for r in sorted(out, key=lambda r: (r["name"].startswith("local-"), r["name"])):
+        key = (r["provider"], str(r["base_url"]).rstrip("/").lower(), str(r["model"]).lower(), r["temperature"])
+        if key in seen:
+            r["kind"] += f" (repeat of {seen[key]})"
+        else:
+            seen[key] = r["name"]
+    out.sort(key=lambda r: (not r["kind"].startswith("real model"), r["name"]))
     return out
 
 
@@ -629,7 +636,8 @@ def save_snapshot(tabs: dict[str, list[dict[str, Any]]], source: str) -> dict[st
                           summary_sets=["base", "positive", "mixed", "complaints"])
     # Models is a record the Studio writes itself; it never changes what the agent sees, so it is not
     # part of the data fingerprint (otherwise adding a model would look like changed reviews).
-    content = {k: v for k, v in tabs.items() if k not in WRITE_TABS}
+    # README is fixed help text (the xlsx route keeps it, the Sheet route drops it): never part of the data.
+    content = {k: v for k, v in tabs.items() if k not in WRITE_TABS and k != "README"}
     sha = hashlib.sha256(json.dumps(content, sort_keys=True, default=str).encode()).hexdigest()[:16]
     DB_DIR.mkdir(parents=True, exist_ok=True)
     snap = {"sha": sha, "source": source, "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
