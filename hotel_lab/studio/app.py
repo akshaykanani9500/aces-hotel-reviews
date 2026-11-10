@@ -464,6 +464,33 @@ def create_studio(site_port: Optional[int] = None) -> FastAPI:
     def job():
         return JOB["current"].as_dict() if JOB["current"] else {}
 
+    @app.get("/api/plan_info")
+    def plan_info(hypothesis_id: str):
+        """Size of the full plan for a hypothesis, without saving anything."""
+        from hotel_lab.design import build_plan
+        st = study.load_study()
+        h = hyp(hypothesis_id, st)
+        cfg = study.block_config(h["block"], st)
+        trials = build_plan(cfg, st["scenarios"])
+        main = [t for t in trials if not t.get("retest")]
+        cells = sorted({t["cell"] for t in main})
+        return {"block": h["block"], "cells": cells, "per_cell": len(main) // max(len(cells), 1),
+                "trials": len(trials), "retest_copies": len(trials) - len(main),
+                "scenarios": len(st["scenarios"]), "shared_with": [x["hypothesis_id"] for x in st["hypotheses"]
+                                                                  if x.get("block") == h["block"] and x["hypothesis_id"] != hypothesis_id]}
+
+    @app.get("/api/verdicts")
+    def last_verdicts():
+        """The verdict table from the last 'Analyse', if any."""
+        import pandas as pd
+        st = study.load_study()
+        p = RUNS_DIR / f"{st['settings'].get('experiment_name', 'study_v1')}__verdicts" / "verdicts.csv"
+        if not p.exists():
+            return {"rows": [], "csv": None}
+        df = pd.read_csv(p, keep_default_na=False, na_values=[""])
+        rows = [{k: (None if isinstance(v, float) and v != v else v) for k, v in r.items()} for r in df.to_dict("records")]
+        return {"rows": rows, "csv": str(p), "when": time.strftime("%Y-%m-%d %H:%M", time.localtime(p.stat().st_mtime))}
+
     @app.post("/api/analyze")
     def analyze():
         res = study.analyze()

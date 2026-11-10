@@ -1,12 +1,20 @@
 # Hotel Lab Studio: step-by-step guide
 
-The Studio is a local website that runs the whole study:
+The Studio is a local website that runs the whole study. The Google Sheet is its database: you edit reviews,
+hypotheses and settings there.
 
-- **Database:** the Google Sheet. You edit reviews, hypotheses and settings there.
-- **Left panel:** pick a hypothesis (H1–H4, sub-hypotheses, checks). It shows H0/Ha, what changes and what is held constant.
-- **Centre panel:** the hotel page exactly as the agent sees it. **Randomise** shows another real trial.
-- **Right panel:** the AI models (local Ollama, OpenRouter, Groq, Hugging Face, OpenAI, Gemini, Anthropic, or a test agent).
-- **Bottom panel:** run, watch progress, **Analyse all** → one verdict per hypothesis. Every trial is also written to the Sheet.
+**Layout.** Hover over (or tab to) any **?** or button to see what it means.
+
+- **Top bar:**
+  - The left pill shows where the data comes from: your Google Sheet, with the snapshot code, or the built-in sample files. Click it to connect the Sheet.
+  - The right pill shows the current run's progress. Click it to open the Run tab.
+- **Sidebar:** every hypothesis, grouped as main, secondary, checks and gate. Each one shows its status: not run, N trials, Pilot, or its verdict.
+- **Tabs, in the order you use them:**
+  1. **Plan:** H0 and Ha side by side, what changes, what is held constant, how big the experiment is, and the human benchmark.
+  2. **What the agent sees:** the hotel page exactly as the agent sees it. *Show another trial* gives a new random trial. *Behind the scenes* shows the hidden facts, the best room and the focal room. *Exact prompt* shows the text sent to the model.
+  3. **Models:** add a model (Ollama, OpenRouter, Groq, Hugging Face, OpenAI, Gemini, Anthropic, or a test agent), click *Test*, and tick the models you want to use.
+  4. **Run:** choose Pilot or Full, the interface and the reasoning level, then *Run*. Progress and the log appear here and in the top bar.
+  5. **Results:** *Analyse all results* gives one verdict per hypothesis and model, each with a plain-English sentence. They are also written to the Sheet.
 
 ---
 

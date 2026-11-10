@@ -4,291 +4,603 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hotel Lab Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#17212b;--muted:#5b6875;--line:#dbe2e8;--bg:#f3f6f9;--card:#fff;--brand:#0b5c8f;--brand2:#084669;
---good:#1f7a4d;--bad:#b3261e;--warn:#9a6700;--chip:#eaf1f6}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:14px}
-header{background:var(--brand);color:#fff;padding:10px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-header h1{font-size:18px;margin:0;font-weight:700}header .src{background:rgba(255,255,255,.15);border-radius:6px;padding:4px 10px;font-size:13px}
-header .sp{flex:1}
-button{font:inherit;border:1px solid var(--line);background:#fff;border-radius:6px;padding:6px 11px;cursor:pointer}
-button.primary{background:var(--brand);color:#fff;border-color:var(--brand)}button.primary:hover{background:var(--brand2)}
-button.danger{color:var(--bad)}button:disabled{opacity:.5;cursor:default}
-header button{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.3)}
-.grid{display:grid;grid-template-columns:340px 1fr 340px;gap:14px;padding:14px 14px 0;align-items:start}
-.grid>div{max-height:calc(100vh - 250px);overflow:auto;padding-right:2px}
-.runbar{position:sticky;bottom:0;z-index:20;margin:0 14px;box-shadow:0 -6px 18px rgba(0,0,0,.08)}
-.runbar .card{margin-bottom:0;padding:10px 14px}.runbar h2{display:none}
-.runbar label{margin:2px 0}.runbar .log{max-height:70px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px}
-.card h2{font-size:15px;margin:0 0 10px}.card h3{font-size:13px;margin:12px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
-select,input,textarea{font:inherit;width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:#fff}
-label{display:block;font-size:12px;color:var(--muted);margin:8px 0 3px}
-.row{display:flex;gap:8px;align-items:center}.row>*{flex:1}
-.muted{color:var(--muted)}.small{font-size:12px}
-.hbox{background:#f7fafc;border:1px solid var(--line);border-radius:8px;padding:10px;margin-top:8px}
-.hbox p{margin:4px 0}.tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:10px;background:var(--chip)}
-.tag.confirmatory{background:#dbeefe}.tag.secondary{background:#efe7fb}.tag.check{background:#e5f6ec}.tag.gate{background:#fff1d6}
-ul.tight{margin:4px 0;padding-left:18px}ul.tight li{margin:2px 0}
-.tabs{display:flex;gap:4px;margin-bottom:8px}.tabs button{border-radius:6px 6px 0 0}.tabs button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
-iframe{width:100%;height:calc(100vh - 430px);min-height:320px;border:1px solid var(--line);border-radius:8px;background:#fff}
-pre{white-space:pre-wrap;word-break:break-word;background:#0f1720;color:#e6edf3;border-radius:8px;padding:12px;max-height:calc(100vh - 430px);overflow:auto;font-size:12px}
-table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
-th{background:#f7fafc;font-size:12px;color:var(--muted)}
-.model{border:1px solid var(--line);border-radius:8px;padding:8px;margin-bottom:6px;display:flex;gap:8px;align-items:flex-start}
-.model input[type=checkbox]{width:auto;margin-top:3px}.model .nm{font-weight:600}.ok{color:var(--good)}.no{color:var(--bad)}
-.bar{height:10px;background:var(--chip);border-radius:6px;overflow:hidden}.bar div{height:100%;background:var(--brand);width:0}
-.log{font-family:ui-monospace,Consolas,monospace;font-size:12px;background:#f7fafc;border:1px solid var(--line);border-radius:6px;padding:8px;max-height:160px;overflow:auto;white-space:pre-wrap}
-.v-Effect{color:var(--bad);font-weight:700}.v-Inconclusive{color:var(--warn);font-weight:700}.v-No.meaningful.effect,.v-PASS{color:var(--good);font-weight:700}
-.v-FAIL{color:var(--bad);font-weight:700}.v-Real{color:var(--warn);font-weight:700}.v-No{color:var(--good);font-weight:700}
-.v-Pilot,.v-Incomplete,.v-Too,.v-Not{color:var(--muted);font-weight:700}
-.bottom{padding:0 14px 30px}.flash{padding:8px 10px;border-radius:6px;margin-top:8px;font-size:13px}
-.flash.err{background:#fde8e7;color:var(--bad)}.flash.okk{background:#e5f6ec;color:var(--good)}
-details summary{cursor:pointer;font-weight:600}
-.modal{position:fixed;inset:0;background:rgba(10,20,30,.45);display:flex;align-items:flex-start;justify-content:center;padding-top:70px;z-index:50}
-.modal .card{width:620px;max-width:94vw;box-shadow:0 12px 40px rgba(0,0,0,.25)}
-@media(max-width:1200px){.grid{grid-template-columns:1fr}.grid>div{max-height:none}}
+:root{
+  --porcelain:#F4F6F7; --paper:#FFFFFF; --ink:#17232D; --slate:#5D6A74; --line:#DCE2E6; --soft:#EEF2F4;
+  --brass:#A9782A; --brass-soft:#F6EEDF; --teal:#1E7566; --teal-soft:#E3F2EE; --brick:#A63A32; --brick-soft:#F8E6E4;
+  --amber:#8A6100; --amber-soft:#FBF1D9; --focus:#2F6FB0;
+  --ui:"Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --serif:"Newsreader", Georgia, "Times New Roman", serif;
+  --hdr:56px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:var(--ui);font-size:14.5px;line-height:1.45;color:var(--ink);background:var(--porcelain)}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------- header ---------- */
+header{height:var(--hdr);display:flex;align-items:center;gap:12px;padding:0 18px;background:var(--ink);color:#fff;position:sticky;top:0;z-index:30}
+.brand{font-weight:700;font-size:17px;letter-spacing:.2px;display:flex;align-items:center;gap:10px}
+.brand .key{width:22px;height:22px;border-radius:50%;border:3px solid var(--brass);position:relative}
+.brand .key:after{content:"";position:absolute;left:16px;top:6px;width:12px;height:4px;background:var(--brass);border-radius:2px}
+.sp{flex:1}
+.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.06);color:#fff;border-radius:999px;padding:6px 12px;cursor:pointer;font-size:13px;white-space:nowrap}
+.pill:hover{background:rgba(255,255,255,.12)}
+.dot{width:8px;height:8px;border-radius:50%;background:#9aa6ae;flex:0 0 auto}
+.dot.ok{background:#4cc3a8}.dot.warn{background:#e6b54a}.dot.run{background:#e6b54a;animation:pulse 1.2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.minibar{width:70px;height:5px;border-radius:3px;background:rgba(255,255,255,.18);overflow:hidden}.minibar i{display:block;height:100%;background:var(--brass);width:0}
+
+/* ---------- shell ---------- */
+.shell{display:grid;grid-template-columns:300px minmax(0,1fr);height:calc(100vh - var(--hdr))}
+aside{background:var(--paper);border-right:1px solid var(--line);overflow:auto;padding:14px 10px 30px}
+main{overflow:auto;padding:0 0 40px;min-width:0}
+.group{margin:14px 6px 6px;font-size:12px;font-weight:600;color:var(--slate);display:flex;align-items:center;gap:6px}
+.hitem{display:block;width:100%;text-align:left;background:none;border:0;border-left:3px solid transparent;border-radius:6px;padding:8px 10px;margin:2px 0;cursor:pointer}
+.hitem:hover{background:var(--soft)}
+.hitem.on{background:var(--brass-soft);border-left-color:var(--brass)}
+.hitem .top{display:flex;align-items:center;gap:8px}
+.hitem .id{font-weight:700;min-width:34px}
+.hitem .q{font-size:12.5px;color:var(--slate);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:2px}
+.status{margin-left:auto;font-size:11px;font-weight:600;padding:2px 7px;border-radius:999px;background:var(--soft);color:var(--slate);white-space:nowrap}
+.status.good{background:var(--teal-soft);color:var(--teal)}.status.bad{background:var(--brick-soft);color:var(--brick)}.status.mid{background:var(--amber-soft);color:var(--amber)}
+
+/* ---------- title + tabs ---------- */
+.titlebar{background:var(--paper);border-bottom:1px solid var(--line);padding:16px 26px 0;position:sticky;top:0;z-index:10}
+.tline{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.hid{font-size:22px;font-weight:700}
+.fam{font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--soft);color:var(--slate)}
+.fam.confirmatory{background:#E4ECF6;color:#2B4E78}.fam.secondary{background:#EEE8F6;color:#5B3F82}.fam.check{background:var(--teal-soft);color:var(--teal)}.fam.gate{background:var(--amber-soft);color:var(--amber)}
+.question{font-family:var(--serif);font-size:21px;line-height:1.35;margin:8px 0 12px;max-width:78ch}
+.tabs{display:flex;gap:2px;overflow-x:auto}
+.tab{background:none;border:0;border-bottom:3px solid transparent;padding:10px 14px;cursor:pointer;color:var(--slate);font-weight:600;white-space:nowrap}
+.tab:hover{color:var(--ink)}.tab.on{color:var(--ink);border-bottom-color:var(--brass)}
+.tab .n{display:inline-block;width:20px;height:20px;line-height:20px;text-align:center;border-radius:50%;background:var(--soft);font-size:11px;margin-right:6px}
+.tab.on .n{background:var(--brass);color:#fff}
+.pane{display:none;padding:20px 26px}.pane.on{display:block}
+
+/* ---------- blocks ---------- */
+.block{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-bottom:16px}
+.block h3{font-size:15px;margin:0 0 10px;display:flex;align-items:center;gap:6px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.ledger{display:grid;grid-template-columns:1fr 1fr;border-top:3px solid var(--brass);background:var(--paper);border-radius:0 0 10px 10px;border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:16px}
+.ledger>div{padding:16px 18px}.ledger>div+div{border-left:1px solid var(--line)}
+.ledger .lab{font-weight:700;font-size:13px;color:var(--slate);display:flex;gap:6px;align-items:center}
+.ledger .txt{font-family:var(--serif);font-size:18px;line-height:1.4;margin-top:6px}
+.pred{padding:10px 18px;border-top:1px solid var(--line);grid-column:1/-1;font-size:13.5px;color:var(--slate)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:3px 10px;font-size:13px}
+.chip.ctrl{background:var(--brass-soft);border-color:#E7D3AE}
+ul.plain{margin:0;padding-left:18px}ul.plain li{margin:3px 0}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px}.kv b{font-weight:600}
+.big{font-size:26px;font-weight:700}.muted{color:var(--slate)}.small{font-size:12.5px}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:8px 14px;cursor:pointer;font-weight:600}
+.btn:hover{border-color:#b9c3ca}
+.btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}.btn.primary:hover{background:#26394a}
+.btn.brass{background:var(--brass);border-color:var(--brass);color:#fff}
+.btn.danger{color:var(--brick)}.btn:disabled{opacity:.45;cursor:default}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.i{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;border:1px solid #b7c1c8;color:var(--slate);font-size:11px;font-weight:700;cursor:help;flex:0 0 auto;background:var(--paper)}
+label.f{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--slate);margin:10px 0 4px}
+input.t,select.t{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+
+/* ---------- preview ---------- */
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+.seg button{border:0;background:none;padding:7px 12px;cursor:pointer;font-weight:600;color:var(--slate)}
+.seg button.on{background:var(--ink);color:#fff}
+.frame{width:100%;height:calc(100vh - 330px);min-height:420px;border:1px solid var(--line);border-radius:10px;background:#fff}
+pre.prompt{white-space:pre-wrap;word-break:break-word;background:#13202a;color:#e7eef3;border-radius:10px;padding:16px;height:calc(100vh - 330px);min-height:420px;overflow:auto;font-size:12.5px;margin:0}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;font-size:13.5px}
+th{font-size:12.5px;color:var(--slate);font-weight:600;background:#FAFBFC;position:sticky;top:0}
+th .i{margin-left:4px}
+.tag{font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px}
+.tag.best{background:var(--teal-soft);color:var(--teal)}.tag.focal{background:var(--brass-soft);color:var(--brass)}
+
+/* ---------- models ---------- */
+.mrow{display:grid;grid-template-columns:28px minmax(0,1.3fr) minmax(0,1.4fr) minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line)}
+.mrow:last-child{border-bottom:0}
+.mrow .nm{font-weight:700}.ok{color:var(--teal)}.no{color:var(--brick)}
+.mres{grid-column:2/-1;font-size:12.5px}
+
+/* ---------- run ---------- */
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mode{border:1px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer;background:#fff}
+.mode.on{border-color:var(--brass);box-shadow:inset 0 0 0 1px var(--brass);background:var(--brass-soft)}
+.mode b{margin-right:8px}
+.bar{height:10px;border-radius:6px;background:var(--soft);overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--brass);transition:width .4s}
+.log{font-family:ui-monospace,Consolas,monospace;font-size:12px;background:#FAFBFC;border:1px solid var(--line);border-radius:8px;padding:10px;max-height:220px;overflow:auto;white-space:pre-wrap}
+.selmodels{display:flex;flex-wrap:wrap;gap:6px}
+
+/* ---------- results ---------- */
+.legend{display:flex;flex-wrap:wrap;gap:8px}
+.v{display:inline-block;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;cursor:help;white-space:nowrap}
+.v.effect{background:var(--brick-soft);color:var(--brick)}.v.null,.v.pass{background:var(--teal-soft);color:var(--teal)}
+.v.inc,.v.negl{background:var(--amber-soft);color:var(--amber)}.v.fail{background:var(--brick-soft);color:var(--brick)}
+.v.pilot,.v.none{background:var(--soft);color:var(--slate)}
+.sentence{font-size:13px;color:var(--slate);margin-top:4px;max-width:90ch}
+.warnline{color:var(--amber);font-size:12.5px}
+.empty{padding:30px;text-align:center;color:var(--slate)}
+
+/* ---------- dialog, toast, tooltip ---------- */
+.modal{position:fixed;inset:0;background:rgba(15,25,33,.5);display:none;align-items:flex-start;justify-content:center;padding:70px 16px;z-index:60;overflow:auto}
+.modal.on{display:flex}
+.dialog{background:var(--paper);border-radius:12px;width:640px;max-width:100%;padding:20px 22px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.dialog h2{margin:0;font-size:18px}
+.steps{margin:12px 0 6px;padding-left:20px}.steps li{margin:4px 0}
+.msg{padding:10px 12px;border-radius:8px;margin-top:12px;font-size:13.5px}
+.msg.err{background:var(--brick-soft);color:var(--brick)}.msg.ok{background:var(--teal-soft);color:var(--teal)}.msg.info{background:var(--soft)}
+#toast{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:8px;z-index:70;max-width:380px}
+.toast{background:var(--ink);color:#fff;border-radius:10px;padding:10px 14px;font-size:13.5px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.toast.err{background:var(--brick)}
+#tip{position:fixed;z-index:80;max-width:340px;background:#17232D;color:#F3F6F8;font-size:13px;line-height:1.45;padding:10px 12px;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.28);pointer-events:none;opacity:0;transition:opacity .12s}
+#tip.on{opacity:1}#tip b{color:#E8C98F}
+
+@media (max-width: 640px){
+  header{height:auto;flex-wrap:wrap;padding:8px 12px;gap:8px}.brand{width:100%}
+  .pill{max-width:100%;overflow:hidden;text-overflow:ellipsis}.minibar{display:none}
+  .shell{height:auto}.pane{padding:14px}.titlebar{padding:12px 14px 0}.question{font-size:18px}
+  .frame,pre.prompt{height:70vh}
+}
+@media (max-width: 980px){
+  .shell{grid-template-columns:1fr;height:auto}
+  aside{max-height:38vh;border-right:0;border-bottom:1px solid var(--line)}
+  main{overflow:visible}
+  .titlebar{position:static}
+  .ledger,.modes,.grid2{grid-template-columns:1fr}.ledger>div+div{border-left:0;border-top:1px solid var(--line)}
+  .mrow{grid-template-columns:28px 1fr auto}.mrow .hide-s{display:none}
+}
 </style>
 </head>
 <body>
 <header>
-  <h1>Hotel Lab Studio</h1>
-  <span class="src" id="src">loading…</span>
+  <div class="brand"><span class="key" aria-hidden="true"></span>Hotel Lab Studio</div>
   <span class="sp"></span>
-  <button onclick="openSource()">Data source</button>
-  <button onclick="doSync()">Sync from Sheet</button>
+  <button class="pill" id="datapill" onclick="openData()" data-tip="data"><span class="dot" id="datadot"></span><span id="datatext">Data: loading…</span></button>
+  <button class="pill" id="runpill" onclick="showTab('run')" data-tip="runpill"><span class="dot" id="rundot"></span><span id="runtext">No run yet</span><span class="minibar"><i id="minibar"></i></span></button>
 </header>
 
-<div class="grid">
-  <!-- LEFT: hypothesis -->
-  <div>
-    <div class="card">
-      <h2>1. What do you want to test?</h2>
-      <label>Hypothesis</label>
-      <select id="hyp" onchange="showHyp()"></select>
-      <div id="hypbox"></div>
-    </div>
-  </div>
+<div class="shell">
+  <aside aria-label="Hypotheses">
+    <div id="hlist"></div>
+  </aside>
 
-  <!-- CENTRE: what the agent sees -->
-  <div>
-    <div class="card">
-      <div class="row" style="flex-wrap:wrap">
-        <h2 style="flex:2;margin:0">2. What the agent sees</h2>
-        <select id="cell" style="flex:2" onchange="preview()"></select>
-        <button style="flex:1" onclick="preview(true)">🎲 Randomise</button>
+  <main>
+    <div class="titlebar">
+      <div class="tline"><span class="hid" id="t-id">–</span><span class="fam" id="t-fam" data-tip="family"></span><span class="muted small" id="t-block" data-tip="block"></span></div>
+      <div class="question" id="t-q"></div>
+      <nav class="tabs" role="tablist">
+        <button class="tab on" data-tab="plan" onclick="showTab('plan')" data-tip="tab_plan"><span class="n">1</span>Plan</button>
+        <button class="tab" data-tab="view" onclick="showTab('view')" data-tip="tab_view"><span class="n">2</span>What the agent sees</button>
+        <button class="tab" data-tab="models" onclick="showTab('models')" data-tip="tab_models"><span class="n">3</span>Models</button>
+        <button class="tab" data-tab="run" onclick="showTab('run')" data-tip="tab_run"><span class="n">4</span>Run</button>
+        <button class="tab" data-tab="results" onclick="showTab('results')" data-tip="tab_results"><span class="n">5</span>Results</button>
+      </nav>
+    </div>
+
+    <!-- 1. PLAN -->
+    <section class="pane on" id="p-plan">
+      <div id="ledger"></div>
+      <div class="cols">
+        <div class="block"><h3>What changes <span class="i" tabindex="0" data-tip="manipulated">?</span></h3><div id="changes"></div></div>
+        <div class="block"><h3>Held constant <span class="i" tabindex="0" data-tip="held">?</span></h3><ul class="plain" id="held"></ul></div>
+        <div class="block"><h3>Size of the full experiment <span class="i" tabindex="0" data-tip="plansize">?</span></h3><div id="plansize" class="muted">…</div></div>
+        <div class="block"><h3>Human benchmark <span class="i" tabindex="0" data-tip="benchmark">?</span></h3><div id="bench"></div></div>
       </div>
-      <p class="small muted" id="pinfo">Pick a hypothesis, then a cell. Each click of Randomise shows another real trial from the plan (scenario, positions, names, review order).</p>
-      <div class="tabs">
-        <button class="on" data-t="page" onclick="tab('page')">Hotel page</button>
-        <button data-t="behind" onclick="tab('behind')">Behind the scenes</button>
-        <button data-t="prompt" onclick="tab('prompt')">Exact prompt</button>
+      <div class="actions"><button class="btn primary" onclick="showTab('view')">See what the agent sees</button><button class="btn" onclick="showTab('run')">Set up the run</button></div>
+    </section>
+
+    <!-- 2. AGENT VIEW -->
+    <section class="pane" id="p-view">
+      <div class="toolbar">
+        <label class="f" style="margin:0">Condition <span class="i" tabindex="0" data-tip="cell">?</span></label>
+        <select class="t" id="cell" style="width:auto;min-width:240px" onchange="preview(false)"></select>
+        <button class="btn" onclick="preview(true)" data-tip="randomise">Show another trial</button>
+        <div class="seg" role="tablist">
+          <button class="on" data-v="page" onclick="viewMode('page')" data-tip="v_page">Hotel page</button>
+          <button data-v="behind" onclick="viewMode('behind')" data-tip="v_behind">Behind the scenes</button>
+          <button data-v="prompt" onclick="viewMode('prompt')" data-tip="v_prompt">Exact prompt</button>
+        </div>
+        <a id="openpage" target="_blank" class="small" data-tip="newtab">Open in new tab</a>
       </div>
-      <div id="t-page"><iframe id="frame" title="Hotel page the agent sees"></iframe></div>
-      <div id="t-behind" style="display:none"></div>
-      <div id="t-prompt" style="display:none"><pre id="prompt"></pre></div>
-    </div>
-  </div>
+      <p class="small muted" id="pinfo"></p>
+      <div id="v-page"><iframe class="frame" id="frame" title="Hotel page the agent sees"></iframe></div>
+      <div id="v-behind" style="display:none"></div>
+      <div id="v-prompt" style="display:none"><pre class="prompt" id="prompt"></pre></div>
+    </section>
 
-  <!-- RIGHT: models -->
-  <div>
-    <div class="card">
-      <h2>3. Which AI models?</h2>
-      <p class="small muted">Tick the models to run. Keys are kept in your local <code>.env</code> file, never in the Sheet.</p>
-      <div id="models"></div>
-      <details style="margin-top:10px"><summary>➕ Add a model</summary>
-        <label>Provider</label><select id="m_preset" onchange="presetChanged()"></select>
-        <label>Model name (as the provider calls it)</label><input id="m_model">
-        <label>Short name for this study</label><input id="m_name" placeholder="e.g. qwen7b">
-        <label>Base URL</label><input id="m_url">
-        <label>API key (leave empty for local models)</label><input id="m_key" type="password" autocomplete="off">
-        <div class="row"><div><label>Temperature</label><input id="m_temp" value="1.0"></div><div><label>Max tokens</label><input id="m_max" value="400"></div></div>
-        <div class="row"><div><label>Family</label><input id="m_fam" placeholder="qwen"></div><div><label>Size (B)</label><input id="m_size" placeholder="7"></div></div>
-        <label><input type="checkbox" id="m_vis" style="width:auto"> Vision model (can read screenshots)</label>
-        <button class="primary" style="margin-top:8px;width:100%" onclick="saveModel()">Save model</button>
-        <div id="mmsg"></div>
-      </details>
-    </div>
-  </div>
+    <!-- 3. MODELS -->
+    <section class="pane" id="p-models">
+      <div class="cols" style="grid-template-columns:minmax(0,1.6fr) minmax(300px,1fr)">
+        <div class="block" style="padding:0">
+          <div style="padding:14px 16px 4px"><h3>Your models <span class="i" tabindex="0" data-tip="models">?</span></h3>
+          <p class="small muted" style="margin:0 0 8px">Tick the models to use in the next run. Click Test to check a model answers correctly.</p></div>
+          <div id="models"></div>
+        </div>
+        <div class="block">
+          <h3>Add a model</h3>
+          <label class="f">Provider <span class="i" tabindex="0" data-tip="provider">?</span></label><select class="t" id="m_preset" onchange="presetChanged()"></select>
+          <label class="f">Model name <span class="i" tabindex="0" data-tip="modelname">?</span></label><input class="t" id="m_model">
+          <label class="f">Short name for this study <span class="i" tabindex="0" data-tip="shortname">?</span></label><input class="t" id="m_name" placeholder="e.g. qwen7b">
+          <label class="f">Server address <span class="i" tabindex="0" data-tip="baseurl">?</span></label><input class="t" id="m_url">
+          <label class="f">API key <span class="i" tabindex="0" data-tip="apikey">?</span></label><input class="t" id="m_key" type="password" autocomplete="off">
+          <div class="grid2">
+            <div><label class="f">Temperature <span class="i" tabindex="0" data-tip="temperature">?</span></label><input class="t" id="m_temp" value="1.0"></div>
+            <div><label class="f">Max reply length <span class="i" tabindex="0" data-tip="maxtokens">?</span></label><input class="t" id="m_max" value="400"></div>
+            <div><label class="f">Family <span class="i" tabindex="0" data-tip="family_m">?</span></label><input class="t" id="m_fam" placeholder="qwen"></div>
+            <div><label class="f">Size, billions <span class="i" tabindex="0" data-tip="size">?</span></label><input class="t" id="m_size" placeholder="7"></div>
+          </div>
+          <label class="f" style="font-weight:500"><input type="checkbox" id="m_vis"> Can read images (vision model) <span class="i" tabindex="0" data-tip="vision">?</span></label>
+          <div class="actions" style="margin-top:12px"><button class="btn primary" onclick="saveModel()">Save model</button></div>
+          <div id="mmsg"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. RUN -->
+    <section class="pane" id="p-run">
+      <div class="block">
+        <h3>Models in this run <span class="i" tabindex="0" data-tip="models">?</span> <a href="#" class="small" style="font-weight:500;margin-left:auto" onclick="showTab('models');return false">Change models</a></h3>
+        <div class="selmodels" id="selmodels"></div>
+        <h3 style="margin-top:16px">How much to run</h3>
+        <div class="modes">
+          <div class="mode on" id="mode-pilot" onclick="setMode('pilot')" tabindex="0" data-tip="pilot"><div class="tline" style="justify-content:space-between"><span><b>Pilot</b><span class="small muted">Check the setup. Not a conclusion.</span></span>
+            <span onclick="event.stopPropagation()" class="small">Trials per condition <input class="t" id="percell" value="20" style="width:70px;padding:4px 6px" oninput="estimate()" aria-label="Pilot trials per condition"></span></div></div>
+          <div class="mode" id="mode-full" onclick="setMode('full')" tabindex="0" data-tip="full"><b>Full plan</b><span class="small muted">All planned trials, after pre-registration.</span></div>
+        </div>
+        <div class="grid2" style="margin-top:6px">
+          <div><label class="f">Interface <span class="i" tabindex="0" data-tip="interface">?</span></label><select class="t" id="iface"><option value="text">Text / JSON (main)</option><option value="screenshot">Screenshots (vision models only)</option></select></div>
+          <div><label class="f">Reasoning <span class="i" tabindex="0" data-tip="reasoning">?</span></label><select class="t" id="reason"><option value="low">Low: answer directly</option><option value="high">High: think first, then answer</option></select></div>
+        </div>
+        <p class="small" id="estimate" style="margin:12px 0 0"></p>
+      </div>
+      <div class="block">
+        <div class="actions"><button class="btn brass" id="runbtn" onclick="startRun()">Run <span id="runlabel"></span></button><button class="btn danger" id="stopbtn" onclick="stopRun()" disabled data-tip="stop">Stop</button><button class="btn" onclick="analyze(true)">Analyse and show results</button></div>
+        <div class="bar" style="margin-top:14px"><i id="bar"></i></div>
+        <p class="small" id="jobline" style="margin:8px 0"></p>
+        <div class="log" id="log">No run yet.</div>
+      </div>
+    </section>
+
+    <!-- 5. RESULTS -->
+    <section class="pane" id="p-results">
+      <div class="block">
+        <div class="toolbar" style="margin:0">
+          <button class="btn primary" onclick="analyze(false)" data-tip="analyse">Analyse all results</button>
+          <button class="btn" onclick="pushPending()" data-tip="pending">Send pending rows to the Sheet</button>
+          <div class="seg"><button class="on" data-r="this" onclick="resFilter('this')">This hypothesis</button><button data-r="all" onclick="resFilter('all')">All hypotheses</button></div>
+          <span class="small muted" id="reswhen"></span>
+        </div>
+        <div class="legend" style="margin-top:12px">
+          <span class="v effect" data-tip="v_effect">Effect</span><span class="v null" data-tip="v_null">No meaningful effect</span>
+          <span class="v inc" data-tip="v_inc">Inconclusive</span><span class="v negl" data-tip="v_negl">Real but negligible</span>
+          <span class="v pilot" data-tip="v_pilot">Pilot</span><span class="v pass" data-tip="v_pass">PASS</span><span class="v fail" data-tip="v_fail">FAIL</span>
+        </div>
+      </div>
+      <div class="block" style="padding:0;overflow:auto" id="results"><div class="empty">No results yet. Run an experiment, then press Analyse all results.</div></div>
+    </section>
+  </main>
 </div>
 
-<!-- RUN BAR (always visible) -->
-<div class="runbar">
-  <div class="card">
-    <h2>4. Run the experiment</h2>
-    <div class="row" style="flex-wrap:wrap">
-      <div><label>Mode</label><select id="mode"><option value="pilot">Pilot (N trials per cell)</option><option value="full">Full plan</option></select></div>
-      <div><label>Pilot: trials per cell</label><input id="percell" value="5"></div>
-      <div><label>Interface</label><select id="iface"><option value="text">Text / JSON (main)</option><option value="screenshot">Screenshots (vision models)</option></select></div>
-      <div><label>Reasoning</label><select id="reason"><option value="low">Low (direct answer)</option><option value="high">High (think first)</option></select></div>
-      <div style="flex:2"><label>&nbsp;</label><div class="row"><button class="primary" id="runbtn" onclick="startRun()">▶ Run selected hypothesis</button><button class="danger" onclick="stopRun()">■ Stop</button><button onclick="analyze();document.getElementById('verdicts').scrollIntoView({behavior:'smooth'})">📊 Analyse &amp; show results</button></div></div>
-    </div>
-    <p class="small muted" id="planinfo"></p>
-    <div class="bar" style="margin-top:8px"><div id="bar"></div></div>
-    <p class="small" id="jobline"></p>
-    <div class="log" id="log"></div>
+<!-- DATA SOURCE DIALOG -->
+<div class="modal" id="datadlg" onclick="if(event.target===this)closeData()">
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dtitle">
+    <div class="tline" style="justify-content:space-between"><h2 id="dtitle">Connect your Google Sheet</h2><button class="btn" onclick="closeData()">Close</button></div>
+    <p class="small muted" id="dnow"></p>
+    <ol class="steps small">
+      <li>In the Sheet: Extensions → Apps Script → paste <code>hotel_lab/apps_script/Code.gs</code> → Deploy as a Web app with access <b>Anyone</b>.</li>
+      <li>Paste the Web app link (ends in <code>/exec</code>) and the <b>api_token</b> from the Settings tab below, then press Save and test.</li>
+      <li>Press Sync. The top bar then shows "Google Sheet" and a snapshot code.</li>
+    </ol>
+    <label class="f">Web app link <span class="i" tabindex="0" data-tip="weblink">?</span></label><input class="t" id="surl" placeholder="https://script.google.com/macros/s/…/exec">
+    <label class="f">api_token <span class="i" tabindex="0" data-tip="token">?</span></label><input class="t" id="stok" placeholder="from the Sheet's Settings tab">
+    <div class="actions" style="margin-top:12px"><button class="btn primary" onclick="saveSource()">Save and test</button><button class="btn brass" onclick="doSync()" data-tip="sync">Sync</button></div>
+    <div id="srcmsg"></div>
+    <details style="margin-top:16px"><summary class="small" style="cursor:pointer;font-weight:600">No internet link? Use a file instead</summary>
+      <p class="small muted">Download the Sheet as .xlsx (File → Download) and upload it here. Results then stay on this computer until a Sheet is linked.</p>
+      <input type="file" id="xlsx" accept=".xlsx" onchange="uploadXlsx()">
+      <div class="actions" style="margin-top:10px"><a class="btn" href="/api/workbook">Download starter workbook</a><button class="btn" onclick="useYaml()" data-tip="yaml">Use the repo's built-in files</button></div>
+    </details>
   </div>
 </div>
-<div class="bottom" style="margin-top:14px">
-  <div class="card">
-    <div class="row"><h2 style="margin:0">5. Results: verdict per hypothesis</h2>
-      <span class="sp"></span><button class="primary" style="flex:0 0 auto" onclick="analyze()">Analyse all</button>
-      <button style="flex:0 0 auto" onclick="pushPending()">Send pending rows to Sheet</button></div>
-    <p class="small muted">Estimates are in percentage points; 95% intervals use a cluster-bootstrap standard error (cluster = scenario × focal room) and t(G−1), the same as the p-value. <b>Pilot</b> = too few trials to conclude. Verdict: <b>Effect</b> = reject H0 and not negligible · <b>No meaningful effect</b> = 90% CI inside ±margin · <b>Inconclusive</b> = need more data · <b>Real but negligible</b>. Checks show PASS/FAIL.</p>
-    <div id="verdicts" class="small muted">Press "Analyse all" after a run.</div>
-  </div>
-</div>
+<div id="toast" aria-live="polite"></div>
+<div id="tip" role="tooltip"></div>
 
-<div id="sourcecard" class="modal" style="display:none" onclick="closeSource()">
-    <div class="card" onclick="event.stopPropagation()">
-      <div class="row"><h2 style="margin:0">Data source (Google Sheet)</h2><button style="flex:0 0 auto" onclick="closeSource()">✕ Close</button></div>
-      <p class="small muted">Paste the Apps Script <b>Web app URL</b> (ends in /exec) and the <b>api_token</b> from the Sheet's Settings tab.</p>
-      <p class="small" id="srcnow"></p>
-      <label>Web app URL (or just the deployment ID starting with AKfy…)</label><input id="surl" placeholder="https://script.google.com/macros/s/.../exec">
-      <label>api_token</label><input id="stok" placeholder="from Settings tab">
-      <div class="row" style="margin-top:8px"><button class="primary" onclick="saveSource()">Save &amp; test</button><button onclick="doSync()">Sync now</button></div>
-      <h3>Or offline</h3>
-      <label>Upload a downloaded .xlsx of the Sheet</label><input type="file" id="xlsx" accept=".xlsx" onchange="uploadXlsx()">
-      <div class="row" style="margin-top:8px"><a href="/api/workbook"><button>Download starter workbook</button></a><button onclick="useYaml()">Use repo YAML files</button></div>
-      <div id="srcmsg"></div>
-    </div>
-</div>
 <script>
-let S = null, P = null;
+/* ---------------- plain-language help for every term ---------------- */
+const TIPS = {
+  data:"<b>Where the experiment data comes from.</b> Click to connect your Google Sheet. 'Google Sheet · snapshot abc123' means runs use a frozen copy of the Sheet; the code is stored with every trial so you can always tell which version produced a result.",
+  runpill:"<b>Current run.</b> Shows progress of the experiment that is running. Click to open the Run tab.",
+  family:"<b>Type of hypothesis.</b> Confirmatory = the main claims, corrected together for multiple testing. Secondary = pre-registered but reported separately. Check / gate = must PASS before you trust a model's other results.",
+  block:"<b>Experiment block.</b> The set of trials that produces this hypothesis' data. Some hypotheses share a block (e.g. H4 and H4b), so one run feeds both.",
+  tab_plan:"The hypothesis in full: H0, Ha, what changes, what is held constant, and how big the experiment is.",
+  tab_view:"The exact hotel pages and prompt an AI agent receives in a trial, plus the hidden facts behind them.",
+  tab_models:"Add and test AI models. Tick the ones to use in the next run.",
+  tab_run:"Choose pilot or full, start the run and watch progress.",
+  tab_results:"Verdicts for each hypothesis and model, with plain-English sentences.",
+  manipulated:"<b>The one thing this experiment changes.</b> 'Focal room' = only one of the 4 rooms is changed (it rotates across trials) and the others stay at the control level. 'Every room' = the whole page changes. The control level is what the change is compared against.",
+  held:"<b>Everything else is fixed</b>, so any difference in choices can only come from the change. Rooms are identical apart from their reviews; positions are balanced so each room sits in each slot equally often; hotel names rotate.",
+  plansize:"<b>Trials in the full plan.</b> A condition (cell) is one level of the change. Trials per condition = 6 scenarios × 4 rooms × repeats. 'Retest copies' are identical trials run twice, used only by H1 as a noise baseline.",
+  benchmark:"<b>What studies of human shoppers found.</b> You compare the AI agents' effect with this. 'None (stated)' means there is no direct human study, which is allowed if you say so.",
+  cell:"<b>Condition to preview.</b> Each option is one level of the change, e.g. style=emoji vs style=base. Pick one to see what the agent sees in that condition.",
+  randomise:"Shows another real trial from the plan for this condition: a different scenario, room positions, hotel names and review order.",
+  v_page:"The hotel website exactly as the agent would see it in screenshot mode. In text mode the agent gets the same content as JSON.",
+  v_behind:"Information hidden from the agent: which room is the fact-best (⭐), which room is treated (focal), each room's hidden facts and levels.",
+  v_prompt:"The exact text sent to the AI model in text mode, including the instructions and the rooms as JSON.",
+  newtab:"Open this hotel page in a separate browser tab.",
+  models:"<b>AI models to test.</b> Local models (Ollama) are free and run on your laptop. Hosted ones need an API key, which is saved only in your local .env file, never in the Sheet or on GitHub. Test agents (mock…) are fake agents for checking the pipeline; they are never mixed into real results.",
+  provider:"<b>Where the model runs.</b> Ollama / LM Studio = your laptop, free. OpenRouter, Groq, Hugging Face = hosted open-weight models. OpenAI, Gemini, Anthropic = closed models (only if your professor allows).",
+  modelname:"<b>The model's id at the provider.</b> For Ollama it is what <code>ollama list</code> shows, e.g. qwen2.5:7b. For OpenRouter e.g. meta-llama/llama-3.3-70b-instruct.",
+  shortname:"<b>A short label for tables and file names</b>, e.g. qwen7b. Letters, numbers, - _ . only.",
+  baseurl:"<b>The server address.</b> Filled in automatically for each provider; change it only for a custom server.",
+  apikey:"<b>Secret key from the provider's website.</b> Leave empty for local models. It is saved in .env on this computer only.",
+  temperature:"<b>Randomness of the model's answers.</b> 1.0 is the main setting in the brief (natural variation). 0.0 = most predictable, used as a robustness check: add a copy of the model with 0.0.",
+  maxtokens:"<b>Longest reply allowed</b>, in tokens (about ¾ of a word each). 400 is enough for a direct answer; 'High reasoning' raises it automatically.",
+  family_m:"<b>Model family</b> (qwen, llama, mistral…). Used to compare families in the analysis.",
+  size:"<b>Number of parameters in billions</b> (7, 8, 70…). The brief compares small and large models.",
+  vision:"Tick only if the model can read images. Needed for the screenshot interface.",
+  pilot:"<b>Pilot run.</b> A small number of trials in every condition, spread over all scenarios and rooms. Use it to check the setup, timing and failure rate. Verdicts say 'Pilot' and must not be used as conclusions.",
+  full:"<b>Full plan.</b> Every planned trial: about 192 per condition per model. Run after the checks pass and you have pre-registered. You can stop and continue later; finished trials are skipped.",
+  interface:"<b>How the agent sees the page.</b> Text/JSON is the main interface (fast, works for every model). Screenshots send pictures of the pages and need a vision model.",
+  reasoning:"<b>How much the agent thinks before answering.</b> Low = one-sentence reason with the answer (main). High = step-by-step reasoning first, a robustness check.",
+  stop:"Stops after the current trial. Nothing is lost: press Run again later to continue.",
+  analyse:"Recomputes every verdict from all results so far and writes them to the Verdicts tab of the Sheet and to a local CSV.",
+  pending:"Sends result rows that could not reach the Sheet earlier (no internet, Sheet not linked yet).",
+  weblink:"<b>The Apps Script Web app URL.</b> Deploy → Manage deployments shows it. It must end in /exec and the deployment must have access 'Anyone'. You can also paste just the deployment id (AKfy…).",
+  token:"<b>Shared secret from the Settings tab</b> (row api_token). The link only answers when it gets this token. Keep both private: together they open the whole Sheet.",
+  sync:"Copies the Sheet's current contents to a frozen snapshot on this computer. Do this after every edit in the Sheet.",
+  yaml:"Ignore the Sheet and use the sample stimuli stored in the repo (hotel_lab/stimuli).",
+  v_effect:"<b>Effect.</b> Statistically significant (after correction) and not tiny: reject H0. Check the direction against the prediction.",
+  v_null:"<b>No meaningful effect.</b> The 90% interval sits inside ± the equivalence margin: any effect is too small to matter. An informative null.",
+  v_inc:"<b>Inconclusive.</b> Not significant, but the interval is too wide to rule out a meaningful effect. More data (or a wider margin set before the study) is needed.",
+  v_negl:"<b>Real but negligible.</b> Significant, but the whole interval is inside the equivalence margin: there is an effect, but it is very small.",
+  v_pilot:"<b>Pilot.</b> Fewer than 12 independent units or 50 trials per condition. Use to check the pipeline, never as a finding.",
+  v_pass:"<b>PASS.</b> This check is satisfied for this model. 'PASS (pilot: weak check)' = passed, but with little data.",
+  v_fail:"<b>FAIL.</b> This check is not satisfied. For a gate/check, treat that model's other results as descriptive only.",
+  c_arm:"<b>Model / arm.</b> One model in one setting (interface, reasoning, temperature). 'Pooled' = the average of the real models, never including test agents.",
+  c_est:"<b>Estimate.</b> The effect in percentage points (pp): how much more (+) or less (−) often the treated room is chosen. For checks: % of trials passing.",
+  c_ci:"<b>95% interval.</b> The range of effects consistent with the data. If it does not include 0, the effect is significant at 5%. Computed from 24 independent units (6 scenarios × 4 rooms).",
+  c_p:"<b>p-value.</b> Chance of seeing an effect this large if H0 were true. Below 0.05 = significant.",
+  c_q:"<b>q-value.</b> The p-value corrected for testing several confirmatory hypotheses at once (Benjamini–Hochberg). The verdict uses q for confirmatory hypotheses.",
+  c_verdict:"<b>Verdict.</b> Decided by two questions: is it significant, and is the 90% interval inside the equivalence margin? Hover the legend chips above for each meaning.",
+  c_n:"<b>Trials used</b> (only valid replies) and independent units (scenario × room). Below 12 units or 50 trials per condition the result is a pilot.",
+  c_het:"<b>Do models differ?</b> Tests whether the effect is the same across your real models. Small p (< 0.05) = they differ.",
+};
+function tipFor(key){ return TIPS[key] || key }
+
+/* ---------------- tooltip engine (hover + keyboard focus) ---------------- */
+const tip = document.getElementById("tip");
+function showTip(el){ const k = el.getAttribute("data-tip"); if(!k) return; tip.innerHTML = tipFor(k);
+  tip.classList.add("on"); const r = el.getBoundingClientRect(); const tw = Math.min(340, innerWidth - 24);
+  tip.style.maxWidth = tw + "px"; let x = Math.min(Math.max(12, r.left), innerWidth - tip.offsetWidth - 12);
+  let y = r.bottom + 8; if (y + tip.offsetHeight > innerHeight - 8) y = r.top - tip.offsetHeight - 8;
+  tip.style.left = x + "px"; tip.style.top = Math.max(8, y) + "px" }
+function hideTip(){ tip.classList.remove("on") }
+let tipTimer = null, tipEl = null;
+document.addEventListener("mouseover", e => { const el = e.target.closest("[data-tip]");
+  if (el === tipEl) return; tipEl = el; clearTimeout(tipTimer); hideTip();
+  if (el) tipTimer = setTimeout(() => showTip(el), 350) });
+document.addEventListener("mousedown", () => { clearTimeout(tipTimer); hideTip() });
+document.addEventListener("focusin", e => { const el = e.target.closest("[data-tip]"); el ? showTip(el) : hideTip() });
+document.addEventListener("scroll", hideTip, true);
+document.addEventListener("keydown", e => { if (e.key === "Escape") { hideTip(); closeData() } });
+
+/* ---------------- helpers ---------------- */
+let S = null, P = null, V = [], CUR = null, MODE = "pilot", RESF = "this", INFO = null;
 const $ = id => document.getElementById(id);
+function esc(s){ return String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])) }
 async function api(path, opts = {}) {
   const r = await fetch(path, {headers: {"Content-Type": "application/json"}, ...opts});
   const t = await r.text(); let j; try { j = JSON.parse(t) } catch { j = {detail: t} }
-  if (!r.ok) throw new Error(j.detail || r.statusText); return j;
+  if (!r.ok) throw new Error(typeof j.detail === "string" ? j.detail : JSON.stringify(j.detail)); return j;
 }
-function esc(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
-function flash(el, msg, ok){ $(el).innerHTML = `<div class="flash ${ok?'okk':'err'}">${esc(msg)}</div>` }
+function toast(msg, err){ const d = document.createElement("div"); d.className = "toast" + (err ? " err" : ""); d.textContent = msg;
+  $("toast").appendChild(d); setTimeout(() => d.remove(), err ? 9000 : 4500) }
+function msg(el, text, kind){ $(el).innerHTML = `<div class="msg ${kind||"info"}">${esc(text)}</div>` }
+const checked = new Set(JSON.parse(localStorageGet("hl_models") || "[]"));
+function localStorageGet(k){ try { return localStorage.getItem(k) } catch { return null } }
+function localStorageSet(k, v){ try { localStorage.setItem(k, v) } catch {} }
 
-async function load(keepHyp) {
+/* ---------------- tabs ---------------- */
+function showTab(t){ document.querySelectorAll(".tab").forEach(b => b.classList.toggle("on", b.dataset.tab === t));
+  document.querySelectorAll(".pane").forEach(p => p.classList.toggle("on", p.id === "p-" + t));
+  localStorageSet("hl_tab", t); if (t === "view" && !P) preview(true); if (t === "run") renderRunSel(); if (t === "results") renderResults() }
+
+/* ---------------- load ---------------- */
+async function load(keep){
   S = await api("/api/state");
+  try { const r = await api("/api/verdicts"); V = r.rows || []; $("reswhen").textContent = r.when ? "Last analysed " + r.when : "" } catch { V = [] }
   const src = S.source;
-  $("src").textContent = src.sha ? `Data: ${src.type} · snapshot ${src.sha} (${src.fetched_at})` : `Data: ${src.type}` ;
-  const sel = $("hyp"), cur = keepHyp || sel.value;
-  const fams = [["confirmatory","Confirmatory hypotheses"],["secondary","Secondary (pre-registered)"],["gate","Gate"],["check","Validity checks"]];
-  sel.innerHTML = fams.map(([f,lab]) => {
-    const hs = S.hypotheses.filter(h => (h.family||"") === f && h.enabled);
-    return hs.length ? `<optgroup label="${lab}">` + hs.map(h => `<option value="${h.hypothesis_id}">${h.hypothesis_id} — ${esc(h.question).slice(0,70)}</option>`).join("") + "</optgroup>" : "";
-  }).join("");
-  if (cur) sel.value = cur;
-  renderModels(); renderPresets(); showHyp(); renderJob(S.job);
-  if (S.job && ["starting","running"].includes(S.job.status) && !window._polling) poll();
+  $("datatext").textContent = src.sha ? `${src.type} · snapshot ${src.sha}` : "Built-in sample files (not your Sheet)";
+  $("datadot").className = "dot " + (src.sha ? "ok" : "warn");
+  renderList(); renderModels(); renderPresets();
+  const want = keep || CUR || localStorageGet("hl_hyp") || "H1";
+  select(S.hypotheses.find(h => h.hypothesis_id === want && h.enabled) ? want : S.hypotheses.find(h=>h.enabled).hypothesis_id, true);
+  renderJob(S.job); if (S.job && ["starting","running"].includes(S.job.status) && !window._polling) poll();
 }
-function curHyp(){ return S.hypotheses.find(h => h.hypothesis_id === $("hyp").value) }
 
-function showHyp() {
-  const h = curHyp(); if (!h) return;
+function statusOf(h){
+  const rows = V.filter(r => r.hypothesis_id === h.hypothesis_id && r.verdict && r.verdict !== "Not run yet");
+  const pick = rows.find(r => String(r.arm).startsWith("(pooled")) || rows.find(r => !String(r.arm).startsWith("mock")) || rows[0];
+  if (pick) return {text: pick.verdict.replace(" (descriptive only)", "").replace(" (pilot: weak check)", "*"), cls: vcls(pick.verdict)};
+  const n = Object.values(S.block_status[h.block] || {}).reduce((a, b) => a + b, 0);
+  return n ? {text: n + " trials", cls: "mid"} : {text: "not run", cls: ""};
+}
+function vcls(v){ v = v || ""; if (v.startsWith("Effect") || v.startsWith("FAIL")) return "bad"; if (v.startsWith("No meaningful") || v.startsWith("PASS")) return "good";
+  if (v.startsWith("Inconclusive") || v.startsWith("Real")) return "mid"; return "" }
+function renderList(){
+  const fams = [["confirmatory","Main hypotheses","Confirmatory: the study's main claims."],["secondary","Secondary","Pre-registered, reported separately."],
+                ["check","Checks (run first)","Must PASS before trusting a model."],["gate","Gate","Accuracy must beat chance."]];
+  $("hlist").innerHTML = fams.map(([f, lab, d]) => { const hs = S.hypotheses.filter(h => h.family === f && h.enabled); if (!hs.length) return "";
+    return `<div class="group">${lab} <span class="i" tabindex="0" data-tip="family">?</span></div>` + hs.map(h => { const st = statusOf(h);
+      return `<button class="hitem ${h.hypothesis_id===CUR?"on":""}" onclick="select('${h.hypothesis_id}')" data-hid="${h.hypothesis_id}">
+        <div class="top"><span class="id">${esc(h.hypothesis_id)}</span><span class="status ${st.cls}">${esc(st.text)}</span></div>
+        <div class="q">${esc(h.question)}</div></button>` }).join("") }).join("");
+}
+
+/* ---------------- select hypothesis ---------------- */
+async function select(hid, first){
+  CUR = hid; localStorageSet("hl_hyp", hid); const h = curHyp();
+  document.querySelectorAll(".hitem").forEach(b => b.classList.toggle("on", b.dataset.hid === hid));
+  $("t-id").textContent = h.hypothesis_id; $("t-fam").textContent = h.family; $("t-fam").className = "fam " + h.family;
+  $("t-block").textContent = "block: " + h.block; $("t-q").textContent = h.question;
+  renderPlan(h); P = null; $("cell").innerHTML = ""; $("runlabel").textContent = h.hypothesis_id;
+  INFO = null; api("/api/plan_info?hypothesis_id=" + encodeURIComponent(hid)).then(i => { INFO = i; renderPlanSize(i); estimate() }).catch(e => $("plansize").textContent = e.message);
+  if (first) showTab(localStorageGet("hl_tab") || "plan"); else if ($("p-view").classList.contains("on")) preview(true);
+  if ($("p-results").classList.contains("on")) renderResults();
+}
+function curHyp(){ return S.hypotheses.find(h => h.hypothesis_id === CUR) }
+
+function renderPlan(h){
+  const pred = h.estimand === "agreement_gap" ? "with a summary, choices agree LESS with the full-review choices than a simple rerun does (one-sided test)"
+    : h.estimand === "focal_did" ? "strong complaints hurt LESS when the agent reads a summary"
+    : ({"+":"the treated room is chosen MORE often","-":"the treated room is chosen LESS often","0":"no difference","none":"no direction predicted (two-sided test)"}[h.predicted] || "");
+  $("ledger").innerHTML = h.H0 ? `<div class="ledger">
+    <div><div class="lab">H0, the null <span class="i" tabindex="0" data-tip="<b>Null hypothesis.</b> What we assume until the data show otherwise. Rejecting it is the evidence for Ha.">?</span></div><div class="txt">${esc(h.H0)}</div></div>
+    <div><div class="lab">Ha, the alternative <span class="i" tabindex="0" data-tip="<b>Alternative hypothesis.</b> Exactly the opposite of H0, so together they cover every possible outcome.">?</span></div><div class="txt">${esc(h.Ha)}</div></div>
+    ${pred ? `<div class="pred"><b>Predicted:</b> ${esc(pred)}</div>` : ""}</div>`
+    : `<div class="block"><h3>Pass rule</h3><p style="margin:0">${esc(h.pass_threshold==="not significant"?"No significant difference":"At least "+Math.round(parseFloat(h.pass_threshold||0)*100)+"% of trials choose the expected room")}</p><p class="small muted" style="margin:6px 0 0">${esc(h.notes||"")}</p></div>`;
   const lv = (h.levels||"").split(",").map(s=>s.trim()).filter(Boolean);
-  const f2 = h.factor2 ? `<p><b>Second factor:</b> ${esc(h.factor2)} = ${esc(h.levels2)} (${esc(h.assign2)}, control ${esc(h.control2)})</p>` : "";
-  const assignTxt = h.assign === "focal" ? "only the focal room is changed; the other 3 stay at control" : "every room on the page gets the level";
-  const done = S.block_status[h.block] || {};
-  $("hypbox").innerHTML = `<div class="hbox">
-    <p><span class="tag ${h.family}">${esc(h.family)}</span> <b>${esc(h.hypothesis_id)}</b> · block <code>${esc(h.block)}</code></p>
-    <p>${esc(h.question)}</p>
-    ${h.H0 ? `<p><b>H0:</b> ${esc(h.H0)}</p><p><b>Ha:</b> ${esc(h.Ha)}</p>` : ""}
-    ${h.predicted ? `<p><b>Predicted direction:</b> ${esc(h.predicted)}</p>` : ""}
-    ${h.pass_threshold ? `<p><b>Pass rule:</b> ${esc(h.pass_threshold)}</p>` : ""}
-    <h3>Manipulated</h3><p>${esc(h.factor)} = ${lv.map(esc).join(" / ")} · ${assignTxt}${h.control ? ` · control: <b>${esc(h.control)}</b>`:""}</p>${f2}
-    <h3>Held constant</h3><ul class="tight">${h.held_constant.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
-    ${h.benchmark ? `<h3>Human benchmark</h3><p class="small">${esc(h.benchmark)}</p>` : ""}
-    ${h.notes ? `<p class="small muted">${esc(h.notes)}</p>` : ""}
-    <h3>Already run</h3><p class="small">${Object.keys(done).length ? Object.entries(done).map(([k,v])=>`${esc(k)}: ${v} trials`).join("<br>") : "nothing yet"}</p>
-  </div>`;
-  P = null; $("cell").innerHTML = ""; preview(true);
+  const assign = a => a === "focal" ? "only the focal room (rotates over the 4 rooms); the other rooms stay at control" : "every room on the page";
+  let html = `<div class="kv"><b>Factor</b><span>${esc(h.factor)}</span><b>Levels</b><span class="chips">${lv.map(l=>`<span class="chip ${l===h.control?"ctrl":""}" data-tip="${l===h.control?"<b>Control level.</b> The comparison point: what the change is measured against.":"<b>Level.</b> One version of the change; each level is its own condition."}">${esc(l)}</span>`).join("")}</span>
+    <b>Applied to</b><span>${esc(assign(h.assign))}</span>${h.control?`<b>Control</b><span>${esc(h.control)}</span>`:""}</div>`;
+  if (h.factor2) html += `<hr style="border:0;border-top:1px solid var(--line);margin:12px 0"><div class="kv"><b>Second factor</b><span>${esc(h.factor2)} = ${esc(h.levels2)}</span><b>Applied to</b><span>${esc(assign(h.assign2))}</span><b>Control</b><span>${esc(h.control2)}</span></div>`;
+  if (h.contrast_a) html += `<p class="small muted" style="margin:10px 0 0">The test compares <b>${esc(h.contrast_a)}</b> with <b>${esc(h.contrast_b)}</b>.</p>`;
+  $("changes").innerHTML = html;
+  $("held").innerHTML = h.held_constant.map(x => `<li>${esc(x)}</li>`).join("");
+  $("bench").innerHTML = `<p style="margin:0">${esc(h.benchmark || "–")}</p>${h.notes && h.H0 ? `<p class="small muted" style="margin:8px 0 0">${esc(h.notes)}</p>`:""}`;
+  $("plansize").textContent = "…";
+}
+function renderPlanSize(i){
+  $("plansize").innerHTML = `<div class="kv"><b>Conditions</b><span>${i.cells.length}: ${i.cells.map(esc).join(", ")}</span>
+    <b>Per condition</b><span><span class="big">${i.per_cell}</span> trials per model</span>
+    <b>Total</b><span>${i.trials} trials per model${i.retest_copies?` (incl. ${i.retest_copies} retest copies)`:""}</span>
+    <b>Scenarios</b><span>${i.scenarios}</span>${i.shared_with.length?`<b>Shares data with</b><span>${i.shared_with.map(esc).join(", ")}</span>`:""}</div>`;
 }
 
-async function preview(newSeed) {
+/* ---------------- agent view ---------------- */
+async function preview(newSeed){
   const h = curHyp(); if (!h) return;
-  try {
-    P = await api("/api/preview", {method:"POST", body: JSON.stringify({hypothesis_id: h.hypothesis_id, cell: $("cell").value || null, seed: newSeed ? null : 1})});
-  } catch(e) { $("pinfo").textContent = "Preview failed: " + e.message; return }
-  const cs = $("cell"), keep = P.cell;
-  cs.innerHTML = P.cells.map(c => `<option ${c===keep?"selected":""}>${esc(c)}</option>`).join("");
-  $("pinfo").innerHTML = `Trial <code>${esc(P.trial_id)}</code> · scenario <b>${esc(P.scenario)}</b> · “${esc(P.query)}”`;
-  $("frame").src = P.page_url;
-  $("prompt").textContent = P.prompt;
-  $("t-behind").innerHTML = `<p class="small muted">Hidden from the agent. ⭐ = fact-sheet-best room; 🎯 = focal (treated) room.</p>
-   <table><tr><th>Option</th><th>Hotel name</th><th>Profile</th><th>Hidden facts</th><th>Levels for this room</th><th>1st review ★</th></tr>
-   ${P.rooms.map(r=>`<tr><td>${r.option}</td><td>${esc(r.hotel_name)} ${r.best?"⭐":""}${r.focal?" 🎯":""}</td><td>${esc(r.profile)}</td>
-     <td>${Object.entries(r.facts).map(([a,l])=>`${esc(a)}: ${esc(l)}`).join("<br>")}</td>
-     <td>${Object.entries(r.levels).map(([a,l])=>`${esc(a)}=${esc(l)}`).join("<br>")}</td><td>${r.first_review_stars??"–"}</td></tr>`).join("")}</table>
-   <p class="small"><a href="${P.json_url}" target="_blank">Open the exact JSON the agent receives ↗</a> · <a href="${P.page_url}" target="_blank">Open page in a new tab ↗</a></p>`;
-  const done = S.block_status[h.block];
+  try { P = await api("/api/preview", {method:"POST", body: JSON.stringify({hypothesis_id: h.hypothesis_id, cell: $("cell").value || null, seed: newSeed ? null : 1})}) }
+  catch(e) { $("pinfo").textContent = "Could not build a preview: " + e.message; return }
+  $("cell").innerHTML = P.cells.map(c => `<option ${c===P.cell?"selected":""}>${esc(c)}</option>`).join("");
+  $("pinfo").innerHTML = `Scenario <b>${esc(P.scenario)}</b>: “${esc(P.query)}”. <span class="muted">Trial ${esc(P.trial_id)}</span>`;
+  $("frame").src = P.page_url; $("openpage").href = P.page_url; $("prompt").textContent = P.prompt;
+  $("v-behind").innerHTML = `<div class="block" style="padding:0;overflow:auto"><table><thead><tr><th>Option</th><th>Hotel name</th><th>Role <span class="i" tabindex="0" data-tip="<b>⭐ Best</b> = the room the hidden facts say is best. <b>Focal</b> = the room that gets the change in this trial.">?</span></th><th>Hidden facts</th><th>Levels for this room</th><th>First review stars</th></tr></thead><tbody>
+    ${P.rooms.map(r=>`<tr><td>${r.option}</td><td>${esc(r.hotel_name)}</td><td>${r.best?'<span class="tag best">⭐ best</span> ':''}${r.focal?'<span class="tag focal">focal</span>':''}</td>
+      <td>${Object.entries(r.facts).map(([a,l])=>`${esc(a)}: <b>${esc(l)}</b>`).join("<br>")}</td>
+      <td class="small">${Object.entries(r.levels).map(([a,l])=>`${esc(a)} = ${esc(l)}`).join("<br>")}</td><td>${r.first_review_stars??"–"}</td></tr>`).join("")}</tbody></table></div>
+    <p class="small muted">The agent never sees this table. <a href="${P.json_url}" target="_blank">Open the exact JSON the agent receives</a>.</p>`;
 }
-function tab(t){ document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("on", b.dataset.t===t));
-  ["page","behind","prompt"].forEach(x => $("t-"+x).style.display = x===t ? "" : "none") }
+function viewMode(m){ document.querySelectorAll(".seg button[data-v]").forEach(b => b.classList.toggle("on", b.dataset.v === m));
+  ["page","behind","prompt"].forEach(x => $("v-" + x).style.display = x === m ? "" : "none") }
 
-function renderModels() {
-  const checked = new Set([...document.querySelectorAll(".mchk:checked")].map(c=>c.value));
-  $("models").innerHTML = S.models.map(m => m.error ? `<div class="model no">${esc(m.name)}: ${esc(m.error)}</div>` :
-   `<div class="model"><input type="checkbox" class="mchk" value="${esc(m.name)}" ${checked.has(m.name)?"checked":""}>
-     <div style="flex:1"><div class="nm">${esc(m.name)}</div>
-     <div class="small muted">${esc(m.provider)} · ${esc(m.model)}${m.vision?" · vision":""} · T=${m.temperature}</div>
-     <div class="small">${m.key_env ? (m.key_set ? `<span class="ok">key ${esc(m.key_env)} set</span>` : `<span class="no">needs ${esc(m.key_env)}</span>`) : "no key needed"}</div>
-     <div id="test-${esc(m.name)}" class="small"></div></div>
-     <div><button onclick="testModel('${esc(m.name)}')">Test</button>${m.local?`<br><button class="danger" style="margin-top:4px" onclick="delModel('${esc(m.name)}')">✕</button>`:""}</div></div>`).join("");
+/* ---------------- models ---------------- */
+function renderModels(){
+  $("models").innerHTML = S.models.map(m => m.error ? `<div class="mrow"><span></span><span class="no">${esc(m.name)}: ${esc(m.error)}</span></div>` :
+   `<div class="mrow"><input type="checkbox" class="mchk" value="${esc(m.name)}" ${checked.has(m.name)?"checked":""} onchange="toggleModel(this)" aria-label="Use ${esc(m.name)}">
+     <div><div class="nm">${esc(m.name)}</div><div class="small muted">${m.provider==="mock"?"test agent, not a real AI":esc(m.provider)}${m.vision?" · reads images":""}</div></div>
+     <div class="small hide-s">${esc(m.model)}<br><span class="muted">temperature ${m.temperature}</span></div>
+     <div class="small hide-s">${m.key_env ? (m.key_set ? `<span class="ok">key ${esc(m.key_env)} set</span>` : `<span class="no">needs ${esc(m.key_env)}</span>`) : "no key needed"}</div>
+     <div><button class="btn" onclick="testModel('${esc(m.name)}')" data-tip="<b>Test.</b> Sends one tiny question and checks the model returns a valid JSON answer.">Test</button>${m.local?` <button class="btn danger" onclick="delModel('${esc(m.name)}')" aria-label="Remove">✕</button>`:""}</div>
+     <div class="mres" id="test-${esc(m.name)}"></div></div>`).join("");
+  renderRunSel();
 }
-function renderPresets(){ const s=$("m_preset"); if (s.options.length) return;
-  s.innerHTML = Object.entries(S.presets).map(([k,p])=>`<option value="${k}">${esc(p.label)}</option>`).join(""); presetChanged() }
-function presetChanged(){ const p=S.presets[$("m_preset").value]; $("m_url").value=p.base_url; $("m_model").placeholder=p.example||"model id";
-  $("m_key").placeholder = p.api_key_env ? `saved as ${p.api_key_env} in .env` : "not needed" }
+function toggleModel(el){ el.checked ? checked.add(el.value) : checked.delete(el.value); localStorageSet("hl_models", JSON.stringify([...checked])); renderRunSel(); estimate() }
+function renderPresets(){ const s = $("m_preset"); if (s.options.length) return;
+  s.innerHTML = Object.entries(S.presets).map(([k,p]) => `<option value="${k}">${esc(p.label)}</option>`).join(""); presetChanged() }
+function presetChanged(){ const p = S.presets[$("m_preset").value]; $("m_url").value = p.base_url; $("m_model").placeholder = p.example || "model id";
+  $("m_key").placeholder = p.api_key_env ? `saved as ${p.api_key_env} in .env` : "not needed for this provider" }
 async function saveModel(){
-  try{ const body={name:$("m_name").value.trim(), preset:$("m_preset").value, model:$("m_model").value.trim(), base_url:$("m_url").value.trim(),
-    api_key:$("m_key").value||null, temperature:parseFloat($("m_temp").value||"1"), max_tokens:parseInt($("m_max").value||"400"),
-    supports_vision:$("m_vis").checked, family:$("m_fam").value, size_b:$("m_size").value?parseFloat($("m_size").value):null};
-    const r = await api("/api/models",{method:"POST",body:JSON.stringify(body)}); $("m_key").value=""; flash("mmsg","Saved as "+r.name+". Press Test.",true); await load($("hyp").value)
-  }catch(e){ flash("mmsg", e.message) } }
-async function delModel(n){ if(!confirm("Remove "+n+"?")) return; await api("/api/models/"+n,{method:"DELETE"}); load($("hyp").value) }
-async function testModel(n){ const el=$("test-"+n); el.textContent="testing…";
-  const r = await api(`/api/models/${n}/test`,{method:"POST"});
-  el.innerHTML = r.parse_ok ? `<span class="ok">✓ works (${r.latency_s}s): ${esc(r.raw_output).slice(0,80)}</span>` : `<span class="no">✗ ${esc(r.error||r.note||r.raw_output)} ${esc(r.hint||"")}</span>` }
+  try { const body = {name:$("m_name").value.trim(), preset:$("m_preset").value, model:$("m_model").value.trim(), base_url:$("m_url").value.trim(),
+      api_key:$("m_key").value || null, temperature:parseFloat($("m_temp").value || "1"), max_tokens:parseInt($("m_max").value || "400"),
+      supports_vision:$("m_vis").checked, family:$("m_fam").value, size_b:$("m_size").value ? parseFloat($("m_size").value) : null};
+    const r = await api("/api/models", {method:"POST", body: JSON.stringify(body)}); $("m_key").value = "";
+    checked.add(r.name); localStorageSet("hl_models", JSON.stringify([...checked]));
+    msg("mmsg", `Saved as ${r.name} and ticked for the next run. Press Test next to it.`, "ok"); await load(CUR) }
+  catch(e) { msg("mmsg", e.message, "err") } }
+async function delModel(n){ if (!confirm("Remove " + n + "?")) return; await api("/api/models/" + n, {method:"DELETE"}); checked.delete(n); load(CUR) }
+async function testModel(n){ const el = $("test-" + n); el.innerHTML = '<span class="muted">testing…</span>';
+  try { const r = await api(`/api/models/${n}/test`, {method:"POST"});
+    el.innerHTML = r.parse_ok ? `<span class="ok">Works (${r.latency_s}s). Reply: ${esc(String(r.raw_output).slice(0,90))}</span>` : `<span class="no">Not working: ${esc(r.error || r.note || r.raw_output)} ${esc(r.hint || "")}</span>` }
+  catch(e) { el.innerHTML = `<span class="no">${esc(e.message)}</span>` } }
 
+/* ---------------- run ---------------- */
+function selModels(){ return [...checked].filter(n => S.models.some(m => m.name === n)) }
+function renderRunSel(){ if (!S) return; const ms = selModels();
+  $("selmodels").innerHTML = ms.length ? ms.map(n => { const m = S.models.find(x => x.name === n);
+    return `<span class="chip" data-tip="${m.provider==="mock"?"Test agent: checks the pipeline, never mixed into real results.":"Real model: "+esc(m.model)}">${esc(n)}${m.provider==="mock"?" (test)":""}</span>` }).join("")
+    : `<span class="no small">No model ticked yet. Go to the Models tab and tick at least one.</span>`; estimate() }
+function setMode(m){ MODE = m; $("mode-pilot").classList.toggle("on", m === "pilot"); $("mode-full").classList.toggle("on", m === "full"); estimate() }
+function estimate(){ if (!INFO) { $("estimate").textContent = ""; return } const n = selModels().length;
+  const per = MODE === "pilot" ? Math.min(parseInt($("percell").value || "0"), INFO.per_cell) * INFO.cells.length * (INFO.retest_copies ? 2 : 1) : INFO.trials;
+  $("estimate").innerHTML = `This run: about <b>${per}</b> trials × <b>${n}</b> model(s) = <b>${per*n}</b> AI calls for ${esc(CUR)}. Finished trials are skipped if you run again.` }
 async function startRun(){
-  const models=[...document.querySelectorAll(".mchk:checked")].map(c=>c.value);
-  try{ const h=curHyp(); const info = await api("/api/prepare",{method:"POST",body:JSON.stringify({hypothesis_id:h.hypothesis_id})});
-    const pc = parseInt($("percell").value||"5"); const n = $("mode").value==="pilot" ? pc*info.cells.length : info.trials;
-    $("planinfo").textContent = `${h.hypothesis_id} → block ${info.block}: ${info.cells.length} cells, ${info.per_cell} trials per cell in the full plan (${info.trials} incl. ${info.retest_copies} retest copies). This run: about ${n} trials × ${models.length} model(s) = ${n*models.length} calls.`;
-    if ($("mode").value==="full" && !confirm(`Run the FULL plan: ${n*models.length} calls?`)) return;
-    await api("/api/run",{method:"POST",body:JSON.stringify({hypothesis_id:h.hypothesis_id, models, mode:$("mode").value, per_cell:pc, interface:$("iface").value, reasoning:$("reason").value})});
-    poll();
-  }catch(e){ $("jobline").innerHTML = `<span class="no">${esc(e.message)}</span>` } }
-async function stopRun(){ await api("/api/stop",{method:"POST"}) }
-function renderJob(j){ if(!j||!j.id) return; const pct = j.total ? Math.round(100*j.done/(j.total*Math.max(1,j.models.length))) : 0;
-  $("bar").style.width = Math.min(100, j.status==="finished"?100:pct)+"%";
-  $("jobline").innerHTML = `<b>${esc(j.status)}</b> · ${esc(j.hypothesis_id)} · model: ${esc(j.current_model)} · ${j.done} trials done · ${j.failures} not usable · ${j.pushed} rows sent to Sheet · ${j.elapsed_s}s ${j.last_error?`<br><span class="no">Last error: ${esc(j.last_error)}</span>`:""}`;
-  $("log").textContent = (j.log||[]).join("\n"); $("log").scrollTop = 1e9; $("runbtn").disabled = ["starting","running"].includes(j.status) }
-async function poll(){ window._polling = true; const j = await api("/api/job"); renderJob(j);
-  if (["starting","running"].includes(j.status)) setTimeout(poll, 1500); else { window._polling = false; load($("hyp").value) } }
+  const models = selModels(); if (!models.length) { toast("Tick at least one model in the Models tab first.", true); showTab("models"); return }
+  if (MODE === "full" && !confirm(`Run the FULL plan for ${CUR} with ${models.length} model(s)? This can take a long time.`)) return;
+  try { await api("/api/run", {method:"POST", body: JSON.stringify({hypothesis_id: CUR, models, mode: MODE, per_cell: parseInt($("percell").value || "20"), interface: $("iface").value, reasoning: $("reason").value})});
+    toast(`Started ${CUR}.`); poll() } catch(e) { toast(e.message, true); $("jobline").innerHTML = `<span class="no">${esc(e.message)}</span>` } }
+async function stopRun(){ await api("/api/stop", {method:"POST"}); toast("Stopping after the current trial.") }
+function renderJob(j){ if (!j || !j.id) return; const running = ["starting","running"].includes(j.status);
+  const total = Math.max(1, (j.total || 0) * Math.max(1, j.models.length)); const pct = j.status === "finished" ? 100 : Math.min(100, Math.round(100 * j.done / total));
+  $("bar").style.width = pct + "%"; $("minibar").style.width = pct + "%";
+  $("rundot").className = "dot " + (running ? "run" : j.status === "finished" ? "ok" : "warn");
+  $("runtext").textContent = running ? `Running ${j.hypothesis_id} · ${j.done} trials` : `${j.hypothesis_id}: ${j.status}`;
+  $("jobline").innerHTML = `<b>${esc(j.status)}</b> · ${esc(j.hypothesis_id)} · model ${esc(j.current_model||"–")} · ${j.done} trials done · ${j.failures} not usable · ${j.pushed} rows sent to the Sheet · ${j.elapsed_s}s${j.last_error?`<br><span class="no">Last error: ${esc(j.last_error)}</span>`:""}`;
+  $("log").textContent = (j.log || []).join("\n") || "…"; $("log").scrollTop = 1e9; $("runbtn").disabled = running; $("stopbtn").disabled = !running }
+async function poll(){ window._polling = true; let j; try { j = await api("/api/job") } catch { j = {} } renderJob(j);
+  if (["starting","running"].includes(j.status)) setTimeout(poll, 1500);
+  else { window._polling = false; if (j.status) toast(`${j.hypothesis_id} ${j.status}. Press Analyse to update the verdicts.`, j.status === "error"); load(CUR) } }
 
-async function analyze(){ $("verdicts").textContent = "Analysing…";
-  try{ const r = await api("/api/analyze",{method:"POST"}); const rows = r.rows;
-    const fmt = v => v===null||v===undefined||v==="" ? "–" : (typeof v==="number" ? v.toFixed(1) : esc(v));
-    const fp = v => v===null||v===undefined||v==="" ? "–" : (typeof v==="number" ? (v<0.001?"<0.001":v.toFixed(3)) : esc(v));
-    $("verdicts").innerHTML = `<p class="small">Saved to <code>${esc(r.csv)}</code>${r.pushed!==null?` · Sheet: ${esc(r.pushed)}`:""}</p>
-    <table><tr><th>Hyp.</th><th>Family</th><th>Model / arm</th><th>Estimate</th><th>95% CI</th><th>p</th><th>q (BH)</th><th>Verdict</th><th>In plain English</th></tr>
-    ${rows.map(x=>`<tr><td><b>${esc(x.hypothesis_id)}</b></td><td>${esc(x.family)}</td><td>${esc(x.arm)}</td><td>${fmt(x.estimate)} ${x.estimate!=null?esc(x.unit||""):""}</td>
-      <td>${x.ci95_low!=null?fmt(x.ci95_low)+" to "+fmt(x.ci95_high):"–"}</td><td>${fp(x.p)}</td><td>${fp(x.q_bh)}</td>
-      <td class="v-${esc((x.verdict||"").split(" ")[0])}">${esc(x.verdict)}</td><td class="small">${esc(x.plain_english)}${x.heterogeneity_p!=null?`<br><span class="muted">Models differ? p = ${fp(x.heterogeneity_p)}</span>`:""}</td></tr>`).join("")}</table>`;
-  }catch(e){ $("verdicts").innerHTML = `<span class="no">${esc(e.message)}</span>` } }
-async function pushPending(){ const r = await api("/api/push_pending",{method:"POST"}); alert(JSON.stringify(r,null,1)) }
+/* ---------------- results ---------------- */
+async function analyze(jump){ toast("Analysing all results…");
+  try { const r = await api("/api/analyze", {method:"POST"}); V = r.rows; $("reswhen").textContent = "Last analysed just now";
+    toast(r.pushed === null ? "Verdicts updated (saved locally; no Sheet linked)." : `Verdicts updated and written to the Sheet (${r.pushed}).`);
+    renderList(); renderResults(); if (jump) showTab("results") } catch(e) { toast(e.message, true) } }
+function resFilter(f){ RESF = f; document.querySelectorAll(".seg button[data-r]").forEach(b => b.classList.toggle("on", b.dataset.r === f)); renderResults() }
+function vchip(v){ const t = v || "–"; const map = [["Effect","effect","v_effect"],["No meaningful","null","v_null"],["Inconclusive","inc","v_inc"],["Real but","negl","v_negl"],["Pilot","pilot","v_pilot"],["PASS","pass","v_pass"],["FAIL","fail","v_fail"]];
+  const m = map.find(([k]) => t.startsWith(k)); return `<span class="v ${m?m[1]:"none"}" data-tip="${m?m[2]:"Not analysed yet."}">${esc(t)}</span>` }
+function renderResults(){
+  const rows = V.filter(r => RESF === "all" || r.hypothesis_id === CUR);
+  if (!rows.length) { $("results").innerHTML = `<div class="empty">${V.length ? "No results for " + esc(CUR) + " yet. Run it from the Run tab." : "No results yet. Run an experiment, then press Analyse all results."}</div>`; return }
+  const f1 = v => v == null || v === "" ? "–" : Number(v).toFixed(1), fp = v => v == null || v === "" ? "–" : (v < 0.001 ? "<0.001" : Number(v).toFixed(3));
+  $("results").innerHTML = `<table><thead><tr>${RESF==="all"?"<th>Hyp.</th>":""}<th>Model / arm <span class="i" tabindex="0" data-tip="c_arm">?</span></th><th>Estimate <span class="i" tabindex="0" data-tip="c_est">?</span></th>
+    <th>95% interval <span class="i" tabindex="0" data-tip="c_ci">?</span></th><th>p <span class="i" tabindex="0" data-tip="c_p">?</span></th><th>q <span class="i" tabindex="0" data-tip="c_q">?</span></th>
+    <th>Trials / units <span class="i" tabindex="0" data-tip="c_n">?</span></th><th>Verdict <span class="i" tabindex="0" data-tip="c_verdict">?</span></th></tr></thead><tbody>
+    ${rows.map(r => { const w = (r.plain_english||"").split(" Warning: "); return `<tr>${RESF==="all"?`<td><b>${esc(r.hypothesis_id)}</b></td>`:""}
+      <td>${esc(r.arm)}${String(r.arm).startsWith("mock")?' <span class="small muted">(test agent)</span>':""}</td>
+      <td><b>${f1(r.estimate)}</b> <span class="small muted">${r.estimate!=null?esc(r.unit||""):""}</span></td>
+      <td>${r.ci95_low!=null&&r.ci95_low!==""?f1(r.ci95_low)+" to "+f1(r.ci95_high):"–"}</td><td>${fp(r.p)}</td><td>${fp(r.q_bh)}</td>
+      <td class="small">${r.n_trials??"–"} / ${r.clusters??"–"}</td><td>${vchip(r.verdict)}${r.heterogeneity_p!=null&&r.heterogeneity_p!==""?`<div class="small muted" data-tip="c_het">models differ? p = ${fp(r.heterogeneity_p)}</div>`:""}</td></tr>
+      <tr><td colspan="${RESF==="all"?8:7}" style="border-top:0;padding-top:0"><div class="sentence">${esc(w[0])}</div>${w[1]?`<div class="warnline">Warning: ${esc(w[1])}</div>`:""}</td></tr>` }).join("")}</tbody></table>`;
+}
+async function pushPending(){ try { const r = await api("/api/push_pending", {method:"POST"}); const n = Object.values(r).reduce((a, x) => a + (x.pushed || 0), 0);
+  toast(n ? `Sent ${n} rows to the Sheet.` : "Nothing waiting to be sent.") } catch(e) { toast(e.message, true) } }
 
-function openSource(){ $("sourcecard").style.display="flex";
-  $("srcnow").innerHTML = S && S.sheet_linked ? `Linked now: <code>${esc(S.sheet_url_hint)}</code>` : "No Sheet linked yet." }
-function closeSource(){ $("sourcecard").style.display="none" }
-async function saveSource(){ $("srcmsg").textContent="Testing the link…"; try{ const r=await api("/api/source",{method:"POST",body:JSON.stringify({sheet_url:$("surl").value,sheet_token:$("stok").value})});
-  flash("srcmsg","Connected. Tabs: "+Object.entries(r.tabs).map(([k,v])=>k+" ("+v+")").join(", ")+". Now press Sync.",true) }catch(e){ flash("srcmsg",e.message) } }
-async function doSync(){ $("sourcecard").style.display="flex"; $("srcmsg").textContent="Syncing…"; try{ const r=await api("/api/sync",{method:"POST"});
-  flash("srcmsg",(r.ok?"Synced snapshot "+r.sha+": ":"Synced but NOT used, fix these errors: ")+r.scenarios.length+" scenarios. "+(r.errors||[]).slice(0,5).join(" | "), r.ok);
-  if(!r.ok) $("sourcecard").style.display="flex"; await load($("hyp").value) }catch(e){ $("sourcecard").style.display="flex"; flash("srcmsg",e.message) } }
-async function uploadXlsx(){ const f=$("xlsx").files[0]; if(!f) return; const fd=new FormData(); fd.append("file",f);
-  const r=await fetch("/api/sync_xlsx",{method:"POST",body:fd}); const j=await r.json();
-  flash("srcmsg", r.ok ? (j.ok?"Loaded snapshot "+j.sha:"Loaded with errors: "+(j.errors||[]).slice(0,5).join(" | ")) : (j.detail||"failed"), r.ok&&j.ok); load($("hyp").value) }
-async function useYaml(){ await api("/api/use_yaml",{method:"POST"}); flash("srcmsg","Using the YAML files in hotel_lab/stimuli.",true); load($("hyp").value) }
-load();
+/* ---------------- data source ---------------- */
+function openData(){ $("datadlg").classList.add("on"); $("dnow").innerHTML = S && S.sheet_linked ? `Linked now: <code>${esc(S.sheet_url_hint)}</code>` : "No Sheet linked yet. The Studio is using the sample files from the repo."; setTimeout(() => $("surl").focus(), 50) }
+function closeData(){ $("datadlg").classList.remove("on") }
+async function saveSource(){ msg("srcmsg", "Testing the link…");
+  try { const r = await api("/api/source", {method:"POST", body: JSON.stringify({sheet_url: $("surl").value, sheet_token: $("stok").value})});
+    msg("srcmsg", "Connected. Tabs found: " + Object.entries(r.tabs).map(([k,v]) => `${k} (${v})`).join(", ") + ". Now press Sync.", "ok"); S.sheet_linked = true }
+  catch(e) { msg("srcmsg", e.message, "err") } }
+async function doSync(){ openData(); msg("srcmsg", "Syncing…");
+  try { const r = await api("/api/sync", {method:"POST"});
+    if (r.ok) { msg("srcmsg", `Synced: snapshot ${r.sha}, ${r.scenarios.length} scenarios. You can close this window.`, "ok"); toast("Sheet synced.") }
+    else msg("srcmsg", "The Sheet has problems, so the old data is still used. Fix these rows: " + (r.errors||[]).slice(0,6).join(" | "), "err");
+    load(CUR) } catch(e) { msg("srcmsg", e.message, "err") } }
+async function uploadXlsx(){ const f = $("xlsx").files[0]; if (!f) return; const fd = new FormData(); fd.append("file", f); msg("srcmsg", "Reading the file…");
+  const r = await fetch("/api/sync_xlsx", {method:"POST", body: fd}); const j = await r.json();
+  if (r.ok && j.ok) msg("srcmsg", "Loaded snapshot " + j.sha + ".", "ok"); else msg("srcmsg", r.ok ? "Loaded with problems: " + (j.errors||[]).slice(0,6).join(" | ") : (j.detail || "Could not read the file."), "err"); load(CUR) }
+async function useYaml(){ await api("/api/use_yaml", {method:"POST"}); msg("srcmsg", "Using the repo's built-in sample files.", "ok"); load(CUR) }
+
+load().catch(e => { document.body.insertAdjacentHTML("afterbegin", `<div class="msg err" style="margin:10px">Could not start: ${esc(e.message)}</div>`) });
 </script>
 </body>
 </html>
