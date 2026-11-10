@@ -1,3 +1,4 @@
+from pathlib import Path
 """Tests for Hotel Lab.  Run from the repo root:  python -m pytest hotel_lab"""
 import json
 
@@ -269,15 +270,25 @@ def test_studio_models_are_the_four_and_duplicates_are_refused():
     r = c.post("/api/models", json={"name": "qwen-copy", "preset": "ollama", "model": "qwen2.5:7b"})
     assert r.status_code == 409 and "ollama-qwen2.5-7b" in r.json()["detail"]
     assert not (MODELS_DIR / "local-qwen-copy.yaml").exists()
-    # an existing copy (e.g. added before this check existed) is flagged, not hidden
-    p = MODELS_DIR / "local-pytest-dup.yaml"
-    p.write_text('provider: ollama\nbase_url: http://localhost:11434/\nmodel: "Qwen2.5:7b"\n', encoding="utf-8")
+    # an existing copy (e.g. added before this check existed) is flagged, not hidden.
+    # Use a temporary copy of the models folder so a running Studio never sees the test file.
+    import shutil
+    import tempfile
+    import hotel_lab.studio.app as studio_app
+    tmp = Path(tempfile.mkdtemp())
+    for f in MODELS_DIR.glob("*.yaml"):
+        shutil.copy(f, tmp / f.name)
+    (tmp / "local-pytest-dup.yaml").write_text('provider: ollama\nbase_url: http://localhost:11434/\nmodel: "Qwen2.5:7b"\n',
+                                               encoding="utf-8")
+    old = studio_app.MODELS_DIR
+    studio_app.MODELS_DIR = tmp
     try:
-        ms = {m["name"]: m for m in c.get("/api/state").json()["models"]}
+        ms = {m["name"]: m for m in TestClient(create_studio(site_port=None)).get("/api/state").json()["models"]}
         assert ms["local-pytest-dup"]["duplicate_of"] == "ollama-qwen2.5-7b"
         assert "duplicate_of" not in ms["ollama-qwen2.5-7b"]
     finally:
-        p.unlink()
+        studio_app.MODELS_DIR = old
+        shutil.rmtree(tmp)
 
 
 def test_models_tab_rows_and_push(monkeypatch):

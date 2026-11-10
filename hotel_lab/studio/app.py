@@ -154,7 +154,7 @@ def _run_job(job: Job, per_cell: Optional[int], interface: str, reasoning: str) 
         if pusher.last_error:
             job.say(f"Some rows could not be sent to the Sheet ({pusher.last_error}); they wait in the outbox.")
         job.status = "stopped" if job.stop else "finished"
-        job.say("Done. Press 'Analyse all' to update the verdicts.")
+        job.say("Done. Press 'Analyse and show results' to update the verdicts.")
     except Exception as e:
         job.status = "error"
         job.last_error = f"{type(e).__name__}: {e}"

@@ -372,6 +372,11 @@ def evaluate(study: str, hypotheses: list[dict[str, Any]], settings: dict[str, A
                          equivalent=bool(lo90 > -r["sesoi"] and hi90 < r["sesoi"]))
                 if h["estimand"].startswith("threshold"):
                     r["unit"] = "% chosen"
+            # a difference of two shares cannot pass +/-100 pp; with few clusters (pilots) est +/- t*SE can,
+            # so bound the intervals (this never changes p, and SESOI < 100 so equivalence is unaffected)
+            for k_ in ("ci95_low", "ci95_high", "ci90_low", "ci90_high"):
+                if isinstance(r.get(k_), float) and not math.isnan(r[k_]):
+                    r[k_] = min(100.0, max(-100.0, r[k_]))
             r["direction"] = "+" if r["estimate"] > 0 else "-" if r["estimate"] < 0 else "0"
             if h["estimand"] == "accuracy_vs_chance":
                 d = df_block[(df_block["arm"].isin(members)) & ~df_block["retest"]]

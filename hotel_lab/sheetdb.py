@@ -102,7 +102,7 @@ HYPOTHESES: list[dict[str, Any]] = [
          H0="P(focal | emoji) = P(focal | no emoji)", Ha="They differ", predicted="none",
          estimand="focal_diff", contrast_a="emoji", contrast_b="base", factor="style", levels="base, emoji",
          assign="focal", control="base", sesoi="5", benchmark="None in the reading list (stated)",
-         notes="A null is informative: 'No meaningful effect' needs the 90% CI inside +/-SESOI."),
+         notes="A null is informative: 'No meaningful effect' needs the 90% interval inside the smallest effect that matters (set before the study)."),
     dict(hypothesis_id="H3b", family="confirmatory", block="style_length", maps_to="Central Q2 / brief H3",
          question="With identical facts, does a longer review (no new facts) change how often a room is chosen?",
          H0="P(focal | long) = P(focal | short)", Ha="They differ", predicted="+",
